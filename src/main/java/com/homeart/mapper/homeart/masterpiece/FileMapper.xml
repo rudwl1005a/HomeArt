@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.homeart.mapper.homeart.masterpiece.FileMapper">
+	<delete id="deleteByBoardId">
+	DELETE FROM File WHERE boardId = #{boardId}
+	</delete>
+
+	<delete id="delete">
+	DELETE FROM File WHERE boardId = #{boardId} AND fileName = #{fileName}
+	</delete>
+
+	<select id="selectNamesByBoardId" resultType="string">
+	SELECT fileName FROM File WHERE boardId = #{boardId}
+	</select>
+
+	<insert id="insert">
+	INSERT INTO File (boardId, fileName) VALUES (#{boardId}, #{fileName})
+	</insert>
+</mapper>
