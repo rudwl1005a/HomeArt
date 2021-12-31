@@ -11,12 +11,23 @@
 	height: 100px;
 	text-align: center;
 }
+
+.textlogo {
+	font-size: 25pt;
+	letter-spacing: 2px;
+ 	color: white;
+	text-shadow: 4px 4px 4px rgb(173, 166, 146);
+	vertical-align: middle;
+}
 </style>
 
-<div class="logo"><img src="<spring:url value='/resources/img/logo3.jpg'/>" height="100px"></div>
+<div class="logo">
+	<img src="<spring:url value='/resources/img/logo3.jpg'/>" height="100px">
+	<span class="textlogo"> Home Art</span>
+</div>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="/controller/main">HomeArt</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 20px">
+	<a class="navbar-brand" href="/controller/">HomeArt</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -33,7 +44,7 @@
 				<a class="nav-link" href="/controller/freeBoard/list">자유게시판</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">마이페이지</a>
+				<a class="nav-link" href="/controller/mypage">마이페이지</a>
 		</ul>
 	</div>
 </nav>
