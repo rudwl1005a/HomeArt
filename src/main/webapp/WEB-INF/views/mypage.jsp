@@ -17,14 +17,17 @@
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 
 
-<title>Mypage</title>
+<title>MyPage</title>
 </head>
 <body>
 <b:navBar></b:navBar>
-
 <div class="container">
 	<div class="row">
 		<div class="col">
+			<div class="row" style="margin-bottom: 100px; margin-top: 80px;">
+				<img src="<spring:url value='/resources/img/JJanggu.png'/>" style="width: 150px; height: 150px">
+				<span style="padding-left: 10px;">내아이디는짱구</span>
+			</div>
 			<h3>내 그림들</h3>
 			<ul>
 				<li>그림그림그림</li>
