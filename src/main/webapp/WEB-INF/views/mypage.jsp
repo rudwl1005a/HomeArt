@@ -70,7 +70,7 @@
 			</ul>
 
 			<div class="row">
-				<h3>내 그림들</h3>
+				<h3>내 댓글</h3>
 				<a href="/controller/mypage/my_reply">더보기</a>
 			</div>
 			<ul>
