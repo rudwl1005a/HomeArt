@@ -40,14 +40,4 @@
 		<filter-name>encoding</filter-name>
 		<servlet-name>appServlet</servlet-name>
 	</filter-mapping>
-  
-	<filter>
-	  <display-name>CheckLogInFilter</display-name>
-	  <filter-name>CheckLogInFilter</filter-name>
-	  <filter-class>com.homeart.filter.CheckLogInFilter</filter-class>
-	</filter>
-	<filter-mapping>
-	  <filter-name>CheckLogInFilter</filter-name>
-	  <url-pattern>/CheckLogInFilter</url-pattern>
-	</filter-mapping>
 </web-app>

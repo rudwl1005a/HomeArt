@@ -29,12 +29,12 @@
 			<div class="col">
 				<h1 style="color: white;">좋아요 그림</h1>
 				<div class="row">
-					<img class="pic100" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
-					<img class="pic100" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
-					<img class="pic100" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
-					<img class="pic100" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
-					<img class="pic100" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
-					<img class="pic100" src="<spring:url value='/resources/img/logo5.jpg'/>" class="img-thumbnail" alt="...">
+					<img class="pic200" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
+					<img class="pic200" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
+					<img class="pic200" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
+					<img class="pic200" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
+					<img class="pic200" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
+					<img class="pic200" src="<spring:url value='/resources/img/logo5.jpg'/>" class="img-thumbnail" alt="...">
 				</div>
 			</div>
 		</div>
