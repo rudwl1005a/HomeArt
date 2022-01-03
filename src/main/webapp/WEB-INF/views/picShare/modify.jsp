@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="b" tagdir="/WEB-INF/tags" %>
 
 
 <!DOCTYPE html>
@@ -16,26 +17,16 @@
 <title>Modify</title>
 <style>
 body {
-	background-color: rgb(71, 66, 63);
+	background-color: #222;
 }
 
-header, footer {
-	background-color: rgb(179, 177, 178);
-}
 </style>
 </head>
 <body>
 
-
-		<!-- Header-->
-		<header class="py-5">
-				<div class="container px-4 px-lg-5 my-4">
-						<div class="text-center text-black">
-								<h1 class="display-4 fw-bolder">art modify header</h1>
-								<p class="lead fw-normal text-rgb-71,66,63 mb-0">picShareModify(수정)</p>
-						</div>
-				</div>
-		</header>
+		<b:navBar></b:navBar>
+		
+		
 		
 		<!-- Section -->
 		<section class="py-5">
@@ -43,12 +34,7 @@ header, footer {
 		</section>
 
 
-		<!-- Footer-->
-		<footer class="py-5 bg-light">
-				<div class="container">
-						<p class="m-0 text-center text-black">@homeart</p>
-				</div>
-		</footer>
+		<b:bottomInfo></b:bottomInfo>
 
 
 
