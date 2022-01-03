@@ -20,10 +20,10 @@
 
 <title>Insert title here</title>
 </head>
-<body>
+<body style="background-color: #222222;">
 <b:navBar></b:navBar>
 
-<div class="container" style="background-color: #47423f;">
+<div class="container">
 	<div class="row">
 		<div class="col">
 			<h1 style="color: white;">내 그림</h1>

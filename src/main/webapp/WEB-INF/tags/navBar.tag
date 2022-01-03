@@ -4,11 +4,15 @@
 <!-- 이미지 테스트 (나중에삭제) -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 
+
+
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap');
+
 .logo {
-	background-color: rgb(51, 51, 51);
+	background-color: rgb(51,51,51);
 	color: white;
-	height: 100px;
+	height: 115px;
 	text-align: center;
 }
 
@@ -18,16 +22,20 @@
  	color: white;
 	text-shadow: 4px 4px 4px rgb(173, 166, 146);
 	vertical-align: bottom;
+	font-family: 'Hahmlet', serif;
+}
+.logopic {
+	vertical-align: center;
+	margin-top: 10px;
 }
 </style>
 
 <div class="logo">
-	<span class="textlogo"> Home</span>
-	<img src="<spring:url value='/resources/img/logo1.jpg'/>" height="100px">
+	<img class="logopic" src="<spring:url value='/resources/img/logo.jpg'/>" height="100px">
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 20px">
-	<a class="navbar-brand" href="/controller/">HomeArt</a>
+	<a class="navbar-brand" href="/controller/" style="	font-family: 'Hahmlet', serif;">HomeArt</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -48,6 +56,8 @@
 		</ul>
 	</div>
 </nav>
+
+
 <!-- 나중에 경로 정해서
 <script>
 	$(function() {
