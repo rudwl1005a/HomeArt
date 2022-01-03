@@ -19,20 +19,19 @@
 
 </style>
 
-<hr>
 <footer class="footer">
-<div class="row" style="width: 100%; margin-bottom: 10px;">
-	
-	<span><img class="logo2" src="<spring:url value='/resources/img/bottomlogo.jpg'/>" height="100px"></span>
-	<div class="col">
-		<div class="white-text">
-			<div> <i class="far fa-copyright"></i> HomeArt </div>
-			<div> <i class="fas fa-user-circle"></i> 민경대, 강성빈, 김원표, 김재헌, 정시윤 </div>
-			<div> <i class="fas fa-info-circle"></i> INFP*3 ENFP ISFP / A1O4 / M3W2 </div>
-			<a href="https://github.com/rudwl1005a/HomeArt" style="color: black; text-decoration-line: none"> <i class="fab fa-github"></i> https://github.com/rudwl1005a/HomeArt </a>
-		</div>
-	</div>	
-</div>
+	<div class="row" style="width: 100%; margin-bottom: 10px;">
+		
+		<span><img class="logo2" src="<spring:url value='/resources/img/bottomlogo.jpg'/>" height="100px"></span>
+		<div class="col">
+			<div class="white-text">
+				<div> <i class="far fa-copyright"></i> HomeArt </div>
+				<div> <i class="fas fa-user-circle"></i> 민경대, 강성빈, 김원표, 김재헌, 정시윤 </div>
+				<div> <i class="fas fa-info-circle"></i> INFP*3 ENFP ISFP / A1O4 / M3W2 </div>
+				<a href="https://github.com/rudwl1005a/HomeArt" style="color: black; text-decoration-line: none"> <i class="fab fa-github"></i> https://github.com/rudwl1005a/HomeArt </a>
+			</div>
+		</div>	
+	</div>
 </footer>
 
 

@@ -23,5 +23,7 @@ html, body {
 	height:96px;
 	position:absolute;
 	bottom:0px;
-	text-align: center;
+	text-align: right;
+	border-top: 2px solid;
+	background-color: white;
 }
