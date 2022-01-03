@@ -23,75 +23,76 @@
 <body>
 <b:navBar></b:navBar>
 <div class="contents-wrap">
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<div class="row" style="margin-bottom: 100px; margin-top: 80px;">
-				<img src="<spring:url value='/resources/img/JJanggu.png'/>" style="width: 150px; height: 150px">
-				<span style="padding-left: 10px;">내아이디는짱구</span>
-			</div>
-			<div class="row">
-				<h3>내 그림들</h3>
-				<a href="/controller/mypage/my_picture">더보기</a>
-			</div>
-			<ul>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-			</ul>
-			
-			<div class="row">
-				<h3>좋아요 누른 그림</h3>
-				<a href="/controller/mypage/favorite_picture">더보기</a>
-			</div>
-			<ul>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-				<li>그림그림그림</li>
-			</ul>
-
-			<div class="row">
-				<h3>내가 쓴 글</h3>
-				<a href="/controller/mypage/my_post">더보기</a>
-			</div>
-			<ul>
-				<li>글글글</li>
-				<li>글글글</li>
-				<li>글글글</li>
-				<li>글글글</li>
-				<li>글글글</li>
-				<li>글글글</li>
-			</ul>
-
-			<div class="row">
-				<h3>내 댓글</h3>
-				<a href="/controller/mypage/my_reply">더보기</a>
-			</div>
-			<ul>
-				<li>댓글댓글댓글</li>
-				<li>댓글댓글댓글</li>
-				<li>댓글댓글댓글</li>
-				<li>댓글댓글댓글</li>
-				<li>댓글댓글댓글</li>
-				<li>댓글댓글댓글</li>
-				<li>댓글댓글댓글</li>
-			</ul>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="row" style="margin-bottom: 100px; margin-top: 80px;">
+					<img src="<spring:url value='/resources/img/JJanggu.png'/>" style="width: 150px; height: 150px">
+					<span style="padding-left: 10px;">내아이디는짱구</span>
+				</div>
+				<div class="row">
+					<h3>내 그림들</h3>
+					<a href="/controller/mypage/my_picture">더보기</a>
+				</div>
+				<ul>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+				</ul>
+				
+				<div class="row">
+					<h3>좋아요 누른 그림</h3>
+					<a href="/controller/mypage/favorite_picture">더보기</a>
+				</div>
+				<ul>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+					<li>그림그림그림</li>
+				</ul>
 	
+				<div class="row">
+					<h3>내가 쓴 글</h3>
+					<a href="/controller/mypage/my_post">더보기</a>
+				</div>
+				<ul>
+					<li>글글글</li>
+					<li>글글글</li>
+					<li>글글글</li>
+					<li>글글글</li>
+					<li>글글글</li>
+					<li>글글글</li>
+				</ul>
+	
+				<div class="row">
+					<h3>내 댓글</h3>
+					<a href="/controller/mypage/my_reply">더보기</a>
+				</div>
+				<ul>
+					<li>댓글댓글댓글</li>
+					<li>댓글댓글댓글</li>
+					<li>댓글댓글댓글</li>
+					<li>댓글댓글댓글</li>
+					<li>댓글댓글댓글</li>
+					<li>댓글댓글댓글</li>
+					<li>댓글댓글댓글</li>
+				</ul>
+		
+			</div>
 		</div>
 	</div>
+	
+	<b:bottomInfo></b:bottomInfo>
+	
 </div>
 
-<b:bottomInfo></b:bottomInfo>
-
-</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
