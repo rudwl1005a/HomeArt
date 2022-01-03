@@ -9,27 +9,27 @@ public class MypageController {
 	
 	@RequestMapping("")
 	public String test() {
-		return "mypage";
+		return "/mypage/mypage";
 	}
 	
 	@RequestMapping("/my_picture")
 	public String mypic() {
-		return "mypageMypic";
+		return "/mypage/mypageMypic";
 	}
 	
 	@RequestMapping("/favorite_picture")
 	public String fpic() {
-		return "mypageFavpic";
+		return "/mypage/mypageFavpic";
 	}
 	
 	@RequestMapping("/my_post")
 	public String mypost() {
-		return "mypageMypost";
+		return "/mypage/mypageMypost";
 	}
 	
 	@RequestMapping("/my_reply")
 	public String myreply() {
-		return "mypageMyreply";
+		return "/mypage/mypageMyreply";
 	}
 
 }
