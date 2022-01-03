@@ -14,7 +14,6 @@
 <title>Masterpiece</title>
 </head>
 <body>
-  <b:navBar></b:navBar>
 
   <!-- .container>.row>.col>h1{게시물 목록} -->
   <div class="container">

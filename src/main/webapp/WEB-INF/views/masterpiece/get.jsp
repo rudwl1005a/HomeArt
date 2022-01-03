@@ -139,7 +139,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <b:navBar></b:navBar>
 
   <!-- .container>.row>.col>h1{게시물 조회} -->
   <div class="container">
@@ -149,29 +148,41 @@
         <div class="board-view">
           <!-- .form-group*3>label[for=input$]+input.form-control#input$[readonly] -->
           <div class="form-group">
-            <label for="input1">제목</label>
+            <label for="input1">작품명</label>
             <!--<input type="text" class="form-control" id="input1" readonly value="${masterpiece.title }"> -->
             <p>${Masterpiece.title }</p>
           </div>
-          <div class="form-group">
-            <label for="input2">내용</label>
-            <!-- <input type="text" class="form-control" id="input2" readonly=""> -->
-            <textarea class="form-control" id="input2" readonly>${masterpiece.content }</textarea>
-          </div>
-
-          <c:forEach items="${fileNames }" var="fileName">
+          
+           <c:forEach items="${fileNames }" var="fileName">
             <div class="row">
               <div class="col">
-                <img class="img-fluid" src="${staticUrl }/${masterpiece.id }/${fileName }" alt="${fileName }">
+                <img class="img-fluid" src="${staticUrl }/${Masterpiece.id }/${fileName }" alt="${fileName }">
               </div>
             </div>
           </c:forEach>
-
+          
           <div class="form-group">
-            <label for="input3">작성자</label>
-            <input type="text" class="form-control" id="input3" readonly value="${masterpiece.nickName }">
+            <label for="input2">내용</label>
+            <!-- <input type="text" class="form-control" id="input2" readonly=""> -->
+            <p>${Masterpiece.content }</p>
           </div>
 
+		  <div class="form-group">
+            <label for="input3">국가</label>
+            <p>>${Masterpiece.country }</p>
+          </div>
+          <div class="form-group">
+            <label for="input4">작가</label>
+            <p>>${Masterpiece.artist }</p>
+          </div>
+          <div class="form-group">
+            <label for="input5">시대</label>
+            <p>>${Masterpiece.age }</p>
+          </div>
+          <div class="form-group">
+            <label for="input6">색채</label>
+            <p>>${Masterpiece.color }</p>
+          </div>
           <!-- a.btn.btn-outline-secondary>i.far.fa-edit -->
 
           <c:if test="${sessionScope.loggedInMember.id eq masterpiece.writer }">
