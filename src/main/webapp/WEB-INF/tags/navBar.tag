@@ -37,7 +37,6 @@
  padding-left: 100px;
 }
 
-
 </style>
 
 <div class="logo">
@@ -52,7 +51,7 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
+			<li class="nav-item">
 				<a class="nav-link" href="/controller/picShare/list">그림공유</a>
 			</li>
 			<li class="nav-item">
@@ -65,9 +64,9 @@
 				<a class="nav-link" href="/controller/mypage">마이페이지</a>
 		</ul>
 		
-		<div class="d-flex" style="padding-right: 10px">~님</i></div>
-		<div class="d-flex" style="padding-right: 10px"><i class="far fa-user"></i></div>
-		<div class="d-flex" style="padding-right: 100px"><i class="fas fa-user-plus"></i></div>
+		<div style="padding-right: 20px">member.nickName님</div>
+		<div style="padding-right: 20px"><i class="far fa-user fa-2x"></i></div>
+		<div style="padding-right: 100px"><i class="fas fa-user-plus fa-2x"></i></div>
 	</div>
 </nav>
 
