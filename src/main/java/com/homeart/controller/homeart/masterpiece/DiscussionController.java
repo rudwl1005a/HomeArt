@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import com.homeart.domain.homeart.masterpiece.MemberVO;
-import com.homeart.domain.homeart.masterpiece.DiscussionVO;
 import com.homeart.service.homeart.masterpiece.DiscussionService;
+import com.homeart.domain.homeart.masterpiece.DiscussionVO;
 
 import lombok.Setter;
 
