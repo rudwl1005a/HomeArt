@@ -21,18 +21,21 @@
 <body>
 <b:navBar></b:navBar>
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>내 댓글</h1>
-			<p>댓글</p>
-			<p>댓글</p>
-			<p>댓글</p>
-			<p>댓글</p>
-			<p>댓글</p>
-			<p>댓글</p>
+<div class="contents-wrap">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>내 댓글</h1>
+				<p>댓글</p>
+				<p>댓글</p>
+				<p>댓글</p>
+				<p>댓글</p>
+				<p>댓글</p>
+				<p>댓글</p>
+			</div>
 		</div>
 	</div>
+	<b:bottomInfo></b:bottomInfo>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
