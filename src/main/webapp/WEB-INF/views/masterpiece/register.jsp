@@ -15,7 +15,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <b:navBar></b:navBar>
   <!-- .container>.row>.col>h1{게시물 작성} -->
   <div class="container">
     <div class="row">
@@ -43,10 +42,14 @@
             <label for="input5">색채</label>
             <input type="text" class="form-control" id="input5" name="color">
           </div>
+          <div class="form-group">
+            <label for="input6">내용</label>
+            <input type="text" class="form-control" id="input6" name="content">
+          </div>
           <!-- .form-group>label[for=input4]+input[type=file].form-control-file#input4[name=files] -->
           <div class="form-group">
-          	<label for="input6">이미지 파일</label>
-          	<input type="file" class="form-control-file" id="input4" name="files" accept="image/*" multiple>
+          	<label for="input7">이미지 파일</label>
+          	<input type="file" class="form-control-file" id="input7" name="files" accept="image/*" multiple>
           </div>
           
           

@@ -15,7 +15,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <b:navBar></b:navBar>
   <!-- .container>.row>.col>h1{게시물 수정} -->
   <div class="container">
     <div class="row">
