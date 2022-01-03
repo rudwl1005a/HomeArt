@@ -1,4 +1,4 @@
-package com.homeart.controller.service.freeBoard;
+package com.homeart.service.freeBoard;
 
 import org.springframework.stereotype.Service;
 
