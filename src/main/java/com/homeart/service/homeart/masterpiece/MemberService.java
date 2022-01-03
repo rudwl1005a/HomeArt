@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.homeart.domain.homeart.masterpiece.MemberVO;
 import com.homeart.domain.homeart.masterpiece.PageInfoVO;
-import com.homeart.mapper.homeart.masterpiece.BoardMapper;
+import com.homeart.mapper.homeart.masterpiece.MasterpieceMapper;
 import com.homeart.mapper.homeart.masterpiece.MemberMapper;
 import com.homeart.mapper.homeart.masterpiece.DiscussionMapper;
 
@@ -23,10 +23,10 @@ public class MemberService {
 	private DiscussionMapper DiscussionMapper;
 
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper boardMapper;
+	private MasterpieceMapper masterpieceMapper;
 	
 	@Setter(onMethod_ = @Autowired)
-	private BoardService boardService;
+	private MasterpieceService masterpieceService;
 
 	public MemberVO read(String id) {
 		return mapper.select(id);
@@ -53,12 +53,12 @@ public class MemberService {
 		DiscussionMapper.deleteByMemberId(id);
 		// 2. 멤버가 작성한 게시물 지우기
 		// 2.1 멤버가 작성한 게시물 목록 얻고
-		Integer[] boardIds = boardMapper.selectByMemberId(id);
+		Integer[] boardIds = masterpieceMapper.selectByMemberId(id);
 		
 		// 2.2 게시물 삭제
 		if (boardIds != null) {
 			for (Integer boardId : boardIds) {
-				boardService.remove(boardId);
+				masterpieceService.remove(boardId);
 			}
 		}
 		

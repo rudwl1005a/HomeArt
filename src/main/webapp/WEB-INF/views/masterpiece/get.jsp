@@ -19,54 +19,54 @@
     const appRoot = '${pageContext.request.contextPath}';
 
     /* 현재 게시물의 댓글 목록 가져오는 함수 */
-    const listReply = function() {
-      $("#replyListContainer").empty();
+    const listDiscussion = function() {
+      $("#discussionListContainer").empty();
       $.ajax({
-        url : appRoot + "/reply/board/${board.id}",
+        url : appRoot + "/discussion/masterpiece/${masterpiece.id}",
         success : function(list) {
           for (let i = 0; i < list.length; i++) {
-            const replyMediaObject = $(
+            const discussionMediaObject = $(`
             		<hr>
                   <div class="media">
                     <div class="media-body">
                       <h5 class="mt-0"><i class="far fa-comment"></i>
-                      <span class="reply-nickName"></span>
+                      <span class="discussion-nickName"></span>
                     	가 \${list[i].customInserted}에 작성</h5>
-                      <p class="reply-body" style="white-space: pre;"></p>
+                      <p class="discussion-body" style="white-space: pre;"></p>
                     
                       <div class="input-group" style="display:none;">
-                	    <textarea name="" id="replyTextarea\${list[i].id}" class="form-control"></textarea>
+                	    <textarea name="" id="discussionTextarea\${list[i].id}" class="form-control"></textarea>
                 	    <div class="input-group-append">
                 	      <button class="btn btn-outline-secondary cancel-button"><i class="fas fa-ban"></i></button>
-                  		  <button class="btn btn-outline-secondary" id="sendReply\${list[i].id}"><i class="far fa-comment-dots fa-lg"></i></button>
+                  		  <button class="btn btn-outline-secondary" id="sendDiscussion\${list[i].id}"><i class="far fa-comment-dots fa-lg"></i></button>
                 	    </div>
                       </div>
                     </div>
-                  </div>);
+                  </div>`);
             
-            replyMediaObject.find("#sendReply" + list[i].id).click(function() {
-              const reply = replyMediaObject.find("#replyTextarea" + list[i].id).val();
+            discussionMediaObject.find("#sendDiscussion" + list[i].id).click(function() {
+              const discussion = discussionMediaObject.find("#discussionTextarea" + list[i].id).val();
               const data = {
-                reply : reply
+            	discussion : discussion
               };
               
               $.ajax({
-                url : appRoot + "/reply/" + list[i].id,
+                url : appRoot + "/discussion/" + list[i].id,
                 type : "put",
                 contentType : "application/json",
                 data : JSON.stringify(data),
                 complete : function() {
-                  listReply();
+                  listDiscussion();
                 }
               });
             });
             
-            replyMediaObject.find(".reply-nickName").text(list[i].nickName);
-            replyMediaObject.find(".reply-body").text(list[i].reply);
-            replyMediaObject.find(".form-control").text(list[i].reply);
-            replyMediaObject.find(".cancel-button").click(function() {
-              replyMediaObject.find(".reply-body").show();
-              replyMediaObject.find(".input-group").hide();
+            discussionMediaObject.find(".discussion-nickName").text(list[i].nickName);
+            discussionMediaObject.find(".discussion-body").text(list[i].discussion);
+            discussionMediaObject.find(".form-control").text(list[i].discussion);
+            discussionMediaObject.find(".cancel-button").click(function() {
+            discussionMediaObject.find(".discussion-body").show();
+            discussionMediaObject.find(".input-group").hide();
             });
             
             if (list[i].own) {
@@ -74,7 +74,7 @@
               // 수정버튼 추가
               const modifyButton = $("<button class='btn btn-outline-secondary'><i class='far fa-edit'></i></button>");
               modifyButton.click(function() {
-                $(this).parent().find('.reply-body').hide();
+                $(this).parent().find('.discussion-body').hide();
                 $(this).parent().find('.input-group').show();
               });
               
@@ -85,51 +85,51 @@
               removeButton.click(function() {
                 if (confirm("삭제 하시겠습니까?")) {
                   $.ajax({
-                    url : appRoot + "/reply/" + list[i].id,
+                    url : appRoot + "/discussion/" + list[i].id,
                     type : "delete",
                     complete : function() {
-                      listReply();
+                      listDiscussion();
                     }
                   });
                 }
               });
               
-              replyMediaObject.find(".media-body").append(removeButton);
+              discussionMediaObject.find(".media-body").append(removeButton);
             }
             
-            $("#replyListContainer").append(replyMediaObject);
+            $("#discussionListContainer").append(discussionMediaObject);
           }
         }
       });
     }
     
-    listReply(); // 페이지 로딩 후 댓글 리스트 가져오는 함수 한 번 실행
+    listDiscussion(); // 페이지 로딩 후 댓글 리스트 가져오는 함수 한 번 실행
     
     /* 댓글 전송 */
-    $("#sendReply").click(function() {
-      const reply = $("#replyTextarea").val();
+    $("#sendDiscussion").click(function() {
+      const discussion = $("#discussionTextarea").val();
       const memberId = '${sessionScope.loggedInMember.id}';
-      const boardId = '${board.id}';
+      const masterpieceId = '${masterpiece.id}';
       
       const data = {
-          reply : reply,
+    		discussion : discussion,
           memberId : memberId,
-          boardId : boardId
+          masterpieceId : masterpieceId
       };
       $.ajax({
-        url : appRoot + "/reply/write",
+        url : appRoot + "/discussion/write",
         type : "post",
         data : data,
         success : function() {
           // textarea reset
-          $("#replyTextarea").val("");
+          $("#discussionTextarea").val("");
         },
         error : function() {
           alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
         },
         complete : function() {
           // 댓글 리스트 새로고침
-          listReply();
+          listDiscussion();
         }
       });
     });
@@ -150,31 +150,32 @@
           <!-- .form-group*3>label[for=input$]+input.form-control#input$[readonly] -->
           <div class="form-group">
             <label for="input1">제목</label>
-            <input type="text" class="form-control" id="input1" readonly value="${board.title }">
+            <!--<input type="text" class="form-control" id="input1" readonly value="${masterpiece.title }"> -->
+            <p>${Masterpiece.title }</p>
           </div>
           <div class="form-group">
             <label for="input2">내용</label>
             <!-- <input type="text" class="form-control" id="input2" readonly=""> -->
-            <textarea class="form-control" id="input2" readonly>${board.content }</textarea>
+            <textarea class="form-control" id="input2" readonly>${masterpiece.content }</textarea>
           </div>
 
           <c:forEach items="${fileNames }" var="fileName">
             <div class="row">
               <div class="col">
-                <img class="img-fluid" src="${staticUrl }/${board.id }/${fileName }" alt="${fileName }">
+                <img class="img-fluid" src="${staticUrl }/${masterpiece.id }/${fileName }" alt="${fileName }">
               </div>
             </div>
           </c:forEach>
 
           <div class="form-group">
             <label for="input3">작성자</label>
-            <input type="text" class="form-control" id="input3" readonly value="${board.nickName }">
+            <input type="text" class="form-control" id="input3" readonly value="${masterpiece.nickName }">
           </div>
 
           <!-- a.btn.btn-outline-secondary>i.far.fa-edit -->
 
-          <c:if test="${sessionScope.loggedInMember.id eq board.writer }">
-            <a href="modify?id=${board.id }" class="btn btn-outline-secondary">
+          <c:if test="${sessionScope.loggedInMember.id eq masterpiece.writer }">
+            <a href="modify?id=${masterpiece.id }" class="btn btn-outline-secondary">
               수정/삭제
               <!-- <i class="far fa-edit"></i> -->
             </a>
@@ -192,9 +193,9 @@
           <hr>
           <!-- .input-group>textarea#replyTextarea.form-control+.input-group-append>button.btn.btn-outline-secondary#sendReply -->
           <div class="input-group">
-            <textarea name="" id="replyTextarea" class="form-control"></textarea>
+            <textarea name="" id="discussionTextarea" class="form-control"></textarea>
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" id="sendReply">
+              <button class="btn btn-outline-secondary" id="sendDiscussion">
                 <i class="far fa-comment-dots fa-lg"></i>
               </button>
             </div>
@@ -211,7 +212,7 @@
     <div class="row">
       <div class="col">
 
-        <div id="replyListContainer"></div>
+        <div id="discussionListContainer"></div>
 
       </div>
     </div>

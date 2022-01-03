@@ -43,11 +43,10 @@
             <label for="input5">색채</label>
             <input type="text" class="form-control" id="input5" name="color">
           </div>
-          
           <!-- .form-group>label[for=input4]+input[type=file].form-control-file#input4[name=files] -->
           <div class="form-group">
           	<label for="input6">이미지 파일</label>
-          	<input type="file" class="form-control-file" id="input6" name="masterpiece" accept="image/*" multiple>
+          	<input type="file" class="form-control-file" id="input4" name="files" accept="image/*" multiple>
           </div>
           
           

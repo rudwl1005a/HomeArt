@@ -24,14 +24,14 @@
         <!-- form>.form-group*3>label[for=input$]+input.form-control#input$ -->
         <form id="modifyForm" method="post" enctype="multipart/form-data">
           <!-- input:hidden[value][name=id] -->
-          <input type="hidden" name="id" value="${board.id }">
+          <input type="hidden" name="id" value="${masterpiece.id }">
           <div class="form-group">
             <label for="input1">제목</label>
-            <input type="text" class="form-control" value="${board.title }" id="input1" name="title">
+            <input type="text" class="form-control" value="${masterpiece.title }" id="input1" name="title">
           </div>
           <div class="form-group">
             <label for="input2">내용</label>
-            <textarea class="form-control" id="input2" name="content">${board.content }</textarea>
+            <textarea class="form-control" id="input2" name="content">${masterpiece.content }</textarea>
           </div>
           <div class="row">
             <div class="col-12">
@@ -44,7 +44,7 @@
                 <input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
               </div>
               <div class="col-11">
-                <img class="img-fluid" src="${staticUrl }/${board.id }/${fileName }" alt="${fileName }">
+                <img class="img-fluid" src="${staticUrl }/${masterpiece.id }/${fileName }" alt="${fileName }">
               </div>
             </div>
           </c:forEach>
@@ -56,10 +56,10 @@
 
           <div class="form-group">
             <label for="input3">작성자</label>
-            <input type="text" class="form-control" id="input3" value="${board.nickName }" readonly>
+            <input type="text" class="form-control" id="input3" value="${masterpiece.nickName }" readonly>
           </div>
 
-          <input type="hidden" name="writer" value="${board.writer }">
+          <input type="hidden" name="writer" value="${masterpiece.writer }">
 
           <button id="modifySubmitButton" class="btn btn-outline-primary" type="submit">수정</button>
           <!-- button.btn.btn-outline-danger{삭제} -->

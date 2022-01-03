@@ -5,21 +5,21 @@
 
 <mapper namespace="com.homeart.mapper.homeart.masterpiece.DiscussionMapper">
 	<delete id="deleteByMemberId">
-	DELETE FROM Reply WHERE memberId = #{memberId}
+	DELETE FROM Discussion WHERE memberId = #{memberId}
 	</delete>
 
-	<delete id="deleteByBoardId">
-	DELETE FROM Reply WHERE boardId = #{boardId}
+	<delete id="deleteByMasterpieceId">
+	DELETE FROM Discussion WHERE masterpieceId = #{masterpieceId}
 	</delete>
 
 	<delete id="delete">
-	DELETE FROM Reply WHERE id = #{id}
+	DELETE FROM Discussion WHERE id = #{id}
 	</delete>
 
 	<update id="update">
-	UPDATE Reply
+	UPDATE Discussion
 	SET
-		reply = #{reply},
+		discussion = #{discussion},
 		updated = NOW()
 	WHERE
 		id = #{id}
@@ -27,31 +27,31 @@
 	</update>
 
 	<select id="selectById" resultType="com.homeart.domain.homeart.masterpiece.DiscussionVO">
-	SELECT id, boardId, memberId, reply, inserted, updated
-	FROM Reply
+	SELECT id, masterpieceId, memberId, discussion, inserted, updated
+	FROM Discussion
 	WHERE id = #{id}
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-	INSERT INTO Reply (boardId, memberId, reply)
-	VALUES (#{boardId}, #{memberId}, #{reply})
+	INSERT INTO Discussion (masterpieceId, memberId, discussion)
+	VALUES (#{masterpieceId}, #{memberId}, #{discussion})
 	</insert>
 
 	<select id="list" resultType="com.homeart.domain.homeart.masterpiece.DiscussionVO">
 	SELECT
-		r.id,
-		r.boardId,
-		r.memberId,
-		r.reply,
-		r.inserted,
-		r.updated,
+		d.id,
+		d.masterpieceId,
+		d.memberId,
+		d.discussion,
+		d.inserted,
+		d.updated,
 		m.nickName
 	FROM 
-		Reply r JOIN Member m ON r.memberId = m.id
+		Discussion d JOIN Member m ON d.memberId = m.id
 	WHERE
-		r.boardId = #{boardId}
+		d.masterpieceId = #{masterpieceId}
 	ORDER BY 
-		r.id DESC
+		d.id DESC
 	
 	</select>
 

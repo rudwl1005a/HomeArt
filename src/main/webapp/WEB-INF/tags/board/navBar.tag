@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:url value="/board/list" var="listUrl"></c:url>
-<c:url value="/board/register" var="registerUrl"></c:url>
+<c:url value="/masterpiece/list" var="listUrl"></c:url>
+<c:url value="/masterpiece/register" var="registerUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl"></c:url>
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/member/logout" var="logoutUrl"></c:url>

@@ -9,9 +9,9 @@ import lombok.Data;
 public class DiscussionVO {
 
 	private Integer id;
-	private Integer boardId;
+	private Integer masterpieceId;
 	private String memberId;
-	private String reply;
+	private String discussion;
 	private LocalDateTime inserted;
 	private LocalDateTime updated;
 	

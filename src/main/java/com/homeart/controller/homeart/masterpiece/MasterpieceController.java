@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.homeart.domain.homeart.masterpiece.BoardVO;
+import com.homeart.domain.homeart.masterpiece.MasterpieceVO;
 import com.homeart.domain.homeart.masterpiece.PageInfoVO;
-import com.homeart.service.homeart.masterpiece.BoardService;
+import com.homeart.service.homeart.masterpiece.MasterpieceService;
 
 import lombok.Setter;
 
 @Controller
-@RequestMapping("/board")
-public class BoardController {
+@RequestMapping("/masterpiece")
+public class MasterpieceController {
 
 	@Setter(onMethod_ = @Autowired)
-	private BoardService service;
+	private MasterpieceService service;
 
 	@GetMapping("/list")
 	public void list(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
@@ -34,7 +34,7 @@ public class BoardController {
 		// 3. business logic
 		// 게시물(Board) 목록 조회
 //		List<BoardVO> list = service.getList();
-		List<BoardVO> list = service.getListPage(page, numberPerPage);
+		List<MasterpieceVO> list = service.getListPage(page, numberPerPage);
 		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
 
 		// 4. add attribute
@@ -48,24 +48,24 @@ public class BoardController {
 	// /board/get?id=10
 	@GetMapping({ "/get", "/modify" })
 	public void get(@RequestParam("id") Integer id, Model model) {
-		BoardVO board = service.get(id);
+		MasterpieceVO masterpiece = service.get(id);
 
-		String[] fileNames = service.getFileNamesByBoardId(id);
+		String[] fileNames = service.getFileNamesByMasterpieceId(id);
 
-		model.addAttribute("board", board);
+		model.addAttribute("Masterpiece", masterpiece);
 		model.addAttribute("fileNames", fileNames);
 	}
 
 	@PostMapping("/modify")
-	public String modify(BoardVO board, String[] removeFile, MultipartFile[] files, RedirectAttributes rttr) {
+	public String modify(MasterpieceVO masterpiece, String[] removeFile, MultipartFile[] files, RedirectAttributes rttr) {
 		
 		try {
-			if (service.modify(board, removeFile, files)) {
-				rttr.addFlashAttribute("result", board.getId() + "번 게시글이 수정되었습니다.");
+			if (service.modify(masterpiece, removeFile, files)) {
+				rttr.addFlashAttribute("result", masterpiece.getId() + "번 게시글이 수정되었습니다.");
 			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
-			rttr.addFlashAttribute("result", board.getId() + "번 게시글 수정 중 문제가 발생하였습니다.");
+			rttr.addFlashAttribute("result", masterpiece.getId() + "번 게시글 수정 중 문제가 발생하였습니다.");
 		}
 
 		// 게시물 조회로 redirect
@@ -75,7 +75,7 @@ public class BoardController {
 		 */
 
 		// 목록 조회로 redirect
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 	}
 
 	@GetMapping("/register")
@@ -84,13 +84,13 @@ public class BoardController {
 	}
 
 	@PostMapping("/register")
-	public String register(BoardVO board, MultipartFile[] files, RedirectAttributes rttr) {
+	public String register(MasterpieceVO masterpiece, MultipartFile[] files, RedirectAttributes rttr) {
 
 		try {
 			// 3. business logic
-			service.register(board, files);
+			service.register(masterpiece, files);
 			// 4. add attribute
-			rttr.addFlashAttribute("result", board.getId() + "번 게시글이 등록되었습니다.");
+			rttr.addFlashAttribute("result", masterpiece.getId() + "번 게시글이 등록되었습니다.");
 
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class BoardController {
 
 		// 5. forward / redirect
 		// 책: 목록으로 redirect
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 	}
 
 	@PostMapping("/remove")
@@ -109,7 +109,7 @@ public class BoardController {
 			rttr.addFlashAttribute("result", id + "번 게시글이 삭제되었습니다.");
 		}
 
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 	}
 
 }

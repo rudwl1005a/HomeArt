@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="b" tagdir="/WEB-INF/tags/board"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,36 +26,43 @@
           <thead>
             <tr>
               <th>
-                <i class="fab fa-slack-hash"></i>
+                <i class="fab fa-slack-hash">번호</i>
               </th>
               <th>제목</th>
               <th>
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user">작성자</i>
               </th>
               <th>작성일</th>
+              <th>이미지</th>
             </tr>
           </thead>
           <tbody>
-            <c:forEach items="${list }" var="board">
+            <c:forEach items="${list }" var="masterpiece" >
               <tr>
-                <td>${board.id }</td>
+                <td>${masterpiece.id }</td>
                 <td>
-                  <a href="get?id=${board.id }">
-                    <c:out value="${board.title }" />
+                  <a href="get?id=${masterpiece.id }">
+                    <c:out value="${masterpiece.title }" />
                   </a>
                   
-                  <c:if test="${board.hasFile }">
+                  <c:if test="${masterpiece.hasFile }">
                     <i class="far fa-images"></i>
                   </c:if>
                   
-                  <c:if test="${board.replyCount > 0 }">
-                    <i class="far fa-comments"></i> ${board.replyCount }
+                  <c:if test="${masterpiece.discussionCount > 0 }">
+                    <i class="far fa-comments"></i> ${masterpiece.discussionCount }
                   </c:if>
                 </td>
                 <td>
-                  <c:out value="${board.nickName }" />
+                  <c:out value="${masterpiece.nickName }" />
                 </td>
-                <td>${board.customInserted }</td>
+                <td>${masterpiece.customInserted }</td>
+                <td>
+                <img class="fit-picture"
+				     <%-- src="${ }" --%>
+				     src="${staticUrl }/${masterpiece.id }/${masterpiece.newFileName}"
+				     alt="에러">
+     			</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -68,7 +74,7 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <c:if test="${pageInfo.hasPrevButton }">
-        <c:url value="/board/list" var="pageLink">
+        <c:url value="/masterpiece/list" var="pageLink">
           <c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
         </c:url>
         <li class="page-item">
@@ -79,7 +85,7 @@
       </c:if>
 
       <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber }" var="pageNumber">
-        <c:url value="/board/list" var="pageLink">
+        <c:url value="/masterpiece/list" var="pageLink">
           <c:param name="page" value="${pageNumber }"></c:param>
         </c:url>
         <li class="page-item ${pageInfo.currentPage == pageNumber ? 'active' : '' }">
@@ -88,7 +94,7 @@
       </c:forEach>
 
       <c:if test="${pageInfo.hasNextButton }">
-        <c:url value="/board/list" var="pageLink">
+        <c:url value="/masterpiece/list" var="pageLink">
           <c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
         </c:url>
         <li class="page-item">

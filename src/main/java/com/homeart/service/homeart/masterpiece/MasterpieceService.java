@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import com.homeart.domain.homeart.masterpiece.BoardVO;
+import com.homeart.domain.homeart.masterpiece.MasterpieceVO;
 import com.homeart.domain.homeart.masterpiece.PageInfoVO;
-import com.homeart.mapper.homeart.masterpiece.BoardMapper;
+import com.homeart.mapper.homeart.masterpiece.MasterpieceMapper;
 import com.homeart.mapper.homeart.masterpiece.FileMapper;
 import com.homeart.mapper.homeart.masterpiece.DiscussionMapper;
 
@@ -29,10 +29,10 @@ import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
-public class BoardService {
+public class MasterpieceService {
 
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper mapper;
+	private MasterpieceMapper mapper;
 
 	@Setter(onMethod_ = @Autowired)
 	private DiscussionMapper DiscussionMapper;
@@ -95,16 +95,16 @@ public class BoardService {
 		s3.putObject(putObjectRequest, requestBody);
 	}
 
-	public boolean register(BoardVO board) {
-		return mapper.insert(board) == 1;
+	public boolean register(MasterpieceVO masterpiece) {
+		return mapper.insert(masterpiece) == 1;
 	}
 
-	public BoardVO get(Integer id) {
+	public MasterpieceVO get(Integer id) {
 		return mapper.read(id);
 	}
 
-	public boolean modify(BoardVO board) {
-		return mapper.update(board) == 1;
+	public boolean modify(MasterpieceVO masterpiece) {
+		return mapper.update(masterpiece) == 1;
 	}
 
 	@Transactional
@@ -114,27 +114,27 @@ public class BoardService {
 
 		// 2. 파일 지우기
 		// s3에서 삭제
-		String[] files = fileMapper.selectNamesByBoardId(id);
+		String[] files = fileMapper.selectNamesByMasterpieceId(id);
 
 		if (files != null) {
 			for (String file : files) {
-				String key = "board/" + id + "/" + file;
+				String key = "masterpiece/" + id + "/" + file;
 				deleteObject(key);
 			}
 		}
 
 		// db 에서 삭제
-		fileMapper.deleteByBoardId(id);
+		fileMapper.deleteByMasterpieceId(id);
 
 		// 3. 게시물 지우기
 		return mapper.delete(id) == 1;
 	}
 
-	public List<BoardVO> getList() {
+	public List<MasterpieceVO> getList() {
 		return mapper.getList();
 	}
 
-	public List<BoardVO> getListPage(Integer page, Integer numberPerPage) {
+	public List<MasterpieceVO> getListPage(Integer page, Integer numberPerPage) {
 
 		// sql에서 사용할 record 시작 번호 (0-index)
 		Integer from = (page - 1) * 10;
@@ -177,9 +177,9 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void register(BoardVO board, MultipartFile[] files) throws IllegalStateException, IOException {
+	public void register(MasterpieceVO masterpiece, MultipartFile[] files) throws IllegalStateException, IOException {
 
-		register(board);
+		register(masterpiece);
 
 		// write files
 		// 2. s3에 파일 업로드
@@ -187,35 +187,35 @@ public class BoardService {
 
 			if (file != null && file.getSize() > 0) {
 				// 2.1 파일 작성, s3
-				String key = "board/" + board.getId() + "/" + file.getOriginalFilename();
+				String key = "masterpiece/" + masterpiece.getId() + "/" + file.getOriginalFilename();
 				putObject(key, file.getSize(), file.getInputStream());
 
 				// 2.2 insert into File , DATABSE
-				fileMapper.insert(board.getId(), file.getOriginalFilename());
+				fileMapper.insert(masterpiece.getId(), file.getOriginalFilename());
 			}
 		}
 
 	}
 
-	public String[] getFileNamesByBoardId(Integer id) {
-		return fileMapper.selectNamesByBoardId(id);
+	public String[] getFileNamesByMasterpieceId(Integer id) {
+		return fileMapper.selectNamesByMasterpieceId(id);
 	}
 
 	@Transactional
-	public boolean modify(BoardVO board, String[] removeFile, MultipartFile[] files)
+	public boolean modify(MasterpieceVO masterpiece, String[] removeFile, MultipartFile[] files)
 			throws IllegalStateException, IOException {
-		modify(board);
+		modify(masterpiece);
 
-		String basePath = staticRoot + board.getId();
+		String basePath = staticRoot + masterpiece.getId();
 		// 파일 삭제
 		if (removeFile != null) {
 			for (String removeFileName : removeFile) {
 				// s3에서 삭제
-				String key = "board/" + board.getId() + "/" + removeFileName;
+				String key = "masterpiece/" + masterpiece.getId() + "/" + removeFileName;
 				deleteObject(key);
 				
 				// db table에서 삭제
-				fileMapper.delete(board.getId(), removeFileName);
+				fileMapper.delete(masterpiece.getId(), removeFileName);
 
 			}
 		}
@@ -225,13 +225,13 @@ public class BoardService {
 		for (MultipartFile file : files) {
 			if (file != null && file.getSize() > 0) {
 				// 1. write file to s3
-				String key = "board/" + board.getId() + "/" + file.getOriginalFilename();
+				String key = "masterpiece/" + masterpiece.getId() + "/" + file.getOriginalFilename();
 				
 				putObject(key, file.getSize(), file.getInputStream());
 
 				// 2. db에 파일명 변경
-				fileMapper.delete(board.getId(), file.getOriginalFilename());
-				fileMapper.insert(board.getId(), file.getOriginalFilename());
+				fileMapper.delete(masterpiece.getId(), file.getOriginalFilename());
+				fileMapper.insert(masterpiece.getId(), file.getOriginalFilename());
 			}
 		}
 

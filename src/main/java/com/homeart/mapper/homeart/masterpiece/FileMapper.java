@@ -4,12 +4,12 @@ import org.apache.ibatis.annotations.Param;
 
 public interface FileMapper {
 
-	int insert(@Param("boardId") Integer boardId, @Param("fileName") String fileName);
+	int insert(@Param("masterpieceId") Integer masterpieceId, @Param("fileName") String fileName);
 
-	String[] selectNamesByBoardId(Integer boardId);
+	String[] selectNamesByMasterpieceId(Integer masterpieceId);
 
-	void delete(@Param("boardId") Integer boardId, @Param("fileName") String fileName);
+	void delete(@Param("masterpieceId") Integer masterpieceId, @Param("fileName") String fileName);
 
-	void deleteByBoardId(Integer boardId);
+	void deleteByMasterpieceId(Integer masterpieceId);
 
 }

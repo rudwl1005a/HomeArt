@@ -23,17 +23,17 @@ import com.homeart.service.homeart.masterpiece.DiscussionService;
 import lombok.Setter;
 
 @RestController
-@RequestMapping("/reply")
+@RequestMapping("/discussion")
 public class DiscussionController {
 
 	@Setter(onMethod_ = @Autowired)
 	private DiscussionService service;
 
-	@GetMapping("/board/{boardId}")
-	public List<DiscussionVO> list(@PathVariable Integer boardId, HttpSession session) {
+	@GetMapping("/masterpiece/{masterpieceId}")
+	public List<DiscussionVO> list(@PathVariable Integer masterpieceId, HttpSession session) {
 		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
 
-		List<DiscussionVO> list = service.list(boardId);
+		List<DiscussionVO> list = service.list(masterpieceId);
 
 //		System.out.println("board/boardid : " + loggedIn);
 		if (loggedIn != null) {
@@ -47,12 +47,12 @@ public class DiscussionController {
 	}
 
 	@PostMapping("/write")
-	public ResponseEntity<String> write(DiscussionVO reply, @SessionAttribute(value = "loggedInMember", required = false) MemberVO logged) {
+	public ResponseEntity<String> write(DiscussionVO discussion, @SessionAttribute(value = "loggedInMember", required = false) MemberVO logged) {
 		// 로그인한 멤버
 //		MemberVO logged = (MemberVO) session.getAttribute("loggedInMember");
 		
-		if (logged != null && logged.getId().equals(reply.getMemberId())) {
-			service.insert(reply);
+		if (logged != null && logged.getId().equals(discussion.getMemberId())) {
+			service.insert(discussion);
 			return ResponseEntity.status(HttpStatus.OK).build();
 		} else {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -60,7 +60,7 @@ public class DiscussionController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> modify(@PathVariable Integer id, @RequestBody DiscussionVO reply, @SessionAttribute(value = "loggedInMember", required = false) MemberVO logged) {
+	public ResponseEntity<String> modify(@PathVariable Integer id, @RequestBody DiscussionVO discussion, @SessionAttribute(value = "loggedInMember", required = false) MemberVO logged) {
 //		System.out.println(id);
 //		System.out.println(reply.getReply());
 
@@ -72,7 +72,7 @@ public class DiscussionController {
 		// 로그인된 멤버의 아이디와 댓글작성한 사람 아이디가 같을 때만
 		if (logged != null && logged.getId().equals(old.getMemberId())) {
 			// 업데이트
-			old.setReply(reply.getReply());
+			old.setDiscussion(discussion.getDiscussion());
 			service.update(old);
 
 			return ResponseEntity.ok("");

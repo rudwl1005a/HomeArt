@@ -44,11 +44,11 @@ SELECT
     m.address,
     m.inserted,
     m.nickName,
-    COUNT(b.id) AS numberOfBoard
+    COUNT(p.id) AS numberOfMasterpiece
 FROM
     Member m
         LEFT JOIN
-    Board b ON m.id = b.writer
+    Masterpiece p ON m.id = p.writer
 GROUP BY m.id
 ORDER BY m.inserted DESC
 	</select>
@@ -61,11 +61,11 @@ SELECT
     m.address,
     m.inserted,
     m.nickName,
-    COUNT(b.id) AS numberOfBoard
+    COUNT(p.id) AS numberOfMasterpiece
 FROM
     Member m
         LEFT JOIN
-    Board b ON m.id = b.writer
+    Masterpiece p ON m.id = p.writer
 GROUP BY m.id
 ORDER BY m.inserted DESC
 LIMIT #{from}, #{items}

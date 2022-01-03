@@ -5,18 +5,18 @@
 
 <mapper namespace="com.homeart.mapper.homeart.masterpiece.FileMapper">
 	<delete id="deleteByBoardId">
-	DELETE FROM File WHERE boardId = #{boardId}
+	DELETE FROM File WHERE masterpieceId = #{masterpieceId}
 	</delete>
 
 	<delete id="delete">
-	DELETE FROM File WHERE boardId = #{boardId} AND fileName = #{fileName}
+	DELETE FROM File WHERE masterpieceId = #{masterpieceId} AND fileName = #{fileName}
 	</delete>
 
-	<select id="selectNamesByBoardId" resultType="string">
-	SELECT fileName FROM File WHERE boardId = #{boardId}
+	<select id="selectNamesByMasterpieceId" resultType="string">
+	SELECT fileName FROM File WHERE masterpieceId = #{masterpieceId}
 	</select>
 
 	<insert id="insert">
-	INSERT INTO File (boardId, fileName) VALUES (#{boardId}, #{fileName})
+	INSERT INTO File (masterpieceId, fileName) VALUES (#{masterpieceId}, #{fileName})
 	</insert>
 </mapper>

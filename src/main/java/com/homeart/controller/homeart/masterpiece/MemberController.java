@@ -68,7 +68,7 @@ public class MemberController {
 
 			if (ok) {
 				rttr.addFlashAttribute("result", "회원가입이 완료되었습니다.");
-				return "redirect:/board/list";
+				return "redirect:/masterpiece/list";
 			} else {
 				return "redirect:/member/signup";
 			}
@@ -107,7 +107,7 @@ public class MemberController {
 
 		System.out.println(session.getAttribute("loggedInMember"));
 
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 
 	}
 
@@ -116,7 +116,7 @@ public class MemberController {
 		// 세션 invalidate
 		session.invalidate();
 		// /board/list redirect
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 	}
 
 	@GetMapping("/info")
@@ -157,7 +157,7 @@ public class MemberController {
 			rttr.addFlashAttribute("result", "회원 정보가 변경되지 않았습니다.");
 		}
 
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 	}
 	
 	@PostMapping("/remove")
@@ -178,7 +178,7 @@ public class MemberController {
 		
 		rttr.addFlashAttribute("result", "회원 탈퇴하였습니다");
 		
-		return "redirect:/board/list";
+		return "redirect:/masterpiece/list";
 		
 	}
 	

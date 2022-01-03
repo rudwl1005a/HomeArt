@@ -6,18 +6,24 @@ import java.time.ZoneId;
 import lombok.Data;
 
 @Data
-public class BoardVO {
+public class MasterpieceVO {
 	private Integer id;
 	private String title;
 	private String content;
 	private String writer;
+	private String country;
+	private String artist;
+	private String age;
+	private String color;
+	private String masterpiece;
+	private String newFileName;
 //	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime inserted;
 //	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime updated;
 	private String nickName;
 	
-	private Integer replyCount;
+	private Integer discussionCount;
 	
 	private Boolean hasFile;
 
