@@ -6,7 +6,7 @@
 
 <style>
 .logo {
-	background-color: #47423f;
+	background-color: rgb(51, 51, 51);
 	color: white;
 	height: 100px;
 	text-align: center;
@@ -17,13 +17,13 @@
 	letter-spacing: 2px;
  	color: white;
 	text-shadow: 4px 4px 4px rgb(173, 166, 146);
-	vertical-align: middle;
+	vertical-align: bottom;
 }
 </style>
 
 <div class="logo">
-	<img src="<spring:url value='/resources/img/logo3.jpg'/>" height="100px">
-	<span class="textlogo"> Home Art</span>
+	<span class="textlogo"> Home</span>
+	<img src="<spring:url value='/resources/img/logo1.jpg'/>" height="100px">
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 20px">

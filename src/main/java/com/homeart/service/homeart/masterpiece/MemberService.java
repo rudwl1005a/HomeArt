@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.homeart.domain.homeart.masterpiece.MemberVO;
 import com.homeart.domain.homeart.masterpiece.PageInfoVO;
+import com.homeart.mapper.homeart.masterpiece.DiscussionMapper;
 import com.homeart.mapper.homeart.masterpiece.MasterpieceMapper;
 import com.homeart.mapper.homeart.masterpiece.MemberMapper;
-import com.homeart.mapper.homeart.masterpiece.DiscussionMapper;
 
 import lombok.Setter;
 
