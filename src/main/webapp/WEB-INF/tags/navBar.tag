@@ -38,7 +38,7 @@
 				<a class="nav-link" href="/controller/picShare/list">그림공유</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">명화추천</a>
+				<a class="nav-link" href="/controller/masterpiece/list">명화추천</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/controller/freeBoard/list">자유게시판</a>

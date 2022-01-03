@@ -23,10 +23,10 @@
 <body>
 <b:navBar></b:navBar>
 
-<div class="container">
+<div class="container" style="background-color: #47423f;">
 	<div class="row">
 		<div class="col">
-			<h1>내 그림</h1>
+			<h1 style="color: white;">내 그림</h1>
 			<div class="row">
 				<img class="pic200" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
 				<img class="pic200" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
