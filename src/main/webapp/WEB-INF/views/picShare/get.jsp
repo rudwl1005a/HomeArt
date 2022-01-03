@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="b" tagdir="/WEB-INF/tags"%>
 
 
 <!DOCTYPE html>
@@ -17,20 +18,18 @@
 
 <style>
 body {
-	background-color: rgb(71, 66, 63);
+	background-color: #222;
 }
 .secondSection {
 	background-color: rgb(173, 166, 146);
-}
-header, footer {
-	background-color: rgb(179, 177, 178);
 }
 </style>
 
 </head>
 <body>
 <body>
-		
+
+		<b:navBar></b:navBar>
 		<!-- Product section-->
 		<section class="py-4">
 				<div class="container px-4 px-lg-8 my-5">
@@ -99,7 +98,7 @@ header, footer {
 																</div>
 																<!-- Product price-->
 																<span class="text-muted text-decoration-line-through">Like View</span>
-																
+
 														</div>
 												</div>
 												<!-- Product actions-->
@@ -126,7 +125,7 @@ header, footer {
 																</div>
 																<!-- Product price-->
 																<span class="text-muted text-decoration-line-through">Like View</span>
-																
+
 														</div>
 												</div>
 												<!-- Product actions-->
@@ -164,15 +163,10 @@ header, footer {
 						</div>
 				</div>
 		</section>
-		<!-- Footer-->
-		<footer class="py-5 bg-light">
-				<div class="container">
-						<p class="m-0 text-center text-black">@homeart</p>
-				</div>
-		</footer>
 		
-		
-	
+
+
+		<b:bottomInfo></b:bottomInfo>
 
 
 </body>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="b" tagdir="/WEB-INF/tags"%>
 
 
 <!DOCTYPE html>
@@ -17,12 +18,9 @@
 
 <style>
 body {
-	background-color: rgb(71, 66, 63);
+	background-color: #222;
 }
 
-header, footer {
-	background-color: rgb(179, 177, 178);
-}
 </style>
 
 <script>
@@ -33,17 +31,8 @@ header, footer {
 <body>
 <body>
 
-
-		<!-- Header-->
-		<header class="py-5">
-				<div class="container px-4 px-lg-5 my-4">
-						<div class="text-center text-black">
-								<h1 class="display-4 fw-bolder">Explore</h1>
-								<p class="lead fw-normal text-rgb-71,66,63 mb-0">picShareBoard</p>
-						</div>
-				</div>
-		</header>
-
+		<b:navBar></b:navBar>
+		
 		<!-- Section-->
 		<section class="py-5">
 				<div class="container px-4 px-lg-5 mt-5">
@@ -51,7 +40,7 @@ header, footer {
 								<div class="col mb-5">
 										<div class="card h-100">
 												<!-- modify button -->
-												<button type="button" class="badge position-absolute btn btn-light" style="top:0.5rem; right: 0.5rem">modify</button>
+												<button type="button" class="badge position-absolute btn btn-light" style="top: 0.5rem; right: 0.5rem">modify</button>
 												<!-- 
 												<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Hot</div>
 												 -->
@@ -287,14 +276,10 @@ header, footer {
 						</div>
 				</div>
 		</section>
-		<!-- Footer-->
-		<footer class="py-5 bg-light">
-				<div class="container">
-						<p class="m-0 text-center text-black">@homeart</p>
-				</div>
-		</footer>
 		
-		
+
+		<b:bottomInfo></b:bottomInfo>
+
 
 
 </body>
