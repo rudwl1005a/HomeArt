@@ -24,112 +24,115 @@
     </style>
 </head>
 <body>
-	<div class="container-lg">
-        <div class="row">
-            <div class="col-3">
-                <nav class="navbar navbar-light">
-                    <a class="navbar-brand" href="#">
-                        <a href="HomePageActivation.html">
-                            <img src="HomeArt.jpg" width="30" height="30" class="d-inline-block align-top">
-                        </a>
-                        <span>카테고리</span>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+  <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="#">HomeArt</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button"
-                                        data-toggle="dropdown" aria-expanded="false" href="#">
-                                        <span>작가그림공유 편집</span></a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#">그림공유 편집</a>
-                                        <a class="dropdown-item" href="#">그림 승인</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button"
-                                        data-toggle="dropdown" aria-expanded="false" href="#">
-                                        <span>명화 편집</span></a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#">명화 편집</a>
-                                        <a class="dropdown-item" href="#">댓글 편집</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button"
-                                        data-toggle="dropdown" aria-expanded="false" href="#">
-                                        <span>자유게시판 편집</span></a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#">게시판 편집</a>
-                                        <a class="dropdown-item" href="#">댓글 편집</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="navbarDropdownMenuLink1" role="button" aria-expanded="false"
-                                        href="#"><span>공지사항</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="navbarDropdownMenuLink1" role="button" aria-expanded="false"
-                                        href="#"><span>카테고리 편집</span></a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">홈아트 <span class="sr-only">(current)</span></a>
+                            </li>
 
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button"
-                                        data-toggle="dropdown" aria-expanded="false" href="#">
-                                        <span>회원 관리</span></a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#">포인트 관리</a>
-                                        <a class="dropdown-item" href="#">회원 차단 관리</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    작가그림공유
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">공유게시판</a>
+
+                                    <a class="dropdown-item" href="#">그림승인</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">명화게시판 <span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">자유게시판 <span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">공지사항 <span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">카테고리 <span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">회원관리 <span class="sr-only">(current)</span></a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
-           
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        포인트
-                    </div>
+        </div>
 
-                    <div class="card-body">
-                        <h5 class="card-text">회원</h5>
-                        
-                        <span><input type="text"></span>
-                        <p class="card-text">현재 포인트</p>
-                        <input type="text">
-                        <p class="card-text">포인트 수정 사유</p>
-                        <textarea class="form-control" name="" id="" cols="10" rows="10"></textarea>
-                        <input type="submit" class="btn" value="전송"> 
+        <div class="row">
+            <div class="col-3">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="회원ID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn" type="button">찾기</button>
                     </div>
+                  </div>
+                <h4>
+                    회원목록
+                </h4>
+                <div class="input-group">
+                    <textarea class="form-control" aria-label="With textarea" rows="20"></textarea>
                 </div>
             </div>
-           
-            <div class="col-5">
-                <div class="card">
-                    <div class="card-header">
-                        회원 밴
-                    </div>
 
-                    <div class="card-body">
-                        <h5 class="card-text">회원</h5>
-                        <select name="" id="" >
-                            <option value="1" selected>회원ID</option>
-                            <option value="2" >본문</option>
-                        </select>
-                        <span><input type="text"></span>
-                        <p class="card-text">현재 상태</p>
-                        <input type="text">
-                        <p class="card-text">정지 사유</p>
-                        <textarea class="form-control" name="" id="" cols="10" rows="10"></textarea>
-                        <input type="submit" class="btn" value="전송"> 
+            <div class="col-5 align-self-center justify-content-center">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">이름</span>
                     </div>
-                </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">회원ID</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">닉네임</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">주소</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">회원 밴</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                    placeholder="사유 입력">
+                    <div class="input-group-append">
+                        <button class="btn" type="button">제출하기</button>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>
@@ -140,5 +143,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+        
+    <script>
+    $(document).ready(function (e) {
+        $('nav, .dropdown-menu').css('background-color', '#b3b1b2')
+    });
+
+    $(document).ready(function () {
+        $('li>a, li>div>a').css('color', '#fff')
+    });
+    </script>
 </body>
 </html>
