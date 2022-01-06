@@ -17,6 +17,10 @@
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
+<c:url value="/mypage/my_picture" var="mypicUrl"></c:url>
+<c:url value="/mypage/favorite_picture" var="favpicUrl"></c:url>
+<c:url value="/mypage/my_post" var="mypostUrl"></c:url>
+<c:url value="/mypage/my_reply" var="myreplyUrl"></c:url>
 
 <title>MyPage</title>
 </head>
@@ -26,13 +30,20 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<div class="row" style="margin-bottom: 100px; margin-top: 80px;">
-					<img src="<spring:url value='/resources/img/JJanggu.png'/>" style="width: 150px; height: 150px">
-					<span style="padding-left: 10px;">내아이디는짱구</span>
+				<div class="row" style="margin-bottom: 60px; margin-top: 80px;">
+					<img src="<spring:url value='/resources/img/JJanggu.png'/>" class="profilepic">
+					<div class="col" style="padding-left: 20px;">
+						<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
+						<div>아이디 : ${sessionScope.loggedInMember.member_id }</div>
+						<div>이름 : ${sessionScope.loggedInMember.member_name }</div>
+						<div>닉네임 : ${sessionScope.loggedInMember.nickName }</div>
+						<div>국가 : ${sessionScope.loggedInMember.country }</div>
+						<div>이메일 : ${sessionScope.loggedInMember.email }</div>
+					</div>
 				</div>
 				<div class="row">
 					<h3>내 그림들</h3>
-					<a href="/controller/mypage/my_picture">더보기</a>
+					<a href="${mypicUrl }">더보기</a>
 				</div>
 				<ul>
 					<li>그림그림그림</li>
@@ -46,7 +57,7 @@
 				
 				<div class="row">
 					<h3>좋아요 누른 그림</h3>
-					<a href="/controller/mypage/favorite_picture">더보기</a>
+					<a  href="${favpicUrl }">더보기</a>
 				</div>
 				<ul>
 					<li>그림그림그림</li>
@@ -60,7 +71,7 @@
 	
 				<div class="row">
 					<h3>내가 쓴 글</h3>
-					<a href="/controller/mypage/my_post">더보기</a>
+					<a  href="${mypostUrl }">더보기</a>
 				</div>
 				<ul>
 					<li>글글글</li>
@@ -73,7 +84,7 @@
 	
 				<div class="row">
 					<h3>내 댓글</h3>
-					<a href="/controller/mypage/my_reply">더보기</a>
+					<a  href="${myreplyUrl }">더보기</a>
 				</div>
 				<ul>
 					<li>댓글댓글댓글</li>
