@@ -13,67 +13,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/member.css" rel="stylesheet" type="text/css">
 
 <title>회원가입</title>
 
 <style>
 
-table tr td {
-	text-align: left;
-	border-width: 1px;
-	border-style: solid;
-	width: 650px;
-}
-
-table tr th {
-	text-align: center;
-	border-style: solid;
-	border-width: 1px;
-	width: 150px;
-}
-
-table tr td > input {
-	margin: 10px 10px 0px 10px;
-}
-
-table tr td > div {
-	margin: 0px 0px 10px 10px;
-}
-
-#input1 {
-	width: 500px;
+/* id,nickName */
+#input1, #input4 { 
+	width: 510px;
 	display: inline;
 }
 
-#input2,#input3,#input4,#input5,#input6,#input7,#input8 {
-	width: 630px;
+/* password */
+#input2, #input8 {
+	width: 590px;
+	display: inline;
 }
 
-#input3, #input5, #input6, #input7 {
+/* other */
+#input3,#input5,#input6,#input7 {
+	width: 630px;
 	margin-bottom: 10px;
 }
 
-.valid, .invalid {
-	font-size: 11px;
-	font-weight: bold;
-}
 
-.valid {
-	color: green;
-}
-
-.invalid {
-	color: red;
-}
-
-.mustinfo {
-	text-align: left;
-	margin: 0 auto;
-	padding-bottom: 5px;
-	padding-left: 610px;
-	font-size: 13px;
-	color: blue;
-}
 </style>
 
 </head>
@@ -105,6 +69,7 @@ table tr td > div {
 							<th>* 비밀번호</th>
 							<td>
 								<input type="password" class="form-control" id="input2" required name="password" value="${member.password }" />
+								<i id="pwchk1" class="fa fa-eye fa-lg"></i>
 								<div class="valid">비밀번호를 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
 							</td>
 						</tr>
@@ -112,6 +77,7 @@ table tr td > div {
 							<th>* 비밀번호 확인</th>
 							<td>
 								<input type="password" class="form-control" id="input8" required/>
+								<i id="pwchk2" class="fa fa-eye fa-lg"></i>
 								<div class="valid">비밀번호를 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
 							</td>
 						</tr>
@@ -125,6 +91,7 @@ table tr td > div {
 							<th>* 닉네임</th>
 							<td>
 								<input type="text" class="form-control" id="input4" required name="nickName" value="${member.nickName }" />
+								<button class="btn btn-outline-primary" style="margin-left: 5px;" id="nickNameCheck">중복 확인</button>
 								<div class="valid">닉네임을 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
 							</td>
 						</tr>
@@ -158,12 +125,44 @@ table tr td > div {
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <script>
-	/* 나중에 구현
+	/* 비밀번호 보이기 */
+	$(document).ready(function(){
+	    $('#pwchk1').on('click',function(){
+	        $(this).prev('input').toggleClass('active');
+	        if($(this).prev('input').hasClass('active')){
+	            $(this).attr('class',"fa fa-eye-slash fa-lg")
+	            .prev('input').attr('type',"text");
+	        }else{
+	            $(this).attr('class',"fa fa-eye fa-lg")
+	            .prev('input').attr('type','password');
+	        }
+	    });
+	    
+	    $('#pwchk2').on('click',function(){
+	    	$(this).prev('input').toggleClass('active');
+	        if($(this).prev('input').hasClass('active')){
+	            $(this).attr('class',"fa fa-eye-slash fa-lg")
+	            .prev('input').attr('type',"text");
+	        }else{
+	            $(this).attr('class',"fa fa-eye fa-lg")
+	            .prev('input').attr('type','password');
+	        }
+	    });
+	});
+
+	/* 버튼마다 다른 행동
 	$(document).ready(function(){
 		const signupForm = $("#signupForm");
 		
 		$("#idCheck").click(function(e) {
 			// 아이디 중복확인
+			e.preventDefault();
+			signupForm.attr("action", "");
+			signupForm.submit();
+		});
+		
+		$("#nickNameCheck").click(function(e) {
+			// 닉네임 중복확인
 			e.preventDefault();
 			signupForm.attr("action", "");
 			signupForm.submit();

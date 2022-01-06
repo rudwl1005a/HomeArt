@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+table tr td {
+	text-align: left;
+	border-width: 1px;
+	border-style: solid;
+	width: 650px;
+}
+
+table tr th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	width: 150px;
+}
+
+table tr td > input {
+	margin: 10px 10px 0px 10px;
+}
+
+table tr td > div {
+	margin: 0px 0px 10px 10px;
+}
+
+/* signup 페이지에서 사용 */
+.valid, .invalid {
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.valid {
+	color: green;
+}
+
+.invalid {
+	color: red;
+}
+
+.mustinfo {
+	text-align: left;
+	margin: 0 auto;
+	padding-bottom: 5px;
+	padding-left: 650px;
+	font-size: 13px;
+	color: blue;
+}
+
+#idCheck, #nickNameCheck, #submit {
+	color: rgb(173, 166, 146);
+	border-color : rgb(173, 166, 146);
+}
+
+#idCheck:hover, #nickNameCheck:hover, #submit:hover{
+	color: #fff;
+    background-color: rgb(173, 166, 146);;
+    border-color: rgb(173, 166, 146);;
+}
+
+/* login 페이지에서 사용 */
