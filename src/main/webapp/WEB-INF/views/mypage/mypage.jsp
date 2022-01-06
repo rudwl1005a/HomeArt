@@ -31,7 +31,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="row" style="margin-bottom: 60px; margin-top: 80px;">
-					<img src="<spring:url value='/resources/img/JJanggu.png'/>" class="profilepic">
+					<img src="<spring:url value='/resources/img/cat1.jpg'/>" class="profilepic">
 					<div class="col" style="padding-left: 20px;">
 						<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
 						<div>아이디 : ${sessionScope.loggedInMember.member_id }</div>
