@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.homeart.mapper.member.MemberMapper">
+	<insert id="insert">
+	INSERT INTO Member (member_id, member_name, password, nickName, email, country, isAdmin)
+	VALUE (#{member_id}, #{member_name}, #{password}, #{nickName}, #{email}, #{country}, #{isAdmin})
+	</insert>
+	
+	<select id="select" resultType="com.homeart.domain.member.MemberVO">
+ 	SELECT member_id, member_name, password, nickName, email, country, isAdmin
+ 	FROM Member
+ 	WHERE member_id = #{member_id}
+ 	</select>
+ 	
+ 	<update id="update">
+ 	UPDATE Member
+ 	SET member_name = #{member_name},
+ 		password = #{password},
+ 		nickName = #{nickName},
+ 		email = #{email},
+ 		country = #{country},
+ 		isAdmin = #{isAdmin}
+ 	WHERE
+ 		member_id = #{member_id}
+ 	</update>  	
+ 	
+ 	<delete id="delete">
+ 	DELETE FROM Member
+ 	WHERE member_id = #{member_id}
+ 	</delete>
+ 	
+ 	<select id="list" resultType="com.homeart.domain.member.MemberVO">
+	SELECT 
+	    member_id,
+	    member_name,
+	    password,
+	    nickName,
+	    email,
+	    country,
+	    inserted,
+	    isAdmin
+	FROM
+	    Member
+	ORDER BY inserted DESC;
+ 	</select>
+ </mapper>
