@@ -49,7 +49,7 @@ body {
 					<div class="card-body">
 						<p class="card-text">작가그림공유 페이지의 게시판과 좋아요 관리를 할 수 있습니다.</p>
 						<a href="#" class="btn btn-primary">공게</a> <a
-							href="AdminAdmit.html" class="btn btn-primary">그림승인</a>
+							href="adminPicShare/AdminPicAdmit" class="btn btn-primary">그림승인</a>
 					</div>
 				</div>
 			</div>
@@ -58,7 +58,7 @@ body {
 					<h5 class="card-header">명화</h5>
 					<div class="card-body">
 						<p class="card-text">명화 페이지의 게시판과 댓글 관리를 할 수 있습니다.</p>
-						<a href="picBoard.html" class="btn btn-primary">명게</a>
+						<a href="adminPic/AdminPicBoard" class="btn btn-primary">명게</a>
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,7 @@ body {
 					<h5 class="card-header">공지사항</h5>
 					<div class="card-body">
 						<p class="card-text">공지사항을 생성, 수정, 삭제를 할 수 있습니다.</p>
-						<a href="AdminNoticeCUD.html" class="btn btn-primary">공지사항 가기</a>
+						<a href="adminNotice/AdminNoticeCUD" class="btn btn-primary">공지사항 가기</a>
 					</div>
 				</div>
 			</div>
@@ -88,7 +88,7 @@ body {
 					<h5 class="card-header">카테고리</h5>
 					<div class="card-body">
 						<p class="card-text">카테고리를 수정, 폐쇄할 수 있습니다.</p>
-						<a href="" class="btn btn-primary">카테고리 편집하기</a>
+						<a href="#" class="btn btn-primary">카테고리 편집하기</a>
 					</div>
 				</div>
 			</div>
@@ -97,12 +97,11 @@ body {
 					<h5 class="card-header">회원관리</h5>
 					<div class="card-body">
 						<p class="card-text">회원의 포인트 및 거부 설정을 할 수 있습니다.</p>
-						<a href="AdminMemManage.html" class="btn btn-primary">회원관리</a>
+						<a href="adminMemManage/AdminMemManage" class="btn btn-primary">회원관리</a>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<script
