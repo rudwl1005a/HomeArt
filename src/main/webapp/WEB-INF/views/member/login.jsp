@@ -21,9 +21,9 @@
 	margin-bottom: 10px;
 }
 
-#loginButton {
+#loginButton, #signupButton {
 	margin: 10px 7px 0px 0px;
-	width: 300px;
+	width: 150px;
 }
 
 table tr td {
@@ -44,6 +44,8 @@ table tr th {
 }
 
 </style>
+
+<c:url value="/member/signup" var="signupUrl"></c:url>
 
 <title>로그인</title>
 </head>
@@ -74,6 +76,7 @@ table tr th {
 					</div>
 					<div style="text-align:center;">
 						<button class="btn btn-dark loginButton" id="loginButton">로그인</button>
+						<a class="btn btn-dark loginButton" id="signupButton" href="${signupUrl }">회원가입</a>
 					</div>
 				</form>
 			</div>
