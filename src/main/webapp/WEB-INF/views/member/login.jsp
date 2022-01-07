@@ -31,7 +31,7 @@
 					</div>
 					<div class="form-group">
 						<label for="input2">패스워드</label>
-						<input type="text" class="form-control" name="password" required />
+						<input type="password" class="form-control" name="password" required />
 					</div>
 					<button class="btn btn-outline-primary">로그인</button>
 				</form>
