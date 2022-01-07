@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/icon/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
 <title>Get</title>
 
@@ -20,8 +21,9 @@
 body {
 	background-color: #222;
 }
+
 .secondSection {
-	background-color: rgb(173, 166, 146);
+	background-color: rgb(179, 177, 178);
 }
 </style>
 
@@ -29,145 +31,84 @@ body {
 <body>
 <body>
 
-		<b:navBar></b:navBar>
+	<b:navBar></b:navBar>
+
+	<div class="contents-wrap">
 		<!-- Product section-->
-		<section class="py-4">
-				<div class="container px-4 px-lg-8 my-5">
-						<div class="row gx-4 gx-lg-5 align-items-center">
-								<div class="col-md-6">
-										<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="...">
-								</div>
-								<div class="col-md-6 text-white">
+		<section class="py-5 my-5">
+			<div class="container px-4 px-lg-5 my-5">
+				<div class="row gx-4 gx-lg-5 align-items-center">
+					<div class="col-md-6">
+						<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="...">
+					</div>
+					<div class="col-md-6 text-white">
 
-										<h1 class="display-5 fw-bolder">1 art</h1>
-										<div class="fs-5 mb-5">
-												<span class="text-decoration-line-through">1 artist</span>
+						<h1 class="display-5 fw-bolder">${board.title }</h1>
+						<div class="fs-5 mb-5">
+							<span class="text-decoration-line-through">${board.writer }</span>
 
-										</div>
-										<p class="lead text-white">작품 설명이 들어갈 것.raesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-										<div class="d-flex">
-
-												<button class="btn btn-light flex-shrink-0" type="button">Go Artist(작가 더보러가기)</button>
-										</div>
-								</div>
 						</div>
+						<p class="lead text-white">${board.content }</p>
+						<div class="d-flex">
+
+							<button class="btn btn-light flex-shrink-0" type="button">Go Artist(작가 더보러가기)</button>
+						</div>
+					</div>
 				</div>
+			</div>
 		</section>
+
 		<!-- Related items section-->
 		<section class="py-5 bg-rgb(173, 166, 146) secondSection">
-				<div class="container px-4 px-lg-5 mt-5 bg-rgb(173, 166, 146)">
-						<h2 class="fw-bolder mb-4">the Other arts</h2>
-						<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-								<div class="col mb-5">
-										<div class="card h-100">
-												<!-- Product image-->
-												<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-												<!-- Product details-->
-												<div class="card-body p-4">
-														<div class="text-center">
-																<!-- Product name-->
-																<h5 class="fw-bolder">1art</h5>
-																<div class="d-flex justify-content-center small text-warning mb-2">
-																		<div class="bi-star-fill">artistName</div>
-																</div>
-																<!-- Product price-->
-																Like View
-														</div>
-												</div>
-												<!-- Product actions-->
-												<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-														<div class="text-center">
-																<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-														</div>
-												</div>
-										</div>
-								</div>
-								<div class="col mb-5">
-										<div class="card h-100">
-												<!-- Sale badge-->
+			<div class="container px-4 px-lg-5 mt-5 bg-rgb(173, 166, 146)">
+				<h2 class="fw-bolder mb-4">the Other arts</h2>
+				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+					
+					<!-- carousel 4 cards 로 만들기 -->
+					<c:forEach items="${list }" var="picBoard">
+						<div class="col mb-5">
+							<div class="card h-100">
+								<!-- modify button -->
+								<button type="button" class="badge position-absolute btn btn-light" style="top: 0.5rem; right: 0.5rem">modify</button>
+								<!-- 
 												<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Hot</div>
-												<!-- Product image-->
-												<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-												<!-- Product details-->
-												<div class="card-body p-4">
-														<div class="text-center">
-																<!-- Product name-->
-																<h5 class="fw-bolder">2art</h5>
-																<div class="d-flex justify-content-center small text-warning mb-2">
-																		<div class="bi-star-fill">artistName</div>
-																</div>
-																<!-- Product price-->
-																<span class="text-muted text-decoration-line-through">Like View</span>
+												 -->
+								<!-- Product image-->
+								<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+								<!-- Product details-->
+								<div class="card-body p-4">
+									<div class="text-center">
 
-														</div>
-												</div>
-												<!-- Product actions-->
-												<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-														<div class="text-center">
-																<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-														</div>
-												</div>
+										<!-- 작품 이름-->
+										<h5 class="fw-bolder">${picBoard.title }</h5>
+										<!-- text-warning이 글씨의 색깔을 나타냄. -->
+										<!-- 작가 이름 -->
+										<div class="d-flex justify-content-center small text-warning mb-2">
+											<div class="bi-star-fill">${picBoard.writer }</div>
 										</div>
-								</div>
-								<div class="col mb-5">
-										<div class="card h-100">
-												<!-- Sale badge-->
-												<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Hot</div>
-												<!-- Product image-->
-												<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-												<!-- Product details-->
-												<div class="card-body p-4">
-														<div class="text-center">
-																<!-- Product name-->
-																<h5 class="fw-bolder">3art</h5>
-																<div class="d-flex justify-content-center small text-warning mb-2">
-																		<div class="bi-star-fill">artistName</div>
-																</div>
-																<!-- Product price-->
-																<span class="text-muted text-decoration-line-through">Like View</span>
+										<!-- Like, View-->
+										<span class="text-muted text-decoration-line-through">Like View</span>
 
-														</div>
-												</div>
-												<!-- Product actions-->
-												<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-														<div class="text-center">
-																<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-														</div>
-												</div>
-										</div>
+									</div>
 								</div>
-								<div class="col mb-5">
-										<div class="card h-100">
-												<!-- Product image-->
-												<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-												<!-- Product details-->
-												<div class="card-body p-4">
-														<div class="text-center">
-																<!-- Product name-->
-																<h5 class="fw-bolder">4art</h5>
-																<div class="d-flex justify-content-center small text-warning mb-2">
-																		<div class="bi-star-fill">artistName</div>
-																</div>
-
-																<span class="text-muted text-decoration-line-through">Like View</span>
-														</div>
-												</div>
-												<!-- Product actions-->
-												<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-														<div class="text-center">
-																<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-														</div>
-												</div>
-										</div>
+								<!-- Product actions-->
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="text-center">
+										<a class="btn btn-outline-dark mt-auto" href="get?id=${picBoard.boardId }">Go art</a>
+									</div>
 								</div>
+							</div>
 						</div>
+					</c:forEach>
+					
 				</div>
+			</div>
 		</section>
-		
+
 
 
 		<b:bottomInfo></b:bottomInfo>
-
+	</div>
 
 </body>
 
