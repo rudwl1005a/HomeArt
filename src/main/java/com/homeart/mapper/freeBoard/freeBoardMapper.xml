@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.homeart.mapper.freeBoard.freeBoardMapper">
+	<select id="getList" resultType="com.homeart.domain.freeBoard.freeBoardVO">
+		SELECT
+			b.board_id,
+			b.title,
+			b.writer,
+			b.inserted,
+			b.updated,
+            b.viewCount,
+            b.isPublic,
+			m.nickName,
+			m.isAdmin
+		FROM
+			freeBoard b 
+				JOIN 
+			Member m ON b.writer = m.member_id
+		ORDER BY
+			b.board_id DESC;
+	</select>
+	
+	<select id="read" resultType="com.homeart.domain.freeBoard.freeBoardVO">
+		SELECT
+			b.board_id,
+			b.title,
+			b.content,
+			b.writer,
+			b.inserted,
+			b.updated,
+			m.nickName
+		FROM
+			freeBoard b 
+				JOIN 
+			Member m ON b.writer = m.member_id
+		WHERE b.board_id = #{board_id};
+	</select>
+		
+	<insert id="insert">
+		INSERT INTO
+			freeBoard (title, content, isPublic)
+		VALUES
+			(#{title}, #{content}, #{isPublic})
+	</insert>
+	
+	<update id="update">
+		UPDATE
+			Board
+		SET
+			title = #{title},
+			content = #{content},
+			isPublic = #{isPublic},
+			updated = NOW()
+		WHERE
+			board_id = #{board_id}
+	</update>
+	
+	<delete id="delete">
+	 	DELETE FROM freeBoard WHERE board_id = #{board_id}
+	</delete>
+</mapper>
