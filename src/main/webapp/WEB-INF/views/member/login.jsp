@@ -17,14 +17,35 @@
 
 <style>
 #input1,#input2 {
-	width: 630px;
+	width: 517px;
 	margin-bottom: 10px;
 }
 
-.loginButton {
-	margin: 10px;
+#loginButton, #signupButton {
+	margin: 10px 7px 0px 0px;
+	width: 150px;
 }
+
+table tr td {
+	text-align: left;
+	border-width: 1px;
+	border-style: solid;
+}
+
+table tr th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.vertical-center {
+
+
+}
+
 </style>
+
+<c:url value="/member/signup" var="signupUrl"></c:url>
 
 <title>로그인</title>
 </head>
@@ -33,25 +54,30 @@
 
 <div class="contents-wrap">
 	<div class="container">
-		<div class="row">
-			<div class="col">
+		<div class="row justify-content-center align-items-center" style="height: calc(100vh - 96px);">
+			<div class="col-7">
 				<h1 style="margin: 10px;">로그인</h1>
 				<form method="post">
+				<div class="row" style="margin-left: 5px;">
 					<table>
-							<tr>
-								<th>아이디</th>
-								<td>
-									<input type="text" id="input1" class="form-control" name="member_id" required/>
-								</td>
-							</tr>
-							<tr>
-								<th>비밀번호</th>
-								<td>
-									<input type="password" id="input2" class="form-control" name="password" required />
-								</td>
-							</tr>
+						<tr>
+							<th nowrap>아이디</th>
+							<td>
+								<input type="text" id="input1" class="form-control" name="member_id" required/>
+							</td>
+						</tr>
+						<tr>
+							<th nowrap>비밀번호</th>
+							<td>
+								<input type="password" id="input2" class="form-control" name="password" required />
+							</td>
+						</tr>
 					</table>
-					<button class="kd-btn btn btn-outline-primary loginButton" id="loginButton">로그인</button>
+					</div>
+					<div style="text-align:center;">
+						<button class="btn btn-dark loginButton" id="loginButton">로그인</button>
+						<a class="btn btn-dark loginButton" id="signupButton" href="${signupUrl }">회원가입</a>
+					</div>
 				</form>
 			</div>
 		</div>

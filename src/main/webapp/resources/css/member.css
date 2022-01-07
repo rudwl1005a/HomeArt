@@ -4,14 +4,15 @@ table tr td {
 	text-align: left;
 	border-width: 1px;
 	border-style: solid;
-	width: 650px;
+	/*width: 650px;*/
 }
 
 table tr th {
 	text-align: center;
 	border-style: solid;
 	border-width: 1px;
-	width: 150px;
+	/*width: 150px;*/
+	padding:10px;
 }
 
 table tr td > input {
@@ -37,10 +38,9 @@ table tr td > div {
 }
 
 .mustinfo {
-	text-align: left;
+	text-align: right;
 	margin: 0 auto;
 	padding-bottom: 5px;
-	padding-left: 650px;
 	font-size: 13px;
 	color: blue;
 }
