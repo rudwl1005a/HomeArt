@@ -69,7 +69,7 @@
 <c:url value="/member/signup" var="signupUrl"></c:url>
 
 <div class="logo">
-	<img class="logopic" src="<spring:url value='/resources/img/logo1.jpg'/>" height="100px">
+	<a href="${mainUrl }"><img class="logopic" src="<spring:url value='/resources/img/logo1.jpg'/>" height="100px"></a>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light" id="topheader">
 	<a class="navbar-brand" href="${mainUrl }" style="font-family: 'Hahmlet', serif;">HomeArt</a>
