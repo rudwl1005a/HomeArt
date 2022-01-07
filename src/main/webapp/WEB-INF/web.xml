@@ -43,6 +43,6 @@
   </filter>
   <filter-mapping>
     <filter-name>CheckLoginFilter</filter-name>
-    <url-pattern>/CheckLoginFilter</url-pattern>
+    <url-pattern>/freeBoard/post</url-pattern>
   </filter-mapping>
 </web-app>
