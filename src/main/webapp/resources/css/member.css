@@ -45,15 +45,30 @@ table tr td > div {
 	color: blue;
 }
 
-#idCheck, #nickNameCheck, #submit {
+.kd-btn {
 	color: rgb(173, 166, 146);
 	border-color : rgb(173, 166, 146);
 }
 
-#idCheck:hover, #nickNameCheck:hover, #submit:hover{
+.kd-btn:hover {
 	color: #fff;
     background-color: rgb(173, 166, 146);;
     border-color: rgb(173, 166, 146);;
+}
+
+.kd-btn:not(:disabled):not(.disabled):active:focus {
+	color: #fff;
+    background-color: rgb(173, 166, 146);
+    border-color: rgb(173, 166, 146);
+}
+.kd-btn:not(:disabled):not(.disabled):active{
+	color: #fff;
+    background-color: rgb(173, 166, 146);
+    border-color: rgb(173, 166, 146);	
+}
+
+.kd-btn:focus, .kd-btn:not(:disabled):not(.disabled):active:focus {
+	box-shadow: 0 0 0 0.2rem rgb(173 166 146 / 50%);
 }
 
 /* login 페이지에서 사용 */
