@@ -2,6 +2,7 @@ package com.homeart.domain.freeBoard;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import lombok.Data;
 
@@ -26,7 +27,7 @@ public class freeBoardVO {
 		LocalDateTime beforeOneDayFromNow = now.minusDays(1);
 		
 		if(inserted.isBefore(beforeOneDayFromNow)) {
-			return inserted.toLocalDate().toString();
+			return inserted.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 		}else {
 			return inserted.toLocalTime().toString();
 		}
