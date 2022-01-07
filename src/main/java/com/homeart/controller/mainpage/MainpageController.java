@@ -13,6 +13,4 @@ public class MainpageController {
 	public String test() {
 		return "main";
 	}
-	
-	
 }
