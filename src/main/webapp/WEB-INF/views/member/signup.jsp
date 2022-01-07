@@ -21,24 +21,25 @@
 
 /* id,nickName */
 #input1, #input4 { 
-	width: 510px;
+	width: 546px;
 	display: inline;
 }
 
 /* password */
 #input2, #input8 {
-	width: 590px;
+	width: 626px;
 	display: inline;
 }
 
 /* other */
 #input3,#input5,#input6,#input7 {
-	width: 630px;
+	width: 666px;
 	margin-bottom: 10px;
 }
 
-.submitButton {
-	margin: 10px 0px 10px 5px;
+#signupButton {
+	margin: 10px 4px 10px 5px;
+	width: 100px;
 }
 
 </style>
@@ -48,9 +49,9 @@
 <b:navBar></b:navBar>
 
 <div class="contents-wrap">
-	<div class="container" >
-		<div class="row">
-			<div class="col">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-9">
 				<h1 style="margin: 10px;">회원가입</h1>
 				
 				<c:if test="${not empty alertMessage}">
@@ -61,63 +62,63 @@
 					<p class="mustinfo">*는 필수 입력 항목입니다.</p>
 					<table>
 						<tr>
-							<th>* 아이디</th>
+							<th nowrap>* 아이디</th>
 							<td>
 								<input type="text" class="form-control" id="input1" required name="member_id" value="${member.member_id }" />
-								<button class="kd-btn btn btn-outline-primary" style="margin-left: 5px;" id="idCheck">중복 확인</button>
-								<div class='valid'>아이디를 입력하세요. (영문 소문자, 숫자만 입력 가능)</div>
+								<button class="btn btn-dark" style="margin-left: 5px;" id="idCheckButton">중복 확인</button>
+								<div class='valid'>아이디를 입력하세요. (영문 대/소문자, 숫자만 입력 가능)</div>
 							</td>
 						</tr>
 						<tr>
-							<th>* 비밀번호</th>
+							<th nowrap>* 비밀번호</th>
 							<td>
 								<input type="password" class="form-control" id="input2" required name="password" value="${member.password }" />
 								<i id="pwchk1" class="fa fa-eye fa-lg"></i>
-								<div class="valid">비밀번호를 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
+								<div class="valid">비밀번호를 입력하세요. (영문 대/소문자, 숫자만 입력 가능)</div>
 							</td>
 						</tr>
 						<tr>
-							<th>* 비밀번호 확인</th>
+							<th nowrap>* 비밀번호 확인</th>
 							<td>
 								<input type="password" class="form-control" id="input8" required/>
 								<i id="pwchk2" class="fa fa-eye fa-lg"></i>
-								<div class="valid">비밀번호를 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
+								<div class="valid">비밀번호를 입력하세요. (영문 대/소문자, 숫자만 입력 가능)</div>
 							</td>
 						</tr>
 						<tr>
-							<th>* 이름</th>
+							<th nowrap>* 이름</th>
 							<td>
 								<input type="text" class="form-control" id="input3" required name="member_name" value="${member.member_id }" />
 							</td>
 						</tr>
 						<tr>
-							<th>* 닉네임</th>
+							<th nowrap>* 닉네임</th>
 							<td>
 								<input type="text" class="form-control" id="input4" required name="nickName" value="${member.nickName }" />
-								<button class="kd-btn btn btn-outline-primary" style="margin-left: 5px;" id="nickNameCheck">중복 확인</button>
-								<div class="valid">닉네임을 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
+								<button class="btn btn-dark" style="margin-left: 5px;" id="nickNameCheckButton">중복 확인</button>
+								<div class="valid">닉네임을 입력하세요. (영문 대/소문자, 숫자, 한글을 모두 포함)</div>
 							</td>
 						</tr>
 						<tr>
-							<th>이메일</th>
+							<th nowrap>이메일</th>
 							<td>
 								<input type="email" class="form-control" id="input5" name="email" value="${member.email }" />
 							</td>
 						</tr>
 						<tr>
-							<th>거주국가</th>
+							<th nowrap>* 거주국가</th>
 							<td>
 								<input type="text" class="form-control" id="input6" required name="country" value="${member.country }" />
 							</td>
 						</tr>
 						<tr>
-							<th>관리자</th>
+							<th nowrap>* 관리자</th>
 							<td>
 								<input type="text" class="form-control" id="input7" required name="isAdmin" value="${member.isAdmin }" />
 							</td>
 						</tr>
 					</table>
-					<button class="kd-btn btn btn-outline-primary submitButton" id="submit">가입</button>
+					<button class="btn btn-dark float-right" id="signupButton">가입</button>
 				</form>
 			</div>
 		</div>
