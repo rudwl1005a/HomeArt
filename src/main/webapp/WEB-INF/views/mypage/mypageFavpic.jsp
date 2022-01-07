@@ -23,7 +23,7 @@
 <body style="background-color: #333333">
 <b:navBar></b:navBar>
 
-<div class="contents-warp">
+<div class="contents-wrap">
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -39,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-<b:bottomInfo></b:bottomInfo>
+	<b:bottomInfo></b:bottomInfo>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

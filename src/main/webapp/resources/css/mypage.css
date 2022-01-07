@@ -5,8 +5,13 @@
     max-width: 200px;
     max-height: 200px;
     margin: 10px;
+    border-top: 5px;
+    border-left: 5px;
+    border-right: 5px;
+    border-bottom: 5px;
+    border-color: rgb(173, 166, 146);
     border-style: solid;
-    border-color: #47423f;
+    border-radius: 8px;
 }
 
 .pic100 {
@@ -14,6 +19,23 @@
     max-width: 100px;
     max-height: 100px;
     margin: 10px;
+    border-top: 3px;
+    border-left: 3px;
+    border-right: 3px;
+    border-bottom: 3px;
+    border-color: rgb(173, 166, 146);
     border-style: solid;
-    border-color: #47423f;
+    border-radius: 8px;
+}
+
+.profilepic {
+    width: 150px;
+    height: 150px;
+    border-top: 3px;
+    border-left: 3px;
+    border-right: 3px;
+    border-bottom: 3px;
+    border-color: rgb(173, 166, 146);
+    border-style: solid;
+    border-radius: 8px;
 }
