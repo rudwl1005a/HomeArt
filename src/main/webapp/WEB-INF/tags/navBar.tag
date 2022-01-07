@@ -27,7 +27,7 @@
 	margin-top: 10px;
 }
 
-.navbar {
+#topheader {
 	border-style: solid none;
 	border-width: 2px;
 	background-color: white;

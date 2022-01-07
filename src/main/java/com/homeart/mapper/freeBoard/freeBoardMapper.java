@@ -21,5 +21,7 @@ public interface freeBoardMapper {
 	//게시물 삭제
 	public int delete(Integer id);
 
+	public Integer boardCount();
+
 
 }

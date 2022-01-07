@@ -13,6 +13,21 @@ CREATE TABLE freeBoard(
 );
         
 SELECT * FROM freeBoard ORDER BY inserted DESC;
+SELECT * FROM Member ORDER BY inserted DESC;
 
-INSERT INTO freeBoard(title, content, writer, isPublic) VALUES('test8','test8','zzz',1);
+INSERT INTO freeBoard(title, content, writer, isPublic) VALUES('test22','test2','rrr',1);
+
+SELECT
+			b.board_id,
+			b.title,
+			b.content,
+			b.writer,
+			b.inserted,
+			b.updated,
+			m.nickName
+		FROM
+			freeBoard b 
+				JOIN 
+			Member m ON b.writer = m.member_id
+		WHERE b.board_id = 3;
 
