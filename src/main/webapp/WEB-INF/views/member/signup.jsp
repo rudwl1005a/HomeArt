@@ -50,7 +50,7 @@
 
 <div class="contents-wrap">
 	<div class="container">
-		<div class="row justify-content-center">
+		<div class="row justify-content-center align-items-center vertical-center">
 			<div class="col-9">
 				<h1 style="margin: 10px;">회원가입</h1>
 				

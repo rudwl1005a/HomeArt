@@ -38,11 +38,6 @@ table tr th {
 	border-width: 1px;
 }
 
-.vertical-center {
-
-
-}
-
 </style>
 
 <c:url value="/member/signup" var="signupUrl"></c:url>
@@ -54,7 +49,7 @@ table tr th {
 
 <div class="contents-wrap">
 	<div class="container">
-		<div class="row justify-content-center align-items-center" style="height: calc(100vh - 96px);">
+		<div class="row justify-content-center align-items-center vertical-center">
 			<div class="col-7">
 				<h1 style="margin: 10px;">로그인</h1>
 				<form method="post">
@@ -75,8 +70,8 @@ table tr th {
 					</table>
 					</div>
 					<div style="text-align:center;">
-						<button class="btn btn-dark loginButton" id="loginButton">로그인</button>
-						<a class="btn btn-dark loginButton" id="signupButton" href="${signupUrl }">회원가입</a>
+						<button class="btn btn-dark" id="loginButton">로그인</button>
+						<a class="btn btn-dark" id="signupButton" href="${signupUrl }">회원가입</a>
 					</div>
 				</form>
 			</div>
