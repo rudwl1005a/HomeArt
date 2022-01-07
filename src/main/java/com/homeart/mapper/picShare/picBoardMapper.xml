@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.homeart.mapper.picShare.picBoardMapper">
+
+
+	<select id="getListPage" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.boardId, b.title, b.content, b.writer, b.inserted, b.updated
+		FROM picBoard b
+		JOIN Member m
+		ON b.writer = m.nickName
+		ORDER BY boardId DESC
+		LIMIT #{from}, #{items}
+	</select>
+	
+	<select id="getCountRows" resultType="int">
+		SELECT COUNT(*) FROM picBoard
+	</select>
+	
+	<select id="read" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.boardId, b.title, b.content, b.writer, b.inserted, b.updated
+		FROM picBoard b
+		JOIN Member m
+		ON b.writer = m.nickName
+		WHERE b.boardId = #{id}
+	</select>
+
+
+</mapper>

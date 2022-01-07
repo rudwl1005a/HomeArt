@@ -38,22 +38,21 @@
 	padding-right: 20px;
 }
 
-a:link {
+.memberSign:link {
 	color: black;
 	text-decoration-line: none;
 }
 
-a:visited {
+.memberSign:visited {
+	color: black;
+	text-decoration-line: none;
+}
+.memberSign:hover {
 	color: black;
 	text-decoration-line: none;
 }
 
-a:hover {
-	color: black;
-	text-decoration-line: none;
-}
-
-a:active {
+.memberSign:active {
 	color: black;
 	text-decoration-line: none;
 }
