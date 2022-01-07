@@ -31,7 +31,12 @@ p, li, a{
 	height:96px;
 	position:absolute;
 	bottom:0px;
-	text-align: right;
+	text-align: left;
 	border-top: 2px solid;
 	background-color: white;
+}
+
+.footer-container {
+	margin-top: 0px;
+	margin-bottom: 10px;
 }

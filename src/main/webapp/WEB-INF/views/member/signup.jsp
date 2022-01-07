@@ -37,6 +37,9 @@
 	margin-bottom: 10px;
 }
 
+.submitButton {
+	margin: 10px 0px 10px 5px;
+}
 
 </style>
 
@@ -61,7 +64,7 @@
 							<th>* 아이디</th>
 							<td>
 								<input type="text" class="form-control" id="input1" required name="member_id" value="${member.member_id }" />
-								<button class="btn btn-outline-primary" style="margin-left: 5px;" id="idCheck">중복 확인</button>
+								<button class="kd-btn btn btn-outline-primary" style="margin-left: 5px;" id="idCheck">중복 확인</button>
 								<div class='valid'>아이디를 입력하세요. (영문 소문자, 숫자만 입력 가능)</div>
 							</td>
 						</tr>
@@ -91,7 +94,7 @@
 							<th>* 닉네임</th>
 							<td>
 								<input type="text" class="form-control" id="input4" required name="nickName" value="${member.nickName }" />
-								<button class="btn btn-outline-primary" style="margin-left: 5px;" id="nickNameCheck">중복 확인</button>
+								<button class="kd-btn btn btn-outline-primary" style="margin-left: 5px;" id="nickNameCheck">중복 확인</button>
 								<div class="valid">닉네임을 입력하세요. (영문 대/소문자, 숫자를 모두 포함)</div>
 							</td>
 						</tr>
@@ -114,7 +117,7 @@
 							</td>
 						</tr>
 					</table>
-					<button class="btn btn-outline-primary" style="margin: 10px 0px 0px 5px;" id="submit">가입</button>
+					<button class="kd-btn btn btn-outline-primary submitButton" id="submit">가입</button>
 				</form>
 			</div>
 		</div>

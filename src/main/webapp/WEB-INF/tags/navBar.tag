@@ -27,7 +27,7 @@
 	margin-top: 10px;
 }
 
-.navbar {
+#topheader {
 	border-style: solid none;
 	border-width: 2px;
 	background-color: white;
@@ -92,21 +92,21 @@
 		<c:if test="${not empty sessionScope.loggedInMember }">	
 			<div style="padding-right: 20px;" id="loggedInNickName">${sessionScope.loggedInMember.nickName }님</div>
 		</c:if>
-		<div style="padding-top: 5px; padding-right: 80px">
+		<div style="padding-right: 80px">
 			<c:if test="${empty sessionScope.loggedInMember }">
 				<a class="memberSign" id="login" title="로그인" href="${loginUrl }">
-					<i class="far fa-user fa-2x" ></i>
+					로그인
 				</a>
 				<a class="memberSign" id="signUp" title="회원가입" href="${signupUrl }">
-					<i class="fas fa-user-plus fa-2x" ></i>
+					회원가입
 				</a>
 			</c:if>
 			<c:if test="${not empty sessionScope.loggedInMember }">	
 				<a class="memberSign" id="mypage" title="마이페이지" href="${mypageUrl }">
-					<i class="fas fa-user fa-2x" ></i>
+					마이페이지
 				</a>
 				<a class="memberSign" id="logout" title="로그아웃" href="${logoutUrl }">
-					<i class="fas fa-user-times fa-2x"></i>
+					로그아웃
 				</a>
 			</c:if>
 		</div>

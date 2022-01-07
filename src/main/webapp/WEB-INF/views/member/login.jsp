@@ -13,6 +13,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/member.css" rel="stylesheet" type="text/css">
+
+<style>
+#input1,#input2 {
+	width: 630px;
+	margin-bottom: 10px;
+}
+
+.loginButton {
+	margin: 10px;
+}
+</style>
 
 <title>로그인</title>
 </head>
@@ -23,17 +35,23 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>로그인</h1>
+				<h1 style="margin: 10px;">로그인</h1>
 				<form method="post">
-					<div class="form-group">
-						<label for="input1">아이디</label>
-						<input type="text" class="form-control" name="member_id" required/>
-					</div>
-					<div class="form-group">
-						<label for="input2">패스워드</label>
-						<input type="password" class="form-control" name="password" required />
-					</div>
-					<button class="btn btn-outline-primary">로그인</button>
+					<table>
+							<tr>
+								<th>아이디</th>
+								<td>
+									<input type="text" id="input1" class="form-control" name="member_id" required/>
+								</td>
+							</tr>
+							<tr>
+								<th>비밀번호</th>
+								<td>
+									<input type="password" id="input2" class="form-control" name="password" required />
+								</td>
+							</tr>
+					</table>
+					<button class="kd-btn btn btn-outline-primary loginButton" id="loginButton">로그인</button>
 				</form>
 			</div>
 		</div>
