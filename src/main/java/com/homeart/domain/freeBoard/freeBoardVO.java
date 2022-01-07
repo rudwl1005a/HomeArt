@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class freeBoardVO {
-	private Integer id;
+	private Integer board_id;
 	private String title;
 	private String content;
 	private String writer;
