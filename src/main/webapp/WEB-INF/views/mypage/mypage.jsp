@@ -31,6 +31,8 @@
 		<div class="row">
 			<div class="col">
 				<div class="row" style="margin-bottom: 60px; margin-top: 80px;">
+				<c:choose>
+				<c:when test="${sessionScope.loggedInMember.member_id == member.member_id }">
 					<img src="<spring:url value='/resources/img/cat1.jpg'/>" class="profilepic">
 					<div class="col" style="padding-left: 20px;">
 						<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
@@ -40,7 +42,22 @@
 						<div>국가 : ${sessionScope.loggedInMember.country }</div>
 						<div>이메일 : ${sessionScope.loggedInMember.email }</div>
 					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="col">
+						<div>이름 : ${member.member_name }</div>
+						<div>닉네임 : ${member.nickName }</div>
+					</div>
+				</c:otherwise>
+				</c:choose>
 				</div>
+				<c:forEach items="${list }" var="guestbook">
+					<div class="row">
+						<p>${guestbook.member_id }</p>
+						<p> / </p>
+						<p>${guestbook.content }</p>
+					</div>
+				</c:forEach>
 				<div class="row">
 					<h3>내 그림들</h3>
 					<a href="${mypicUrl }">더보기</a>
