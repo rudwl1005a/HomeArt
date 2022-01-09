@@ -17,10 +17,16 @@
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
+<c:url value="/mypage" var="mypageUrl"></c:url>
 <c:url value="/mypage/my_picture" var="mypicUrl"></c:url>
 <c:url value="/mypage/favorite_picture" var="favpicUrl"></c:url>
 <c:url value="/mypage/my_post" var="mypostUrl"></c:url>
 <c:url value="/mypage/my_reply" var="myreplyUrl"></c:url>
+<style>
+
+</style>
+
+
 
 <title>MyPage</title>
 </head>
@@ -29,90 +35,129 @@
 <div class="contents-wrap">
 	<div class="container">
 		<div class="row">
-			<div class="col">
-				<div class="row" style="margin-bottom: 60px; margin-top: 80px;">
-				<c:choose>
-				<c:when test="${sessionScope.loggedInMember.member_id == member.member_id }">
-					<img src="<spring:url value='/resources/img/cat1.jpg'/>" class="profilepic">
-					<div class="col" style="padding-left: 20px;">
-						<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
-						<div>아이디 : ${sessionScope.loggedInMember.member_id }</div>
-						<div>이름 : ${sessionScope.loggedInMember.member_name }</div>
-						<div>닉네임 : ${sessionScope.loggedInMember.nickName }</div>
-						<div>국가 : ${sessionScope.loggedInMember.country }</div>
-						<div>이메일 : ${sessionScope.loggedInMember.email }</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="col">
-						<div>이름 : ${member.member_name }</div>
-						<div>닉네임 : ${member.nickName }</div>
-					</div>
-				</c:otherwise>
-				</c:choose>
+			<div class="col">		
+				<!-- 회원 정보 -->
+				<div class="row memberInfo">
+					<c:choose>
+					<c:when test="${sessionScope.loggedInMember.member_id == member.member_id }">
+						<img src="<spring:url value='/resources/img/cat1.jpg'/>" class="profilepic">
+						<div class="col" style="padding-left: 20px;">
+							<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
+							<div>아이디 : ${sessionScope.loggedInMember.member_id }</div>
+							<div>이름 : ${sessionScope.loggedInMember.member_name }</div>
+							<div>닉네임 : ${sessionScope.loggedInMember.nickName }</div>
+							<div>국가 : ${sessionScope.loggedInMember.country }</div>
+							<div>이메일 : ${sessionScope.loggedInMember.email }</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="col">
+							<div>이름 : ${member.member_name }</div>
+							<div>닉네임 : ${member.nickName }</div>
+						</div>
+					</c:otherwise>
+					</c:choose>
 				</div>
+				
+				<!-- 방명록 -->
+				<h2> ${member.nickName }님의 방명록 </h2>
 				<c:forEach items="${list }" var="guestbook">
-					<div class="row">
-						<p>${guestbook.member_id }</p>
-						<p> / </p>
-						<p>${guestbook.content }</p>
+					<div class="row guestbook">
+						<img class="pic40" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">
+						<a class="guestbookContent" href="${mypageUrl }?member_id=${guestbook.member_id }">${guestbook.member_id }</a>
+						<p class="guestbookContent">　/　</p>
+						<p class="guestbookContent">${guestbook.content }</p>
+						<div style="margin: auto 0px auto 3px" class="guestbookButton">답글</div>
+					</div>
+					<div class="guestbookCommentWrap">
+						<c:forEach begin="1" end="3" var="num">
+							<div class="row guestbookComment">
+								<c:choose>
+									<c:when test="${num == 1 }">
+										<p>┖　</p>
+									</c:when>
+									<c:otherwise>
+										<p>　　</p>
+									</c:otherwise>				
+								</c:choose>
+								<a>댓글작성자${num }</a>
+								<p>　/　</p>
+								<p>댓글${num }</p>
+							</div>
+						</c:forEach>
+						<div class="input-group mb-3 guestbookCommentSubmit">
+						  <input type="text" class="form-control" placeholder="댓글을 작성해주세요. (최대 100자)" aria-label="댓글" aria-describedby="button-addon2">
+						  <div class="input-group-append">
+						    <button class="btn btn-outline-secondary" type="button" id="button-addon2">작성</button>
+						  </div>
+						</div>
 					</div>
 				</c:forEach>
-				<div class="row">
-					<h3>내 그림들</h3>
-					<a href="${mypicUrl }">더보기</a>
-				</div>
-				<ul>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-				</ul>
 				
-				<div class="row">
-					<h3>좋아요 누른 그림</h3>
-					<a  href="${favpicUrl }">더보기</a>
-				</div>
-				<ul>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-					<li>그림그림그림</li>
-				</ul>
-	
-				<div class="row">
-					<h3>내가 쓴 글</h3>
-					<a  href="${mypostUrl }">더보기</a>
-				</div>
-				<ul>
-					<li>글글글</li>
-					<li>글글글</li>
-					<li>글글글</li>
-					<li>글글글</li>
-					<li>글글글</li>
-					<li>글글글</li>
-				</ul>
-	
-				<div class="row">
-					<h3>내 댓글</h3>
-					<a  href="${myreplyUrl }">더보기</a>
-				</div>
-				<ul>
-					<li>댓글댓글댓글</li>
-					<li>댓글댓글댓글</li>
-					<li>댓글댓글댓글</li>
-					<li>댓글댓글댓글</li>
-					<li>댓글댓글댓글</li>
-					<li>댓글댓글댓글</li>
-					<li>댓글댓글댓글</li>
-				</ul>
-		
+				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
+					<div class="input-group mb-3 guestbookSubmit">
+					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="button-addon2">
+					  <div class="input-group-append">
+					    <button class="btn btn-outline-secondary" type="button" id="button-addon2">작성</button>
+					  </div>
+					</div>
+				</c:if>
+				
+				<!-- 내 활동 -->
+				<c:if test="${sessionScope.loggedInMember.member_id == member.member_id }">
+					<div class="activeBox">
+						<div class="row">
+							<h3>내 그림들</h3>
+							<a href="${mypicUrl }">더보기</a>
+						</div>
+						<div class="row">
+							<img class="pic100" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
+						</div>
+					</div>
+					<div class="activeBox">
+						<div class="row">
+							<h3>좋아요 누른 그림</h3>
+							<a  href="${favpicUrl }">더보기</a>
+						</div>
+						<div class="row">
+							<img class="pic100" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic100" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
+						</div>
+					</div>
+					<div class="activeBox">
+						<div class="row">
+							<h3>내가 쓴 글</h3>
+							<a  href="${mypostUrl }">더보기</a>
+						</div>
+						<ul>
+							<li>글글글1</li>
+							<li>글글글2</li>
+							<li>글글글3</li>
+							<li>글글글4</li>
+							<li>글글글5</li>
+						</ul>
+					</div>
+					<div class="activeBox">
+						<div class="row">
+							<h3>내 댓글</h3>
+							<a  href="${myreplyUrl }">더보기</a>
+						</div>
+						<ul>
+							<li>댓글댓글댓글1</li>
+							<li>댓글댓글댓글2</li>
+							<li>댓글댓글댓글3</li>
+							<li>댓글댓글댓글4</li>
+							<li>댓글댓글댓글5</li>
+						</ul>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -123,5 +168,21 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+<script>
+	/* 외않돼?ㅠㅠ is not a function
+	$(document).ready(function(){
+		$("#guestbookButton").click(function(){
+			$("#guestbookComment").slideToggle("slow");
+		});
+	});
+	*/
+	$(document).ready(function(){
+		$(".guestbookButton").click(function(){
+			var element = $(this).parent();
+			element.next().toggle("slow");
+		});
+	});
+</script>
 </body>
 </html>

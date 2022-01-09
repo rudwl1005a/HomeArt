@@ -94,7 +94,7 @@
 						<tr>
 							<td><%= i %></td>
 							<td style="color: red">공지사항<%= i %></td>
-							<td><a href="${mypageUrl }?member_id=id1">id1</a></td>
+							<td>작성자<%= i %></td>
 							<td>등록시간<%= i %></td>
 						</tr>
 						<%
