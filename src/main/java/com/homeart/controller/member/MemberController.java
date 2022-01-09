@@ -79,7 +79,7 @@ public class MemberController {
 		
 		// MemberVO가 null이 아니거나 패스워드가 같으면 로그인 성공
 		// 로그인 성공
-		rttr.addFlashAttribute("result", vo.getNickName() + "님이 로그인 했습니다.");
+		rttr.addFlashAttribute("result", vo.getNickName() + "님 반갑습니다.");
 		session.setAttribute("loggedInMember", vo);
 		return "redirect:/";
 		

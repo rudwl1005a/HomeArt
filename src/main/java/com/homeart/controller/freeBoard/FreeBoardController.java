@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.homeart.domain.freeBoard.PageInfoVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.service.freeBoard.freeBoardService;
 
@@ -24,18 +25,27 @@ public class FreeBoardController {
 	private freeBoardService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(@RequestParam(value="page", defaultValue = "1") Integer page, Model model) {
 		System.out.println("ControllerList");
+		
+		Integer numberPerPage = 10; //한페이지 row수
+		
 		//게시물 목록
-		List<freeBoardVO> list = service.getList();
-		Integer Count = service.getCount();
-		for(freeBoardVO lists : list) {
+		List<freeBoardVO> listAdmin = service.getList();
+		List<freeBoardVO> listMember = service.getList(page, numberPerPage);
+		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
+
+		for(freeBoardVO lists : listAdmin) {
 			System.out.println(lists);
 		}
-		System.out.println(Count);
-		model.addAttribute("list", list);
-		model.addAttribute("boardCount", Count);
+		for(freeBoardVO lists : listMember) {
+			System.out.println(lists);
+		}
+		System.out.println(pageInfo);
 		
+		model.addAttribute("listAdmin", listAdmin);
+		model.addAttribute("listMember", listMember);
+		model.addAttribute("pageInfo", pageInfo);
 	}
 	
 	//파라미터로 원하는 목록(값)출력

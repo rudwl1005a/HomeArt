@@ -5,11 +5,9 @@
 
 <style>
 .logo2 {
-	padding-left: 30px;
-	padding-top: 10px;
-	width: 120px;
+	width: 100px;
 	height: 80px;
-	vertical-align: center;
+	margin: auto;
 }
 
 .white-text {
