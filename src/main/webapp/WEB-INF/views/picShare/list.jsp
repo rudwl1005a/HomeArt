@@ -22,6 +22,10 @@
 body {
 	background-color: #222;
 }
+.card-img-top {
+	height: 15rem;
+	object-fit: cover;
+}
 </style>
 
 <script>
@@ -58,8 +62,8 @@ body {
 
 								<div class="col mb-5" style="float: left">
 									<div class="card h-100">
+									
 										<!-- dropdown -->
-
 										<div class="dropdown">
 											<button class="btn btn-outline-light dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 												<i class="fas fa-ellipsis-h"></i>
@@ -77,7 +81,7 @@ body {
 										<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
 
 										<!-- Product image-->
-										<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+										<img class="card-img-top" src="${staticUrl }/picShare/${board.board_id }/${board.file_name}" alt="${board.file_name }" style="width: 100%">
 										<!-- Product details-->
 										<div class="card-body p-4">
 											<div class="text-center">
@@ -128,7 +132,7 @@ body {
 										<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
 
 										<!-- Product image-->
-										<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+										<img class="card-img-top" src="${staticUrl }/picShare/${board.board_id }/${board.file_name}" alt="${board.file_name }" alt="${board.file_name }">
 										<!-- Product details-->
 										<div class="card-body p-4">
 											<div class="text-center">
@@ -168,18 +172,27 @@ body {
 					<c:forEach items="${list }" var="picBoard">
 						<div class="col mb-5">
 							<div class="card h-100">
+								
 								<!-- dropdown -->
-
 								<div class="dropdown">
 									<button class="btn btn-outline-light dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 										<i class="fas fa-ellipsis-h"></i>
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="modify?id=${picBoard.board_id }">modify(admin)</a>
-										<a class="dropdown-item" href="#">delete(admin)</a>
-										<a class="dropdown-item" href="#">share(admin, member)</a>
-										<a class="dropdown-item" href="#">go artist(member)</a>
-										<a class="dropdown-item" href="#">declaration(member)</a>
+										
+										<!-- c:if 태그로 로그인 한 멤버와 아닌 멤버의 메뉴 다르게 보이게끔 함.  -->
+										<c:if test="${sessionScope.loggedInMember.member_id eq picBoard.writer }">
+											<a class="dropdown-item" href="modify?id=${picBoard.board_id }">modify</a>
+											<a class="dropdown-item" href="#">delete</a>
+										</c:if>
+
+										<a class="dropdown-item" href="#">share</a>
+
+										<c:if test="${sessionScope.loggedInMember.member_id ne picBoard.writer}">
+											
+											<a class="dropdown-item" href="#">go artist</a>
+											<a class="dropdown-item" href="#">declaration</a>
+										</c:if>
 									</div>
 								</div>
 
@@ -187,7 +200,7 @@ body {
 								<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
 
 								<!-- Product image-->
-								<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+								<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }" style="width: 100%">
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">

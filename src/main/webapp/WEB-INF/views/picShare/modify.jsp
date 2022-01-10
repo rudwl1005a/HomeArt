@@ -38,16 +38,7 @@ body {
 
 						<!-- fileUpload(left) -->
 						<div class="form-group col-md-6">
-							<div class="input-group mb-3">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile02">
-									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-								</div>
-								<div class="input-group-append">
-									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-								</div>
-							</div>
-							<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600X700/dee2e6/6c757d.jsp" alt="...">
+							<img class="card-img-top mb-5 mb-md-0" src="${staticUrl }/picShare/${board.board_id }/${board.file_name}" alt="${board.file_name }">
 						</div>
 
 						<!-- artName, artist, artInfo (right) -->
@@ -63,13 +54,16 @@ body {
 								<textarea class="form-control" aria-label="With textarea" placeholder="artinfo" style="resize: none;" rows="10"></textarea>
 							</div>
 
+							<input type="hidden" name="boardId" value="${board.board_id }">
+							<input type="hidden" name="nickName" value="${board.nickName }">
+								
 						</div>
 					</div>
 				</div>
 				
 				<div class="container send-button" style="text-align: right;">
-					<button class="btn btn-outline-danger" type="submit">Delete</button>
-					<button class="btn btn-outline-light" type="submit">Modify</button>
+					<button id="removeSubmitButton" class="btn btn-outline-danger" type="submit">Delete</button>
+					<button id="modifySubmitButton" class="btn btn-outline-light" type="submit">Modify</button>
 				</div>
 			</form>
 
@@ -81,9 +75,23 @@ body {
 	</div>
 
 
-
-
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function () {
+			$("#removeSubmitButton").click(function (e) {
+				e.preventDefault();
+				$("#modifyForm").attr("action", "remove").submit();
+			});
+			
+			$("#modifySubmitButton").click(function (e) {
+				e.preventDefault();
+				$("#modifyForm").attr("action", "modify").submit();
+			});
+			
+		});
+	
+	</script>
 
 </body>
 </html>
