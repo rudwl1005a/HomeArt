@@ -3,6 +3,7 @@ package com.homeart.mapper.picShare;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.picShare.picBoardVO;
 
@@ -14,5 +15,7 @@ public interface picBoardMapper {
 	public picBoardVO read(Integer id);
 
 	public Integer getCountRows();
-	
+
+	public void insert(picBoardVO board);
+
 }

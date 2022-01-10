@@ -2,13 +2,12 @@ package com.homeart.mapper.freeBoard;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.homeart.domain.freeBoard.freeBoardVO;
 
 public interface freeBoardMapper {
 	
-	//데이터 목록 가져오기
-	public List<freeBoardVO> getList();
-
 	//새 게시물 입력
 	public int insert(freeBoardVO board);
 
@@ -21,7 +20,13 @@ public interface freeBoardMapper {
 	//게시물 삭제
 	public int delete(Integer id);
 
-	public Integer boardCount();
+	//데이터 목록 & 페이지 정보 가져오기
+	public List<freeBoardVO> getList(@Param("from") Integer from, @Param("items") Integer numberPerPage);
+
+	//총 게시물 수 가져오기
+	public Integer countBoard();
+
+	public List<freeBoardVO> getAdminList();
 
 
 }

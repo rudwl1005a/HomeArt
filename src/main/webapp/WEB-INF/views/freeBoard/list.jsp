@@ -15,7 +15,15 @@
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/freeBoard/list.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script>
+$(document).ready(function() {
+	if (history.state == null) {
+		$("#modal1").modal('show');
+		//modal이 여러번 뜨는 것을 history로 방지.
+		history.replaceState({}, null);
+	}
+});
+</script>
 <title>HomeArt 자유게시판</title>
 </head>
 <body>
@@ -26,59 +34,66 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 class="text-center">자유게시판</h1>
-
-				<div class="table">
-					<table class="table table-hover">
+				<h2 class="text-center">자유게시판</h2>
+				
+				<!-- 관리자일때 게시판목록 -->
+				<div class="table-admin">
+					<table class="table table-hover" style="margin-bottom: 0;">
 						<thead>
 							<tr>
-								<th>No.</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-								<th>조회수</th>
+								<th class="col-2">No.</th>
+								<th class="col-4">제목</th>
+								<th class="col-2">작성자</th>
+								<th class="col-2">작성일</th>
+								<th class="col-2">조회수</th>
 							</tr>
 						</thead>
 						
-							<tbody class="table-active">
-								<!-- 관리자일때 게시판목록 -->
-								<c:forEach items="${list }" var="freeBoard">
-									<c:if test="${freeBoard.isAdmin == 1}">
-									<tr>
-										<td><i class="far fa-flag" style="color: red;"></i></td>
-										<td>
-											<a style="color: red;" href="get?id=${freeBoard.board_id }">
-												<c:out value="${freeBoard.title }"></c:out>
-											</a>
-										</td>
-										<td>${freeBoard.nickName }</td>
-										<td>${freeBoard.boardInserted }</td>
-										<td>${freeBoard.viewCount }</td>
-									</tr>
-									</c:if>
-								</c:forEach>
-							</tbody>
-							<tbody>
-							<!-- 일반회원 게시판 목록 -->
-								<c:forEach items="${list }" var="freeBoard" varStatus="status">
-									<c:if test="${freeBoard.isAdmin == 0}">
-									<tr>
-										<td>${boardCount - status.index}</td>
-										<td>
-											<a style="color: black;" href="get?id=${freeBoard.board_id }">
-												<c:out value="${freeBoard.title }"></c:out>
-											</a>
-										</td>
-										<td>${freeBoard.nickName }</td>
-										<td>${freeBoard.boardInserted }</td>
-										<td>${freeBoard.viewCount }</td>
-									</tr>
+						<tbody class="table-active">
+							<c:forEach items="${listAdmin }" var="freeBoard">
+								<c:if test="${freeBoard.isAdmin == 1 && pageInfo.currentPage == 1 }">
+								<tr>
+									<td><i class="far fa-flag" style="color: red;"></i></td>
+									<td>
+										<a style="color: red;" href="get?id=${freeBoard.board_id }">
+											<c:out value="${freeBoard.title }"></c:out>
+										</a>
+									</td>
+									<td>${freeBoard.nickName }</td>
+									<td>${freeBoard.boardInserted }</td>
+									<td>${freeBoard.viewCount }</td>
+								</tr>
 								</c:if>
-								</c:forEach>
-							</tbody>
+							</c:forEach>
+						</tbody>
 					</table>
 				</div>
-
+				
+				<!-- 일반회원 게시판 목록 -->
+				<div class="table-member">
+					<table class="table table-hover">
+						<tbody>
+							 <c:set var="num" value="${pageInfo.countBoard - ((pageInfo.currentPage-1)*10) }"/>
+							 <c:forEach items="${listMember }" var="freeBoard" varStatus="status">
+								<c:if test="${freeBoard.isAdmin == 0}">
+								<tr>
+									<td class="col-2">${num }</td>
+									<td class="col-4">
+										<a style="color: black;" href="get?id=${freeBoard.board_id }">
+											<c:out value="${freeBoard.title }"></c:out>
+										</a>
+									</td>
+									<td class="col-2">${freeBoard.nickName }</td>
+									<td class="col-2">${freeBoard.boardInserted }</td>
+									<td class="col-2">${freeBoard.viewCount }</td>
+								</tr>
+							</c:if>
+							<c:set var="num" value="${num-1 }"></c:set>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				
 				<nav class="navbar">
 					<div class="container-fluid ">
 						<!-- 버튼 - 글쓰기/작성 -->
@@ -95,48 +110,63 @@
 				
 				<!-- pagination -->
 				<nav aria-label="Page navigation">
-						<ul class="pagination p1 justify-content-center">
-							<c:if test="${pageInfo.hasPrevButton }">
-								<c:url value="/freeBoard/list" var="pageLink">
-									<c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
-								</c:url>
-								<li class="page-item disabled">
-									<a class="page-link" href="${pageLink }" aria-label="Previous">
-									<span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
-									</a>
-								</li>
-							</c:if>
+					<ul class="pagination p1 justify-content-center">
+						<c:if test="${pageInfo.hasPrevButton }">
+					  		<c:url value="/freeBoard/list" var="pageLink">
+					    		<c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
+					    	</c:url>
+						    <li class="page-item">
+						      <a href="${pageLink }" aria-label="Previous">
+						        <i aria-hidden="true"class="fas fa-chevron-left"></i>
+						      </a>
+						    </li>
+					  	</c:if>
+					  	
+					  	<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
+					    	<c:url value="/freeBoard/list" var="pageLink">
+					    		<c:param name="page" value="${pageNumber }"></c:param>
+					    	</c:url>
+						    <li class="page-item">
+						    	<a class="${pageInfo.currentPage == pageNumber ? 'active' : '' }" href="${pageLink }">${pageNumber }</a>
+						    </li>
+					    </c:forEach>
 							
-							<!-- pagination - page이동버튼(중간) -->
-							<%-- <c:forEach begin="" end="" var="">
-								<c:url value="" var="">
-									<c:param name="page" value=""></c:param>
-								</c:url>
-								<li><a href=""></a></li>
-							</c:forEach> --%>
-							
-							<li class="page-item"><a class="is-active" href="#">1</a></li>
-							<li class="page-item"><a href="#">2</a></li>
-							<li class="page-item"><a href="#">3</a></li>
-							<li class="page-item"><a href="#">4</a></li>
-							<li class="page-item"><a href="#">5</a></li>
-							
-							<c:if test="${pageInfo.hasNextButton }">
-								<c:url value="/freeBoard/list" var="pageLink">
-									<c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
-								</c:url>							
-								<li class="page-item">
-									<a class="page-link" href="${pageLink}" aria-label="Next">
-									<span aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-									</a>
-								</li>
-							</c:if>
-						</ul>
+						<c:if test="${pageInfo.hasNextButton }">
+					    	<c:url value="/freeBoard/list" var="pageLink">
+					    		<c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
+					    	</c:url>
+						    <li class="page-item">
+						      <a href="${pageLink }" aria-label="Next">
+						        <i aria-hidden="true" class="fas fa-chevron-right"></i>
+						      </a>
+						    </li>
+					    </c:if>
+					</ul>
 				</nav>
 				</div>
 			</div>
 		</div>
-
+<!-- modal -->
+	<c:if test="${not empty result }">
+		<div class="modal" tabindex="-1" id="modal1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">처리 결과</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>${result }</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
 	<b:bottomInfo></b:bottomInfo>
 </div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>

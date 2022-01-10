@@ -22,7 +22,7 @@
 }
 
 #loginButton, #signupButton {
-	margin: 10px 7px 0px 0px;
+	margin: 10px 7px 10px 0px;
 	width: 150px;
 }
 
@@ -38,11 +38,6 @@ table tr th {
 	border-width: 1px;
 }
 
-.vertical-center {
-
-
-}
-
 </style>
 
 <c:url value="/member/signup" var="signupUrl"></c:url>
@@ -51,10 +46,8 @@ table tr th {
 </head>
 <body>
 <b:navBar></b:navBar>
-
-<div class="contents-wrap">
 	<div class="container">
-		<div class="row justify-content-center align-items-center" style="height: calc(100vh - 96px);">
+		<div class="row justify-content-center align-items-center vertical-center">
 			<div class="col-7">
 				<h1 style="margin: 10px;">로그인</h1>
 				<form method="post">
@@ -75,15 +68,13 @@ table tr th {
 					</table>
 					</div>
 					<div style="text-align:center;">
-						<button class="btn btn-dark loginButton" id="loginButton">로그인</button>
-						<a class="btn btn-dark loginButton" id="signupButton" href="${signupUrl }">회원가입</a>
+						<button class="btn btn-dark" id="loginButton">로그인</button>
+						<a class="btn btn-dark" id="signupButton" href="${signupUrl }">회원가입</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<b:bottomInfo></b:bottomInfo>	
-</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>

@@ -54,3 +54,24 @@ SELECT
 		WHERE b.board_id = 1;
 ALTER TABLE Member MODIFY COLUMN isAdmin INT(1) DEFAULT 0 NOT NULL;
 
+SELECT
+			b.board_id,
+			b.title,
+			b.writer,
+			b.inserted,
+			b.updated,
+            b.viewCount,
+            b.isPublic,
+			m.nickName,
+			m.isAdmin
+		FROM
+			freeBoard b 
+				JOIN 
+			Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 1
+		ORDER BY
+			board_id DESC;
+            
+DELETE FROM freeBoard WHERE board_id = 63;
+

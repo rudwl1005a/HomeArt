@@ -5,15 +5,18 @@
 
 <style>
 .logo2 {
-	padding-left: 30px;
-	padding-top: 10px;
-	width: 120px;
+	width: 100px;
 	height: 80px;
-	vertical-align: center;
+	margin: auto;
 }
 
 .white-text {
 	text-color: #FFFFFF;
+}
+
+.githubAddress {
+	color: black;
+	text-decoration-line: none
 }
 
 </style>
@@ -25,7 +28,7 @@
 			<div class="white-text">
 				<div> <i class="fas fa-user-circle"></i> 민경대, 강성빈, 김원표, 김재헌, 정시윤 </div>
 				<div> <i class="fas fa-info-circle"></i> INFP*3 ENFP ISFP / A1O4 / M3W2 </div>
-				<a href="https://github.com/rudwl1005a/HomeArt" style="color: black; text-decoration-line: none"> <i class="fab fa-github"></i> https://github.com/rudwl1005a/HomeArt </a>
+				<a href="https://github.com/rudwl1005a/HomeArt" class="githubAddress"> <i class="fab fa-github"></i> https://github.com/rudwl1005a/HomeArt </a>
 				<div> COPYRIGHT HOMEART 2022 ALL RIGHTS RESERVED </div>
 			</div>
 		</div>	

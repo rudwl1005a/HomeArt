@@ -15,7 +15,7 @@ CREATE TABLE freeBoard(
 SELECT * FROM freeBoard ORDER BY inserted DESC;
 SELECT * FROM Member ORDER BY inserted DESC;
 
-INSERT INTO freeBoard(title, content, writer, isPublic) VALUES('test22','test2','rrr',1);
+INSERT INTO freeBoard(title, content, writer, isPublic) VALUES('test30','test30','rrr',1);
 
 SELECT
 			b.board_id,

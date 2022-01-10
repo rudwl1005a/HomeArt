@@ -23,12 +23,15 @@
 <script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 	$(document).ready(function() {
+		//textarea크기 스크롤 없이 글자에따른 크기 자동 조정
 	  $('textarea').keyup(function(e){
 		$(this).css('height', 'auto');
 		$(this).height(this.scrollHeight);
 	  });
 	  
 	  $('#summernote').summernote({
+		  codeviewFilter: true,
+		  codeviewIframeFilter: true,
 		  height: 390,                 // set editor height
 		  minHeight: 370,             // set minimum height of editor
 		  maxHeight: null,             // set maximum height of editor
@@ -82,6 +85,7 @@
 					</div>
 					<div class="float-right">
 						<button class="btn btn-dark" type="button" onclick="location.href='${pageContext.request.contextPath}/freeBoard/list'">목록</button>
+						<input type="hidden" name="writer" value="${sessionScope.loggedInMember.member_id }">
 						<button class="btn btn-dark" type="submit">등록</button>
 					</div>
 				</form>

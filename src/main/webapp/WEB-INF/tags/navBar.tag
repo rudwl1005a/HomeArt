@@ -102,7 +102,7 @@
 				</a>
 			</c:if>
 			<c:if test="${not empty sessionScope.loggedInMember }">	
-				<a class="memberSign" id="mypage" title="마이페이지" href="${mypageUrl }">
+				<a class="memberSign" id="mypage" title="마이페이지" href="${mypageUrl }?member_id=${sessionScope.loggedInMember.member_id}">
 					마이페이지
 				</a>
 				<a class="memberSign" id="logout" title="로그아웃" href="${logoutUrl }">
