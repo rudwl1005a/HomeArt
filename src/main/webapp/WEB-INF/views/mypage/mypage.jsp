@@ -33,9 +33,9 @@
 <body>
 <b:navBar></b:navBar>
 <div class="contents-wrap">
-	<div class="container">
+	<div class="container" style="max-width: 900px;">
 		<div class="row">
-			<div class="col">		
+			<div class="col">
 				<!-- 회원 정보 -->
 				<div class="row memberInfo">
 					<c:choose>
@@ -65,25 +65,31 @@
 					<div class="row guestbook">
 						<img class="pic40" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">
 						<a class="guestbookContent" href="${mypageUrl }?member_id=${guestbook.member_id }">${guestbook.member_id }</a>
-						<p class="guestbookContent">　/　</p>
+						<p class="guestbookContent">　　</p>
 						<p class="guestbookContent">${guestbook.content }</p>
-						<div style="margin: auto 0px auto 3px" class="guestbookButton">답글</div>
+						<div class="guestbookButton ml-auto">
+							<span class="guestbookModify">수정</span>
+							<span class="guestbookDelete">삭제</span>
+							<span class="guestbookReply">답글</span>
+						</div>
 					</div>
 					<div class="guestbookCommentWrap">
-						<c:forEach begin="1" end="3" var="num">
-							<div class="row guestbookComment">
-								<c:choose>
-									<c:when test="${num == 1 }">
-										<p>┖　</p>
-									</c:when>
-									<c:otherwise>
-										<p>　　</p>
-									</c:otherwise>				
-								</c:choose>
-								<a>댓글작성자${num }</a>
-								<p>　/　</p>
-								<p>댓글${num }</p>
-							</div>
+						<c:forEach items="${commentList }" var="guestbookComment">
+							<c:if test="${guestbookComment.key == guestbook.guestbook_id}">
+								<div class="col">
+									<c:forEach items="${guestbookComment.value }" var="comment">
+										<div class="row guestbookComment">
+											<a class="guestbookCommentContent" href="${mypageUrl }?member_id=${comment.member_id }">${comment.member_id }</a>
+											<p class="guestbookCommentContent">　　</p>
+											<p class="guestbookCommentContent">${comment.content }</p>
+											<div class="guestbookButton ml-auto">
+												<span class="guestbookCommentModify">수정</span>
+												<span class="guestbookCommentDelete">삭제</span>
+											</div>						
+										</div>
+									</c:forEach>
+								</div>
+							</c:if>
 						</c:forEach>
 						<div class="input-group mb-3 guestbookCommentSubmit">
 						  <input type="text" class="form-control" placeholder="댓글을 작성해주세요. (최대 100자)" aria-label="댓글" aria-describedby="button-addon2">
@@ -170,10 +176,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 <script>
+	/* 답글 토글 */
 	$(document).ready(function(){
-		$(".guestbookButton").click(function(){
+		$(".guestbookReply").click(function(){
 			var element = $(this).parent();
-			element.next().slideToggle("fast");
+			var element2 = element.parent();
+			element2.next().slideToggle("fast");
 		});
 	});
 </script>

@@ -56,4 +56,8 @@ public class GuestbookService {
 	public List<GuestbookCommentVO> getListComment(String guestbook_id) {
 		return mapper.listComment(guestbook_id);
 	}
+	
+	public List<GuestbookCommentVO> getlistCommentByGuestbookId(String mypage_owner, String guestbook_id){
+		return mapper.listCommentByGuestbookId(mypage_owner, guestbook_id);
+	}
 }

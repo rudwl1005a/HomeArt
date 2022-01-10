@@ -38,5 +38,10 @@
  	WHERE guestbook_comment_id = #{guestbook_comment_id}
  	</delete>
  	
- 	
+ 	<select id="listCommentByGuestbookId" resultType="com.homeart.domain.member.GuestbookCommentVO">
+ 	SELECT c.guestbook_comment_id, c.member_id, c.guestbook_id, c.content
+	FROM mypage_guestbook_comment c JOIN mypage_guestbook g ON c.guestbook_id = g.guestbook_id
+	WHERE c.guestbook_id = #{guestbook_id}
+	ORDER BY c.guestbook_comment_id;
+ 	</select>
  </mapper>
