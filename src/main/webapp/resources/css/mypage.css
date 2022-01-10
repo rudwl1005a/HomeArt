@@ -66,8 +66,12 @@
 }
 
 .guestbookComment{
-	height: 30px;
-	margin: 3px 0px 0px 40px;
+	margin: 5px 0px 0px 60px;
+}
+
+.guestbookCommentContent{
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .guestbookCommentWrap {
@@ -87,5 +91,5 @@
 .guestbookCommentSubmit {
 	width: 400px;
 	height: 30px;
-	margin: 3px 10px 0px 30px;
+	margin: 3px 10px 0px 60px;
 }

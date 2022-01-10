@@ -70,20 +70,18 @@
 						<div style="margin: auto 0px auto 3px" class="guestbookButton">답글</div>
 					</div>
 					<div class="guestbookCommentWrap">
-						<c:forEach begin="1" end="3" var="num">
-							<div class="row guestbookComment">
-								<c:choose>
-									<c:when test="${num == 1 }">
-										<p>┖　</p>
-									</c:when>
-									<c:otherwise>
-										<p>　　</p>
-									</c:otherwise>				
-								</c:choose>
-								<a>댓글작성자${num }</a>
-								<p>　/　</p>
-								<p>댓글${num }</p>
-							</div>
+						<c:forEach items="${commentList }" var="guestbookComment">
+							<c:if test="${guestbookComment.key == guestbook.guestbook_id}">
+								<div class="col">
+									<c:forEach items="${guestbookComment.value }" var="comment">
+										<div class="row guestbookComment">
+											<a class="guestbookCommentContent" href="${mypageUrl }?member_id=${comment.member_id }">${comment.member_id }</a>
+											<p class="guestbookCommentContent">　/　</p>
+											<p class="guestbookCommentContent">${comment.content }</p>								
+										</div>
+									</c:forEach>
+								</div>
+							</c:if>
 						</c:forEach>
 						<div class="input-group mb-3 guestbookCommentSubmit">
 						  <input type="text" class="form-control" placeholder="댓글을 작성해주세요. (최대 100자)" aria-label="댓글" aria-describedby="button-addon2">
