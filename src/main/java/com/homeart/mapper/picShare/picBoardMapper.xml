@@ -7,11 +7,11 @@
 
 
 	<select id="getListPage" resultType="com.homeart.domain.picShare.picBoardVO">
-		SELECT b.boardId, b.title, b.content, b.writer, b.inserted, b.updated
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, m.nickName
 		FROM picBoard b
 		JOIN Member m
-		ON b.writer = m.nickName
-		ORDER BY boardId DESC
+		ON b.writer = m.member_id
+		ORDER BY board_id DESC
 		LIMIT #{from}, #{items}
 	</select>
 	
@@ -20,12 +20,20 @@
 	</select>
 	
 	<select id="read" resultType="com.homeart.domain.picShare.picBoardVO">
-		SELECT b.boardId, b.title, b.content, b.writer, b.inserted, b.updated
+		SELECT b.board_id, b.title, b.content, b.writer,  b.file_name, b.inserted, b.updated, m.nickName
 		FROM picBoard b
 		JOIN Member m
-		ON b.writer = m.nickName
-		WHERE b.boardId = #{id}
+		ON b.writer = m.member_id
+		WHERE b.board_id = #{id}
 	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO picBoard (title, content, writer, file_name)
+		VALUES (#{title}, #{content}, #{writer}, #{file_name})
+	</insert>
+	
+	
+	
 
 
 </mapper>

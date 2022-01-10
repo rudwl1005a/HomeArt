@@ -7,13 +7,16 @@ import lombok.Data;
 @Data
 public class picBoardVO {
 
-	private Integer boardId;
+	private Integer board_id;
 	
 	private String title;
 	private String content;
 	private String writer;
 	
-	private String fileName;
+	// Member DB의 nickName
+	private String nickName;
+	
+	private String file_name;
 	
 	private Integer viewCount;
 	private Integer likeCount;
