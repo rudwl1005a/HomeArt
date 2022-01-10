@@ -97,3 +97,6 @@ td{
   	overflow: hidden;
 	text-overflow: ellipsis;
 }
+ .col-4{
+	max-width: 320px;
+}
