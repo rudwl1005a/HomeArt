@@ -77,7 +77,4 @@ public class freeBoardService {
 		
 		return pageInfo;
 	}
-
-
-	
 }

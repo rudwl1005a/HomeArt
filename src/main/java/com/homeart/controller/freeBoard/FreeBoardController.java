@@ -49,7 +49,7 @@ public class FreeBoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(freeBoardVO board, RedirectAttributes rttr) {
+	public String modify(freeBoardVO board) {
 		
 		System.out.println(board);
 		
@@ -64,14 +64,14 @@ public class FreeBoardController {
 	
 	//테이블에 등록
 	@PostMapping("/post")
-	public String post(freeBoardVO board, RedirectAttributes rttr) {
+	public String post(freeBoardVO board) {
 		service.post(board);
 		return "redirect:/freeBoard/list";
 	}
 	
 	//컬럼 삭제
 	@PostMapping("/remove")
-	public String remove(@RequestParam("id") Integer id, RedirectAttributes rttr) {
+	public String remove(@RequestParam("id") Integer id) {
 		service.remove(id);
 		return "redirect:/freeBoard/list";
 	}
