@@ -44,7 +44,7 @@ $(document).ready(function() {
 					<input type="hidden" name="id" value="${freeBoard.board_id }">
 					<div class="get-group">
 						<!-- 글제목 -->
-						<textarea class="get-title" name="title" readonly>${freeBoard.title }</textarea>
+						<h2>${freeBoard.title }</h2>
 						<div class="title-sub">
 							<span>by ${freeBoard.nickName }</span>
 							<span class="tsub">${freeBoard.boardInserted }</span>

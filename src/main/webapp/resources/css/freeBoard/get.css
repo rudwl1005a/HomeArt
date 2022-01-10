@@ -27,6 +27,14 @@
 	line-height: 15px;
 	margin: 30px auto 20px;
 }
+
+.get-group h2{
+	text-align: center;
+	max-width: 900px;
+	word-wrap: break-word;
+	margin: auto;
+}
+
 .get-group2{
 	padding: 0 20px 20px;
 	border-bottom: 1px solid rgba(0, 0, 0, .05);
@@ -37,6 +45,7 @@
 }
 
 .title-sub{
+	margin-top: 10px;
 	text-align: right;
 	letter-spacing: -.4px;
 	padding-bottom: 15px;

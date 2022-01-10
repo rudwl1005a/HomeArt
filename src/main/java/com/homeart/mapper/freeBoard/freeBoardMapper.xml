@@ -85,7 +85,6 @@
 		SET
 			title = #{title},
 			content = #{content},
-			writer = #{writer},
 			isPublic = #{isPublic},
 			updated = NOW()
 		WHERE

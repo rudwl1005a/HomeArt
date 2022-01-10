@@ -15,15 +15,6 @@
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/freeBoard/list.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-$(document).ready(function() {
-	if (history.state == null) {
-		$("#modal1").modal('show');
-		//modal이 여러번 뜨는 것을 history로 방지.
-		history.replaceState({}, null);
-	}
-});
-</script>
 <title>HomeArt 자유게시판</title>
 </head>
 <body>
@@ -54,7 +45,7 @@ $(document).ready(function() {
 								<c:if test="${freeBoard.isAdmin == 1 && pageInfo.currentPage == 1 }">
 								<tr>
 									<td><i class="far fa-flag" style="color: red;"></i></td>
-									<td>
+									<td style="color: red; min-width: 320px;">
 										<a style="color: red;" href="get?id=${freeBoard.board_id }">
 											<c:out value="${freeBoard.title }"></c:out>
 										</a>
@@ -78,7 +69,7 @@ $(document).ready(function() {
 								<c:if test="${freeBoard.isAdmin == 0}">
 								<tr>
 									<td class="col-2">${num }</td>
-									<td class="col-4">
+									<td class="col-4" style="min-width: 320px;">
 										<a style="color: black;" href="get?id=${freeBoard.board_id }">
 											<c:out value="${freeBoard.title }"></c:out>
 										</a>
