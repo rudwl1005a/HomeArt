@@ -12,8 +12,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-<link href="${pageContext.request.contextPath}/resources/css/freeBoard/list.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/freeBoard/list.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <title>HomeArt 자유게시판</title>
@@ -60,13 +60,10 @@
 							</tbody>
 							<tbody>
 							<!-- 일반회원 게시판 목록 -->
-								<c:forEach items="${list }" var="freeBoard">
+								<c:forEach items="${list }" var="freeBoard" varStatus="status">
 									<c:if test="${freeBoard.isAdmin == 0}">
 									<tr>
-										<td>${freeBoard.board_id }</td>
-										<%-- <c:forEach begin="1" end="${freeBoard.boardCount }" var="boardCount">
-											<td>${boardCount }</td>
-										</c:forEach> --%>
+										<td>${boardCount - status.index}</td>
 										<td>
 											<a style="color: black;" href="get?id=${freeBoard.board_id }">
 												<c:out value="${freeBoard.title }"></c:out>

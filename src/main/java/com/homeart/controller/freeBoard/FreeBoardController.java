@@ -28,10 +28,13 @@ public class FreeBoardController {
 		System.out.println("ControllerList");
 		//게시물 목록
 		List<freeBoardVO> list = service.getList();
+		Integer Count = service.getCount();
 		for(freeBoardVO lists : list) {
 			System.out.println(lists);
 		}
+		System.out.println(Count);
 		model.addAttribute("list", list);
+		model.addAttribute("boardCount", Count);
 		
 	}
 	

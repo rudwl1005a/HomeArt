@@ -43,6 +43,10 @@ public class freeBoardService {
 		return mapper.delete(id) == 1;
 	}
 
+	public Integer getCount() {
+		return mapper.boardCount();
+	}
+
 	//list 여러개 받아오기
 	
 }
