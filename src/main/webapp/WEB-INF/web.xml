@@ -44,5 +44,6 @@
   <filter-mapping>
     <filter-name>CheckLoginFilter</filter-name>
     <url-pattern>/freeBoard/post</url-pattern>
+    <url-pattern>/picShare/register</url-pattern>
   </filter-mapping>
 </web-app>
