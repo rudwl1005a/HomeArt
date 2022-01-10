@@ -4,104 +4,77 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.homeart.mapper.masterpiece.MasterpieceMapper">
-	<select id="selectByMemberId" resultType="int">
-	SELECT id FROM Masterpiece WHERE writer = #{memberId}
+	<!-- member_id 작성자로 가져오기 -->
+	<select id="selectByMemberId" resultType="String">
+	SELECT member_id FROM masterpiece WHERE member_id = #{member_id}
 	</select>
-
-	<delete id="deleteByMemberId">
-	DELETE FROM Masterpiece WHERE writer = #{memberId}
-	</delete>
-
-
+	<!-- member_id 작성자로 지우기 -->
+	<select id="deleteByMemberId" resultType="String">
+	DELETE FROM masterpiece WHERE member_id = #{member_id}
+	</select>
+	<!-- 전체 갯수 세는거 -->
 	<select id="getCountRows" resultType="int">
-	SELECT COUNT(*) FROM Masterpiece
+	SELECT COUNT(*) FROM masterpiece
 	</select>
-
+	
 	<select id="getListPage" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
 SELECT 
-    p.id,
+    p.masterpiece_id,
     p.title,
     p.content,
-    p.writer,
-    p.inserted,
-    p.updated,
+    p.member_id,
     m.nickName,
-    f.fileName as newFileName,
-    COUNT(d.id) discussionCount,
-    (SELECT EXISTS (SELECT * FROM File WHERE p.masterpieceId = p.id)) hasFile
+    p.file_name
 FROM
-    Masterpiece p
+    masterpiece p
         JOIN
-    Member m ON p.writer = m.id
-    	LEFT JOIN
-    Discussion d ON p.id = d.masterpieceId
-    	LEFT JOIN
-    File f ON p.id = f.masterpieceId
-GROUP BY p.id
-ORDER BY p.id DESC
+    Member m ON p.member_id = m.member_id
+ORDER BY p.member_id DESC
 LIMIT #{from}, #{items}
 	</select>
 
 	<select id="getList" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
 SELECT 
-    p.id,
+    p.masterpiece_id,
     p.title,
     p.content,
-    p.writer,
-    p.inserted,
-    p.updated,
-    m.nickName
+    p.member_id,
+    m.nickName,
+    p.file_name
 FROM
-    Masterpiece p
+    masterpiece p
         JOIN
-    Member m ON p.writer = m.id
-ORDER BY id DESC
+    Member m ON p.member_id = m.member_id
+ORDER BY p.member_id DESC
 	</select>
+		
 	<select id="read" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
 SELECT 
-    p.id,
+    p.masterpiece_id,
     p.title,
     p.content,
-    p.writer,
-    p.inserted,
-    p.updated,
+    p.member_id,
     m.nickName
 FROM
-    Masterpiece p
+    masterpiece p
         JOIN
-    Member m ON p.writer = m.id
+    Member m ON p.member_id = m.member_id
 WHERE
-	p.id = #{id}
+	p.masterpiece_id = #{id}
 	</select>
-	
-	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+ 
+	<insert id="insert" useGeneratedKeys="true" keyColumn="masterpiece_id" keyProperty="masterpiece_id">
 	INSERT INTO
-		Masterpiece (title, content, writer, country, artist, age, color, masterpiece)
+		masterpiece (title, content, country, artist, age, file_name, member_id)
 	VALUES
-		(#{title}, #{content}, #{writer}, #{country}, #{artist}, #{age}, #{color}, #{masterpiece})
-		
+		(#{title}, #{content}, #{country}, #{artist}, #{age}, #{file_name}, #{member_id})
 	</insert>
 	
-	<update id="update">
-	UPDATE
-		Masterpiece
-	SET
-		title = #{title},
-		content = #{content},
-		writer = #{writer},
-		country = #{country},
-		artist = #{artist},
-		age = #{age},
-		color = #{color},
-		masterpiece = #{masterpiece},
-		updated = NOW()
-	WHERE
-		id = #{id}
-	</update>
-	
 	<delete id="delete">
-	DELETE FROM Masterpiece WHERE id = #{id}
+	DELETE FROM masterpiece WHERE masterpiece_id = #{masterpiece_id}
 	</delete>
+
+
 </mapper>
 
 

@@ -106,7 +106,6 @@ body {
 					</li>
 					<li class="col">ARTIST</li>
 					<li class="col">AGE</li>
-					<li class="col">COLOR</li>
 				</div>
 			</ul>
 

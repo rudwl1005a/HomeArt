@@ -5,14 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.homeart.domain.masterpiece.MasterpieceVO;
 
-
 public interface MasterpieceMapper {
 	
 	// 모든 게시물 조회
 	public List<MasterpieceVO> getList(); 
 	
 	// 새 게시물 입력 & get generated key
-	public int insert(MasterpieceVO board); 
+	public int insert(MasterpieceVO masterpiece_id); 
 	
 	// id(pk)로 하나의 게시물 조회
 	public MasterpieceVO read(Integer id); 
@@ -31,6 +30,7 @@ public interface MasterpieceMapper {
 
 	public Integer[] selectByMemberId(String memberId);
 	
+	int fileinsert(String masterpiece_id, String file_name);
 }
 
 

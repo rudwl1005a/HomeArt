@@ -34,13 +34,13 @@ body {
 				<h1>명화 추천</h1>
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="row align-items-center">
+					<form method="post" enctype="multipart/form-data">
 					<div class="image-container">
 						<img style="width: 500px;" id="preview-image"
 							src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
-						<input style="display: block;" type="file" id="input-image">
+						<input style="display: block;" type="file" id="input-image" name="file">
 					</div>
 					<!-- form>.form-group*3>label[for=input$]+input.form-control#input$ -->
-					<form method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="input1">작품명</label> <input type="text"
 								class="form-control" id="input1" name="title">
@@ -58,16 +58,21 @@ body {
 								class="form-control" id="input4" name="age">
 						</div>
 						<div class="form-group">
-							<label for="input5">색채</label> <input type="text"
-								class="form-control" id="input5" name="color">
+							<label for="input5">작품 설명</label> <input type="text"
+								class="form-control" id="input5" name="content">
 						</div>
+						<div class="form-group">
+							<label for="input6">id</label> <input type="text"
+								class="form-control" id="input6" name="member_id">
+						</div>
+						
 						<!-- .form-group>label[for=input4]+input[type=file].form-control-file#input4[name=files] -->
 						<!-- <div class="form-group">
           				<label for="input6">이미지 파일</label>
          			 	<input type="file" class="form-control-file" id="input4" name="files" accept="image/*" multiple>
-        				  </div> -->
-						<input type="hidden" name="writer"
-							value="${sessionScope.loggedInMember.id }">
+        				  </div>
+						<input type="hidden" name="member_id"
+							value="${sessionScope.loggedInMember.member_id }"> -->
 
 						<button class="btn btn-outline-primary" type="submit">등록</button>
 					</form>

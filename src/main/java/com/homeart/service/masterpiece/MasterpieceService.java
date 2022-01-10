@@ -1,6 +1,5 @@
 package com.homeart.service.masterpiece;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -12,10 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.homeart.domain.masterpiece.MasterpieceVO;
 import com.homeart.domain.masterpiece.PageInfoVO;
-import com.homeart.mapper.masterpiece.DiscussionMapper;
-import com.homeart.mapper.masterpiece.MP_FileMapper;
 import com.homeart.mapper.masterpiece.MasterpieceMapper;
 
 import lombok.Setter;
@@ -34,12 +32,6 @@ public class MasterpieceService {
 	@Setter(onMethod_ = @Autowired)
 	private MasterpieceMapper mapper;
 
-	@Setter(onMethod_ = @Autowired)
-	private DiscussionMapper DiscussionMapper;
-
-	@Setter(onMethod_ = @Autowired)
-	private MP_FileMapper fileMapper;
-
 	@Value("${aws.accessKeyId}")
 	private String accessKeyId;
 
@@ -52,8 +44,6 @@ public class MasterpieceService {
 	private Region region = Region.AP_NORTHEAST_2;
 
 	private S3Client s3;
-
-	private String staticRoot = "C:\\Users\\tjdql\\OneDrive\\바탕 화면\\course\\fileupload\\board\\";
 
 	@PostConstruct
 	public void init() {
@@ -95,10 +85,6 @@ public class MasterpieceService {
 		s3.putObject(putObjectRequest, requestBody);
 	}
 
-	public boolean register(MasterpieceVO masterpiece) {
-		return mapper.insert(masterpiece) == 1;
-	}
-
 	public MasterpieceVO get(Integer id) {
 		return mapper.read(id);
 	}
@@ -107,28 +93,7 @@ public class MasterpieceService {
 		return mapper.update(masterpiece) == 1;
 	}
 
-	@Transactional
-	public boolean remove(Integer id) {
-		// 1. 게시물 달린 댓글 지우기
-		DiscussionMapper.deleteByBoardId(id);
-
-		// 2. 파일 지우기
-		// s3에서 삭제
-		String[] files = fileMapper.selectNamesByMasterpieceId(id);
-
-		if (files != null) {
-			for (String file : files) {
-				String key = "masterpiece/" + id + "/" + file;
-				deleteObject(key);
-			}
-		}
-
-		// db 에서 삭제
-		fileMapper.deleteByMasterpieceId(id);
-
-		// 3. 게시물 지우기
-		return mapper.delete(id) == 1;
-	}
+	
 
 	public List<MasterpieceVO> getList() {
 		return mapper.getList();
@@ -177,64 +142,24 @@ public class MasterpieceService {
 	}
 
 	@Transactional
-	public void register(MasterpieceVO masterpiece, MultipartFile[] files) throws IllegalStateException, IOException {
-
-		register(masterpiece);
+	public void register(MasterpieceVO MasterpieceVO, MultipartFile file) throws Exception {
 
 		// write files
 		// 2. s3에 파일 업로드
-		for (MultipartFile file : files) {
 
 			if (file != null && file.getSize() > 0) {
+				mapper.insert(MasterpieceVO);
+				
 				// 2.1 파일 작성, s3
-				String key = "masterpiece/" + masterpiece.getId() + "/" + file.getOriginalFilename();
+				String key = "masterpiece/" + MasterpieceVO.getMasterpiece_id() + "/" + file.getOriginalFilename();
 				putObject(key, file.getSize(), file.getInputStream());
 
 				// 2.2 insert into File , DATABSE
-				fileMapper.insert(masterpiece.getId(), file.getOriginalFilename());
 			}
-		}
+			
+			return;
 
 	}
 
-	public String[] getFileNamesByMasterpieceId(Integer id) {
-		return fileMapper.selectNamesByMasterpieceId(id);
-	}
-
-	@Transactional
-	public boolean modify(MasterpieceVO masterpiece, String[] removeFile, MultipartFile[] files)
-			throws IllegalStateException, IOException {
-		modify(masterpiece);
-
-		String basePath = staticRoot + masterpiece.getId();
-		// 파일 삭제
-		if (removeFile != null) {
-			for (String removeFileName : removeFile) {
-				// s3에서 삭제
-				String key = "masterpiece/" + masterpiece.getId() + "/" + removeFileName;
-				deleteObject(key);
-				
-				// db table에서 삭제
-				fileMapper.delete(masterpiece.getId(), removeFileName);
-
-			}
-		}
-
-		// 새 파일 추가 (s3)
-
-		for (MultipartFile file : files) {
-			if (file != null && file.getSize() > 0) {
-				// 1. write file to s3
-				String key = "masterpiece/" + masterpiece.getId() + "/" + file.getOriginalFilename();
-				
-				putObject(key, file.getSize(), file.getInputStream());
-
-				// 2. db에 파일명 변경
-				fileMapper.delete(masterpiece.getId(), file.getOriginalFilename());
-				fileMapper.insert(masterpiece.getId(), file.getOriginalFilename());
-			}
-		}
-
-		return false;
-	}
+	
 }
