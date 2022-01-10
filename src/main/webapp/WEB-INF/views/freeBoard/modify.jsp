@@ -24,7 +24,7 @@
 	$(document).ready(function() {
 		$("#removeSubmitButton").click(function(e) {
 			e.preventDefault(); //기본동작진행하지 않도록 함.
-			if(confirm("삭제 하시겠습니까?")){
+			if(confirm("정말 삭제 하시겠습니까?")){
 				$("#modifyForm").attr("action", "remove").submit();
 			}
 		});
@@ -41,6 +41,8 @@
 		  });
 		  
 		  $('#summernote').summernote({
+			codeviewFilter: true,
+			codeviewIframeFilter: true,
 			  height: 390,                 // set editor height
 			  minHeight: 370,             // set minimum height of editor
 			  maxHeight: null,             // set maximum height of editor
@@ -63,6 +65,7 @@
 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		  });
 		  var value = $("input[name='isPublic']:checked").val();
+
 	});
 	// enter방지
 	$(document).keypress(function(e) { 
@@ -76,7 +79,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<form method="post">
+				<form id="modifyForm" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="id" value="${freeBoard.board_id }">
 					<div class="post-group">
 						<textarea class="post-title" name="title">${freeBoard.title }</textarea>
 					</div>
@@ -93,8 +97,9 @@
 						</span>
 					</div>
 					<div class="float-right">
+						<input type="hidden" name="writer" value="${freeBoard.writer }">
 						<button class="btn btn-dark" type="button" onclick="location.href='${pageContext.request.contextPath}/freeBoard/list'">목록</button>
-						<button id="removeSubmitButton" class="btn btn-dark" type="button">삭제</button>
+						<button id="removeSubmitButton" class="btn btn-dark" type="submit">삭제</button>
 						<button id="modifySubmitButton" class="btn btn-dark" type="submit">등록</button>
 					</div>
 				</form>
