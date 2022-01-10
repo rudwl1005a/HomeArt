@@ -34,14 +34,6 @@ public class FreeBoardController {
 		List<freeBoardVO> listAdmin = service.getList();
 		List<freeBoardVO> listMember = service.getList(page, numberPerPage);
 		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
-
-		for(freeBoardVO lists : listAdmin) {
-			System.out.println(lists);
-		}
-		for(freeBoardVO lists : listMember) {
-			System.out.println(lists);
-		}
-		System.out.println(pageInfo);
 		
 		model.addAttribute("listAdmin", listAdmin);
 		model.addAttribute("listMember", listMember);
@@ -51,7 +43,6 @@ public class FreeBoardController {
 	//파라미터로 원하는 목록(값)출력
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("id") Integer id, Model model) {
-		System.out.println("get Controller");
 		freeBoardVO freeBoard = service.get(id);
 		System.out.println(freeBoard.getBoard_id());
 		model.addAttribute("freeBoard", freeBoard);
@@ -59,6 +50,8 @@ public class FreeBoardController {
 	
 	@PostMapping("/modify")
 	public String modify(freeBoardVO board, RedirectAttributes rttr) {
+		
+		System.out.println(board);
 		
 		service.modify(board);
 		return "redirect:/freeBoard/list";

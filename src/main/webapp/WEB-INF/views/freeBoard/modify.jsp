@@ -19,7 +19,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <!-- include summernote-ko-KR -->
 <script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/js/summernote/freeboard.js"></script>
 <script>
 	$(document).ready(function() {
 		$("#removeSubmitButton").click(function(e) {
@@ -34,42 +34,6 @@
 				$("#modifyForm").attr("action", "modify").submit();
 			}
 		});
-		
-		$('textarea').keyup(function(e){
-			$(this).css('height', 'auto');
-			$(this).height(this.scrollHeight);
-		  });
-		  
-		  $('#summernote').summernote({
-			codeviewFilter: true,
-			codeviewIframeFilter: true,
-			  height: 390,                 // set editor height
-			  minHeight: 370,             // set minimum height of editor
-			  maxHeight: null,             // set maximum height of editor
-			  focus: true,                  // set focus to editable area after initializing summernote
-			  lang: 'ko-KR', // default: 'en-US'
-		
-			  toolbar: [
-				    // [groupName, [list of button]]
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['para', ['ul', 'ol', 'paragraph']],
-				    ['height', ['height']],
-				    ['insert',['picture','link','video']],
-				    ['view', ['fullscreen', 'help']]
-				  ],
-				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-		  });
-		  var value = $("input[name='isPublic']:checked").val();
-
-	});
-	// enter방지
-	$(document).keypress(function(e) { 
-		if (e.keyCode == 13) e.preventDefault(); 
 	});
 </script>
 <title>HomeArt 자유게시판  글 수정</title>
@@ -80,9 +44,10 @@
 		<div class="row">
 			<div class="col">
 				<form id="modifyForm" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="id" value="${freeBoard.board_id }">
+					<input type="hidden" name="board_id" value="${freeBoard.board_id }">
 					<div class="post-group">
-						<textarea class="post-title" name="title">${freeBoard.title }</textarea>
+						<textarea class="post-title" name="title" required>${freeBoard.title }</textarea>
+						<div class="float-right" id="post_cnt">(0 / 100)</div>
 					</div>
 					<div class="post-group2">
 						<textarea id="summernote" name="content">${freeBoard.content }</textarea>   

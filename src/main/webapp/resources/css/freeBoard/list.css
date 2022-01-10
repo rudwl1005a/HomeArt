@@ -9,6 +9,10 @@ html, body{
   color: #222;
 }
 
+.table{
+	min-width: 690px;
+}
+
 a{
   text-decoration: none;
 }
@@ -84,4 +88,12 @@ a{
 
 table thead tr th, table tbody tr td{
 	text-align: center;
+}
+
+td{
+	max-width: 320px;
+	word-wrap: break-word;
+	white-space: nowrap;
+  	overflow: hidden;
+	text-overflow: ellipsis;
 }
