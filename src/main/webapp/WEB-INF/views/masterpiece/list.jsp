@@ -12,10 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
 <title>Masterpiece-list</title>
@@ -109,7 +106,6 @@ body {
 					</li>
 					<li class="col">ARTIST</li>
 					<li class="col">AGE</li>
-					<li class="col">COLOR</li>
 				</div>
 			</ul>
 
@@ -332,6 +328,13 @@ body {
 					</div>
 				</div>
 			</div>
+		
+				<td>
+             	   <img class="fit-picture"
+				     <%-- src="${ }" --%>
+				     src="${staticUrl }/${masterpiece.id }/${masterpiece.newFileName}"
+				     alt="에러">
+     			</td>
 		</div>
 	</div>
 	</section>

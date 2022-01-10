@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.homeart.mapper.masterpiece.MasterpieceMapper">
+	<!-- member_id 작성자로 가져오기 -->
+	<select id="selectByMemberId" resultType="String">
+	SELECT member_id FROM masterpiece WHERE member_id = #{member_id}
+	</select>
+	<!-- member_id 작성자로 지우기 -->
+	<select id="deleteByMemberId" resultType="String">
+	DELETE FROM masterpiece WHERE member_id = #{member_id}
+	</select>
+	<!-- 전체 갯수 세는거 -->
+	<select id="getCountRows" resultType="int">
+	SELECT COUNT(*) FROM masterpiece
+	</select>
+	
+	<select id="getListPage" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+SELECT 
+    p.masterpiece_id,
+    p.title,
+    p.content,
+    p.member_id,
+    m.nickName,
+    p.file_name
+FROM
+    masterpiece p
+        JOIN
+    Member m ON p.member_id = m.member_id
+ORDER BY p.member_id DESC
+LIMIT #{from}, #{items}
+	</select>
+
+	<select id="getList" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+SELECT 
+    p.masterpiece_id,
+    p.title,
+    p.content,
+    p.member_id,
+    m.nickName,
+    p.file_name
+FROM
+    masterpiece p
+        JOIN
+    Member m ON p.member_id = m.member_id
+ORDER BY p.member_id DESC
+	</select>
+		
+	<select id="read" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+SELECT 
+    p.masterpiece_id,
+    p.title,
+    p.content,
+    p.member_id,
+    m.nickName
+FROM
+    masterpiece p
+        JOIN
+    Member m ON p.member_id = m.member_id
+WHERE
+	p.masterpiece_id = #{id}
+	</select>
+ 
+	<insert id="insert" useGeneratedKeys="true" keyColumn="masterpiece_id" keyProperty="masterpiece_id">
+	INSERT INTO
+		masterpiece (title, content, country, artist, age, file_name, member_id)
+	VALUES
+		(#{title}, #{content}, #{country}, #{artist}, #{age}, #{file_name}, #{member_id})
+	</insert>
+	
+	<delete id="delete">
+	DELETE FROM masterpiece WHERE masterpiece_id = #{masterpiece_id}
+	</delete>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
