@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.homeart.mapper.masterpiece.MasterpieceMapper">
+	<select id="selectByMemberId" resultType="int">
+	SELECT id FROM Masterpiece WHERE writer = #{memberId}
+	</select>
+
+	<delete id="deleteByMemberId">
+	DELETE FROM Masterpiece WHERE writer = #{memberId}
+	</delete>
+
+
+	<select id="getCountRows" resultType="int">
+	SELECT COUNT(*) FROM Masterpiece
+	</select>
+
+	<select id="getListPage" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+SELECT 
+    p.id,
+    p.title,
+    p.content,
+    p.writer,
+    p.inserted,
+    p.updated,
+    m.nickName,
+    f.fileName as newFileName,
+    COUNT(d.id) discussionCount,
+    (SELECT EXISTS (SELECT * FROM File WHERE p.masterpieceId = p.id)) hasFile
+FROM
+    Masterpiece p
+        JOIN
+    Member m ON p.writer = m.id
+    	LEFT JOIN
+    Discussion d ON p.id = d.masterpieceId
+    	LEFT JOIN
+    File f ON p.id = f.masterpieceId
+GROUP BY p.id
+ORDER BY p.id DESC
+LIMIT #{from}, #{items}
+	</select>
+
+	<select id="getList" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+SELECT 
+    p.id,
+    p.title,
+    p.content,
+    p.writer,
+    p.inserted,
+    p.updated,
+    m.nickName
+FROM
+    Masterpiece p
+        JOIN
+    Member m ON p.writer = m.id
+ORDER BY id DESC
+	</select>
+	<select id="read" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+SELECT 
+    p.id,
+    p.title,
+    p.content,
+    p.writer,
+    p.inserted,
+    p.updated,
+    m.nickName
+FROM
+    Masterpiece p
+        JOIN
+    Member m ON p.writer = m.id
+WHERE
+	p.id = #{id}
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	INSERT INTO
+		Masterpiece (title, content, writer, country, artist, age, color, masterpiece)
+	VALUES
+		(#{title}, #{content}, #{writer}, #{country}, #{artist}, #{age}, #{color}, #{masterpiece})
+		
+	</insert>
+	
+	<update id="update">
+	UPDATE
+		Masterpiece
+	SET
+		title = #{title},
+		content = #{content},
+		writer = #{writer},
+		country = #{country},
+		artist = #{artist},
+		age = #{age},
+		color = #{color},
+		masterpiece = #{masterpiece},
+		updated = NOW()
+	WHERE
+		id = #{id}
+	</update>
+	
+	<delete id="delete">
+	DELETE FROM Masterpiece WHERE id = #{id}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
