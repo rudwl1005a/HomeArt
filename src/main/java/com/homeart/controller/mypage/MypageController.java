@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.homeart.domain.member.GuestbookCommentVO;
@@ -50,6 +51,14 @@ public class MypageController {
 		return "/mypage/mypage";
 	}
 	
+	/* 방명록 */
+	@PostMapping("/guestbook")
+	public String guestbook(Model model) {
+		
+		return "redirect:/mypage/mypage";
+	}
+	
+	/* 내 활동 */
 	@RequestMapping("/my_picture")
 	public String mypic() {
 		return "/mypage/mypageMypic";

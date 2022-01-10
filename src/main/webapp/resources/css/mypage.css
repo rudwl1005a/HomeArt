@@ -63,9 +63,11 @@
 /* 방명록 */
 .guestbook{
 	height: 50px;
+	width: 600px;
 }
 
 .guestbookComment{
+	width: 475px;
 	margin: 5px 0px 0px 60px;
 }
 
@@ -92,4 +94,14 @@
 	width: 400px;
 	height: 30px;
 	margin: 3px 10px 0px 60px;
+}
+
+.guestbookButton {
+	 margin: auto 0px auto 3px;
+	 color: rgb(179, 177, 178); 
+}
+
+.guestbookReply, .guestbookModify, .guestbookDelete, .guestbookCommentModify, .guestbookCommentDelete {
+	margin: 5px 10px 0px 0px;
+	font-size: 8px;
 }
