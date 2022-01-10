@@ -27,11 +27,22 @@
 		WHERE b.board_id = #{id}
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	<insert id="insert" useGeneratedKeys="true" keyColumn="board_id" keyProperty="board_id">
 		INSERT INTO picBoard (title, content, writer, file_name)
 		VALUES (#{title}, #{content}, #{writer}, #{file_name})
 	</insert>
 	
+	<delete id="delete">
+		DELETE FROM picBoard WHERE picBoard_id = #{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE picBoard
+		SET title=#{title},
+			content=#{content},
+			updated=NOW()
+		WHERE board_id = #{id}
+	</update>
 	
 	
 

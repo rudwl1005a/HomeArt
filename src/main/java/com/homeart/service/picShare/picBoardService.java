@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -128,24 +129,43 @@ public class picBoardService {
 	public void register(picBoardVO board, MultipartFile file) throws Exception {
 		
 			if (file != null && file.getSize() > 0) {
+				boardMapper.insert(board);
 				
+				System.out.println(board.getBoard_id());
 				// 1. s3에 file 작성
-				String key = "picShare/picBoard" + board.getBoard_id() + "/" + file.getOriginalFilename();
+				String key = "picShare/" + board.getBoard_id() + "/" + file.getOriginalFilename();
 				putObject(key, file.getSize(), file.getInputStream());
 				
 				// 2. insert into File, DATABASE
 				// filename을 multipartFile에서 가져와서 picBoard 테이블에 추가하는 메서드 추가
 				
-				
-				boardMapper.insert(board);
 			}
 			
 			return;
 			
 	}
 
+	@Transactional
+	public void remove(@Param("id") Integer id, MultipartFile file) {
+		
+		if (file != null && file.getSize() > 0) {
+			boardMapper.delete(id);
+			
+			String key = "picShare/" + id + "/" + file; 
+			deleteObject(key);
+			
+		}
+		
+		return;
+		
+	}
 
 
+	public boolean modify(picBoardVO board) {
+		
+		return boardMapper.update(board) == 1;
+		
+	}
 
 
 }

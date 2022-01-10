@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,12 +48,21 @@ public class picBoardController {
 	}
 	
 	// picBoard/get?id=몇인지 적어줘야 페이지 나타남. (페이지끼리 연결 필요)
-	@GetMapping("/get")
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("id") Integer id, Model model) {
 
 		picBoardVO board = service.get(id);
 		
 		model.addAttribute("board", board);
+		
+	}
+	
+	@PostMapping("/modify")
+	public String modify(picBoardVO board) {
+		
+		service.modify(board);
+		
+		return "redirect:/picShare/list";
 		
 	}
 	
@@ -69,6 +77,8 @@ public class picBoardController {
 		if (file != null) {
 			System.out.println(file.getSize());
 			System.out.println(file.getOriginalFilename());
+			System.out.println(board.getWriter());
+			System.out.println(board.getNickName());
 		}
 		
 		board.setFile_name(file.getOriginalFilename());
@@ -78,9 +88,13 @@ public class picBoardController {
 		return "redirect:/picShare/list";
 	}
 	
-	@RequestMapping("/modify")
-	public void modify() {
+	
+	@PostMapping("/remove")
+	public String remove(Integer id, MultipartFile file) {
 		
+		service.remove(id, file);
+		
+		return "redirect:/picShare/list";
 	}
 	
 	

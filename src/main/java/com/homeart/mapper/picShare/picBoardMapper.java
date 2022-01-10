@@ -16,6 +16,11 @@ public interface picBoardMapper {
 
 	public Integer getCountRows();
 
+	// insert와 delete 모두 void 였는데 int로 바꾸고 실행안시켜봄 오류나면 다시 void로 바꾸기.
 	public void insert(picBoardVO board);
+
+	public void delete(Integer board_id);
+
+	public int update(picBoardVO board);
 
 }

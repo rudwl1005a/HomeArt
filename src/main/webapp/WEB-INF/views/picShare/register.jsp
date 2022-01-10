@@ -61,8 +61,8 @@ body {
 								<textarea class="form-control" aria-label="With textarea" placeholder="artinfo" style="resize: none;" rows="10" name="content"></textarea>
 							</div>
 
-							<input type="hidden" name="boardId" value="${picBoard.board_id }">
-							<input type="hidden" name="nickName" value="${picBoard.nickName }">
+							<input type="hidden" name="boardId" value="${board.board_id }">
+							<input type="hidden" name="nickName" value="${board.nickName }">
 
 						</div>
 					</div>
