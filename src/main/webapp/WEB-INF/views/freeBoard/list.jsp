@@ -32,11 +32,11 @@
 					<table class="table table-hover" style="margin-bottom: 0;">
 						<thead>
 							<tr>
-								<th class="col-2">No.</th>
-								<th class="col-4">제목</th>
-								<th class="col-2">작성자</th>
-								<th class="col-2">작성일</th>
-								<th class="col-2">조회수</th>
+								<th >No.</th>
+								<th>제목</th>
+								<th >작성자</th>
+								<th>작성일</th>
+								<th>조회수</th>
 							</tr>
 						</thead>
 						
@@ -44,15 +44,15 @@
 							<c:forEach items="${listAdmin }" var="freeBoard">
 								<c:if test="${freeBoard.isAdmin == 1 && pageInfo.currentPage == 1 }">
 								<tr>
-									<td><i class="far fa-flag" style="color: red;"></i></td>
-									<td style="color: red; min-width: 320px;">
+									<td class="col-2"><i class="far fa-flag" style="color: red;"></i></td>
+									<td class="col-4" style="color: red;">
 										<a style="color: red;" href="get?id=${freeBoard.board_id }">
 											<c:out value="${freeBoard.title }"></c:out>
 										</a>
 									</td>
-									<td>${freeBoard.nickName }</td>
-									<td>${freeBoard.boardInserted }</td>
-									<td>${freeBoard.viewCount }</td>
+									<td class="col-2">${freeBoard.nickName }</td>
+									<td class="col-2">${freeBoard.boardInserted }</td>
+									<td class="col-2">${freeBoard.viewCount }</td>
 								</tr>
 								</c:if>
 							</c:forEach>
@@ -63,13 +63,14 @@
 				<!-- 일반회원 게시판 목록 -->
 				<div class="table-member">
 					<table class="table table-hover">
+						
 						<tbody>
 							 <c:set var="num" value="${pageInfo.countBoard - ((pageInfo.currentPage-1)*10) }"/>
 							 <c:forEach items="${listMember }" var="freeBoard" varStatus="status">
 								<c:if test="${freeBoard.isAdmin == 0}">
 								<tr>
 									<td class="col-2">${num }</td>
-									<td class="col-4" style="min-width: 320px;">
+									<td class="col-4">
 										<a style="color: black;" href="get?id=${freeBoard.board_id }">
 											<c:out value="${freeBoard.title }"></c:out>
 										</a>

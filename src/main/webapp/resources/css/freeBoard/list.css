@@ -90,10 +90,12 @@ table thead tr th, table tbody tr td{
 	text-align: center;
 }
 
-td{
-	max-width: 320px;
+
+td a {
+	max-width: 420px;
+	display: block;
+  	overflow: hidden;
 	word-wrap: break-word;
 	white-space: nowrap;
-  	overflow: hidden;
 	text-overflow: ellipsis;
 }
