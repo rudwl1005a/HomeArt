@@ -19,6 +19,7 @@ public class freeBoardVO {
 	private LocalDateTime updated;
 	
 	private String nickName; // 페이지 작성자는 닉네임으로
+	private Boolean hasFile; // 파일 존재여부
 	
 	public String getBoardInserted() {
 		//현재 일시

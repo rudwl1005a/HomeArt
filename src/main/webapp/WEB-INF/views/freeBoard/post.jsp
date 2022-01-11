@@ -37,6 +37,9 @@
 					<div class="post-group2">
 						<textarea id="summernote" name="content"></textarea>   
 					</div>
+					<div class="post-group">
+						<input type="file" class="form-control-file" id="file-Button" name="files" accept="image/*" multiple>
+					</div>
 					<div class="switch switch--horizontal">
 						<input class="inputBox" id="radio-a" type="radio" name="isPublic" value="0">
 						<label for="radio-a">비공개</label>

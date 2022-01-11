@@ -58,6 +58,13 @@ $(document).ready(function() {
 						<!-- 글내용 -->
 						<c:out value="${freeBoard.content }" escapeXml="false" ></c:out>
 					</div>
+					<c:forEach items="${fileNames }" var="fileName">
+						<div class="row">
+							<div class="col">
+								<img class="img-fluid" src="${staticUrl }/${freeBoard.board_id }/${fileName }" alt="${fileName }">
+							</div>
+						</div>
+					</c:forEach>
 					<div class="get-buttons">
 						<a class="btn btn-dark float-left" type="button" href="post">글쓰기</a>
 						<div class="float-right">
