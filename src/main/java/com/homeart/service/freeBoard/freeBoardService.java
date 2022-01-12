@@ -1,15 +1,29 @@
 package com.homeart.service.freeBoard;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.freeBoard.PageInfoVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.mapper.freeBoard.freeBoardMapper;
 
 import lombok.Setter;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 
 	
@@ -18,7 +32,53 @@ public class freeBoardService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private freeBoardMapper mapper;
+	
+	/*
+	 * @Setter(onMethod_ = @Autowired) private FileMapper fileMapper;
+	 */	
+	@Value("${aws.accessKeyId}")
+	private String accessKeyId;
+	
+	@Value("${aws.secretAccessKey}")
+	private String secretAccessKey;
+	
+	@Value("${aws.bucketName}")
+	private String bucketName;
 
+	private Region region = Region.AP_NORTHEAST_2;
+	private S3Client s3;
+	
+	@PostConstruct
+	public void init() {
+		//spring bean이 만들어진 후 최초로 실행되는 코드 작성
+		
+		//권한 정보 삭제
+		AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
+		this.s3 = S3Client.builder()
+				.credentialsProvider(StaticCredentialsProvider.create(credentials))
+				.region(region)
+				.build();
+		System.out.println("########### s3cilent ###########");
+		System.out.println(s3);
+	}
+	
+	//s3에서 key에 해당하는 객체 삭제
+	private void deleteObject(String key) {
+		DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+													.bucket(bucketName).key(key).build();
+		s3.deleteObject(deleteObjectRequest);
+	}
+	
+	//s3에서 key로 객체 업로드 (put)
+	private void putObject(String key, Long size, InputStream source) {
+		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucketName).key(key).acl(ObjectCannedACL.PUBLIC_READ).build();
+
+		RequestBody requestBody = RequestBody.fromInputStream(source, size);
+
+		s3.putObject(putObjectRequest, requestBody);
+	}
+	
 	//insert
 	public boolean post(freeBoardVO board) {
 		return mapper.insert(board) == 1;
@@ -76,5 +136,21 @@ public class freeBoardService {
 		pageInfo.setHasNextButton(hasNextButton);
 		
 		return pageInfo;
+	}
+
+	public void post(freeBoardVO board, MultipartFile[] files) throws IOException {
+		post(board);
+		
+		//파일 등록
+		for(MultipartFile file : files) {
+			if(file != null && file.getSize() > 0) {
+				//s3에 파일 등록
+				String key = "freeBoard/" + board.getBoard_id() + "/" + file.getOriginalFilename();
+				putObject(key, file.getSize(), file.getInputStream());
+				
+				//insert File into DB
+				//fileMapper.insert(board.getBoard_id(), file.getOriginalFilename());
+			}
+		}
 	}
 }

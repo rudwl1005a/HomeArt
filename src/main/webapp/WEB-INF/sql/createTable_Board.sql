@@ -12,6 +12,7 @@ CREATE TABLE freeBoard(
 	updated DATETIME DEFAULT NOW()
 );
 
+DESC freeBoard;
 SELECT * FROM freeBoard ORDER BY inserted DESC;
 SELECT * FROM Member ORDER BY inserted DESC;
 
@@ -31,3 +32,4 @@ SELECT
 			Member m ON b.writer = m.member_id
 		WHERE b.board_id = 3;
 
+INSERT INTO freeBoard (board_id, content, fileName) VALUES (108, "hi", "" "pyo.jpg");
