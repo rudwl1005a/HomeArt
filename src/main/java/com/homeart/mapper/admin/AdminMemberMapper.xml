@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homeart.mapper.admin.AdminMemberMapper">
+	
+	<select id="getList" resultType="com.homeart.domain.admin.AdminMemberVO"> 
+	<!-- id값은 항상 Member의 Interface와 맞추어주기. ';'안들어가게 조심하기-->
+	<!-- mapper.xml은 resources 폴더에 넣어도 된다. -->
+	SELECT member_id, member_name, password, nickName, email, country, inserted, isAdmin FROM Member 
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.homeart.domain.admin.AdminMemberVO">
+	<![CDATA[
+	SELECT
+		rnum,member_id
+	FROM
+		(
+		SELECT
+		@rownum := @rownum + 1 AS rnum, Member.member_id
+		FROM Member, (SELECT @rownum := 0) r
+		where 
+		@rownum < #{pageNum} * #{amount}
+		)a
+	WHERE
+		rnum >= (#{pageNum} - 1) * #{amount}
+	]]>
+		AND
+		member_id LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<select id="read" resultType="com.homeart.domain.admin.AdminMemberVO">
+	SELECT member_id, member_name, password, nickName, email, country, inserted, isAdmin 
+	FROM Member
+	WHERE member_id = #{member_id}
+	</select>
+	
+	<update id="update">
+	UPDATE Member
+	SET member_name = #{member_name}, 
+	member_id = #{member_id}, 
+	nickName = #{nickName}, 
+	country = #{country}
+	WHERE member_id = #{member_id}
+	</update>
+</mapper>

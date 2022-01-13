@@ -1,34 +1,21 @@
 package com.homeart.controller.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/adminPage")
+@RequiredArgsConstructor
+@Log4j
 public class AdminMainController {
-	//main은 최종완성
-	@RequestMapping("/AdminMain")
-	public String mainPage() {
-		return "/adminPage/AdminMain";
+	
+	@GetMapping("/AdminMain")
+	public void main() {
+		log.info("main page.....");
 	}
-	//회원관리 미완성
-	@RequestMapping("/adminMemManage/AdminMemManage")
-	public String memManage() {
-		return "/adminPage/adminMemManage/AdminMemManage";
-	}
-	//공지 미완성
-	@RequestMapping("/adminNotice/AdminNoticeCUD")
-	public String notice() {
-		return "/adminPage/adminNotice/AdminNoticeCUD";
-	}
-	//명화게시판 완성
-	@RequestMapping("/adminPic/AdminPicBoard")
-	public String pic() {
-		return "/adminPage/adminPic/AdminPicBoard";
-	}
-	//그림승인 완성
-	@RequestMapping("/adminPicShare/AdminPicAdmit")
-	public String picShare() {
-		return "/adminPage/adminPicShare/AdminPicAdmit";
-	}
+
 }

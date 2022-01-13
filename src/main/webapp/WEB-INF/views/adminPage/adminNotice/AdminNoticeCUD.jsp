@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ca" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
@@ -82,6 +83,12 @@
                 </nav>
             </div>
         </div>
+        
+        <div class="row mt-3">
+            <div class="col-3">
+                <button class="btn" data-target="#collapse1" data-toggle="collapse">공지 생성</button>
+            </div>
+        </div>
 
         <div class="row mt-3 mb-3">
             <div class="col" style="background-color: rgb(173, 166, 146);">
@@ -89,47 +96,17 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="card-group d-flex justify-content-around">
-
+                            <c:forEach items="${list}" var="list">
                                 <div class="card border-success mr-3" style="max-width: 18rem;" type="button"
                                     data-target="#collapse1" data-toggle="collapse">
-                                    <div class="card-header bg-transparent border-success">관리자 공지</div>
+                                    <div class="card-header bg-transparent border-success">${list.admin_id}의 공지</div>
                                     <div class="card-body text-success">
-                                        <h5 class="card-title">글제목</h5>
-                                        <p class="card-text">요약 내용</p>
+                                        <h5 class="card-title">${list.admin_title}</h5>
+                                        <p class="card-text">${fn:substring(list.admin_content,0,10)}...</p>
                                     </div>
-                                    <div class="card-footer bg-transparent border-success">날짜</div>
+                                    <div class="card-footer bg-transparent border-success">${list.admin_date}</div>
                                 </div>
-
-
-                                <div class="card border-success mr-3" style="max-width: 18rem;" type="button"
-                                    data-target="#collapse1" data-toggle="collapse">
-                                    <div class="card-header bg-transparent border-success">관리자 공지</div>
-                                    <div class="card-body text-success">
-                                        <h5 class="card-title">글제목</h5>
-                                        <p class="card-text">요약 내용</p>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-success">날짜</div>
-                                </div>
-
-                                <div class="card border-success mr-3" style="max-width: 18rem;" type="button"
-                                    data-target="#collapse1" data-toggle="collapse">
-                                    <div class="card-header bg-transparent border-success">관리자 공지</div>
-                                    <div class="card-body text-success">
-                                        <h5 class="card-title">글제목</h5>
-                                        <p class="card-text">요약 내용</p>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-success">날짜</div>
-                                </div>
-
-                                <div class="card border-success" style="max-width: 18rem;" type="button"
-                                    data-target="#collapse1" data-toggle="collapse">
-                                    <div class="card-header bg-transparent border-success">관리자 공지</div>
-                                    <div class="card-body text-success float-right">
-                                        <h5 class="card-title">글제목</h5>
-                                        <p class="card-text">요약 내용</p>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-success">날짜</div>
-                                </div>
+                            </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -149,13 +126,14 @@
     <div class="row">
         <div class="col" style="background-color: rgb(132, 151, 143);">
             <div class="collapse" id="collapse1">
-                <form>
+                <form role="form" action="/controller/adminPage/adminNotice/AdminNoticeCUD" method="post">
                     <h4>제목</h4>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroup-sizing-default">글제목</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                        name="admin_title">
                       </div>
                     <h4>파일</h4>
                     <div class="input-group mb-3">
@@ -163,13 +141,15 @@
                           <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                         </div>
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"
+                          name="admin_file">
                           <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                       </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1"><h4>내용</h4></label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"
+                        name="admin_content"></textarea>
                     </div>
                     <input type="submit" class="btn" value="입력완료" style="color: white;">
                     <input type="submit" class="btn" value="삭제하기" style="color: white;">
