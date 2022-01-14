@@ -33,7 +33,7 @@
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM picBoard WHERE picBoard_id = #{id}
+		DELETE FROM picBoard WHERE board_id = #{board_id}
 	</delete>
 	
 	<update id="update">
@@ -41,8 +41,27 @@
 		SET title=#{title},
 			content=#{content},
 			updated=NOW()
-		WHERE board_id = #{id}
+		WHERE board_id = #{board_id}
 	</update>
+	
+	<select id="getWriterArt" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.board_id, b.title, b.content, b.writer,  b.file_name, b.inserted, b.updated, m.nickName
+		FROM picBoard b
+		JOIN Member m
+		ON b.writer = m.member_id
+		WHERE b.writer = (SELECT a.writer FROM picBoard a WHERE a.board_id = #{id}) AND (b.board_id != #{id})
+	</select>
+	
+	<select id="getArtist" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.board_id, b.title, b.content, b.writer,  b.file_name, b.inserted, b.updated, m.nickName
+		FROM picBoard b
+		JOIN Member m
+		ON b.writer = m.member_id
+		WHERE b.writer = (SELECT a.writer FROM picBoard a WHERE a.board_id = #{id})
+		ORDER BY board_id DESC
+	</select>
+	
+	
 	
 	
 

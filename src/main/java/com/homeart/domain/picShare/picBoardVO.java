@@ -19,7 +19,7 @@ public class picBoardVO {
 	private String file_name;
 	
 	private Integer viewCount;
-	private Integer likeCount;
+	private Integer like_cnt;
 	
 	private LocalDateTime inserted;
 	private LocalDateTime updated;
