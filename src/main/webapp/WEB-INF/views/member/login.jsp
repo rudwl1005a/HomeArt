@@ -13,33 +13,68 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/member.css" rel="stylesheet" type="text/css">
+
+<style>
+#input1,#input2 {
+	width: 517px;
+	margin-bottom: 10px;
+}
+
+#loginButton, #signupButton {
+	margin: 10px 7px 10px 0px;
+	width: 150px;
+}
+
+table tr td {
+	text-align: left;
+	border-width: 1px;
+	border-style: solid;
+}
+
+table tr th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+}
+
+</style>
+
+<c:url value="/member/signup" var="signupUrl"></c:url>
 
 <title>로그인</title>
 </head>
 <body>
 <b:navBar></b:navBar>
-
-<div class="contents-wrap">
 	<div class="container">
-		<div class="row">
-			<div class="col">
-				<h1>로그인</h1>
+		<div class="row justify-content-center align-items-center vertical-center">
+			<div class="col-7">
+				<h1 style="margin: 10px;">로그인</h1>
 				<form method="post">
-					<div class="form-group">
-						<label for="input1">아이디</label>
-						<input type="text" class="form-control" name="member_id" required/>
+				<div class="row" style="margin-left: 5px;">
+					<table>
+						<tr>
+							<th nowrap>아이디</th>
+							<td>
+								<input type="text" id="input1" class="form-control" name="member_id" required/>
+							</td>
+						</tr>
+						<tr>
+							<th nowrap>비밀번호</th>
+							<td>
+								<input type="password" id="input2" class="form-control" name="password" required />
+							</td>
+						</tr>
+					</table>
 					</div>
-					<div class="form-group">
-						<label for="input2">패스워드</label>
-						<input type="password" class="form-control" name="password" required />
+					<div style="text-align:center;">
+						<button class="btn btn-dark" id="loginButton">로그인</button>
+						<a class="btn btn-dark" id="signupButton" href="${signupUrl }">회원가입</a>
 					</div>
-					<button class="btn btn-outline-primary">로그인</button>
 				</form>
 			</div>
 		</div>
 	</div>
-	<b:bottomInfo></b:bottomInfo>	
-</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>

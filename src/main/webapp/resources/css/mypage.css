@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
+/* 사진 */
 .pic200 {
-    width: auto; height: auto;
-    max-width: 200px;
-    max-height: 200px;
+	width: 200px;
+    height: 200px;
     margin: 10px;
     border-top: 5px;
     border-left: 5px;
@@ -15,14 +15,26 @@
 }
 
 .pic100 {
-    width: auto; height: auto;
-    max-width: 100px;
-    max-height: 100px;
+	width: 100px;
+    height: 100px;
     margin: 10px;
     border-top: 3px;
     border-left: 3px;
     border-right: 3px;
     border-bottom: 3px;
+    border-color: rgb(173, 166, 146);
+    border-style: solid;
+    border-radius: 8px;
+}
+
+.pic40 {
+	width: 40px;
+    height: 40px;
+    margin: 10px;
+    border-top: 2px;
+    border-left: 2px;
+    border-right: 2px;
+    border-bottom: 2px;
     border-color: rgb(173, 166, 146);
     border-style: solid;
     border-radius: 8px;
@@ -38,4 +50,58 @@
     border-color: rgb(173, 166, 146);
     border-style: solid;
     border-radius: 8px;
+}
+
+.memberInfo{
+	margin: 80px 0px 60px;
+}
+
+.activeBox {
+	margin: 20px 0px 20px;
+}
+
+/* 방명록 */
+.guestbook{
+	height: 50px;
+	width: 600px;
+}
+
+.guestbookComment{
+	width: 475px;
+	margin: 5px 0px 0px 60px;
+}
+
+.guestbookCommentContent{
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.guestbookCommentWrap {
+  display: none;
+}
+
+.guestbookContent {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.guestbookSubmit {
+	 width: 500px;
+	 margin: 5px 0px 5px 0px;
+}
+
+.guestbookCommentSubmit {
+	width: 400px;
+	height: 30px;
+	margin: 3px 10px 0px 60px;
+}
+
+.guestbookButton {
+	 margin: auto 0px auto 3px;
+	 color: rgb(179, 177, 178); 
+}
+
+.guestbookReply, .guestbookModify, .guestbookDelete, .guestbookCommentModify, .guestbookCommentDelete {
+	margin: 5px 10px 0px 0px;
+	font-size: 8px;
 }

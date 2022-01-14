@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.homeart.domain.freeBoard.PageInfoVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.service.freeBoard.freeBoardService;
 
@@ -24,28 +25,33 @@ public class FreeBoardController {
 	private freeBoardService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(@RequestParam(value="page", defaultValue = "1") Integer page, Model model) {
 		System.out.println("ControllerList");
-		//게시물 목록
-		List<freeBoardVO> list = service.getList();
-		for(freeBoardVO lists : list) {
-			System.out.println(lists);
-		}
-		model.addAttribute("list", list);
 		
+		Integer numberPerPage = 10; //한페이지 row수
+		
+		//게시물 목록
+		List<freeBoardVO> listAdmin = service.getList();
+		List<freeBoardVO> listMember = service.getList(page, numberPerPage);
+		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
+		
+		model.addAttribute("listAdmin", listAdmin);
+		model.addAttribute("listMember", listMember);
+		model.addAttribute("pageInfo", pageInfo);
 	}
 	
 	//파라미터로 원하는 목록(값)출력
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("id") Integer id, Model model) {
-		System.out.println("get Controller");
 		freeBoardVO freeBoard = service.get(id);
 		System.out.println(freeBoard.getBoard_id());
 		model.addAttribute("freeBoard", freeBoard);
 	}
 	
 	@PostMapping("/modify")
-	public String modify(freeBoardVO board, RedirectAttributes rttr) {
+	public String modify(freeBoardVO board) {
+		
+		System.out.println(board);
 		
 		service.modify(board);
 		return "redirect:/freeBoard/list";
@@ -58,14 +64,14 @@ public class FreeBoardController {
 	
 	//테이블에 등록
 	@PostMapping("/post")
-	public String post(freeBoardVO board, RedirectAttributes rttr) {
+	public String post(freeBoardVO board) {
 		service.post(board);
 		return "redirect:/freeBoard/list";
 	}
 	
 	//컬럼 삭제
 	@PostMapping("/remove")
-	public String remove(@RequestParam("id") Integer id, RedirectAttributes rttr) {
+	public String remove(@RequestParam("id") Integer id) {
 		service.remove(id);
 		return "redirect:/freeBoard/list";
 	}

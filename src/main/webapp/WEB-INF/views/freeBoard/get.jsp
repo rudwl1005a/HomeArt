@@ -18,16 +18,17 @@
 $(document).ready(function() {
 	$("#removeSubmitButton").click(function(e) {
 		e.preventDefault(); //기본동작진행하지 않도록 함.
-		if(confirm("삭제 하시겠습니까?")){
+		if(confirm("정말 삭제 하시겠습니까?")){
 			$("#modifyForm").attr("action", "remove").submit();
 		}
 	});
 	$("#removeSubmitButton2").click(function(e) {
 		e.preventDefault(); //기본동작진행하지 않도록 함.
-		if(confirm("삭제 하시겠습니까?")){
+		if(confirm("정말 삭제 하시겠습니까?")){
 			$("#modifyForm").attr("action", "remove").submit();
 		}
 	});
+	
 });
 </script>
 <title>HomeArt 자유게시판 글 조회</title>
@@ -39,25 +40,35 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="col">
 				<div class="board-view">
+				<form id="modifyForm" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="id" value="${freeBoard.board_id }">
 					<div class="get-group">
 						<!-- 글제목 -->
-						<textarea class="get-title" name="title" readonly>${freeBoard.title }</textarea>
+						<h2>${freeBoard.title }</h2>
 						<div class="title-sub">
 							<span>by ${freeBoard.nickName }</span>
 							<span class="tsub">${freeBoard.boardInserted }</span>
-							<a class="tsub" href="modify?id=${freeBoard.board_id }">수정</a>
-							<a id="removeSubmitButton" class="tsub" href="">삭제</a>
+							<c:if test="${sessionScope.loggedInMember.member_id eq freeBoard.writer }">
+								<a class="tsub" href="modify?id=${freeBoard.board_id }">수정</a>
+								<a id="removeSubmitButton" class="tsub" href="">삭제</a>
+							</c:if>
 						</div>
 					</div>
 					<div class="get-group2">
 						<!-- 글내용 -->
-						<textarea class="get-content" id="summernote" name="content" readonly>${freeBoard.content }</textarea>   
+						<c:out value="${freeBoard.content }" escapeXml="false" ></c:out>
 					</div>
-					<div class="float-right">
-						<button class="btn btn-dark" type="button" onclick="location.href='${pageContext.request.contextPath}/freeBoard/list'">목록</button>
-						<button id="removeSubmitButton2" class="btn btn-dark" type="button">삭제</button>
-						<a href="modify?id=${freeBoard.board_id }" class="btn btn-dark" type="button">수정</a>
+					<div class="get-buttons">
+						<a class="btn btn-dark float-left" type="button" href="post">글쓰기</a>
+						<div class="float-right">
+							<button class="btn btn-dark" type="button" onclick="location.href='${pageContext.request.contextPath}/freeBoard/list'">목록</button>
+							<c:if test="${sessionScope.loggedInMember.member_id eq freeBoard.writer }">
+								<button id="removeSubmitButton2" class="btn btn-dark" type="button">삭제</button>
+								<a href="modify?id=${freeBoard.board_id }" class="btn btn-dark" type="button">수정</a>
+							</c:if>
+						</div>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>

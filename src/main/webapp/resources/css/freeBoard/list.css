@@ -9,6 +9,10 @@ html, body{
   color: #222;
 }
 
+.table{
+	min-width: 690px;
+}
+
 a{
   text-decoration: none;
 }
@@ -21,7 +25,7 @@ a{
 .col {
 	display: block;
 	float:left;
-	margin: 1% 0 1% 1.6%;
+	margin: 3% 0 1% 1.6%;
 }
 
 .col:first-of-type {
@@ -72,7 +76,7 @@ a{
   padding: 10px 15px;
 }
 
-.p1 a.is-active{
+.p1 a.active{
   background-color: #343a40;
   border-radius: 100%;
   color: #fff;
@@ -80,4 +84,18 @@ a{
 
 .table-active, .table-active>td, .table-active>th {
     background-color: rgba(0,0,0,0.05);
+}
+
+table thead tr th, table tbody tr td{
+	text-align: center;
+}
+
+
+td a {
+	max-width: 420px;
+	display: block;
+  	overflow: hidden;
+	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

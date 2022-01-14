@@ -39,30 +39,30 @@ body {
 						<!-- fileUpload(left) -->
 						<div class="form-group col-md-6">
 							<div class="input-group mb-3">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile02">
+								<div class="custom-file image-container">
+									<input type="file" name="file" class="custom-file-input input-image" id="inputGroupFile02">
 									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
 								</div>
-								<div class="input-group-append">
-									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-								</div>
-							</div>
-							<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600X700/dee2e6/6c757d.jsp" alt="...">
+									<img class="card-img-top mb-5 mb-md-0" id="preview-image" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="...">
+							</div>			
 						</div>
 
 
 						<!-- artName, artist, artInfo (right) -->
 						<div class="form-group col-md-6">
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="artName" aria-describedby="button-addon2">
+								<input type="text" class="form-control" placeholder="artName" aria-describedby="button-addon2" name="title">
 							</div>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="artist" aria-describedby="button-addon2">
+								<input type="text" class="form-control" readonly placeholder="${loggedInMember.nickName }" value="${loggedInMember.member_id }" aria-describedby="button-addon2" name="writer">
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend"></div>
-								<textarea class="form-control" aria-label="With textarea" placeholder="artinfo" style="resize: none;" rows="10"></textarea>
+								<textarea class="form-control" aria-label="With textarea" placeholder="artinfo" style="resize: none;" rows="10" name="content"></textarea>
 							</div>
+
+							<input type="hidden" name="boardId" value="${board.board_id }">
+							<input type="hidden" name="nickName" value="${board.nickName }">
 
 						</div>
 					</div>
@@ -82,6 +82,36 @@ body {
 
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+	<script>
+		// Add the following code if you want the name of the file appear on select
+		// Choose File 에 fileName 얻어온 것을 적어줌.
+		$(".custom-file-input").on(
+				"change",
+				function() {
+					var fileName = $(this).val().split("\\").pop();
+					$(this).siblings(".custom-file-label").addClass("selected")
+							.html(fileName);
+				});
+		
+		// 업로드한 파일 미리 보여주기.
+		function readImage(input) {
+			if(input.files && input.files[0]) {
+				const reader = new FileReader()
+				reader.onload = e => {
+					const previewImage = document.getElementById("preview-image")
+					previewImage.src = e.target.result
+				}
+				reader.readAsDataURL(input.files[0])
+			}
+		}
+		
+		const inputImage = document.getElementById("inputGroupFile02")
+		inputImage.addEventListener("change", e => {
+			readImage(e.target)
+		});
+
+	</script>
 
 </body>
 </html>

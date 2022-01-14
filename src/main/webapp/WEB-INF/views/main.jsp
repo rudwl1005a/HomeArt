@@ -18,6 +18,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/mainpage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
+<c:url value="/mypage" var="mypageUrl"></c:url>
+
 <title>HomeArt</title>
 </head>
 
@@ -92,7 +94,7 @@
 						<tr>
 							<td><%= i %></td>
 							<td style="color: red">공지사항<%= i %></td>
-							<td>관리자<%= i %></td>
+							<td>작성자<%= i %></td>
 							<td>등록시간<%= i %></td>
 						</tr>
 						<%

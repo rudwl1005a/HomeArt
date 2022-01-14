@@ -19,7 +19,6 @@ public class freeBoardVO {
 	private LocalDateTime updated;
 	
 	private String nickName; // 페이지 작성자는 닉네임으로
-	private Integer boardCount; //게시판 글 수
 	
 	public String getBoardInserted() {
 		//현재 일시
