@@ -37,23 +37,23 @@ body {
 				<div class="container px-4 px-lg-8 my-5">
 						<div class="row gx-4 gx-lg-5 align-items-center">
 								<div class="col-md-6">
-										<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="...">
+								<img class="img-fluid" src="${staticUrl }/masterpiece/${masterpiece.masterpiece_id }/${masterpiece.file_name }" alt="${masterpiece.file_name}">
 								</div>
+								
+								<div class="text-center">
+						  		  <a class="btn btn-outline-dark mt-auto" href="get?masterpiece_id=${masterpiece.masterpiece_id }">Go art</a>
+							    </div>
 								<div class="col-md-6 text-white">
-
-										<h1 class="display-5 fw-bolder">작품명</h1>
-										<div class="fs-5 mb-5">
-												<span class="text-decoration-line-through">작가</span>
-												<span class="text-decoration-line-through">작가</span>
-												<span class="text-decoration-line-through">작가</span>
-												<span class="text-decoration-line-through">작가</span>
-												<span class="text-decoration-line-through">작가</span>
-										</div>
-										<p class="lead text-white">작품 설명이 들어갈 것.raesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-										<div class="d-flex">
-
-												<button class="btn btn-light flex-shrink-0" type="button">Go Artist(작가 더보러가기)</button>
-										</div>
+					
+									<h1 class="display-5 fw-bolder">${masterpiece.title }</h1>
+									<div class="fs-5 mb-5">
+										<span class="text-decoration-line-through">${masterpiece.artist }</span>
+									</div>
+									<p class="lead text-white">${masterpiece.content }</p>
+									<div class="d-flex">
+					
+										<button class="btn btn-light flex-shrink-0" type="button">Go Artist(작가 더보러가기)</button>
+									</div>
 								</div>
 						</div>
 				</div>
@@ -174,7 +174,7 @@ body {
 	<b:bottomInfo></b:bottomInfo>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 </body>
