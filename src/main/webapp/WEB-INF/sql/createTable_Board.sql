@@ -13,6 +13,8 @@ CREATE TABLE freeBoard(
 );
 
 DESC freeBoard;
+DESC Member;
+SELECT * FROM FreeBoardReply ORDER BY id DESC;
 SELECT * FROM freeBoard ORDER BY inserted DESC;
 SELECT * FROM Member ORDER BY inserted DESC;
 

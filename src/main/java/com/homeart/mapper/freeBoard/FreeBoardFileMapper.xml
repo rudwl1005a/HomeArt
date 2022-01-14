@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.homeart.mapper.freeBoard.FreeBoardFileMapper">
+	<delete id="deleteFile">
+		DELETE FROM FreeBoardFile WHERE fileId = #{fileId}
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM FreeBoardFile WHERE fileId = #{fileId} AND fileName = #{fileName}
+	</delete>
+	
+	<select id="selectFileNames" resultType="string">
+		SELECT fileName FROM FreeBoardFile WHERE fileId = #{fileId}
+	</select>
+
+	<insert id="insert">
+		INSERT INTO FreeBoardFile (fileId, fileName) VALUES (#{fileId}, #{fileName})
+	</insert>
+</mapper>

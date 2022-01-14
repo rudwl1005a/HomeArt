@@ -63,7 +63,7 @@
 								<input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
 							</div>
 							<div class="col-11">
-								<img class="img-fluid" src="${staticUrl }/${freeBoard.board_id }/${fileName }" alt="${fileName }">
+								<img class="img-fluid" src="${staticUrl }/freeBoard/${freeBoard.board_id }/${fileName }" alt="${fileName }">
 							</div>
 						</div>
 					</c:forEach>

@@ -9,10 +9,13 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.freeBoard.PageInfoVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
+import com.homeart.mapper.freeBoard.FreeBoardFileMapper;
+import com.homeart.mapper.freeBoard.FreeBoardReplyMapper;
 import com.homeart.mapper.freeBoard.freeBoardMapper;
 
 import lombok.Setter;
@@ -24,8 +27,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-
-
 	
 @Service
 public class freeBoardService {
@@ -33,9 +34,12 @@ public class freeBoardService {
 	@Setter(onMethod_ = @Autowired)
 	private freeBoardMapper mapper;
 	
-	/*
-	 * @Setter(onMethod_ = @Autowired) private FileMapper fileMapper;
-	 */	
+	@Setter(onMethod_ = @Autowired)
+	private FreeBoardFileMapper fileMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private FreeBoardReplyMapper replyMapper;
+	
 	@Value("${aws.accessKeyId}")
 	private String accessKeyId;
 	
@@ -95,7 +99,25 @@ public class freeBoardService {
 	}
 
 	//remove 게시물 delete
+	@Transactional
 	public boolean remove(Integer id) {
+		//게시물에 달린 댓글 삭제
+		replyMapper.deleteByBoardId(id);
+		
+		//파일 지우기
+		//s3에서 삭제
+		String[] files = fileMapper.selectFileNames(id);
+		
+		if(files != null) {
+			for(String file : files) {
+				String key = "freeBoard/" + id + "/" + file;
+				deleteObject(key);
+			}
+		}
+		
+		//DB에서 삭제
+		fileMapper.deleteFile(id);
+		
 		return mapper.delete(id) == 1;
 	}
 	
@@ -138,19 +160,56 @@ public class freeBoardService {
 		return pageInfo;
 	}
 
+	@Transactional
 	public void post(freeBoardVO board, MultipartFile[] files) throws IOException {
 		post(board);
 		
-		//파일 등록
+		//파일 업로드
 		for(MultipartFile file : files) {
 			if(file != null && file.getSize() > 0) {
-				//s3에 파일 등록
+				//s3에 파일 업로드
 				String key = "freeBoard/" + board.getBoard_id() + "/" + file.getOriginalFilename();
 				putObject(key, file.getSize(), file.getInputStream());
 				
-				//insert File into DB
-				//fileMapper.insert(board.getBoard_id(), file.getOriginalFilename());
+				//DB에 파일 업로드
+				fileMapper.insert(board.getBoard_id(), file.getOriginalFilename());
 			}
 		}
+	}
+
+	public String[] getFileNames(Integer id) {
+		return fileMapper.selectFileNames(id);
+	}
+
+	@Transactional
+	public boolean modify(freeBoardVO board, String[] removeFile, MultipartFile[] files) throws IOException {
+		modify(board);
+		
+		//파일 삭제
+		if(removeFile != null) {
+			for(String removeFileName : removeFile) {
+				//s3에서 삭제
+				String key = "freeBoard/" + board.getBoard_id() + "/" + removeFileName;
+				deleteObject(key);
+				
+				//DB table에서 삭제
+				fileMapper.delete(board.getBoard_id(), removeFileName);
+			}
+		}
+		
+		//새 파일 추가
+		for(MultipartFile file : files) {
+			if(file != null && file.getSize() > 0) {
+				//s3에 추가
+				String key = "freeBoard/" + board.getBoard_id() + "/" + file.getOriginalFilename();
+				putObject(key, file.getSize(), file.getInputStream());
+				
+				//insert File into DB - 파일 지운뒤 추가
+				fileMapper.delete(board.getBoard_id(), file.getOriginalFilename());
+				fileMapper.insert(board.getBoard_id(), file.getOriginalFilename());
+			}
+		}
+		
+		return false;
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,6 @@ public class FreeBoardController {
 	
 	@GetMapping("/list")
 	public void list(@RequestParam(value="page", defaultValue = "1") Integer page, Model model) {
-		System.out.println("ControllerList");
 		
 		Integer numberPerPage = 10; //한페이지 row수
 		
@@ -46,16 +46,20 @@ public class FreeBoardController {
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("id") Integer id, Model model) {
 		freeBoardVO freeBoard = service.get(id);
-		System.out.println(freeBoard.getBoard_id());
+		String[] fileNames = service.getFileNames(id);
+		
 		model.addAttribute("freeBoard", freeBoard);
+		model.addAttribute("fileNames", fileNames);
 	}
 	
 	@PostMapping("/modify")
-	public String modify(freeBoardVO board) {
+	public String modify(freeBoardVO board, String[] removeFile, MultipartFile[] files) {
 		
-		System.out.println(board);
-		
-		service.modify(board);
+		try {
+			service.modify(board, removeFile, files);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "redirect:/freeBoard/list";
 	}
 
@@ -70,7 +74,6 @@ public class FreeBoardController {
 		try {
 			service.post(board, files);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "redirect:/freeBoard/list";
@@ -82,4 +85,11 @@ public class FreeBoardController {
 		service.remove(id);
 		return "redirect:/freeBoard/list";
 	}
+	
+	/*
+	 * @RequestMapping public ModelAndView countView(@ModelAttribute("board")
+	 * freeBoardVO board, Model model) { //조회수 증가
+	 * 
+	 * }
+	 */
 }

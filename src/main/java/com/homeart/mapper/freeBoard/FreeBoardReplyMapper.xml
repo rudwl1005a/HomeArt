@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.homeart.mapper.freeBoard.FreeBoardReplyMapper">
+	
+	<delete id="deleteByBoardId">
+		DELETE FROM FreeBoardReply WHERE board_id = #{board_id}
+	</delete>
+	
+	<delete id="delete">
+		DELETE FROM FreeBoardReply WHERE id = #{id}
+	</delete>
+	
+	<update id="update">
+		UPDATE FreeBoardReply
+		SET
+			reply = #{reply},
+			updated = NOW()
+		WHERE
+			id = #{id}
+	</update>
+	
+	<select id="selectById" resultType="com.homeart.domain.freeBoard.FreeBoardReplyVO">
+		SELECT id, board_id, member_id, reply, inserted, updated
+		FROM FreeBoardReply
+		WHERE id = #{id}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO FreeBoardReply (board_id, member_id, reply)
+		VALUES (#{board_id}, #{member_id}, #{reply})
+	</insert>
+	
+	<select id="list" resultType="com.homeart.domain.freeBoard.FreeBoardReplyVO">
+		SELECT
+			r.id,
+			r.board_id,
+			r.member_id,
+			r.reply,
+			r.inserted,
+			r.updated,
+			m.nickName
+		FROM
+			FreeBoardReply r JOIN Member m ON r.member_id = m.member_id
+		WHERE
+			r.board_id = #{board_id}
+		ORDER BY
+			r.id DESC
+	</select>
+</mapper>

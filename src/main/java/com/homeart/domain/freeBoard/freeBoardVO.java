@@ -20,6 +20,7 @@ public class freeBoardVO {
 	
 	private String nickName; // 페이지 작성자는 닉네임으로
 	private Boolean hasFile; // 파일 존재여부
+	private Integer replyCount; //댓글 수
 	
 	public String getBoardInserted() {
 		//현재 일시

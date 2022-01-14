@@ -90,12 +90,22 @@ table thead tr th, table tbody tr td{
 	text-align: center;
 }
 
-
+.table td{
+	padding: .75rem 10px;
+}
 td a {
-	max-width: 420px;
-	display: block;
+	max-width: 400px;
+	display: inline-block;
   	overflow: hidden;
 	word-wrap: break-word;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+.freeBoard-title{
+	justify-content: center;
+    min-width: 420px;
+}
+
+tr {
+	border-top: 1px solid #dee2e6;
 }
