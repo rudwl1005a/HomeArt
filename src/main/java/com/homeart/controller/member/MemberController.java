@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeart.domain.member.MemberVO;
+import com.homeart.service.member.CountryService;
 import com.homeart.service.member.MemberService;
 
 import lombok.Setter;
@@ -23,6 +24,9 @@ public class MemberController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private CountryService Countryservice;
 	
 	@RequestMapping("/idcheck") 
 	@ResponseBody
@@ -50,8 +54,8 @@ public class MemberController {
 	}
 	
 	@GetMapping("/signup")
-	public void signup() {
-		
+	public void signup(Model model) {
+		model.addAttribute("countryList", Countryservice.getList());
 	}
 	
 	@PostMapping("/signup")
@@ -92,7 +96,8 @@ public class MemberController {
 		// MemberVO가 null이거나 패스워드가 다르면 로그인 실패		
 		if(vo == null) {
 			// 로그인 실패
-			return null;
+			rttr.addFlashAttribute("result", "회원 정보가 없습니다.");
+			return "redirect:/member/login";
 		}
 		
 		// 얻어온 MemberVO의 패스워드와 입력한 패스워드가 같은지 확인
@@ -100,7 +105,8 @@ public class MemberController {
 		
 		if(!correctPassword) {
 			// 로그인 실패
-			return null;
+			rttr.addFlashAttribute("result", "패스워드가 다릅니다.");
+			return "redirect:/member/login";
 		}
 		
 		// MemberVO가 null이 아니거나 패스워드가 같으면 로그인 성공

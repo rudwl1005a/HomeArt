@@ -8,13 +8,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.domain.member.GuestbookCommentVO;
 import com.homeart.domain.member.GuestbookVO;
 import com.homeart.domain.member.MemberVO;
+import com.homeart.domain.picShare.picBoardVO;
 import com.homeart.service.member.MemberService;
 import com.homeart.service.mypage.GuestbookService;
 
@@ -29,15 +32,30 @@ public class MypageController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberService memberService;
+
 	
 	@RequestMapping("")
-	public String mypage(String member_id, Model model) {
-		
-		HashMap<String, Object> commentList = new HashMap<>();
+	public String mypage(String member_id, Model model, RedirectAttributes rttr) {
 		
 		List<GuestbookVO> list = guestbookService.getList(member_id);
+		HashMap<String, Object> commentList = new HashMap<>();
+		MemberVO member = memberService.read(member_id);
+		List<freeBoardVO> freeBoard = memberService.getWritingLimit5(member_id);
+		List<picBoardVO> picBoard = memberService.getPictureLimit5(member_id);
+		
+		/* 회원 정보 */
+		model.addAttribute("member", member);
+		
+		// 탈퇴한 회원의 마이페이지로 들어가려고 할때
+		if(member == null) {
+			rttr.addFlashAttribute("result", "탈퇴한 회원입니다.");
+			return "redirect:/";
+		}
+
+		/* 방명록 리스트 */
 		model.addAttribute("list", list);
 		
+		/* 답글 리스트 */
 		for(int i=0; i<list.size(); i++) {
 			String guestbook_id = list.get(i).getGuestbook_id();
 			List<GuestbookCommentVO> cList = guestbookService.getlistCommentByGuestbookId(member_id, guestbook_id);
@@ -45,9 +63,12 @@ public class MypageController {
 			model.addAttribute("commentList", commentList);
 		}
 		
-		MemberVO member = memberService.read(member_id);
-		model.addAttribute("member", member);
-	
+		/* 내 그림 5개 */
+		model.addAttribute("picBoardLimit5", picBoard);
+		
+		/* 내가 쓴 글 5개 */
+		model.addAttribute("freeBoardLimit5", freeBoard);
+		
 		return "/mypage/mypage";
 	}
 	
@@ -58,24 +79,52 @@ public class MypageController {
 		return "redirect:/mypage/mypage";
 	}
 	
+	/* 회원정보 수정 */
+	@GetMapping("/modify")
+	public String modify(String member_id, Model model) {
+		MemberVO member = memberService.read(member_id);
+		
+		model.addAttribute("member", member);
+		return "/mypage/mypageModify";
+	}
+	
 	/* 내 활동 */
 	@RequestMapping("/my_picture")
-	public String mypic() {
+	public String mypic(Model model, HttpSession session) {
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = loggedIn.getMember_id();
+		
+		List<picBoardVO> picBoard = memberService.getPicture(member_id);
+
+		model.addAttribute("picBoard", picBoard);
+
 		return "/mypage/mypageMypic";
 	}
 	
 	@RequestMapping("/favorite_picture")
-	public String fpic() {
+	public String fpic(Model model, HttpSession session) {
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = loggedIn.getMember_id();
+
 		return "/mypage/mypageFavpic";
 	}
 	
 	@RequestMapping("/my_post")
-	public String mypost() {
+	public String mypost(Model model, HttpSession session) {
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = loggedIn.getMember_id();
+		
+		List<freeBoardVO> freeBoard = memberService.getWriting(member_id);
+		
+		model.addAttribute("freeBoard", freeBoard);
 		return "/mypage/mypageMypost";
 	}
 	
 	@RequestMapping("/my_reply")
-	public String myreply() {
+	public String myreply(Model model, HttpSession session) {
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = loggedIn.getMember_id();
+
 		return "/mypage/mypageMyreply";
 	}
 

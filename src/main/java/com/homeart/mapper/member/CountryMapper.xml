@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.homeart.mapper.member.CountryMapper">
+ 	<select id="list" resultType="com.homeart.domain.member.CountryVO">
+ 	<![CDATA[
+ 		SELECT *
+ 		FROM member_countrylist
+ 		ORDER BY country_code
+ 	]]>
+ 	</select>
+ </mapper>

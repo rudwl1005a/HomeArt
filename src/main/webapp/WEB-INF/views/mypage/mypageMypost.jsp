@@ -16,6 +16,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
+<c:url value="/freeBoard/get" var="freeBoardUrl"></c:url>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -26,12 +28,11 @@
 		<div class="row">
 			<div class="col">
 				<h1>내가 쓴 글</h1>
-				<p>글</p>
-				<p>글</p>
-				<p>글</p>
-				<p>글</p>
-				<p>글</p>
-				<p>글</p>
+				<ul>
+					<c:forEach items="${freeBoard }" var="writing">
+						<li><a href="${freeBoardUrl }?id=${writing.board_id}">${writing.title }</a></li>
+					</c:forEach>
+				</ul>
 			</div>
 		</div>
 	</div>
