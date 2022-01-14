@@ -46,4 +46,10 @@
 	    Member
 	ORDER BY inserted DESC;
  	</select>
+ 	
+ 	<select id="selectByNickName" resultType="com.homeart.domain.member.MemberVO">
+	SELECT member_id, member_name, password, email, country, inserted, isAdmin
+	FROM Member
+	WHERE nickName = #{nickName}
+	</select>
  </mapper>
