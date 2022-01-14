@@ -42,4 +42,19 @@ public class MemberService {
 	public List<MemberVO> getList() {
 		return mapper.list();
 	}
+
+	/* 아이디 체크 */
+	public boolean hasId(String member_id) {
+
+		MemberVO member =  mapper.select(member_id);
+
+		return member != null;
+	}
+	
+	/* 닉네임 체크 */
+	public boolean hasNickName(String nickName) {
+		MemberVO member = mapper.selectByNickName(nickName);
+
+		return member != null;
+	}
 }

@@ -15,4 +15,6 @@ public interface MemberMapper {
 	
 	public List<MemberVO> list();
 
+	public MemberVO selectByNickName(String nickName);
+
 }
