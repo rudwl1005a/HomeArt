@@ -28,5 +28,7 @@ public interface freeBoardMapper {
 
 	public List<freeBoardVO> getAdminList();
 
+	public Integer viewCount(Integer id);
+
 
 }

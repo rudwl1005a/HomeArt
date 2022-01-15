@@ -212,4 +212,8 @@ public class freeBoardService {
 		
 		return false;
 	}
+
+	public int viewCount(Integer id) {
+		return mapper.viewCount(id);
+	}
 }

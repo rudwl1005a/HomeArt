@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeart.domain.freeBoard.PageInfoVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
@@ -43,8 +41,18 @@ public class FreeBoardController {
 	}
 	
 	//파라미터로 원하는 목록(값)출력
-	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("id") Integer id, Model model) {
+	@GetMapping("/get")
+	public void getPost(@RequestParam("id") Integer id, Model model) {
+		service.viewCount(id);
+		freeBoardVO freeBoard = service.get(id);
+		String[] fileNames = service.getFileNames(id);
+		
+		model.addAttribute("freeBoard", freeBoard);
+		model.addAttribute("fileNames", fileNames);
+	}
+	
+	@GetMapping("/modify")
+	public void getModiInfo(@RequestParam("id") Integer id, Model model) {
 		freeBoardVO freeBoard = service.get(id);
 		String[] fileNames = service.getFileNames(id);
 		
@@ -85,11 +93,4 @@ public class FreeBoardController {
 		service.remove(id);
 		return "redirect:/freeBoard/list";
 	}
-	
-	/*
-	 * @RequestMapping public ModelAndView countView(@ModelAttribute("board")
-	 * freeBoardVO board, Model model) { //조회수 증가
-	 * 
-	 * }
-	 */
 }

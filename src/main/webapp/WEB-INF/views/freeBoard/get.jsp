@@ -23,12 +23,6 @@ $(document).ready(function() {
 			$("#modifyForm").attr("action", "remove").submit();
 		}
 	});
-	/* $("#removeSubmitButton2").click(function(e) {
-		e.preventDefault(); //기본동작진행하지 않도록 함.
-		if(confirm("정말 삭제 하시겠습니까?")){
-			$("#modifyForm").attr("action", "remove").submit();
-		}
-	}); */
 	
 	/* textarea 글자수에따른 자동 높이 조절*/
 	$('.replyText').keyup(function(e){
