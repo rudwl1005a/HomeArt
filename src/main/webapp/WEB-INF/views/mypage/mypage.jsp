@@ -39,7 +39,7 @@
 				<div class="row memberInfo">
 					<c:choose>
 					<c:when test="${sessionScope.loggedInMember.member_id == member.member_id }">
-						<img src="<spring:url value='/resources/img/cat1.jpg'/>" class="profilepic">
+						<img src="<spring:url value='/resources/img/basic_profile.jpg'/>" class="profilepic">
 						<div class="col" style="padding-left: 20px;">
 							<div class="row" style="padding-left: 15px;">
 								<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
@@ -53,19 +53,24 @@
 						</div>
 					</c:when>
 					<c:otherwise>
+						<img src="<spring:url value='/resources/img/basic_profile.jpg'/>" class="profilepic">
 						<div class="col">
-							<div>이름 : ${member.member_name }</div>
+							<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> ${member.member_id }'s Info</div>
+							<div>이　름 : ${member.member_name }</div>
 							<div>닉네임 : ${member.nickName }</div>
+							<div>국　가 : ${member.country }</div>
+							<div>이메일 : ${member.email }</div>
 						</div>
 					</c:otherwise>
 					</c:choose>
 				</div>
 				
+				<hr style="margin-bottom:30px">
 				<!-- 방명록 -->
 				<h2> ${member.nickName }님의 방명록 </h2>
 				<c:forEach items="${list }" var="guestbook">
 					<div class="row guestbook">
-						<img class="pic40" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">
+						<img class="pic40" src="<spring:url value='/resources/img/basic_profile.jpg'/>" class="img-thumbnail" alt="...">
 						<a class="guestbookContent" href="${mypageUrl }?member_id=${guestbook.member_id }">${guestbook.member_id }</a>
 						<p class="guestbookContent">　　</p>
 						<p class="guestbookContent">${guestbook.content }</p>
@@ -111,9 +116,10 @@
 					</div>
 				</c:if>
 				
+				<hr style="margin-top:30px">
 				<!-- 내 활동 -->
 				<c:if test="${sessionScope.loggedInMember.member_id == member.member_id }">
-					<div class="activeBox">
+					<div class="activeBox" style="margin-top: 30px;">
 						<div class="row d-flex justify-content-between">
 							<h3>내 그림들</h3>
 							<a class="more" href="${mypicUrl }">..more</a>
@@ -170,6 +176,29 @@
 	
 	<b:bottomInfo></b:bottomInfo>
 	
+		
+	<!-- modal -->
+	<c:if test="${not empty result }">
+		<div class="modal" tabindex="-1" id="modal1">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">결과</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>${result }</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</c:if>
+			
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
@@ -182,6 +211,12 @@
 			var element2 = element.parent();
 			element2.next().slideToggle("fast");
 		});
+		
+		/* 모달 창 */
+		if(history.state == null){
+			$("#modal1").modal('show');
+			history.replaceState({}, null);
+		}
 	});
 </script>
 </body>

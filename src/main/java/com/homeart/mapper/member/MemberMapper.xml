@@ -21,8 +21,7 @@
  		password = #{password},
  		nickName = #{nickName},
  		email = #{email},
- 		country = #{country},
- 		isAdmin = #{isAdmin}
+ 		country = #{country}
  	WHERE
  		member_id = #{member_id}
  	</update>  	

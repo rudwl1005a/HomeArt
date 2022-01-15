@@ -16,7 +16,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
-<title>Insert title here</title>
+<title>My reply</title>
 </head>
 <body>
 <b:navBar></b:navBar>

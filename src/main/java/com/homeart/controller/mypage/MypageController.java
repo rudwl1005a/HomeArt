@@ -18,6 +18,7 @@ import com.homeart.domain.member.GuestbookCommentVO;
 import com.homeart.domain.member.GuestbookVO;
 import com.homeart.domain.member.MemberVO;
 import com.homeart.domain.picShare.picBoardVO;
+import com.homeart.service.member.CountryService;
 import com.homeart.service.member.MemberService;
 import com.homeart.service.mypage.GuestbookService;
 
@@ -33,6 +34,8 @@ public class MypageController {
 	@Setter(onMethod_ = @Autowired)
 	private MemberService memberService;
 
+	@Setter(onMethod_ = @Autowired)
+	private CountryService Countryservice;
 	
 	@RequestMapping("")
 	public String mypage(String member_id, Model model, RedirectAttributes rttr) {
@@ -81,11 +84,45 @@ public class MypageController {
 	
 	/* 회원정보 수정 */
 	@GetMapping("/modify")
-	public String modify(String member_id, Model model) {
+	public String modify(String member_id, HttpSession session, Model model) {
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		
+		// 로그아웃 상태
+		if(vo == null) {
+			return "redirect:/member/login";
+		}
+
+		model.addAttribute("countryList", Countryservice.getList());
+
 		MemberVO member = memberService.read(member_id);
 		
 		model.addAttribute("member", member);
 		return "/mypage/mypageModify";
+	}
+	
+	@PostMapping("/modify")
+	public String info(MemberVO member, HttpSession session, RedirectAttributes rttr) {
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		
+		// 로그아웃 상태
+		if(vo == null) {
+			return "redirect:/member/login";
+		}
+		
+		// 로그인된 상태
+		boolean ok = memberService.modify(member);
+		if(ok) {
+			rttr.addFlashAttribute("result", "회원 정보가 변경되었습니다.");
+			// 세션에 있는 정보 변경
+			session.setAttribute("loggedInMember", memberService.read(member.getMember_id()));
+		}
+		else {
+			rttr.addFlashAttribute("result", "회원 정보가 변경되지 않았습니다.");			
+		}
+		
+		String url = "/mypage?member_id=" + vo.getMember_id();
+		
+		return "redirect:"+url;
 	}
 	
 	/* 내 활동 */

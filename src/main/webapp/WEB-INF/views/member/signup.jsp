@@ -22,7 +22,7 @@
 
 /* id,nickName */
 #input-group1, #input-group2 { 
-	width: 546px;
+	width: 540px;
 	margin: 10px 10px 0px 10px;
 }
 
@@ -63,10 +63,6 @@
 			<div class="col-9">
 				<h1 style="margin: 10px;">회원가입</h1>
 				
-				<c:if test="${not empty alertMessage}">
-			    	<div class="alert alert-warning">${alertMessage }</div>
-			   	</c:if>
-				
 				<form method="post" id="signupForm">
 					<p class="mustinfo">*는 필수 입력 항목입니다.</p>
 					<table>
@@ -101,7 +97,7 @@
 						<tr>
 							<th nowrap>* 이름</th>
 							<td>
-								<input type="text" class="form-control" id="input3" required name="member_name" value="${member.member_id }" />
+								<input type="text" class="form-control" id="input3" required name="member_name" value="${member.member_name }" />
 							</td>
 						</tr>
 						<tr>
