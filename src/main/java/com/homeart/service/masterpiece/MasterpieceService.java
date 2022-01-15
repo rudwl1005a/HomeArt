@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.masterpiece.MasterpieceVO;
@@ -85,15 +86,46 @@ public class MasterpieceService {
 		s3.putObject(putObjectRequest, requestBody);
 	}
 
-	public MasterpieceVO get(Integer id) {
-		return mapper.read(id);
+	public MasterpieceVO get(Integer masterpiece_id) {
+		return mapper.read(masterpiece_id);
 	}
 
 	public boolean modify(MasterpieceVO masterpiece) {
 		return mapper.update(masterpiece) == 1;
 	}
-
 	
+	@Transactional
+	public boolean modify(MasterpieceVO masterpiece, String removeFile, MultipartFile file)
+			throws IllegalStateException, IOException {
+		modify(masterpiece);
+
+		// 파일 삭제
+		if (removeFile != null) {
+				// s3에서 삭제
+				String key = "masterpiece/" + masterpiece.getMasterpiece_id() + "/" + removeFile;
+				deleteObject(key);
+				
+//				// db table에서 삭제
+//				mapper.filedelete(masterpiece.getMasterpiece_id(), removeFile);
+				
+		}
+
+		// 새 파일 추가 (s3)
+
+			if (file != null && file.getSize() > 0) {
+				// 1. write file to s3
+				String key = "masterpiece/" + masterpiece.getMasterpiece_id() + "/" + file.getOriginalFilename();
+				
+				putObject(key, file.getSize(), file.getInputStream());
+
+//				// 2. db에 파일명 변경
+//				mapper.filedelete(masterpiece.getMasterpiece_id(), file.getOriginalFilename());
+//				mapper.fileinsert(masterpiece.getMasterpiece_id(), file.getOriginalFilename());
+			}
+
+		return false;
+	}
+
 
 	public List<MasterpieceVO> getList() {
 		return mapper.getList();
@@ -160,6 +192,29 @@ public class MasterpieceService {
 			return;
 
 	}
+	
+	@Transactional
+	public boolean remove(@RequestParam("id") Integer id, MultipartFile file) {
+		// 1. 게시물 달린 댓글 지우기
+
+		// 2. 파일 지우기
+		// s3에서 삭제
+//		String file = mapper.selectNamesByMasterpieceId(id);
+
+		if (file != null) {
+				mapper.delete(id);
+			
+				String key = "masterpiece/" + id + "/" + file;
+				deleteObject(key);
+		}
+
+		// db 에서 삭제
+//		mapper.deleteByMasterpieceId(id);
+
+		// 3. 게시물 지우기
+		return mapper.delete(id) == 1;
+	}
+	
 
 	
 }
