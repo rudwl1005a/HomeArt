@@ -44,7 +44,7 @@
         <div class="row" style="background-color: rgb(179, 177, 178)">
             <div class="col">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">HomeArt</a>
+                    <a class="navbar-brand" href="/controller/">HomeArt</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

@@ -92,28 +92,35 @@ public class MemberController {
 		// service 사용해서 아이디로 MemberVO 얻고
 		MemberVO vo = service.read(member_id);
 		
-		
-		// MemberVO가 null이거나 패스워드가 다르면 로그인 실패		
 		if(vo == null) {
 			// 로그인 실패
 			rttr.addFlashAttribute("result", "회원 정보가 없습니다.");
 			return "redirect:/member/login";
 		}
 		
-		// 얻어온 MemberVO의 패스워드와 입력한 패스워드가 같은지 확인
-		boolean correctPassword = password.equals(vo.getPassword());
-		
-		if(!correctPassword) {
-			// 로그인 실패
-			rttr.addFlashAttribute("result", "패스워드가 다릅니다.");
-			return "redirect:/member/login";
+		if(vo.getIsAdmin()==1) { /* 관리자 로그인 */
+			session.setAttribute("loggedInMember", vo);
+			return "redirect:/adminPage/AdminMain";
 		}
-		
-		// MemberVO가 null이 아니거나 패스워드가 같으면 로그인 성공
-		// 로그인 성공
-		rttr.addFlashAttribute("result", vo.getNickName() + "님 반갑습니다.");
-		session.setAttribute("loggedInMember", vo);
-		return "redirect:/";
+		else { /* 일반 회원 로그인 */
+				
+			// MemberVO가 null이거나 패스워드가 다르면 로그인 실패		
+			
+			// 얻어온 MemberVO의 패스워드와 입력한 패스워드가 같은지 확인
+			boolean correctPassword = password.equals(vo.getPassword());
+			
+			if(!correctPassword) {
+				// 로그인 실패
+				rttr.addFlashAttribute("result", "패스워드가 다릅니다.");
+				return "redirect:/member/login";
+			}
+			
+			// MemberVO가 null이 아니거나 패스워드가 같으면 로그인 성공
+			// 로그인 성공
+			rttr.addFlashAttribute("result", vo.getNickName() + "님 반갑습니다.");
+			session.setAttribute("loggedInMember", vo);
+			return "redirect:/";
+		}
 		
 	}
 	

@@ -67,6 +67,7 @@
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/member/logout" var="logoutUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl"></c:url>
+<c:url value="/adminPage/AdminMain" var="adminUrl"></c:url>
 
 <div class="logo">
 	<a href="${mainUrl }"><img class="logopic" src="<spring:url value='/resources/img/logo1.jpg'/>" height="100px"></a>
@@ -102,6 +103,11 @@
 				</a>
 			</c:if>
 			<c:if test="${not empty sessionScope.loggedInMember }">	
+				<c:if test="${sessionScope.loggedInMember.isAdmin == 1 }">
+					<a class="memberSign" id="admin" title="관리자 페이지" href="${adminUrl }">
+						관리자 페이지
+					</a>
+				</c:if>
 				<a class="memberSign" id="mypage" title="마이페이지" href="${mypageUrl }?member_id=${sessionScope.loggedInMember.member_id}">
 					마이페이지
 				</a>
