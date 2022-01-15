@@ -16,17 +16,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <c:url value="/mypage" var="mypageUrl"></c:url>
 <c:url value="/mypage/my_picture" var="mypicUrl"></c:url>
 <c:url value="/mypage/favorite_picture" var="favpicUrl"></c:url>
 <c:url value="/mypage/my_post" var="mypostUrl"></c:url>
 <c:url value="/mypage/my_reply" var="myreplyUrl"></c:url>
-<style>
-
-</style>
-
-
+<c:url value="/mypage/modify" var="modifyUrl"></c:url>
+<c:url value="/freeBoard/get" var="freeBoardUrl"></c:url>
+<c:url value="/picShare/get" var="picBoardUrl"></c:url>
 
 <title>MyPage</title>
 </head>
@@ -42,11 +41,14 @@
 					<c:when test="${sessionScope.loggedInMember.member_id == member.member_id }">
 						<img src="<spring:url value='/resources/img/cat1.jpg'/>" class="profilepic">
 						<div class="col" style="padding-left: 20px;">
-							<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
+							<div class="row" style="padding-left: 15px;">
+								<div style="font-weight: bold;"><i class="fas fa-info-circle" style="color: rgb(173, 166, 146);"></i> MyInfo</div>
+								<a class="memberModify" href="${modifyUrl }?member_id=${sessionScope.loggedInMember.member_id }"> edit </a>
+							</div>
 							<div>아이디 : ${sessionScope.loggedInMember.member_id }</div>
-							<div>이름 : ${sessionScope.loggedInMember.member_name }</div>
+							<div>이　름 : ${sessionScope.loggedInMember.member_name }</div>
 							<div>닉네임 : ${sessionScope.loggedInMember.nickName }</div>
-							<div>국가 : ${sessionScope.loggedInMember.country }</div>
+							<div>국　가 : ${sessionScope.loggedInMember.country }</div>
 							<div>이메일 : ${sessionScope.loggedInMember.email }</div>
 						</div>
 					</c:when>
@@ -92,9 +94,9 @@
 							</c:if>
 						</c:forEach>
 						<div class="input-group mb-3 guestbookCommentSubmit">
-						  <input type="text" class="form-control" placeholder="댓글을 작성해주세요. (최대 100자)" aria-label="댓글" aria-describedby="button-addon2">
+						  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="button-addon2">
 						  <div class="input-group-append">
-						    <button class="btn btn-outline-secondary" type="button" id="button-addon2">작성</button>
+						    <button class="btn btn-dark" type="button" id="button-addon2">작성</button>
 						  </div>
 						</div>
 					</div>
@@ -102,9 +104,9 @@
 				
 				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
 					<div class="input-group mb-3 guestbookSubmit">
-					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="button-addon2">
+					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="button-addon3">
 					  <div class="input-group-append">
-					    <button class="btn btn-outline-secondary" type="button" id="button-addon2">작성</button>
+					    <button class="btn btn-dark" type="button" id="button-addon3">작성</button>
 					  </div>
 					</div>
 				</c:if>
@@ -112,48 +114,46 @@
 				<!-- 내 활동 -->
 				<c:if test="${sessionScope.loggedInMember.member_id == member.member_id }">
 					<div class="activeBox">
-						<div class="row">
+						<div class="row d-flex justify-content-between">
 							<h3>내 그림들</h3>
-							<a href="${mypicUrl }">더보기</a>
+							<a class="more" href="${mypicUrl }">..more</a>
 						</div>
 						<div class="row">
-							<img class="pic100" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
+							<c:forEach items="${picBoardLimit5 }" var="picBoard">
+								<a href="${picBoardUrl }?id=${picBoard.board_id }">
+									<img class="pic150" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+								</a>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="activeBox">
-						<div class="row">
+						<div class="row d-flex justify-content-between">
 							<h3>좋아요 누른 그림</h3>
-							<a  href="${favpicUrl }">더보기</a>
+							<a class="more" href="${favpicUrl }">..more</a>
 						</div>
 						<div class="row">
-							<img class="pic100" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic100" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic150" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic150" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic150" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic150" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
+							<img class="pic150" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
 						</div>
 					</div>
 					<div class="activeBox">
-						<div class="row">
+						<div class="row d-flex justify-content-between">
 							<h3>내가 쓴 글</h3>
-							<a  href="${mypostUrl }">더보기</a>
+							<a class="more" href="${mypostUrl }">..more</a>
 						</div>
 						<ul>
-							<li>글글글1</li>
-							<li>글글글2</li>
-							<li>글글글3</li>
-							<li>글글글4</li>
-							<li>글글글5</li>
+							<c:forEach items="${freeBoardLimit5 }" var="writing">
+								<li><a href="${freeBoardUrl }?id=${writing.board_id}">${writing.title }</a></li>
+							</c:forEach>
 						</ul>
 					</div>
 					<div class="activeBox">
-						<div class="row">
+						<div class="row d-flex justify-content-between">
 							<h3>내 댓글</h3>
-							<a  href="${myreplyUrl }">더보기</a>
+							<a class="more" href="${myreplyUrl }">..more</a>
 						</div>
 						<ul>
 							<li>댓글댓글댓글1</li>
@@ -172,7 +172,6 @@
 	
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 <script>

@@ -33,9 +33,15 @@
 }
 
 /* other */
-#input3,#input5,#input6,#input7 {
+#input3,#input5 {
 	width: 540px;
 	margin-bottom: 10px;
+}
+
+#input6, .input-group>.custom-select {
+	width: 540px;
+    max-width: 540px;
+    margin-top: 10px;
 }
 
 #signupButton {
@@ -119,13 +125,25 @@
 						<tr>
 							<th nowrap>* 거주국가</th>
 							<td>
-								<input type="text" class="form-control" id="input6" required name="country" value="${member.country }" />
-							</td>
-						</tr>
-						<tr>
-							<th nowrap>* 관리자</th>
-							<td>
-								<input type="text" class="form-control" id="input7" required name="isAdmin" value="${member.isAdmin }" />
+								<div class="input-group mb-3">
+								  <select class="custom-select" id="input6" required name="country">
+								    <option selected></option>
+								    <optgroup label="국가 선택">
+									    <c:forEach items="${countryList }" var="list">
+										    <c:if test="${list.country_code < 1000 }">
+										    	<option value="${list.english }">${list.korean }</option>
+										    </c:if>
+									    </c:forEach>
+								    </optgroup>
+								    <optgroup label="대륙 선택(국가 리스트에 없을때)">
+									    <c:forEach items="${countryList }" var="list">
+										    <c:if test="${list.country_code >= 1000 }">
+										    	<option value="${list.english }">${list.korean }</option>
+										    </c:if>
+									    </c:forEach>
+								    </optgroup>
+								  </select>
+								</div>
 							</td>
 						</tr>
 					</table>
@@ -198,6 +216,17 @@
 
           enableSubmit();// 조건이 충족되었을 때만 submit 버튼 활성화
         };
+        
+        /* 패스워드 일치 메세지 표시 */
+        $('#input2, #input8').on('keyup', function(){
+        	if($('#input2').val() === $('#input8').val()){
+				$("#passwordCheckMessage").text("비밀번호가 일치합니다.")
+				.removeClass("text-danger text-warning").addClass("text-primary");
+        	} else {
+        		$("#passwordCheckMessage").text("비밀번호가 일치하지 않습니다.")
+				.removeClass("text-warning text-primary").addClass("text-danger");
+        	}
+        })
 
         signupButton.attr("disabled", true);
         passwordInput.keyup(confirmFunction);
@@ -256,7 +285,7 @@
 				});
 			});
         
-        /* 닉네임 확인 */
+		/* 닉네임 확인 */
 		$("#nickNameCheckButton").click(
 			function() {
 				$("#nickNameCheckButton").attr("disabled", true);
@@ -303,10 +332,7 @@
 					}
 				});
 			});
-      });
-	
-	 
-	 
+		});
 
 </script>
 
