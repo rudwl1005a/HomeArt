@@ -21,29 +21,40 @@ public class AdminNoticeCUD {
 	private AdminNoticeService service;
 	
 	@GetMapping("/AdminNoticeCUD")
-	public void list(Model model, Long admin_no) {
-		log.info("list or get");
+	public void list(Model model) {
+		log.info("list");
 		model.addAttribute("list", service.getList());
+	}
+	
+	@GetMapping({"/get", "/modify"})
+	public void get(Model model, Long admin_no) {
+		log.info("get or modify");
 		model.addAttribute("notice", service.get(admin_no));
 	}
 	
-	@PostMapping("/AdminNoticeCUD")
-	public String register(AdminNoticeVO notice, RedirectAttributes rttr) {
-		log.info("register or modify: " + notice);
-		
-		if(notice.getAdmin_no() <= notice.getAdmin_no().MAX_VALUE) {
-			if(service.modify(notice)) {
-				rttr.addFlashAttribute("result", "success");
-			}
-			
-			return "redirect: /adminPage/adminNotice/AdminNoticeCUD";
+	@PostMapping("/modify")
+	public String modify(AdminNoticeVO notice, RedirectAttributes rttr) {
+		log.info("modify: " + notice);
+		if(service.modify(notice)) {
+			rttr.addFlashAttribute("result", "success");
 		}
+		return "redirect:/adminPage/adminNotice/AdminNoticeCUD";
+	}
+	
+	@GetMapping("/register") 
+	public void register(){
+		
+	}
+	
+	@PostMapping("/register")
+	public String register(AdminNoticeVO notice, RedirectAttributes rttr) {
+		log.info("register: " + notice);
 		
 		service.register(notice);
 		
 		rttr.addFlashAttribute("result", notice.getAdmin_no());
 		
-		return "redirect: /adminPage/adminNotice/AdminNoticeCUD";
+		return "redirect:/adminPage/adminNotice/AdminNoticeCUD";
 	}
 	
 	@PostMapping("/remove")
