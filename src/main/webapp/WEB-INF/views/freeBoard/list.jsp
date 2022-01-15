@@ -42,7 +42,7 @@
 						
 						<tbody class="table-active">
 							<c:forEach items="${listAdmin }" var="freeBoard">
-								<c:if test="${freeBoard.isAdmin == 1 && pageInfo.currentPage == 1 }">
+								<c:if test="${pageInfo.currentPage == 1 }">
 								<tr>
 									<td class="col-2"><i class="far fa-flag" style="color: red;"></i></td>
 									<td class="col-4 freeBoard-title" style="color: red;">
@@ -72,8 +72,7 @@
 						
 						<tbody>
 							 <c:set var="num" value="${pageInfo.countBoard - ((pageInfo.currentPage-1)*10) }"/>
-							 <c:forEach items="${listMember }" var="freeBoard" varStatus="status">
-								<c:if test="${freeBoard.isAdmin == 0}">
+							 <c:forEach items="${listMember }" var="freeBoard">
 								<tr>
 									<td class="col-2">${num }</td>
 									<td class="col-4 freeBoard-title">
@@ -91,7 +90,6 @@
 									<td class="col-2">${freeBoard.boardInserted }</td>
 									<td class="col-2">${freeBoard.viewCount }</td>
 								</tr>
-							</c:if>
 							<c:set var="num" value="${num-1 }"></c:set>
 							</c:forEach>
 						</tbody>
