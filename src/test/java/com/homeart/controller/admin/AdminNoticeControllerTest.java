@@ -65,11 +65,11 @@ public class AdminNoticeControllerTest {
 	
 	@Test
 	public void testModify() throws Exception {
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/adminPage/adminNotice/AdminNoticeCUD")
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/adminPage/adminNotice/modify")
 				.param("admin_no", "1")
-				.param("admin_title", "수정된 테스트 새글 제2목")
-				.param("admin_content", "수정된 테스트 새글 내2용")
-				.param("admin_id", "123"))
+				.param("admin_title", "수정된 테스트 새글 제2목22")
+				.param("admin_content", "수정된 테스트 새글 내2용33")
+				.param("admin_id", "12"))
 				.andReturn().getModelAndView().getViewName();
 				
 		log.info(resultPage);
