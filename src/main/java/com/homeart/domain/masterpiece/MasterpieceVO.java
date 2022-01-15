@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MasterpieceVO {
-	private Integer masterpiece_id;	// 명화 ID key
+	private Integer masterpiece_id;	// 명화 ID key(pk)
 	private String member_id;		// 작성자 ID
 	private String title;			// 작품명
 	private String content;			// 작품 설명

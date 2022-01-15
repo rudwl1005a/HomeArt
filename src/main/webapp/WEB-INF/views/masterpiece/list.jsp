@@ -87,263 +87,93 @@ body {
 						</div>
 				</div>
 		</section>
+		
+  
 	<!-- main board -->
 	<!-- 이미지 게시판 -->
 	<!-- .container>.main_board>.main_content -->
-	<section class="py-5">
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="main_board" style="background-color: white;">
-			<!-- 검색바 및 카테고리 분류판 -->
-			<!-- 여기서 ajax사용해서 하단 이미지 리스트 보여주기 바꾸고싶다 -->
-			<!-- ul.main_search>li.search_bar^ul.main_select>li.category*4 -->
-			<ul class="main_category">
-				<!-- <li class="search_bar"></li> 검색창은 필요한가??-->
-				<div class="row">
-					<li class="col" id="category_menu">COUNTRY <!-- <i class="fas fa-caret-down"></i> -->
-						<div class="category" id="category">나라1</div>
-						<div class="category" id="category">나라2</div>
-						<div class="category" id="category">나라3</div>
-					</li>
-					<li class="col">ARTIST</li>
-					<li class="col">AGE</li>
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 mt-5">
+				<div class="main_board" style="background-color: white;">
+					<!-- 검색바 및 카테고리 분류판 -->
+					<!-- 여기서 ajax사용해서 하단 이미지 리스트 보여주기 바꾸고싶다 -->
+					<!-- ul.main_search>li.search_bar^ul.main_select>li.category*4 -->
+					<ul class="main_category">
+						<!-- <li class="search_bar"></li> 검색창은 필요한가??-->
+						<div class="row">
+							<li class="col" id="category_menu">COUNTRY <!-- <i class="fas fa-caret-down"></i> -->
+								<div class="category" id="category">나라1</div>
+								<div class="category" id="category">나라2</div>
+								<div class="category" id="category">나라3</div>
+							</li>
+							<li class="col">ARTIST</li>
+							<li class="col">AGE</li>
+						</div>
+					</ul>
 				</div>
-			</ul>
+			</div>
 
-		</div>
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<!-- 이미지 게시판 콘텐츠 -->
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- <img src="" alt="" class="card-img-top">
-					<div class="card-body">
-						<ul class="body_content">IMAGE
-						</ul>
-					</div>
-					<div class="card-footer">
-						<ul class="footer_content">GO ART
-						</ul>
-					</div> -->
-					<!-- Product image-->
-					<img class="card-img-top"
-						src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">3 art</h5>
-							<!-- 작가 이름 -->
-							<div
-								class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill">artistName</div>
+			<!-- Section art-->
+			<section class="py-5">
+				<div class="container px-4 px-lg-5 mt-5">
+					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+						<c:forEach items="${list }" var="m">
+							<div class="col mb-5">
+								<div class="card h-100">
+									<!-- dropdown -->
+									<div class="dropdown">
+										<button class="btn btn-outline-light dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+											<i class="fas fa-ellipsis-h"></i>
+										</button>
+										<div class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="modify?masterpiece_id=${m.masterpiece_id }">modify(admin)</a> 
+											<a class="dropdown-item" href="#">delete(admin)</a> 
+											<a class="dropdown-item" href="#">share(admin, member)</a> 
+											<a class="dropdown-item" href="#">go artist(member)</a> 
+											<a class="dropdown-item" href="#">declaration(member)</a>
+										</div>
+									</div>
+									<!-- HOT badge -->
+									<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
+									<!-- Product image-->
+									<img class="card-img-top" src="${staticUrl }/masterpiece/${m.masterpiece_id }/${m.file_name }" alt="${m.file_name }">
+									<!-- Product details-->
+									<div class="card-body p-4">
+										<div class="text-center">
+											<!-- 작품 이름-->
+											<h5 class="fw-bolder">${m.title }</h5>
+											<!-- text-warning이 글씨의 색깔을 나타냄. -->
+											<!-- 작가 이름 -->
+											<div class="d-flex justify-content-center small text-warning mb-2">
+												<div class="bi-star-fill">${m.artist }</div>
+											</div>
+											<!-- Like, View-->
+											<span class="text-muted text-decoration-line-through">Like View</span>
+
+										</div>
+									</div>
+									<!-- Product actions-->
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-dark mt-auto" href="get?masterpiece_id=${m.masterpiece_id }">Go art</a>
+										</div>
+									</div>
+								</div>
 							</div>
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">Like View</span>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- <img src="" alt="" class="card-img-top">
-					<div class="card-body">
-						<ul class="body_content">IMAGE
-						</ul>
-					</div>
-					<div class="card-footer">
-						<ul class="footer_content">GO ART
-						</ul>
-					</div> -->
-					<!-- Product image-->
-					<img class="card-img-top"
-						src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">3 art</h5>
-							<!-- 작가 이름 -->
-							<div
-								class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill">artistName</div>
-							</div>
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">Like View</span>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- <img src="" alt="" class="card-img-top">
-					<div class="card-body">
-						<ul class="body_content">IMAGE
-						</ul>
-					</div>
-					<div class="card-footer">
-						<ul class="footer_content">GO ART
-						</ul>
-					</div> -->
-					<!-- Product image-->
-					<img class="card-img-top"
-						src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">3 art</h5>
-							<!-- 작가 이름 -->
-							<div
-								class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill">artistName</div>
-							</div>
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">Like View</span>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- <img src="" alt="" class="card-img-top">
-					<div class="card-body">
-						<ul class="body_content">IMAGE
-						</ul>
-					</div>
-					<div class="card-footer">
-						<ul class="footer_content">GO ART
-						</ul>
-					</div> -->
-					<!-- Product image-->
-					<img class="card-img-top"
-						src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">3 art</h5>
-							<!-- 작가 이름 -->
-							<div
-								class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill">artistName</div>
-							</div>
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">Like View</span>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- <img src="" alt="" class="card-img-top">
-					<div class="card-body">
-						<ul class="body_content">IMAGE
-						</ul>
-					</div>
-					<div class="card-footer">
-						<ul class="footer_content">GO ART
-						</ul>
-					</div> -->
-					<!-- Product image-->
-					<img class="card-img-top"
-						src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">3 art</h5>
-							<!-- 작가 이름 -->
-							<div
-								class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill">artistName</div>
-							</div>
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">Like View</span>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- <img src="" alt="" class="card-img-top">
-					<div class="card-body">
-						<ul class="body_content">IMAGE
-						</ul>
-					</div>
-					<div class="card-footer">
-						<ul class="footer_content">GO ART
-						</ul>
-					</div> -->
-					<!-- Product image-->
-					<img class="card-img-top"
-						src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">3 art</h5>
-							<!-- 작가 이름 -->
-							<div
-								class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill">artistName</div>
-							</div>
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">Like View</span>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		
-				<td>
-             	   <img class="fit-picture"
-				     <%-- src="${ }" --%>
-				     src="${staticUrl }/${masterpiece.id }/${masterpiece.newFileName}"
-				     alt="에러">
-     			</td>
-		</div>
-	</div>
-	</section>
+			</section>
+
+
+		</section>
 
 
 
 
 
-	<b:bottomInfo></b:bottomInfo>
+		<b:bottomInfo></b:bottomInfo>
 </div>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"

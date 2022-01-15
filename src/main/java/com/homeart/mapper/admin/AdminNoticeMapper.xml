@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.homeart.mapper.admin.AdminNoticeMapper">
+ 
+<select id="getList" resultType="com.homeart.domain.admin.AdminNoticeVO">
+<![CDATA[
+	SELECT * FROM AdminNotice WHERE admin_no > 0
+]]>
+</select>
+
+<insert id="insert">
+	INSERT INTO AdminNotice (admin_no, admin_id, admin_title, admin_content, admin_file)
+	VALUES ((select*from (select max(admin_no)+1 from AdminNotice) NEXT),
+	#{admin_id}, #{admin_title}, #{admin_content}, #{admin_file})
+</insert>
+ 
+<select id="read" resultType="com.homeart.domain.admin.AdminNoticeVO">
+	SELECT * FROM AdminNotice WHERE admin_no = #{admin_no}
+</select>
+
+<delete id="delete">
+	DELETE FROM AdminNotice WHERE admin_no = #{admin_no}
+</delete>
+
+<update id="update">
+	UPDATE AdminNotice
+	SET admin_title = #{admin_title},
+	admin_content = #{admin_content},
+	admin_id = #{admin_id},
+	admin_file = #{admin_file},
+	admin_date = #{admin_date}
+	WHERE admin_no = #{admin_no}
+</update>
+ 
+</mapper>
