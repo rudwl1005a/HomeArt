@@ -30,4 +30,6 @@ public interface GuestbookMapper {
 	
 	public List<GuestbookCommentVO> listCommentByGuestbookId(@Param("mypage_owner") String mypage_owner, @Param("guestbook_id") String guestbook_id);
 
+	public int insertNoPic(GuestbookVO vo);
+
 }

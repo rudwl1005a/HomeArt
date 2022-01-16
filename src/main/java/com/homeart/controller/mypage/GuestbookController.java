@@ -48,12 +48,21 @@ public class GuestbookController {
 	@PostMapping("/write")
 	public ResponseEntity<String> write(GuestbookVO guestbook, @SessionAttribute(value = "loggedInMember", required = false) MemberVO logged) {
 		
-		if (logged != null && logged.getMember_id().equals(guestbook.getMember_id())) {
-			guestbookService.register(guestbook);
-			return ResponseEntity.status(HttpStatus.OK).build();
-		} else {
-			System.out.println("fail");
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		if(guestbook.getProfile_file_name().equals("")) {
+			if (logged != null && logged.getMember_id().equals(guestbook.getMember_id())) {
+				guestbookService.registerNoPic(guestbook);
+				return ResponseEntity.status(HttpStatus.OK).build();
+			} else {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+			}	
+		}
+		else {
+			if (logged != null && logged.getMember_id().equals(guestbook.getMember_id())) {
+				guestbookService.register(guestbook);
+				return ResponseEntity.status(HttpStatus.OK).build();
+			} else {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+			}			
 		}
 	}
 	

@@ -9,6 +9,11 @@
  	VALUE (#{member_id}, #{content}, #{mypage_owner}, #{profile_file_name})
  	</insert>
  	
+ 	<insert id="insertNoPic" useGeneratedKeys="true" keyProperty="guestbook_id" keyColumn="guestbook_id">
+ 	INSERT INTO mypage_guestbook (member_id, content, mypage_owner)
+ 	VALUE (#{member_id}, #{content}, #{mypage_owner})
+ 	</insert>
+ 	
  	<select id="list" resultType="com.homeart.domain.mypage.GuestbookVO">
  	SELECT *
  	FROM mypage_guestbook

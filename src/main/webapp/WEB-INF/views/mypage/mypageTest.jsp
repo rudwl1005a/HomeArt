@@ -102,8 +102,15 @@
 	      const content = $("#guestbookContent").val();
 	      const member_id = '${sessionScope.loggedInMember.member_id}';
 	      const mypage_owner = '${member.member_id}';
-	      const profile_file_name = '${loggedProfile.profile_file_name}';
+	      const fileName = '${loggedProfile.profile_file_name}';
+	      let profile_file_name;
 	      
+	      if(fileName == ""){
+	    	  profile_file_name = "";
+	      }
+	      else{
+		      profile_file_name = '${loggedProfile.profile_file_name}';	    	  
+	      }
 	      
 	      const data = {
 	          content : content,
@@ -123,6 +130,7 @@
 	          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
 	        },
 	        complete : function() {
+	          console.log(profile_file_name);
 	          // 댓글 리스트 새로고침
 	          listGuestbook();
 	        }

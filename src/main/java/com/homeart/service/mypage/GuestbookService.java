@@ -29,6 +29,17 @@ public class GuestbookService {
 		return false;
 	}
 	
+	public boolean registerNoPic(GuestbookVO vo) {
+		
+		try {
+			return mapper.insertNoPic(vo) == 1;			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	public boolean remove(String guestbook_id) {
 		return mapper.delete(guestbook_id) == 1;
 	}

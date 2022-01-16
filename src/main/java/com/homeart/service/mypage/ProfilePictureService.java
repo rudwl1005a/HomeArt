@@ -85,9 +85,7 @@ public class ProfilePictureService {
 			String key = "profile/" + profile.getMember_id() + "/" + file.getOriginalFilename();
 			putObject(key, file.getSize(), file.getInputStream());
 
-			// 2. insert into File, DATABASE
-			// filename을 multipartFile에서 가져와서 picBoard 테이블에 추가하는 메서드 추가
-
+				
 		}
 
 		return;
