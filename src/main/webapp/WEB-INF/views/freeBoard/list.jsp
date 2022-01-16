@@ -129,12 +129,12 @@
 						<a class="btn btn-dark" type="button" href="${pageContext.request.contextPath}/freeBoard/post">글쓰기</a>
 						<!-- 검색창 -->
 						<form class="d-flex">
-							<select class="form-control select-box" name="searchType">
+							<select class="form-control searchType" name="searchType">
 								<option value="">선택</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 							</select>
-							<input class="form-control me-2 search-box" type="search" placeholder="Search" aria-label="Search">
+							<input class="form-control me-2 search-box" type="search" name="keyword" placeholder="Search" aria-label="Search">
 							<button class="btn btn-dark" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
