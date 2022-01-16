@@ -49,4 +49,10 @@
 	WHERE c.guestbook_id = #{guestbook_id}
 	ORDER BY c.guestbook_comment_id;
  	</select>
+ 	
+ 	<update id="updateProfile">
+ 	UPDATE mypage_guestbook
+	SET profile_file_name = #{profile_file_name}
+	WHERE member_id = #{member_id}
+ 	</update>
  </mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.mypage.ProfilePictureVO;
+import com.homeart.mapper.mypage.GuestbookMapper;
 import com.homeart.mapper.mypage.ProfilePictureMapper;
 
 import lombok.Setter;
@@ -29,6 +30,9 @@ public class ProfilePictureService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ProfilePictureMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private GuestbookMapper guestbookMapper;
 	
 	@Value("${aws.accessKeyId}")
 	private String accessKeyId;
@@ -85,7 +89,10 @@ public class ProfilePictureService {
 			String key = "profile/" + profile.getMember_id() + "/" + file.getOriginalFilename();
 			putObject(key, file.getSize(), file.getInputStream());
 
-				
+			// 댓글에 있는 프로필 사진 업데이트
+			String member_id = profile.getMember_id();
+			String profile_file_name = profile.getProfile_file_name();
+			guestbookMapper.updateProfile(member_id, profile_file_name);
 		}
 
 		return;

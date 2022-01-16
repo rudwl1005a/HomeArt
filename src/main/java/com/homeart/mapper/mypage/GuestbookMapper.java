@@ -32,4 +32,5 @@ public interface GuestbookMapper {
 
 	public int insertNoPic(GuestbookVO vo);
 
+	public int updateProfile(@Param("member_id") String member_id, @Param("profile_file_name") String profile_file_name);
 }
