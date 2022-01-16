@@ -4,9 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.homeart.mapper.mypage.GuestbookMapper">
- 	<insert id="insert">
- 	INSERT INTO mypage_guestbook (guestbook_id, member_id, content, mypage_owner, profile_file_name)
- 	VALUE ({#guestbook_id}, #{member_id}, #{content}, #{mypage_owner}, #{profile_file_name})
+ 	<insert id="insert" useGeneratedKeys="true" keyProperty="guestbook_id" keyColumn="guestbook_id">
+ 	INSERT INTO mypage_guestbook (member_id, content, mypage_owner, profile_file_name)
+ 	VALUE (#{member_id}, #{content}, #{mypage_owner}, #{profile_file_name})
  	</insert>
  	
  	<select id="list" resultType="com.homeart.domain.mypage.GuestbookVO">

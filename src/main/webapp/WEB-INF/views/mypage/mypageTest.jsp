@@ -96,6 +96,38 @@
 	    }
 	    
 		listGuestbook();
+		
+	    /* 댓글 전송 */
+	    $("#guestbook").click(function() {
+	      const content = $("#guestbookContent").val();
+	      const member_id = '${sessionScope.loggedInMember.member_id}';
+	      const mypage_owner = '${member.member_id}';
+	      const profile_file_name = '${loggedProfile.profile_file_name}';
+	      
+	      
+	      const data = {
+	          content : content,
+	          member_id : member_id,
+	          mypage_owner : mypage_owner,
+	          profile_file_name : profile_file_name
+	      };
+	      $.ajax({
+	        url : appRoot + "/guestbook/write",
+	        type : "post",
+	        data : data,
+	        success : function() {
+	          // textarea reset
+	          $("#guestbookContent").val("");
+	        },
+	        error : function() {
+	          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
+	        },
+	        complete : function() {
+	          // 댓글 리스트 새로고침
+	          listGuestbook();
+	        }
+	      });
+	    });
 	});
 </script>
 
@@ -151,6 +183,7 @@
 				<!-- 방명록 -->
 				<h2> ${member.nickName }님의 방명록 </h2>
 				<div id="guestbookWrap"></div>
+				<hr>
 				<c:forEach items="${list }" var="guestbook">
 					<div class="row guestbook">
 						<c:if test="${guestbook.profile_file_name eq NULL }">
@@ -197,7 +230,7 @@
 				
 				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
 					<div class="input-group mb-3 guestbookSubmit">
-					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="guestbook">
+					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="guestbook" id="guestbookContent">
 					  <div class="input-group-append">
 					    <button class="btn btn-dark" type="button" id="guestbook">작성</button>
 					  </div>

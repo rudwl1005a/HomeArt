@@ -46,8 +46,9 @@ public class MypageController {
 	private ProfilePictureService profileService;
 	
 	@RequestMapping("")
-	public String mypage(String member_id, Model model, RedirectAttributes rttr) {
-		
+	public String mypage(String member_id, Model model, HttpSession session, RedirectAttributes rttr) {
+
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
 		List<GuestbookVO> list = guestbookService.getList(member_id);
 		HashMap<String, Object> commentList = new HashMap<>();
 		MemberVO member = memberService.read(member_id);
@@ -65,6 +66,11 @@ public class MypageController {
 		} else {
 			model.addAttribute("profile", profile);
 			model.addAttribute("isProfile", true);
+		}
+		
+		ProfilePictureVO loggedProfile = profileService.read(vo.getMember_id());
+		if(profile != null) {
+			model.addAttribute("loggedProfile", loggedProfile);			
 		}
 		
 		// 탈퇴한 회원의 마이페이지로 들어가려고 할때

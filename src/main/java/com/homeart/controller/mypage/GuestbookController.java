@@ -52,6 +52,7 @@ public class GuestbookController {
 			guestbookService.register(guestbook);
 			return ResponseEntity.status(HttpStatus.OK).build();
 		} else {
+			System.out.println("fail");
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
