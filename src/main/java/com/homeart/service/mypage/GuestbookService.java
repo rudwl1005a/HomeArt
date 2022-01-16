@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.homeart.domain.member.GuestbookCommentVO;
-import com.homeart.domain.member.GuestbookVO;
-import com.homeart.mapper.member.GuestbookMapper;
+import com.homeart.domain.mypage.GuestbookCommentVO;
+import com.homeart.domain.mypage.GuestbookVO;
+import com.homeart.mapper.mypage.GuestbookMapper;
 
 import lombok.Setter;
 

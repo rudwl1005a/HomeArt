@@ -41,6 +41,42 @@
 			$("#modal1").modal('show');
 			history.replaceState({}, null);
 		}
+		/* 방명록 */
+		/* contextPath */
+	    const appRoot = '${pageContext.request.contextPath}';
+
+	    /* 현재 게시물의 댓글 목록 가져오는 함수 */
+		const listReply = function() {
+			$("#replyListContainer").empty();
+			$.ajax({
+				url : appRoot + "/guestbook/${member_id}",
+				success : function(list) {
+					for (let i = 0; i < list.length; i++) {
+						const replyMediaObject = $(`
+							<c:forEach items="\${list }" var="guestbook">
+								<div class="row guestbook">
+									<c:if test="${guestbook.profile_file_name eq NULL }">
+										<img class="pic40" src="\${staticUrl }/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
+									</c:if>
+									<c:if test="\${guestbook.profile_file_name ne NULL }">
+										<img class="pic40" src="\${staticUrl }/profile/\${guestbook.member_id}/\${guestbook.profile_file_name}" class="img-thumbnail" alt="...">
+									</c:if>
+									<a class="guestbookContent" href="\${mypageUrl }?member_id=\${guestbook.member_id }">\${guestbook.member_id }</a>
+									<p class="guestbookContent">　　</p>
+									<p class="guestbookContent">\${guestbook.content }</p>
+									<div class="guestbookButton ml-auto">
+										<span class="guestbookModify">수정</span>
+										<span class="guestbookDelete">삭제</span>
+										<span class="guestbookReply">답글</span>
+									</div>
+								</div>
+
+							</c:forEach>
+						`)
+				 	}
+				}
+			});
+	    }
 	});
 </script>
 

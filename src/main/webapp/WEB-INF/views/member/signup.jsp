@@ -45,7 +45,7 @@
 }
 
 #signupButton {
-	margin: 10px 4px 10px 600px;
+	margin: 10px 4px 10px 595px;
 	width: 100px;
 }
 

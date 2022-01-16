@@ -1,11 +1,11 @@
-package com.homeart.mapper.member;
+package com.homeart.mapper.mypage;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.homeart.domain.member.GuestbookCommentVO;
-import com.homeart.domain.member.GuestbookVO;
+import com.homeart.domain.mypage.GuestbookCommentVO;
+import com.homeart.domain.mypage.GuestbookVO;
 
 public interface GuestbookMapper {
 	/* 방명록 */

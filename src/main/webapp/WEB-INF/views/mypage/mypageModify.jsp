@@ -16,6 +16,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/member.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<c:url value="/mypage/profile" var="profileModifyUrl"></c:url>
+
 <style>
 
 /* id */
@@ -49,12 +51,24 @@
 }
 
 #modifyButton {
-	margin: 10px 4px 10px 600px;
+	margin: 10px 4px 10px 590px;
 	width: 100px;
 }
 
 #nickNameCheckMessage, #passwordMessage, #passwordCheckMessage {
 	margin: 0px 0px 10px 10px;
+}
+
+.profileEdit {
+	margin: 0px 10px 0px 540px;
+	font-size: 17px;
+	color: gray;
+	white-space: nowrap;
+}
+
+.profileEdit:hover {
+	color: gray;
+	text-decoration: none;
 }
 
 </style>
@@ -67,10 +81,10 @@
 	<div class="container">
 		<div class="row justify-content-center align-items-center vertical-center">
 			<div class="col-9">
-				<h1 style="margin: 10px;">회원수정</h1>
-				
-				<form method="post" id="signupForm">
-					<table>
+				<h1 style="margin: 10px 10px 0px 10px;">회원 정보 수정</h1>
+				<a class="profileEdit" href="${profileModifyUrl }?member_id=${sessionScope.loggedInMember.member_id }"> Profile Picture Edit </a>				
+				<form method="post" id="modifyForm">
+					<table style="margin-top: 10px;">
 						<tr>
 							<th nowrap>아이디</th>
 							<td>
@@ -237,10 +251,10 @@ $(document).ready(function(){
       const typed = $("#input4").val();
       if (oldNickName === typed) {
         $("#nickNameCheckButton").attr("disabled", true);
-        nickNameAble = true;
+        nickNameCheck = true;
       } else {
         $("#nickNameCheckButton").removeAttr("disabled");
-        nickNameAble = false;
+        nickNameCheck = false;
       }
       enableSubmit();
     });

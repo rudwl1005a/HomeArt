@@ -1,4 +1,4 @@
-package com.homeart.domain.member;
+package com.homeart.domain.mypage;
 
 import lombok.Data;
 

@@ -7,20 +7,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeart.domain.freeBoard.freeBoardVO;
-import com.homeart.domain.member.GuestbookCommentVO;
-import com.homeart.domain.member.GuestbookVO;
 import com.homeart.domain.member.MemberVO;
+import com.homeart.domain.mypage.GuestbookCommentVO;
+import com.homeart.domain.mypage.GuestbookVO;
+import com.homeart.domain.mypage.ProfilePictureVO;
 import com.homeart.domain.picShare.picBoardVO;
 import com.homeart.service.member.CountryService;
 import com.homeart.service.member.MemberService;
 import com.homeart.service.mypage.GuestbookService;
+import com.homeart.service.mypage.ProfilePictureService;
 
 import lombok.Setter;
 
@@ -37,6 +42,9 @@ public class MypageController {
 	@Setter(onMethod_ = @Autowired)
 	private CountryService Countryservice;
 	
+	@Setter(onMethod_ = @Autowired)
+	private ProfilePictureService profileService;
+	
 	@RequestMapping("")
 	public String mypage(String member_id, Model model, RedirectAttributes rttr) {
 		
@@ -48,6 +56,16 @@ public class MypageController {
 		
 		/* 회원 정보 */
 		model.addAttribute("member", member);
+		
+		/* 프로필 사진 있는지 확인 */
+		ProfilePictureVO profile = profileService.read(member_id);
+		
+		if(profile == null) {
+			model.addAttribute("isProfile", false);
+		} else {
+			model.addAttribute("profile", profile);
+			model.addAttribute("isProfile", true);
+		}
 		
 		// 탈퇴한 회원의 마이페이지로 들어가려고 할때
 		if(member == null) {
@@ -73,13 +91,6 @@ public class MypageController {
 		model.addAttribute("freeBoardLimit5", freeBoard);
 		
 		return "/mypage/mypage";
-	}
-	
-	/* 방명록 */
-	@PostMapping("/guestbook")
-	public String guestbook(Model model) {
-		
-		return "redirect:/mypage/mypage";
 	}
 	
 	/* 회원정보 수정 */
@@ -121,6 +132,44 @@ public class MypageController {
 		}
 		
 		String url = "/mypage?member_id=" + vo.getMember_id();
+		
+		return "redirect:"+url;
+	}
+	
+	/* 프로필 사진 변경 */
+	@GetMapping("/profile")
+	public String profile(String member_id, Model model) {
+		ProfilePictureVO profile = profileService.read(member_id);
+		
+		if(profile == null) {
+			model.addAttribute("isProfile", false);
+		} else {
+			model.addAttribute("profile", profile);
+			model.addAttribute("isProfile", true);
+		}
+		
+		return "/mypage/mypageProfile";
+	}
+	
+	@PostMapping("/profile")
+	@Transactional
+	public String profile(ProfilePictureVO profile, MultipartFile file, HttpSession session) throws Exception {
+		
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		String url = "/mypage?member_id=" + vo.getMember_id();
+		
+		if(profileService.read(vo.getMember_id()) == null) {
+			profile.setProfile_file_name(file.getOriginalFilename());
+			
+			profileService.register(profile, file);			
+		}
+		else {
+			profileService.remove(vo.getMember_id(), file);
+			profile.setProfile_file_name(file.getOriginalFilename());
+			
+			profileService.register(profile, file);		
+		}
+		
 		
 		return "redirect:"+url;
 	}
