@@ -23,7 +23,7 @@ public class freeBoardVO {
 	private Integer replyCount; //댓글 수
 	
 	//검색필터
-	private String type; //검색타입
+	private String searchType; //검색타입
 	private String keyword; //검색내용
 	
 	public String getBoardInserted() {

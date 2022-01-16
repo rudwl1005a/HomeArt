@@ -129,8 +129,8 @@
 						<a class="btn btn-dark" type="button" href="${pageContext.request.contextPath}/freeBoard/post">글쓰기</a>
 						<!-- 검색창 -->
 						<form class="d-flex">
-							<select class="form-control select-box" name="searchField">
-								<option value="0">선택</option>
+							<select class="form-control select-box" name="searchType">
+								<option value="">선택</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 							</select>
