@@ -22,13 +22,14 @@ a{
 
 /* COLUMNS */
 
-.col {
+.board-box {
+	min-width: 915px;
 	display: block;
 	float:left;
-	margin: 3% 0 1% 1.6%;
+	margin: 2% 0 1% 1.6%;
 }
 
-.col:first-of-type {
+.board-box:first-of-type {
   margin-left: 0;
 }
 
@@ -108,4 +109,14 @@ td a {
 
 tr {
 	border-top: 1px solid #dee2e6;
+}
+.table-admin{
+	margin-top: 20px;
+}
+.select-box{
+	width: fit-content;
+}
+.form-control:focus{
+	border: 1px solid black;
+	box-shadow: none;
 }

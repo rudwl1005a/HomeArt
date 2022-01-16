@@ -35,6 +35,11 @@
 			}
 		});
 	});
+	
+	var radioValue = $('input[name=isPublic]').val();
+	
+	$('input:radio[name=isPublic]').is(":checked");
+	
 </script>
 <title>HomeArt 자유게시판  글 수정</title>
 </head>
@@ -72,9 +77,9 @@
 						<input type="file" class="form-control-file" id="file-Button" name="files" accept="image/*" multiple>
 					</div>
 					<div class="switch switch--horizontal">
-						<input class="inputBox" id="radio-a" type="radio" name="isPublic" value="0">
+						<input class="inputBox" id="radio-a" type="radio" name="isPublic" value="0" <c:if test="${freeBoard.isPublic eq 0 }">checked</c:if>>
 						<label for="radio-a">비공개</label>
-						<input class="inputBox" id="radio-b" type="radio" name="isPublic" checked="checked" value="1">
+						<input class="inputBox" id="radio-b" type="radio" name="isPublic" value="1" ${freeBoard.isPublic == 1 ? "checked" : "" } <c:if test="${freeBoard.isPublic eq 1 }">checked</c:if>>
 						<label for="radio-b">공개</label>
 						<span class="toggle-outside">
 							<span class="slider toggle-inside"></span>

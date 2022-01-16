@@ -22,6 +22,10 @@ public class freeBoardVO {
 	private Boolean hasFile; // 파일 존재여부
 	private Integer replyCount; //댓글 수
 	
+	//검색필터
+	private String type; //검색타입
+	private String keyword; //검색내용
+	
 	public String getBoardInserted() {
 		//현재 일시
 		LocalDateTime now = LocalDateTime.now(ZoneId.of("+09:00"));

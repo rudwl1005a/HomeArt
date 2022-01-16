@@ -24,10 +24,8 @@
 <div class="contents-wrap">
 	<div class="container">
 		<div class="row">
-			<div class="col" style="min-width: 915px;">
+			<div class="col board-box">
 				<h2 class="text-center">자유게시판</h2>
-				
-				<!-- 관리자일때 게시판목록 -->
 				<div class="table-admin">
 					<table class="table table-hover" style="margin-bottom: 0;">
 						<thead>
@@ -40,26 +38,54 @@
 							</tr>
 						</thead>
 						
+						<!-- 관리자일때 게시판목록 -->
 						<tbody class="table-active">
 							<c:forEach items="${listAdmin }" var="freeBoard">
 								<c:if test="${pageInfo.currentPage == 1 }">
-								<tr>
-									<td class="col-2"><i class="far fa-flag" style="color: red;"></i></td>
-									<td class="col-4 freeBoard-title" style="color: red;">
-										<a style="color: red; font-weight: 550;" href="get?id=${freeBoard.board_id }">
-											<c:out value="${freeBoard.title }"></c:out>
-										</a>
-										<c:if test="${freeBoard.replyCount > 0 }">
-											<a href="get?id=${freeBoard.board_id }" style="color: red; font-weight: 550;">[${freeBoard.replyCount }]</a>
-										</c:if>
-										<c:if test="${freeBoard.hasFile }">
-											<i class="far fa-images"></i>
-										</c:if>
-									</td>
-									<td class="col-2">${freeBoard.nickName }</td>
-									<td class="col-2">${freeBoard.boardInserted }</td>
-									<td class="col-2">${freeBoard.viewCount }</td>
-								</tr>
+								<c:choose>
+									<c:when test="${sessionScope.loggedInMember.isAdmin == 1}">
+										<tr>
+											<td class="col-2"><i class="far fa-flag" style="color: red;"></i></td>
+											<td class="col-4 freeBoard-title" style="color: red;">
+												<a style="color: red; font-weight: 550;" href="get?id=${freeBoard.board_id }">
+													<c:out value="${freeBoard.title }"></c:out>
+												</a>
+												<c:if test="${freeBoard.replyCount > 0 }">
+													<a href="get?id=${freeBoard.board_id }" style="color: red; font-weight: 550;">[${freeBoard.replyCount }]</a>
+												</c:if>
+												<c:if test="${freeBoard.hasFile }">
+													<i class="far fa-images"></i>
+												</c:if>
+											</td>
+											<td class="col-2">${freeBoard.nickName }</td>
+											<td class="col-2">${freeBoard.boardInserted }</td>
+											<td class="col-2">${freeBoard.viewCount }</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${freeBoard.isPublic == 1 }">
+												<tr>
+													<td class="col-2"><i class="far fa-flag" style="color: red;"></i></td>
+													<td class="col-4 freeBoard-title" style="color: red;">
+														<a style="color: red; font-weight: 550;" href="get?id=${freeBoard.board_id }">
+															<c:out value="${freeBoard.title }"></c:out>
+														</a>
+														<c:if test="${freeBoard.replyCount > 0 }">
+															<a href="get?id=${freeBoard.board_id }" style="color: red; font-weight: 550;">[${freeBoard.replyCount }]</a>
+														</c:if>
+														<c:if test="${freeBoard.hasFile }">
+															<i class="far fa-images"></i>
+														</c:if>
+													</td>
+													<td class="col-2">${freeBoard.nickName }</td>
+													<td class="col-2">${freeBoard.boardInserted }</td>
+													<td class="col-2">${freeBoard.viewCount }</td>
+												</tr>
+											</c:when>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
 								</c:if>
 							</c:forEach>
 						</tbody>
@@ -69,27 +95,28 @@
 				<!-- 일반회원 게시판 목록 -->
 				<div class="table-member">
 					<table class="table table-hover">
-						
 						<tbody>
 							 <c:set var="num" value="${pageInfo.countBoard - ((pageInfo.currentPage-1)*10) }"/>
 							 <c:forEach items="${listMember }" var="freeBoard">
-								<tr>
-									<td class="col-2">${num }</td>
-									<td class="col-4 freeBoard-title">
-										<a style="color: black;" href="get?id=${freeBoard.board_id }">
-											<c:out value="${freeBoard.title }"></c:out>
-										</a>
-										<c:if test="${freeBoard.replyCount > 0 }">
-											<a href="get?id=${freeBoard.board_id }" style="color: red; font-weight: 550;">[${freeBoard.replyCount }]</a>
-										</c:if>
-										<c:if test="${freeBoard.hasFile }">
-											<i class="far fa-images"></i>
-										</c:if>
-									</td>
-									<td class="col-2">${freeBoard.nickName }</td>
-									<td class="col-2">${freeBoard.boardInserted }</td>
-									<td class="col-2">${freeBoard.viewCount }</td>
-								</tr>
+								<c:if test="${(freeBoard.isPublic == 0 && (sessionScope.loggedInMember.isAdmin == 1 || sessionScope.loggedInMember.member_id eq freeBoard.writer)) || freeBoard.isPublic == 1}">
+									<tr>
+										<td class="col-2">${num }</td>
+										<td class="col-4 freeBoard-title">
+											<a style="color: black;" href="get?id=${freeBoard.board_id }">
+												<c:out value="${freeBoard.title }"></c:out>
+											</a>
+											<c:if test="${freeBoard.replyCount > 0 }">
+												<a href="get?id=${freeBoard.board_id }" style="color: red; font-weight: 550;">[${freeBoard.replyCount }]</a>
+											</c:if>
+											<c:if test="${freeBoard.hasFile }">
+												<i class="far fa-images"></i>
+											</c:if>
+										</td>
+										<td class="col-2">${freeBoard.nickName }</td>
+										<td class="col-2">${freeBoard.boardInserted }</td>
+										<td class="col-2">${freeBoard.viewCount }</td>
+									</tr>
+								</c:if>
 							<c:set var="num" value="${num-1 }"></c:set>
 							</c:forEach>
 						</tbody>
@@ -102,7 +129,12 @@
 						<a class="btn btn-dark" type="button" href="${pageContext.request.contextPath}/freeBoard/post">글쓰기</a>
 						<!-- 검색창 -->
 						<form class="d-flex">
-							<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+							<select class="form-control select-box" name="searchField">
+								<option value="0">선택</option>
+								<option value="title">제목</option>
+								<option value="writer">작성자</option>
+							</select>
+							<input class="form-control me-2 search-box" type="search" placeholder="Search" aria-label="Search">
 							<button class="btn btn-dark" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
