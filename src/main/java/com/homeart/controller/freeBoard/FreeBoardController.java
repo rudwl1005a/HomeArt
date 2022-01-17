@@ -26,13 +26,15 @@ public class FreeBoardController {
 	private freeBoardService service;
 	
 	@GetMapping("/list")
-	public void list(@RequestParam(value="page", defaultValue = "1") Integer page, Model model) {
+	public void list(@RequestParam(value="page", defaultValue = "1") Integer page, 
+			@RequestParam(value = "searchType", required = false) String searchType, 
+			@RequestParam(value = "keyword", required = false) String keyword, Model model) {
 		
 		Integer numberPerPage = 10; //한페이지 row수
 		
 		//게시물 목록
-		List<freeBoardVO> listAdmin = service.getList();
-		List<freeBoardVO> listMember = service.getList(page, numberPerPage);
+		List<freeBoardVO> listAdmin = service.getList(searchType, keyword);
+		List<freeBoardVO> listMember = service.getList(page, searchType, keyword, numberPerPage);
 		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
 		
 		model.addAttribute("listAdmin", listAdmin);

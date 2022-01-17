@@ -30,11 +30,11 @@
 					<table class="table table-hover" style="margin-bottom: 0;">
 						<thead>
 							<tr>
-								<th >No.</th>
-								<th>제목</th>
-								<th >작성자</th>
-								<th>작성일</th>
-								<th>조회수</th>
+								<th class="col-2" >No.</th>
+								<th class="col-4 freeBoard-title">제목</th>
+								<th class="col-2">작성자</th>
+								<th class="col-2">작성일</th>
+								<th class="col-2">조회수</th>
 							</tr>
 						</thead>
 						
@@ -130,7 +130,7 @@
 						<a class="btn btn-dark" type="button" href="${pageContext.request.contextPath}/freeBoard/post">글쓰기</a>
 						<form class="d-flex">
 							<select class="form-control searchType" name="searchType">
-								<option value="">선택</option>
+								<option value="all">전체</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 							</select>

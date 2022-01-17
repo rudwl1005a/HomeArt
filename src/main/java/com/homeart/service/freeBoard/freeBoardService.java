@@ -122,15 +122,15 @@ public class freeBoardService {
 	}
 	
 	//관리자 공지목록
-	public List<freeBoardVO> getList() {
-		return mapper.getAdminList();
+	public List<freeBoardVO> getList(String searchType, String keyword) {
+		return mapper.getAdminList(searchType, keyword);
 	}
 
 	//회원게시getList & pageInfo
-	public List<freeBoardVO> getList(Integer page, Integer numberPerPage) {
+	public List<freeBoardVO> getList(Integer page, String searchType, String keyword, Integer numberPerPage) {
 		//sql에서 사용할 record 시작번호(0-index)
 		Integer from = (page-1) * 10;
-		return mapper.getList(from, numberPerPage);
+		return mapper.getList(from, searchType, keyword, numberPerPage);
 	}
 
 	//pagination
