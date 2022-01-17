@@ -228,7 +228,7 @@
 							<a class="more" href="${favpicUrl }">..more</a>
 						</div>
 						<div class="row">
-							<img class="pic150" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
+							<a><img class="pic150" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="..."></a>
 							<img class="pic150" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
 							<img class="pic150" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
 							<img class="pic150" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
@@ -241,8 +241,11 @@
 							<a class="more" href="${mypostUrl }">..more</a>
 						</div>
 						<ul>
-							<c:forEach items="${freeBoardLimit5 }" var="writing">
-								<li><a href="${freeBoardUrl }?id=${writing.board_id}">${writing.title }</a></li>
+							<c:forEach items="${freeBoardLimit5 }" var="writing" varStatus="status">
+								<li>
+									<span style="font-size: 20px;">#${status.count }</span>
+									<a href="${freeBoardUrl }?id=${writing.board_id}" class="mypost">${writing.title }</a>
+								</li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -252,11 +255,12 @@
 							<a class="more" href="${myreplyUrl }">..more</a>
 						</div>
 						<ul>
-							<li>댓글댓글댓글1</li>
-							<li>댓글댓글댓글2</li>
-							<li>댓글댓글댓글3</li>
-							<li>댓글댓글댓글4</li>
-							<li>댓글댓글댓글5</li>
+							<c:forEach items="${replyLimit5 }" var="reply" varStatus="status">
+								<li>
+									<span style="font-size: 20px;	">#${status.count }</span>
+									<a href="${freeBoardUrl }?id=${reply.board_id}" class="mypost">${reply.reply }</a>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</c:if>

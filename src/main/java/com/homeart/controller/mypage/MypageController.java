@@ -1,6 +1,5 @@
 package com.homeart.controller.mypage;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,17 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.homeart.domain.freeBoard.FreeBoardReplyVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.domain.member.MemberVO;
-import com.homeart.domain.mypage.GuestbookCommentVO;
 import com.homeart.domain.mypage.GuestbookVO;
 import com.homeart.domain.mypage.ProfilePictureVO;
+import com.homeart.domain.mypage.replyVO;
 import com.homeart.domain.picShare.picBoardVO;
 import com.homeart.service.member.CountryService;
 import com.homeart.service.member.MemberService;
@@ -50,10 +49,11 @@ public class MypageController {
 
 		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
 		List<GuestbookVO> list = guestbookService.getList(member_id);
-		HashMap<String, Object> commentList = new HashMap<>();
+//		HashMap<String, Object> commentList = new HashMap<>();
 		MemberVO member = memberService.read(member_id);
 		List<freeBoardVO> freeBoard = memberService.getWritingLimit5(member_id);
 		List<picBoardVO> picBoard = memberService.getPictureLimit5(member_id);
+		List<FreeBoardReplyVO> reply = memberService.getReplyLimit5(member_id);
 		
 		/* 회원 정보 */
 		model.addAttribute("member", member);
@@ -79,8 +79,8 @@ public class MypageController {
 			return "redirect:/";
 		}
 
-		/* 방명록 리스트 */
-		model.addAttribute("list", list);
+//		/* 방명록 리스트 */
+//		model.addAttribute("list", list);
 		
 		/* 답글 리스트 */
 //		for(int i=0; i<list.size(); i++) {
@@ -95,6 +95,9 @@ public class MypageController {
 		
 		/* 내가 쓴 글 5개 */
 		model.addAttribute("freeBoardLimit5", freeBoard);
+
+		/* 내 댓글 5개 */
+		model.addAttribute("replyLimit5", reply);
 		
 		return "/mypage/mypage";
 	}
@@ -216,7 +219,10 @@ public class MypageController {
 	public String myreply(Model model, HttpSession session) {
 		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
 		String member_id = loggedIn.getMember_id();
-
+		
+		List<replyVO> reply = memberService.getReply(member_id);
+		
+		model.addAttribute("reply", reply);
 		return "/mypage/mypageMyreply";
 	}
 

@@ -93,4 +93,26 @@
 	ORDER BY inserted DESC
 	LIMIT 0, 5
 	</select>
+	
+	<select id="selectReply" resultType="com.homeart.domain.mypage.replyVO">
+	SELECT 
+	    r.*, f.title
+	FROM
+	    FreeBoardReply r
+	        JOIN
+	    freeBoard f
+	WHERE
+	    r.member_id = #{member_id}
+	        AND r.board_id = f.board_id
+	ORDER BY r.inserted DESC;
+	</select>
+	
+	<select id="selectReplyLimit5" resultType="com.homeart.domain.freeBoard.FreeBoardReplyVO">
+	SELECT *
+	FROM FreeBoardReply
+	WHERE member_id = #{member_id}
+	ORDER BY inserted DESC
+	LIMIT 0, 5
+	</select>
+	
  </mapper>
