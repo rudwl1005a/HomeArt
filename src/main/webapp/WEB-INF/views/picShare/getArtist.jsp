@@ -138,7 +138,7 @@ body {
 			<div class="container">
 				<!-- register button -->
 				<button class="btn btn-outline-light" type="button" onclick="location.href='${pageContext.request.contextPath}/picShare/register'">Post</button>
-
+				<!-- list button -->
 				<button class="btn btn-outline-light" type="button" onclick="location.href='${pageContext.request.contextPath}/picShare/list'">list</button>
 			</div>
 		</nav>

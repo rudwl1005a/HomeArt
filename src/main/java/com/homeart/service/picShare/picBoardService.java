@@ -1,20 +1,20 @@
 package com.homeart.service.picShare;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.picShare.picBoardVO;
+import com.homeart.domain.picShare.picLikeVO;
 import com.homeart.domain.picShare.picPageInfoVO;
 import com.homeart.mapper.picShare.picBoardMapper;
 
@@ -79,45 +79,22 @@ public class picBoardService {
 		s3.putObject(pubObjectRequest, requestBody);
 	}
 
-	public List<picBoardVO> getListPage(Integer page, Integer numberPerPage) {
+	public ArrayList<picBoardVO> getList(picBoardVO board) {
 
-		// 24인 이유, 시작 위치 page(시작위치) numberPerPage(몇 개)
-		Integer from = (page - 1) * 24;
+		return (ArrayList<picBoardVO>) boardMapper.getList(board);
+	}
 
-		return boardMapper.getListPage(from, numberPerPage);
+	public int getCountRow(picBoardVO board) {
+
+		// 게시물 갯수 가져오기
+		int result = boardMapper.card_count(board);
+
+		return result;
 	}
 
 	public List<picBoardVO> getArtist(Integer id) {
-		
+
 		return boardMapper.getArtist(id);
-	}
-
-	public picPageInfoVO getPageInfo(Integer page, Integer numberPerPage) {
-
-		Integer countRows = boardMapper.getCountRows();
-
-		Integer lastPage = (countRows - 1) / numberPerPage + 1;
-		Integer leftPageNumber = (page - 1) / 10 * 10 + 1;
-		Integer rightPageNumber = (page - 1) / 10 * 10 + 10;
-
-		rightPageNumber = rightPageNumber > lastPage ? lastPage : rightPageNumber;
-
-		Boolean hasPrevButton = leftPageNumber != 1;
-		Boolean hasNextButton = rightPageNumber != lastPage;
-
-		picPageInfoVO picPageInfo = new picPageInfoVO();
-
-		picPageInfo.setCountRows(countRows);
-
-		picPageInfo.setCurrentPage(page);
-		picPageInfo.setLastPage(lastPage);
-		picPageInfo.setLeftPageNumber(leftPageNumber);
-		picPageInfo.setRightPageNumber(rightPageNumber);
-
-		picPageInfo.setHasNextButton(hasNextButton);
-		picPageInfo.setHasPrevButton(hasPrevButton);
-
-		return picPageInfo;
 	}
 
 	public picBoardVO get(Integer id) {
@@ -168,6 +145,53 @@ public class picBoardService {
 	public List<picBoardVO> getWriterArt(Integer id) {
 
 		return boardMapper.getWriterArt(id);
+	}
+
+	public picBoardVO saveHeart(picLikeVO likeVO) {
+
+		picBoardVO board = new picBoardVO();
+		board.setBoard_id(likeVO.getBoard_id());
+
+		// like 테이블에 추가
+		int result = boardMapper.insertLike(likeVO);
+
+		System.out.println(result);
+		
+		// like 테이블에 좋아요 삭제가 성공한다면?
+		if (result == 1) {
+			// 갱신된 하트수를 가져옴
+			boardMapper.likeUp(board.getBoard_id());
+			System.out.println(board);
+			board.setLike_cnt(boardMapper.heart_count(board));
+		}
+		
+		System.out.println(board.getLike_cnt());
+
+		return board;
+
+	}
+
+	public picBoardVO removeHeart(picLikeVO likeVO) {
+
+		// board 테이블에 해당 게시물의 heart수를 -1 하기 위한 board 세팅
+		picBoardVO board = new picBoardVO();
+		board.setBoard_id(likeVO.getBoard_id());
+
+		// like 테이블에 삭제
+		int result = boardMapper.deleteLike(likeVO);
+		
+		System.out.println(result);
+
+		// like 테이블에 좋아요 삭제가 성공한다면?
+		if (result == 1) {
+			// 갱신된 하트수를 가져옴
+			boardMapper.likeUp(board.getBoard_id());
+			board.setLike_cnt(boardMapper.heart_count(board));
+		}
+		
+		System.out.println(board.getLike_cnt());
+
+		return board;
 	}
 
 }
