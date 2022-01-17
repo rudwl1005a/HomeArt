@@ -53,6 +53,41 @@
 			$.ajax({
 				url : appRoot + "/guestbook/guestbook/${member.member_id}",
 				success : function(list) {
+						/*
+18	rudwl10051	123	id2	KakaoTalk_20211227_155817923.png				
+17	rudwl10051	1234	id2	KakaoTalk_20211227_155817923.png				
+7	id1	방명록 놀다갑니다~3	id2	다운로드.png	17	id1	7	7에대한 댓글입니당4
+7	id1	방명록 놀다갑니다~3	id2	다운로드.png	16	ruwdl1005	7	7에대한 댓글입니당3
+7	id1	방명록 놀다갑니다~3	id2	다운로드.png	15	ruwdl1005	7	7에대한 댓글입니당2
+7	id1	방명록 놀다갑니다~3	id2	다운로드.png	14	ruwdl1005	7	7에대한 댓글입니당1
+6	id1	방명록 놀다갑니다~2	id2	다운로드.png	13	ruwdl1005	6	6에대한 댓글입니당3
+6	id1	방명록 놀다갑니다~2	id2	다운로드.png	12	ruwdl1005	6	6에대한 댓글입니당2
+6	id1	방명록 놀다갑니다~2	id2	다운로드.png	11	ruwdl1005	6	6에대한 댓글입니당
+5	rudwl1005	방명록 놀다갑니다~2	id2		10	ruwdl1005	5	5에대한 댓글입니당2
+5	rudwl1005	방명록 놀다갑니다~2	id2		9	ruwdl1005	5	5에대한 댓글입니당
+4	rudwl1005	방명록 놀다갑니다~	id2		8	ruwdl1005	4	4에대한 댓글입니당
+						*/
+					/* 방명록 + 댓글 시도 */
+					let lastGuestBookId = 0;
+					let currentGuestBook = '';
+					for (let i = 0; i < list.length; i++) {
+						if (lastGuestBookId != list[i].guestBookId) {
+							currentGuestBook = $(`<div>방명록글 \${list[i].guestBookId}</div>
+							                        <div class='comment-container'></div>
+							                        <div class=''>댓글 작성란 </div>
+							                        `);
+							
+							$("#guestbookWrap").append(currentGuestBook);
+						}
+
+						if (/* 댓글이 null이 아니면 */) {
+							currentGuestBook.find('.comment-container').append(`<div> 댓글 </div>`);
+						}
+						
+					}	
+						
+						
+					/* 방명록만 보여주는건 완성.. */	
 					for (let i = 0; i < list.length; i++) {
 						let replyMediaObject;
 						if(list[i].profile_file_name == null){
