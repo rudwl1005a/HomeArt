@@ -47,12 +47,16 @@ body {
 .main_category:active .category {
 	display: block;
 } 
+/* 카드 이미지 고정 */
+.card-img-top {
+	height: 15rem;
+	object-fit: cover;
+}
 </style>
 
 <script>
-/* $("#btn3").click(function () {
-    $("h1").toggle("fast");
-}); */
+
+
 </script>
 </head>
 <body>

@@ -33,7 +33,7 @@ public class MasterpieceController {
 	@GetMapping("/list")
 	public void list(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
 
-		Integer numberPerPage = 10; // 한 페이지의 row 수
+		Integer numberPerPage = 20; // 한 페이지의 row 수
 
 		// 3. business logic
 		// 게시물(Board) 목록 조회

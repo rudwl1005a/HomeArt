@@ -15,4 +15,5 @@ public class MasterpieceVO {
 	private String likeSu;		// 좋아요수
 	
 	private String nickName;		// 멤버TABLE 닉네임
+	
 }
