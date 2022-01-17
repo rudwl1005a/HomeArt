@@ -75,7 +75,7 @@
 
 .guestbookComment{
 	width: 730px;
-	margin: 5px 0px 0px 60px;
+	margin: 5px 0px 0px 75px;
 }
 
 .guestbookCommentContent{
@@ -84,7 +84,7 @@
 }
 
 .guestbookCommentWrap {
-	display: none;
+	/* display: none; */
 }
 
 .guestbookContent {
@@ -131,7 +131,7 @@
 
 /* 내 활동 */
 .activeBox {
-	margin: 20px 0px 20px;
+	margin: 20px 0px 40px;
 }
 
 .more {

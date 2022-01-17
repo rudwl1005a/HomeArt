@@ -83,12 +83,12 @@ public class MypageController {
 		model.addAttribute("list", list);
 		
 		/* 답글 리스트 */
-		for(int i=0; i<list.size(); i++) {
-			String guestbook_id = list.get(i).getGuestbook_id();
-			List<GuestbookCommentVO> cList = guestbookService.getlistCommentByGuestbookId(member_id, guestbook_id);
-			commentList.put(guestbook_id, cList);
-			model.addAttribute("commentList", commentList);
-		}
+//		for(int i=0; i<list.size(); i++) {
+//			String guestbook_id = list.get(i).getGuestbook_id();
+//			List<GuestbookCommentVO> cList = guestbookService.getlistCommentByGuestbookId(member_id, guestbook_id);
+//			commentList.put(guestbook_id, cList);
+//			model.addAttribute("commentList", commentList);
+//		}
 		
 		/* 내 그림 5개 */
 		model.addAttribute("picBoardLimit5", picBoard);

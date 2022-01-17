@@ -11,4 +11,10 @@ public class GuestbookVO {
 	private String profile_file_name;
 	
 	private boolean own;
+	
+	// with comment
+//	private int guestbook_comment_id;
+//	private int guestbook_id2;
+//	private String comment_writer;
+//	private String comment_content;
 }

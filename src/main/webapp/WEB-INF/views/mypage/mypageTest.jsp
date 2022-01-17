@@ -30,7 +30,9 @@
 <script>
 	/* 답글 토글 */
 	$(document).ready(function(){
+		// 이건 왜 또 안먹음...ㅠㅠ
 		$(".guestbookReply").click(function(){
+			console.log("click");
 			var element = $(this).parent();
 			var element2 = element.parent();
 			element2.next().slideToggle("fast");
@@ -47,59 +49,90 @@
 	    const appRoot = '${pageContext.request.contextPath}';
 		const staticUrl = '${staticUrl }'
 		const mypageUrl = '${mypageUrl}';
+		
 	    /* 현재 게시물의 댓글 목록 가져오는 함수 */
 		const listGuestbook = function() {
 			$("#guestbookWrap").empty();
 			$.ajax({
 				url : appRoot + "/guestbook/guestbook/${member.member_id}",
 				success : function(list) {
-						/*
-18	rudwl10051	123	id2	KakaoTalk_20211227_155817923.png				
-17	rudwl10051	1234	id2	KakaoTalk_20211227_155817923.png				
-7	id1	방명록 놀다갑니다~3	id2	다운로드.png	17	id1	7	7에대한 댓글입니당4
-7	id1	방명록 놀다갑니다~3	id2	다운로드.png	16	ruwdl1005	7	7에대한 댓글입니당3
-7	id1	방명록 놀다갑니다~3	id2	다운로드.png	15	ruwdl1005	7	7에대한 댓글입니당2
-7	id1	방명록 놀다갑니다~3	id2	다운로드.png	14	ruwdl1005	7	7에대한 댓글입니당1
-6	id1	방명록 놀다갑니다~2	id2	다운로드.png	13	ruwdl1005	6	6에대한 댓글입니당3
-6	id1	방명록 놀다갑니다~2	id2	다운로드.png	12	ruwdl1005	6	6에대한 댓글입니당2
-6	id1	방명록 놀다갑니다~2	id2	다운로드.png	11	ruwdl1005	6	6에대한 댓글입니당
-5	rudwl1005	방명록 놀다갑니다~2	id2		10	ruwdl1005	5	5에대한 댓글입니당2
-5	rudwl1005	방명록 놀다갑니다~2	id2		9	ruwdl1005	5	5에대한 댓글입니당
-4	rudwl1005	방명록 놀다갑니다~	id2		8	ruwdl1005	4	4에대한 댓글입니당
-						*/
+					
 					/* 방명록 + 댓글 시도 */
 					let lastGuestBookId = 0;
 					let currentGuestBook = '';
 					for (let i = 0; i < list.length; i++) {
 						if (lastGuestBookId != list[i].guestbook_id) {
-							currentGuestBook = $(`
-								<div class="row guestbook">
-									<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
-									<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
-									<p class="guestbookContent">　　</p>
-									<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
-									<div class="guestbookButton ml-auto">
-										<span class="guestbookModify">수정</span>
-										<span class="guestbookDelete">삭제</span>
-										<span class="guestbookReply">답글</span>
+							if(list[i].profile_file_name == null){								
+								currentGuestBook = $(`
+									<div class="row guestbook">
+										<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
+										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
+										<p class="guestbookContent">　　</p>
+										<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
+										<div class="guestbookButton ml-auto">
+											<span class="guestbookDelete">삭제</span>
+											<span class="guestbookReply">답글</span>
+										</div>
 									</div>
-								</div>
-							    <div class='comment-container'></div>
-							    <div class=''>댓글 작성란 </div>
-							`);
+									<div class="guestbookCommentWrap"></div>
+									<div class="input-group mb-3 guestbookCommentSubmit">
+									  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+									  <div class="input-group-append">
+									    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+									  </div>
+									</div>
+								`);
+							}
+							else{
+								let guestbookWriter = list[i].member_id;
+								currentGuestBook = $(`
+										<div class="row guestbook">
+										<img class="pic40" src="\${staticUrl}/profile/\${list[i].member_id}/\${list[i].profile_file_name}" class="img-thumbnail" alt="...">
+											<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
+											<p class="guestbookContent">　　</p>
+											<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
+											<div class="guestbookButton ml-auto">
+												<span class="guestbookDelete">삭제</span>
+												<span class="guestbookReply">답글</span>
+											</div>
+										</div>
+										<div class="guestbookCommentWrap"></div>
+										<div class="input-group mb-3 guestbookCommentSubmit">
+										  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+										  <div class="input-group-append">
+										    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+										  </div>
+										</div>
+								`);
+							}
 							
 							$("#guestbookWrap").append(currentGuestBook);
+							lastGuestBookId = list[i].guestbook_id;
 						}
-
-						//if (/* 댓글이 null이 아니면 */) {
-						//	currentGuestBook.find('.comment-container').append(`<div> 댓글 </div>`);
-						//}
-						
-						
+												
+						if (list[i].guestbook_comment_id != 0) {
+							if(list[i].guestbook_id == list[i].guestbook_id2){
+								console.log("들어옴1!" + list[i].guestbook_id);
+								console.log("들어옴!" + list[i].guestbook_id2);
+								// 이걸로 하면 아예 안들어감..
+								//currentGuestBook.find('.guestbookCommentWrap').append(`
+								// 이걸로 하면 전부 들어가고
+								$("#guestbookWrap").find('.guestbookCommentWrap').append(`
+									<div class="row guestbookComment">
+										<a class="guestbookCommentContent" href="\${mypageUrl }?member_id=\${list[i].comment_writer }">\${list[i].comment_writer }</a>
+										<p class="guestbookCommentContent">　　</p>
+										<p class="guestbookCommentContent">\${list[i].comment_content }</p>
+										<div class="guestbookButton ml-auto">
+											<span class="guestbookCommentDelete">삭제</span>
+										</div>						
+									</div>
+								`);
+							}
+						}
 					}	
 						
 						
-					/* 방명록만 보여주는건 완성.. */	
+					/* 방명록만 보여주는건 완성.. 	
 					for (let i = 0; i < list.length; i++) {
 						let replyMediaObject;
 						if(list[i].profile_file_name == null){
@@ -110,9 +143,7 @@
 										<p class="guestbookContent">　　</p>
 										<p class="guestbookContent guestbookContentContent"></p>
 										<div class="guestbookButton ml-auto">
-											<span class="guestbookModify">수정</span>
 											<span class="guestbookDelete">삭제</span>
-											<span class="guestbookReply">답글</span>
 										</div>
 									</div>
 							`);
@@ -125,9 +156,7 @@
 										<p class="guestbookContent">　　</p>
 										<p class="guestbookContent guestbookContentContent"></p>
 										<div class="guestbookButton ml-auto">
-											<span class="guestbookModify">수정</span>
 											<span class="guestbookDelete">삭제</span>
-											<span class="guestbookReply">답글</span>
 										</div>
 									</div>
 							`);		
@@ -137,7 +166,8 @@
 			            replyMediaObject.find(".guestbookContentContent").text(list[i].content);
 			            
 			            $("#guestbookWrap").append(replyMediaObject);
-				 	}
+			            
+				 	} */
 				}
 			});
 	    }
@@ -177,12 +207,38 @@
 	          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
 	        },
 	        complete : function() {
-	          console.log(profile_file_name);
 	          // 댓글 리스트 새로고침
 	          listGuestbook();
 	        }
 	      });
 	    });
+	    
+        /* 본인이 작성한것만 수정,삭제 버튼 활성화
+        if (list[i].own) {
+          const modifyButton = $("<button class='btn btn-outline-secondary'><i class='far fa-edit'></i></button>");
+          modifyButton.click(function() {
+            $(this).parent().find('.reply-body').hide();
+            $(this).parent().find('.input-group').show();
+          });
+          
+          replyMediaObject.find(".media-body").append(modifyButton);
+          
+          // 삭제버튼 추가
+          const removeButton = $("<button class='btn btn-outline-danger'><i class='far fa-trash-alt'></i></button>");
+          removeButton.click(function() {
+            if (confirm("삭제 하시겠습니까?")) {
+              $.ajax({
+                url : appRoot + "/reply/" + list[i].id,
+                type : "delete",
+                complete : function() {
+                  listReply();
+                }
+              });
+            }
+          });
+          
+          replyMediaObject.find(".media-body").append(removeButton);
+        } */
 	});
 </script>
 
@@ -238,50 +294,7 @@
 				<!-- 방명록 -->
 				<h2> ${member.nickName }님의 방명록 </h2>
 				<div id="guestbookWrap"></div>
-				<hr>
-				<c:forEach items="${list }" var="guestbook">
-					<div class="row guestbook">
-						<c:if test="${guestbook.profile_file_name eq NULL }">
-							<img class="pic40" src="${staticUrl }/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
-						</c:if>
-						<c:if test="${guestbook.profile_file_name ne NULL }">
-							<img class="pic40" src="${staticUrl }/profile/${guestbook.member_id}/${guestbook.profile_file_name}" class="img-thumbnail" alt="...">
-						</c:if>
-						<a class="guestbookContent" href="${mypageUrl }?member_id=${guestbook.member_id }">${guestbook.member_id }</a>
-						<p class="guestbookContent">　　</p>
-						<p class="guestbookContent">${guestbook.content }</p>
-						<div class="guestbookButton ml-auto">
-							<span class="guestbookModify">수정</span>
-							<span class="guestbookDelete">삭제</span>
-							<span class="guestbookReply">답글</span>
-						</div>
-					</div>
-					<div class="guestbookCommentWrap">
-						<c:forEach items="${commentList }" var="guestbookComment">
-							<c:if test="${guestbookComment.key == guestbook.guestbook_id}">
-								<div class="col">
-									<c:forEach items="${guestbookComment.value }" var="comment">
-										<div class="row guestbookComment">
-											<a class="guestbookCommentContent" href="${mypageUrl }?member_id=${comment.member_id }">${comment.member_id }</a>
-											<p class="guestbookCommentContent">　　</p>
-											<p class="guestbookCommentContent">${comment.content }</p>
-											<div class="guestbookButton ml-auto">
-												<span class="guestbookCommentModify">수정</span>
-												<span class="guestbookCommentDelete">삭제</span>
-											</div>						
-										</div>
-									</c:forEach>
-								</div>
-							</c:if>
-						</c:forEach>
-						<div class="input-group mb-3 guestbookCommentSubmit">
-						  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
-						  <div class="input-group-append">
-						    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
-						  </div>
-						</div>
-					</div>
-				</c:forEach>
+				<div class="guestbookCommentWrap2"></div>
 				
 				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
 					<div class="input-group mb-3 guestbookSubmit">

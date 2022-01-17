@@ -20,6 +20,8 @@ public interface GuestbookMapper {
 	
 	/* 방명록 댓글 */
 	public int insertComment(GuestbookCommentVO vo);
+	
+	public GuestbookVO selectById(String guestbook_id);
 		
 	// 수정 나중에 시간나면 추가
 //	public int updateComment(GuestbookCommentVO vo);
@@ -33,4 +35,6 @@ public interface GuestbookMapper {
 	public int insertNoPic(GuestbookVO vo);
 
 	public int updateProfile(@Param("member_id") String member_id, @Param("profile_file_name") String profile_file_name);
+	
+	public List<GuestbookVO> listWithComment(String member_id);
 }

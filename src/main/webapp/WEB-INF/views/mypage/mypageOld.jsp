@@ -29,119 +29,18 @@
 
 <script>
 	/* 답글 토글 */
-	$(document).ready(function(){		
+	$(document).ready(function(){
+		$(".guestbookReply").click(function(){
+			var element = $(this).parent();
+			var element2 = element.parent();
+			element2.next().slideToggle("fast");
+		});
+		
 		/* 모달 창 */
 		if(history.state == null){
 			$("#modal1").modal('show');
 			history.replaceState({}, null);
 		}
-		
-		/* 방명록 */
-		/* contextPath */
-	    const appRoot = '${pageContext.request.contextPath}';
-		const staticUrl = '${staticUrl }'
-		const mypageUrl = '${mypageUrl}';
-		
-	    /* 현재 게시물의 댓글 목록 가져오는 함수 */
-		const listGuestbook = function() {
-			$("#guestbookWrap").empty();
-			$.ajax({
-				url : appRoot + "/guestbook/guestbook/${member.member_id}",
-				success : function(list) {	
-					for (let i = 0; i < list.length; i++) {
-						let replyMediaObject;
-						if(list[i].profile_file_name == null){
-							replyMediaObject = $(`
-									<div class="row guestbook">
-										<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
-										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }"></a>
-										<p class="guestbookContent">　　</p>
-										<p class="guestbookContent guestbookContentContent"></p>
-										<div class="guestbookButton ml-auto">
-										</div>
-									</div>
-							`);
-						}
-						else {
-							replyMediaObject = $(`
-									<div class="row guestbook">
-										<img class="pic40" src="\${staticUrl}/profile/\${list[i].member_id}/\${list[i].profile_file_name}" class="img-thumbnail" alt="...">
-										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }"></a>
-										<p class="guestbookContent">　　</p>
-										<p class="guestbookContent guestbookContentContent"></p>
-										<div class="guestbookButton ml-auto">
-										</div>
-									</div>
-							`);		
-						}
-						
-			            replyMediaObject.find(".guestbookContentID").text(list[i].member_id);
-			            replyMediaObject.find(".guestbookContentContent").text(list[i].content);
-			            
-			            $("#guestbookWrap").append(replyMediaObject);
-			            
-			            if (list[i].own) {
-				        	/* 삭제 버튼 추가 */
-				            const removeButton = $(`<span class="guestbookDelete">삭제</span>`);
-				            removeButton.click(function() {
-				            	if (confirm("삭제 하시겠습니까?")) {
-				            		$.ajax({
-				            			url : appRoot + "/guestbook/" + list[i].guestbook_id,
-				            			type : "delete",
-				            			complete : function() {
-				           					listGuestbook();
-				            			}
-				           			});
-				            	}
-				            });
-				            
-				            replyMediaObject.find(".guestbookButton").append(removeButton);
-				 		}
-					}
-				}
-			});
-	    }
-	    
-		listGuestbook();
-		
-	    /* 댓글 전송 */
-	    $("#guestbook").click(function() {
-	      const content = $("#guestbookContent").val();
-	      const member_id = '${sessionScope.loggedInMember.member_id}';
-	      const mypage_owner = '${member.member_id}';
-	      const fileName = '${loggedProfile.profile_file_name}';
-	      let profile_file_name;
-	      
-	      if(fileName == ""){
-	    	  profile_file_name = "";
-	      }
-	      else{
-		      profile_file_name = '${loggedProfile.profile_file_name}';	    	  
-	      }
-	      
-	      const data = {
-	          content : content,
-	          member_id : member_id,
-	          mypage_owner : mypage_owner,
-	          profile_file_name : profile_file_name
-	      };
-	      $.ajax({
-	        url : appRoot + "/guestbook/write",
-	        type : "post",
-	        data : data,
-	        success : function() {
-	          // textarea reset
-	          $("#guestbookContent").val("");
-	        },
-	        error : function() {
-	          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
-	        },
-	        complete : function() {
-	          // 댓글 리스트 새로고침
-	          listGuestbook();
-	        }
-	      });
-	    });
 	});
 </script>
 
@@ -196,15 +95,59 @@
 				<hr style="margin-bottom:30px">
 				<!-- 방명록 -->
 				<h2> ${member.nickName }님의 방명록 </h2>
-				<div id="guestbookWrap"></div>
-				<div class="guestbookCommentWrap2"></div>
+				<div class="gusetbookWrap"></div>
+				<c:forEach items="${list }" var="guestbook">
+					<div class="row guestbook">
+						<c:if test="${guestbook.profile_file_name eq NULL }">
+							<img class="pic40" src="${staticUrl }/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
+						</c:if>
+						<c:if test="${guestbook.profile_file_name ne NULL }">
+							<img class="pic40" src="${staticUrl }/profile/${guestbook.member_id}/${guestbook.profile_file_name}" class="img-thumbnail" alt="...">
+						</c:if>
+						<a class="guestbookContent" href="${mypageUrl }?member_id=${guestbook.member_id }">${guestbook.member_id }</a>
+						<p class="guestbookContent">　　</p>
+						<p class="guestbookContent">${guestbook.content }</p>
+						<div class="guestbookButton ml-auto">
+							<span class="guestbookModify">수정</span>
+							<span class="guestbookDelete">삭제</span>
+							<span class="guestbookReply">답글</span>
+						</div>
+					</div>
+					<div class="guestbookCommentWrap">
+						<c:forEach items="${commentList }" var="guestbookComment">
+							<c:if test="${guestbookComment.key == guestbook.guestbook_id}">
+								<div class="col">
+									<c:forEach items="${guestbookComment.value }" var="comment">
+										<div class="row guestbookComment">
+											<a class="guestbookCommentContent" href="${mypageUrl }?member_id=${comment.member_id }">${comment.member_id }</a>
+											<p class="guestbookCommentContent">　　</p>
+											<p class="guestbookCommentContent">${comment.content }</p>
+											<div class="guestbookButton ml-auto">
+												<span class="guestbookCommentModify">수정</span>
+												<span class="guestbookCommentDelete">삭제</span>
+											</div>						
+										</div>
+									</c:forEach>
+								</div>
+							</c:if>
+						</c:forEach>
+						<div class="input-group mb-3 guestbookCommentSubmit">
+						  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+						  <div class="input-group-append">
+						    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+						  </div>
+						</div>
+					</div>
+				</c:forEach>
 				
-				<div class="input-group mb-3 guestbookSubmit">
-				  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="guestbook" id="guestbookContent">
-				  <div class="input-group-append">
-				    <button class="btn btn-dark" type="button" id="guestbook">작성</button>
-				  </div>
-				</div>
+				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
+					<div class="input-group mb-3 guestbookSubmit">
+					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="guestbook">
+					  <div class="input-group-append">
+					    <button class="btn btn-dark" type="button" id="guestbook">작성</button>
+					  </div>
+					</div>
+				</c:if>
 				
 				<hr style="margin-top:30px">
 				<!-- 내 활동 -->

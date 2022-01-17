@@ -2,6 +2,7 @@ package com.homeart.service.mypage;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +69,16 @@ public class GuestbookService {
 		return mapper.listComment(guestbook_id);
 	}
 	
-	public List<GuestbookCommentVO> getlistCommentByGuestbookId(String mypage_owner, String guestbook_id){
+	public List<GuestbookCommentVO> getlistCommentByGuestbookId(@Param("mypage_owner") String mypage_owner, @Param("guestbook_id") String guestbook_id){
 		return mapper.listCommentByGuestbookId(mypage_owner, guestbook_id);
+	}
+
+	public List<GuestbookVO> getListWithComment(String member_id) {
+		return mapper.listWithComment(member_id);
+	}
+	
+	public GuestbookVO readById(String guestbook_id) {
+		return mapper.selectById(guestbook_id);
+
 	}
 }
