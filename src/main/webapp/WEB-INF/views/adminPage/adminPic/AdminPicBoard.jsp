@@ -69,7 +69,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">홈아트 <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/controller/">홈아트 <span class="sr-only">(current)</span></a>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -80,12 +80,12 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">공유게시판</a>
 
-                                    <a class="dropdown-item" href="#">그림승인</a>
+                                    <a class="dropdown-item" href="/controller/adminPage/adminPicShare/AdminPicAdmit">그림검열</a>
                                 </div>
                             </li>
 
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">명화게시판 <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/controller/adminPage/adminPic/AdminPicBoard">명화게시판 <span class="sr-only">(current)</span></a>
                             </li>
 
                             <li class="nav-item active">
@@ -93,15 +93,11 @@
                             </li>
 
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">공지사항 <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/controller/adminPage/adminNotice/AdminNoticeCUD">공지사항 <span class="sr-only">(current)</span></a>
                             </li>
 
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">카테고리 <span class="sr-only">(current)</span></a>
-                            </li>
-
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">회원관리 <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/contoller/adminPage/adminMemManage/AdminMemManage">회원관리 <span class="sr-only">(current)</span></a>
                             </li>
                         </ul>
                     </div>
