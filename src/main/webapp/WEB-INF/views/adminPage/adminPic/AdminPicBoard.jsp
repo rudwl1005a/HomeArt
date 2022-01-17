@@ -123,28 +123,22 @@
                         <span class="input-group-text" id="basic-addon1">제목</span>
                     </div>
                     <input type="text" class="form-control" placeholder="그림제목" aria-label="Username"
-                        aria-describedby="basic-addon1">
+                        aria-describedby="basic-addon1" readonly="readonly" value="">
                 </div>
                 <div class="input-group mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">글쓴이</span>
                     </div>
                     <input type="text" class="form-control" placeholder="아이디" aria-label="Username"
-                        aria-describedby="basic-addon1">
+                        aria-describedby="basic-addon1" readonly="readonly" value="">
                 </div>
 
                 <div class="input-group mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text">내용</span>
                     </div>
-                    <textarea class="form-control" rows="10" aria-label="With textarea"></textarea>
-                </div>
-
-                <div class="input-group mb-1">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">댓글</span>
-                    </div>
-                    <textarea class="form-control" rows="9" aria-label="With textarea"></textarea>
+                    <textarea class="form-control" rows="10" aria-label="With textarea" readonly="readonly"
+            		><c:out value=""/></textarea>
                 </div>
 
                 <div class="btn-toolbar justify-content-between mb-1" role="toolbar"
@@ -154,8 +148,6 @@
                             aria-describedby="basic-addon1" size="2" disabled>
                     </div>
                     <div class="btn-group" role="group" aria-labelledby="Second group">
-                        <button type="button" class="btn btn-outline mr-1" data-toggle="collapse"
-                            data-target="#collapse1" aria-expanded="false" aria-controls="collapse">수정</button>
                         <button class="btn btn-outline mr-1" type="button" data-toggle="collapse"
                             data-target="#collapse" aria-expanded="false" aria-controls="collapse">삭제</button>
                     </div>
@@ -189,13 +181,15 @@
             </form>
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
+            <c:forEach items="${list}" var="list">
                     <div class="carousel-item active">
+                        <a onclick="">
                         <div class="grid-image">
-                            <img src="HomeArt.jpg" class="d-block img-thumbnail" alt="...">
-                            <img src="background.png" class="d-block img-thumbnail " alt="...">
-                            <img src="HomeArt.jpg" class="d-block img-thumbnail" alt="...">
+                            <img src="${staticUrl}/masterpiece/${list.masterpiece_id}/${list.file_name}" class="d-block img-thumbnail" alt="...">
                         </div>
+                        </a>
                     </div>
+            </c:forEach>
                 </div>
                 <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls"
                     data-slide="prev">

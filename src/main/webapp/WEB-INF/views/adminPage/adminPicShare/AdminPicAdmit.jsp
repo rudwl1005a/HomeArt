@@ -128,13 +128,20 @@ h4 {
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">제목</span>
 					</div>
-					<input type="text" class="form-control" placeholder="그림제목" aria-label="Username" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" placeholder="그림제목" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
 				</div>
 				<div class="input-group mb-1">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">글쓴이</span>
 					</div>
-					<input type="text" class="form-control" placeholder="아이디" aria-label="Username" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" placeholder="아이디" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+				</div>
+				
+				<div class="input-group mb-1">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">신고자</span>
+					</div>
+					<input type="text" class="form-control" placeholder="아이디" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
 				</div>
 
 				<div class="input-group mb-1">
@@ -146,10 +153,9 @@ h4 {
 
 				<div class="btn-toolbar justify-content-between mb-1" role="toolbar" aria-label="Toolbar with button groups">
 					<div class="btn-group" role="group" aria-label="First group">
-						<input type="text" class="form-control" placeholder="추천수" aria-label="Username" aria-describedby="basic-addon1" size="2" disabled>
 					</div>
 					<div class="btn-group" role="group" aria-labelledby="Second group">
-						<button type="submit" class="btn">승인</button>
+						<button type="submit" class="btn">삭제</button>
 						<button class="btn btn-outline mr-1" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">거절</button>
 					</div>
 

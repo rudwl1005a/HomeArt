@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homeart.mapper.admin.AdminPicMapper">
+ 
+<select id="getList" resultType="com.homeart.domain.admin.AdminPicVO">
+	SELECT file_name 
+	FROM masterpiece 
+	ORDER BY masterpiece_id DESC
+	LIMIT #{from}, #{numberPerPage}
+</select> 
+
+<select id="getCountRows" resultType="int">
+	SELECT COUNT(*) FROM picBoard
+</select>
+ 
+<select id="read" resultType="com.homeart.domain.admin.AdminPicVO">
+	SELECT mp.masterpiece_id, mp.title, mp.member_id, mp.content, mp.file_name, mpd.discussion_id ,mpd.discussion
+	FROM masterpiece AS mp 
+	JOIN masterpiece_discussion AS mpd 
+	ON mp.masterpiece_id = mpd.masterpiece_id
+	WHERE mp.masterpiece_id = #{masterpiece_id}
+</select>
+
+<delete id="delete">
+	DELETE FROM masterpiece WHERE masterpiece_id = #{masterpiece_id}
+</delete>
+
+</mapper>

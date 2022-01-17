@@ -49,7 +49,7 @@ body {
 					<div class="card-body">
 						<p class="card-text">작가그림공유 페이지의 게시판과 좋아요 관리를 할 수 있습니다.</p>
 						<a href="#" class="btn btn-primary">공게</a> <a
-							href="adminPicShare/AdminPicAdmit" class="btn btn-primary">그림승인</a>
+							href="adminPicShare/AdminPicAdmit" class="btn btn-primary">그림신고</a>
 					</div>
 				</div>
 			</div>
