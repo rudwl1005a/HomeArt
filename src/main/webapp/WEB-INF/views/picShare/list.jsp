@@ -28,29 +28,165 @@ body {
 	object-fit: cover;
 }
 </style>
-<c:forEach items="${list }" var="picBoard">
+
 <script>
-	$(document).ready(function() {
+	//페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정.
+	let currentPage = 1;
+	// 현재 페이지가 로딩중인지 여부를 저장할 변수.
+	let isLoading = false;
+	
+	// 웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
+	$(window).on("scroll", function () {
+		// 위로 스크롤된 길이
+		let scrollTop = $(window).scrollTop();
+		// 웹브라우저의 창의 높이
+		let windowHeight = $(window).height();
+		// 문서 전체의 높이
+		let documentHeight = $(document).height();
+		// 바닥까지 스크롤 되었는지의 여부
+		let isBottom = scrollTop+windowHeight + 10 >= documentHeight;
 		
-		$("#card${picBoard.board_id}").hover(function() {
-			$("#dropdown${picBoard.board_id}").css("display", "block");
-		}, function() {
-			$("#dropdown${picBoard.board_id}").css("display", "none");
-		});
+		if (isBottom) {
+			
+			// 만일 현재 마지막 페이지라면
+			if(currentPage == ${totalPageCount} || isLoading) {
+				return;
+			}
+			
+			// 현재 로딩 중을 표시.
+			isLoading = true;
+			// 로딩바
+			$(".back-drop").show();
+			// 요청할 페이지 번호를 1 증가.
+			currentPage++;
+			// 추가로 받아올 페이지를 서버에 ajax 요청을 하고
+			console.log("inscroll"+currentPage);
+			GetList(currentPage);
+				
+		};
 		
-		// remove 버튼 실행.
-		$("#removeSubmitButton").click(function(e) {
-			e.preventDefault();
-			if (confirm("삭제하시겠습니까?")) {
-				$("#modifyForm").attr("action", "remove").submit();
+	});
+	
+	
+	const GetList = function (currentPage) {
+		
+		const appRoot = '${pageContext.request.contextPath}'; 
+		let like_cnt = '${board.like_cnt}';
+		
+		console.log("inGetList"+currentPage);
+		
+		// 무한 스크롤 부분
+		$.ajax ({
+			url: "ajax_page.do",
+			method: "GET",
+			//검색 기능이 있는 경우 type과 keyword를 함께 넘겨줘야 한다.
+			data: "pageNum="+currentPage+"&type=${type}&keyword=${keyword}",
+			//ajax_page.jsp의 내용이 data로 들어온다.
+			success: function (data) {
+				console.log(data);
+				//응답된 문자열은 html 형식이고 (picShare/ajax_page.jsp에 응답내용이 있다.)
+				//해당 문자열을 .card-list-container div에 html로 해석하라고 추가한다.
+				$(".card-list-container").append(data);
+				//로딩바를 숨김.
+				$(".back-drop").hide();
+				isLoading=false;
+				console.log("ajax");
+				
+		
+				// 로그인을 한 상태에서 하트를 클릭했을 때 (로그인 상태의 a 태그의 class: heart-click)
+				$(".heart-click").click(function () {
+					
+					// 게시물 번호를 idx로 전달받아 저장
+					let boardId = $(this).attr('idx');
+					console.log("heart-click"+boardId);
+					
+					// 빈하트를 눌렀을 때,
+					if($(this).children('i').attr('class') == "far fa-heart") {
+						console.log("빈하트 클릭" + boardId);
+						
+						$.ajax({
+							url: 'saveHeart.do',
+							type: 'GET',
+							data: {
+								boardId : boardId,
+								like_cnt: like_cnt
+							},
+							success: function (board) {
+								// 페이지 새로고침
+								// document.location.reload(true);
+								
+							 	/* let heart = '${board.like_cnt}';  */
+								
+								console.log(board.like_cnt);
+								
+								$('#heart'+boardId).text(board.like_cnt);
+								
+								console.log("하트추가 성공");
+							},
+							error: function () {
+								alert('서버 에러');
+							}
+						});
+						console.log("꽉 찬 하트로 바뀌어 주겠지? 바껴라!");
+						
+						// 꽉찬하트로 바꾸기
+						$(this).html(`<i class="fas fa-heart"></i>`);
+						$('.heart_icon'+boardId).html(`<i class="fas fa-heart"></i>`);
+						
+					// 꽉 찬 하트를 눌렀을때는? 다시 빈 하트로 바뀌어야함.
+					} else if($(this).children('i').attr('class') == "fas fa-heart") {
+						console.log("꽉 찬 하트를 클릭" + boardId);
+						
+						$.ajax({
+							url: 'removeHeart.do',
+							type: 'GET',
+							data: {
+								boardId: boardId,
+								like_cnt: like_cnt
+							},
+							success: function (board) {
+								// 페이지 새로고침
+								// document.location.reload(true);
+								
+							/* let heart = '${board.like_cnt}';  */
+								
+								// 페이지 하트 수 갱신
+								$('#heart'+boardId).text(board.like_cnt);
+								
+								console.log("하트 삭제, 빈하트로 변경 성공!");
+							},
+							error: function () {
+								alert('서버에러');
+							}
+						});
+						console.log("빈하트로 다시 바뀌냐 ?");
+						
+						// 빈하트로 바꾸기
+						$(this).html(`<i class="far fa-heart"></i>`);
+						$('.heart_icon'+boardId).html(`<i class="far fa-heart"></i>`);
+						
+					}
+					
+					
+				});
+				
+				// 로그인 한 상태에서 하트를 클릭하면 로그인 해야한다는 알림창을 뜨게끔
+				$(".heart-notlogin").unbind('click');
+				$(".heart-notlogin").click(function () {
+					alert('로그인 후 이용가능합니다.');
+				});
+				
 			}
 		});
-
+	}
+	
+	$(document).ready(function () {
+		GetList(1);
+		
+		
 	});
+	
 </script>
-</c:forEach>
-
-
 
 </head>
 <body>
@@ -59,145 +195,52 @@ body {
 
 	<div class="contents-wrap">
 
-		<!-- Section art-->
-
-		<section class="py-5">
-			<div class="container px-4 px-lg-5 mt-5">
-				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-
-					<c:forEach items="${list }" var="picBoard">
-
-
-						<div class="col mb-5">
-							<div class="card h-100" id="card${picBoard.board_id }">
-
-								<!-- dropdown -->
-								<div class="dropdown" id="dropdown${picBoard.board_id }" style="display: none;">
-									<button class="btn btn-outline-dark dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-										<i class="fas fa-ellipsis-h"></i>
-									</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-										<!-- c:if 태그로 로그인 한 멤버와 아닌 멤버의 메뉴 다르게 보이게끔 함.  -->
-										<c:if test="${sessionScope.loggedInMember.member_id eq picBoard.writer }">
-											<a class="dropdown-item" href="modify?id=${picBoard.board_id }">modify</a>
-											<a class="dropdown-item" href="remove" id="removeSubmitButton">delete</a>
-										</c:if>
-
-										<a class="dropdown-item" href="#">share</a>
-
-										<c:if test="${sessionScope.loggedInMember.member_id ne picBoard.writer}">
-
-											<a class="dropdown-item" href="getArtist?id=${picBoard.board_id }">go artist</a>
-											<a class="dropdown-item" href="#">declaration</a>
-										</c:if>
-									</div>
-								</div>
-
-								<!-- HOT badge -->
-								<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
-
-								<!-- Product image-->
-								<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
-								<!-- Product details-->
-								<div class="card-body p-4">
-									<div class="text-center">
-
-										<!-- 작품 이름-->
-										<h5 class="fw-bolder">${picBoard.title }</h5>
-										<!-- text-warning이 글씨의 색깔을 나타냄. -->
-										<!-- 작가 이름 -->
-										<div class="d-flex justify-content-center small text-secondary mb-2">
-											<div class="bi-star-fill">${picBoard.nickName }</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- Product actions-->
-								<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-									<div class="text-align-justify d-flex">
-										<!-- like button -->
-										<span class="mr-auto my-auto btn btn-outline-link text-danger text-lg">
-											<i class="far fa-heart"></i>
-											<span>0</span>
-										</span>
-
-										<!-- go art -->
-										<a class="btn btn-outline-dark" href="get?id=${picBoard.board_id }">Go art</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-					</c:forEach>
-
-
-				</div>
-			</div>
-		</section>
-
 		<!-- register button & search button -->
-		<nav class="navbar" style="background-color: #222; padding-right: 100px;">
-			<div class="container">
-				<!-- register button -->
-				<button class="btn btn-outline-light" type="button" onclick="location.href='${pageContext.request.contextPath}/picShare/register'">Post</button>
-				<!-- search button -->
-				<form class="d-flex">
-					<div class="dropdown">
-						<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false"></button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">artist</a>
-							<a class="dropdown-item" href="#">art name</a>
-							<a class="dropdown-item" href="#">all</a>
-						</div>
-					</div>
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+		<div class="py-3 pt-5" id="cardStart">
+			<div class="container card-search" id="card-search">
+				<form action="./list.do" method="get" class="d-flex">
+					<!-- list button -->
+					<button class="btn btn-outline-light mx-1" type="button" onclick="location.href='${pageContext.request.contextPath}/picShare/list'">List</button>
+					<!-- register button -->
+					<button class="btn btn-outline-light mx-1" type="button" onclick="location.href='${pageContext.request.contextPath}/picShare/register'">Post</button>
+					<!-- search button -->
+					<select name="type" class="btn btn-outline-light mx-1 form-select" id="type">
+						<option class="text-weight-light" selected>select
+							<i class="fas fa-caret-square-down"></i></option>
+						<option value="title" ${type eq 'title' ? 'selected' : '' }>title</option>
+						<option value="nickName" ${type eq 'nickName' ? 'selected' : '' }>artist</option>
+						<option value="all" ${type eq 'all' ? 'selected' : '' }>all</option>
+
+					</select>
+					<input class="form-control me-2 mx-1" type="text" placeholder="Search" aria-label="Search" name="keyword" value="${keyword }">
 					<button class="btn btn-outline-light" type="submit">
 						<i class="fas fa-search"></i>
 					</button>
 				</form>
 			</div>
-		</nav>
+		</div>
 
-		<!-- pagination -->
-		<nav aria-label="Page navigation">
-			<ul class="pagination p1 justify-content-center">
-				<c:if test="${picPageInfo.hasPrevButton }">
-					<c:url value="/picShare/list" var="pageLink">
-						<c:param name="page" value="${picPageInfo.leftPageNumber - 1 }" />
-					</c:url>
-					<li class="page-item disabled">
-						<a href="${pageLink }">
-							<i class="fas fa-chevron-left"></i>
-						</a>
-					</li>
-				</c:if>
+		<c:if test="${not empty keyword }">
+			<div class="alert text-center my-0">
+				<h3 class="text-light font-weight-light my-3">"${totalRow }개" 의 자료가 검색되었습니다.</h3>
+			</div>
+		</c:if>
 
-				<c:forEach begin="${picPageInfo.leftPageNumber }" end="${picPageInfo.rightPageNumber }" var="pageNumber">
-					<c:url value="/picShare/list" var="pageLink">
-						<c:param name="page" value="${pageNumber }" />
-					</c:url>
-					<li class="page-item">
-						<a class="${picPageInfo.currentPage == pageNumber ? 'is-active' : 'active' }" href="${pageLink }">${pageNumber }</a>
-					</li>
-				</c:forEach>
+		<!-- Section art-->
+		<section class="card-list" id="card-list">
 
-				<c:if test="${picPageInfo.hasNextButton }">
-					<c:url value="/picShare/list" var="pageLink">
-						<c:param name="page" value="${picPageInfo.rightPageNumber + 1 }" />
-					</c:url>
-					<li class="page-item disabled">
-						<a href="${pageLink }">
-							<i class="fas fa-chevron-right"></i>
-						</a>
-					</li>
-				</c:if>
+			<div class="container px-4 py-4 px-lg-5">
+				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center card-list-container"></div>
+			</div>
+		</section>
 
-			</ul>
-		</nav>
-
+		<div class="back-drop">
+			<div>
+				<i class="fas fa-spinner"></i>
+				로딩중
+				<i class="fas fa-spinner"></i>
+			</div>
+		</div>
 
 		<b:bottomInfo></b:bottomInfo>
 	</div>
@@ -207,11 +250,7 @@ body {
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
-	<script>
-		$(document).ready(function() {
-
-		});
-	</script>
+	
 
 </body>
 
