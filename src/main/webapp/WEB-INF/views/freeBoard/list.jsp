@@ -30,7 +30,7 @@
 					<table class="table table-hover" style="margin-bottom: 0;">
 						<thead>
 							<tr>
-								<th class="col-2" >No.</th>
+								<th class="col-2">No.</th>
 								<th class="col-4 freeBoard-title">제목</th>
 								<th class="col-2">작성자</th>
 								<th class="col-2">작성일</th>
@@ -128,6 +128,7 @@
 					<div class="container-fluid ">
 						<!-- 버튼 - 글쓰기/작성 -->
 						<a class="btn btn-dark" type="button" href="${pageContext.request.contextPath}/freeBoard/post">글쓰기</a>
+						<!-- 검색창 -->
 						<form class="d-flex">
 							<select class="form-control searchType" name="searchType">
 								<option value="all">전체</option>
