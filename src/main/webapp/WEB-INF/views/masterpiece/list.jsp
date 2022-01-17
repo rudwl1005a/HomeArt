@@ -157,7 +157,7 @@ body {
 										<div class="text-center">
 											<a class="btn btn-outline-dark mt-auto" href="get?masterpiece_id=${m.masterpiece_id }">Go art</a>
 											<%-- <span class="text-muted text-decoration-line-through" id="updateLike">${m.likeSu}</span> --%>
-											<button class="btn btn-outline-light" type="button" onclick="updateLike('${m.masterpiece_id }','${sessionScope.loggedInMember.member_id }')">좋아요! ${m.likeSu }</button>
+											<button id="likeBtn${m.masterpiece_id }" class="btn btn-outline-light" type="button" onclick="updateLike('${m.masterpiece_id }','${sessionScope.loggedInMember.member_id }')">좋아요 ${m.likeSu }</button>
 										</div>
 									</div>
 								</div>
@@ -210,16 +210,19 @@ const appRoot = '${pageContext.request.contextPath}';
 	          type : "get",
 	          data : data,
 	          success : function(result) {
-	        	  console.log(result); //이;거일듯 
+	        	  console.log(result); //이거일듯 
 	        	  var resultSu = result.result;
 	        	  var msg = result.msg;
+	        	  var likeSu = result.likeSu;
+	        	  
 	        	  if (resultSu == 1 ) {
 	        		  alert(msg);
+	        		  $("#likeBtn" + mp).text("좋아요! " + likeSu);
+	        		  
 	        	  } else {
 	        		  alert("실패");
 	        	  }
 	        	  //location.herf= appRoot+"/masterpiece/list";
-	        	  
 	        	  
 	        	  $.ajax({
 			          url : appRoot + "/masterpiece/list",
@@ -233,19 +236,15 @@ const appRoot = '${pageContext.request.contextPath}';
 			          }
 			        });
 	        	  
-	        	  
-	        	  
-	        	  
-	        	  
-	        	  
-	        	  alert("지나가요");
 	        	 //여기다 리스트를 다시 조회하면됌
 	          },
 	          error : function() {
 	            alert("아작스 실패.");
 	          }
 	        });
+		
 	}
+ 	
 	
 
 	

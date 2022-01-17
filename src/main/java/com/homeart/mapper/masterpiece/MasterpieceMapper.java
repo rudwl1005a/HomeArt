@@ -50,6 +50,7 @@ public interface MasterpieceMapper {
 	
 	public int delLike(@Param("masterpiece_id") Integer masterpiece_id, @Param("member_id") String member_id ); 
 
+	public int getLikeSu(Integer masterpiece_id);
 }
 
 

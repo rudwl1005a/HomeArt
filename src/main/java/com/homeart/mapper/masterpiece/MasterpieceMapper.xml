@@ -34,7 +34,7 @@ FROM
 	masterpiece p JOIN Member m ON p.member_id = m.member_id
 	left outer join likeTable lt on p.masterpiece_id = lt.masterpiece_id
 group by p.masterpiece_id
-ORDER BY masterpiece_id DESC
+ORDER BY rand()
 LIMIT #{from}, #{items}
 	</select>
 
@@ -53,7 +53,8 @@ FROM
 	masterpiece p
 JOIN 
 	Member m ON p.member_id = m.member_id
-ORDER BY masterpiece_id DESC
+ORDER BY rand()
+<!-- ORDER BY masterpiece_id DESC -->
 	</select>
 		
 	<select id="read" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
@@ -141,6 +142,14 @@ WHERE
 		delete from likeTable where like_id=(select like_id from likeTable where masterpiece_id = #{masterpiece_id} and member_id = #{member_id})
 	</delete>
 
+	<select id="getLikeSu" resultType="int">
+	SELECT
+		COUNT(masterpiece_id) as likeSu 
+	FROM 
+		likeTable
+	WHERE
+		masterpiece_id = #{masterpiece_id}
+	</select>
 </mapper>
 
 
