@@ -71,18 +71,30 @@
 					let lastGuestBookId = 0;
 					let currentGuestBook = '';
 					for (let i = 0; i < list.length; i++) {
-						if (lastGuestBookId != list[i].guestBookId) {
-							currentGuestBook = $(`<div>방명록글 \${list[i].guestBookId}</div>
-							                        <div class='comment-container'></div>
-							                        <div class=''>댓글 작성란 </div>
-							                        `);
+						if (lastGuestBookId != list[i].guestbook_id) {
+							currentGuestBook = $(`
+								<div class="row guestbook">
+									<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
+									<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
+									<p class="guestbookContent">　　</p>
+									<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
+									<div class="guestbookButton ml-auto">
+										<span class="guestbookModify">수정</span>
+										<span class="guestbookDelete">삭제</span>
+										<span class="guestbookReply">답글</span>
+									</div>
+								</div>
+							    <div class='comment-container'></div>
+							    <div class=''>댓글 작성란 </div>
+							`);
 							
 							$("#guestbookWrap").append(currentGuestBook);
 						}
 
-						if (/* 댓글이 null이 아니면 */) {
-							currentGuestBook.find('.comment-container').append(`<div> 댓글 </div>`);
-						}
+						//if (/* 댓글이 null이 아니면 */) {
+						//	currentGuestBook.find('.comment-container').append(`<div> 댓글 </div>`);
+						//}
+						
 						
 					}	
 						

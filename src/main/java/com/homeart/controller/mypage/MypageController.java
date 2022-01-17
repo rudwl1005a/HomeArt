@@ -96,7 +96,7 @@ public class MypageController {
 		/* 내가 쓴 글 5개 */
 		model.addAttribute("freeBoardLimit5", freeBoard);
 		
-		return "/mypage/mypageTest";
+		return "/mypage/mypage";
 	}
 	
 	/* 회원정보 수정 */
