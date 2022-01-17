@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.homeart.mapper.mypage.ProfilePictureMapper">
+ 	<select id="select" resultType="com.homeart.domain.mypage.ProfilePictureVO">
+ 	SELECT *
+ 	FROM member_profile
+ 	WHERE member_id = #{member_id}
+ 	</select>
+ 	
+ 	<insert id="insert" useGeneratedKeys="true" keyColumn="profile_id" keyProperty="profile_id">
+	INSERT INTO member_profile (member_id, profile_file_name)
+	VALUES (#{member_id}, #{profile_file_name})
+	</insert>
+ 
+ 	<delete id="delete">
+	DELETE FROM member_profile WHERE member_id = #{member_id}
+	</delete>
+ </mapper> 

@@ -7,19 +7,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeart.domain.freeBoard.freeBoardVO;
-import com.homeart.domain.member.GuestbookCommentVO;
-import com.homeart.domain.member.GuestbookVO;
 import com.homeart.domain.member.MemberVO;
+import com.homeart.domain.mypage.GuestbookCommentVO;
+import com.homeart.domain.mypage.GuestbookVO;
+import com.homeart.domain.mypage.ProfilePictureVO;
 import com.homeart.domain.picShare.picBoardVO;
+import com.homeart.service.member.CountryService;
 import com.homeart.service.member.MemberService;
 import com.homeart.service.mypage.GuestbookService;
+import com.homeart.service.mypage.ProfilePictureService;
 
 import lombok.Setter;
 
@@ -33,10 +39,16 @@ public class MypageController {
 	@Setter(onMethod_ = @Autowired)
 	private MemberService memberService;
 
+	@Setter(onMethod_ = @Autowired)
+	private CountryService Countryservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private ProfilePictureService profileService;
 	
 	@RequestMapping("")
-	public String mypage(String member_id, Model model, RedirectAttributes rttr) {
-		
+	public String mypage(String member_id, Model model, HttpSession session, RedirectAttributes rttr) {
+
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
 		List<GuestbookVO> list = guestbookService.getList(member_id);
 		HashMap<String, Object> commentList = new HashMap<>();
 		MemberVO member = memberService.read(member_id);
@@ -45,6 +57,21 @@ public class MypageController {
 		
 		/* 회원 정보 */
 		model.addAttribute("member", member);
+		
+		/* 프로필 사진 있는지 확인 */
+		ProfilePictureVO profile = profileService.read(member_id);
+		
+		if(profile == null) {
+			model.addAttribute("isProfile", false);
+		} else {
+			model.addAttribute("profile", profile);
+			model.addAttribute("isProfile", true);
+		}
+		
+		ProfilePictureVO loggedProfile = profileService.read(vo.getMember_id());
+		if(profile != null) {
+			model.addAttribute("loggedProfile", loggedProfile);			
+		}
 		
 		// 탈퇴한 회원의 마이페이지로 들어가려고 할때
 		if(member == null) {
@@ -72,20 +99,85 @@ public class MypageController {
 		return "/mypage/mypage";
 	}
 	
-	/* 방명록 */
-	@PostMapping("/guestbook")
-	public String guestbook(Model model) {
-		
-		return "redirect:/mypage/mypage";
-	}
-	
 	/* 회원정보 수정 */
 	@GetMapping("/modify")
-	public String modify(String member_id, Model model) {
+	public String modify(String member_id, HttpSession session, Model model) {
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		
+		// 로그아웃 상태
+		if(vo == null) {
+			return "redirect:/member/login";
+		}
+
+		model.addAttribute("countryList", Countryservice.getList());
+
 		MemberVO member = memberService.read(member_id);
 		
 		model.addAttribute("member", member);
 		return "/mypage/mypageModify";
+	}
+	
+	@PostMapping("/modify")
+	public String info(MemberVO member, HttpSession session, RedirectAttributes rttr) {
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		
+		// 로그아웃 상태
+		if(vo == null) {
+			return "redirect:/member/login";
+		}
+		
+		// 로그인된 상태
+		boolean ok = memberService.modify(member);
+		if(ok) {
+			rttr.addFlashAttribute("result", "회원 정보가 변경되었습니다.");
+			// 세션에 있는 정보 변경
+			session.setAttribute("loggedInMember", memberService.read(member.getMember_id()));
+		}
+		else {
+			rttr.addFlashAttribute("result", "회원 정보가 변경되지 않았습니다.");			
+		}
+		
+		String url = "/mypage?member_id=" + vo.getMember_id();
+		
+		return "redirect:"+url;
+	}
+	
+	/* 프로필 사진 변경 */
+	@GetMapping("/profile")
+	public String profile(String member_id, Model model) {
+		ProfilePictureVO profile = profileService.read(member_id);
+		
+		if(profile == null) {
+			model.addAttribute("isProfile", false);
+		} else {
+			model.addAttribute("profile", profile);
+			model.addAttribute("isProfile", true);
+		}
+		
+		return "/mypage/mypageProfile";
+	}
+	
+	@PostMapping("/profile")
+	@Transactional
+	public String profile(ProfilePictureVO profile, MultipartFile file, HttpSession session) throws Exception {
+		
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		String url = "/mypage?member_id=" + vo.getMember_id();
+		
+		if(profileService.read(vo.getMember_id()) == null) {
+			profile.setProfile_file_name(file.getOriginalFilename());
+			
+			profileService.register(profile, file);			
+		}
+		else {
+			profileService.remove(vo.getMember_id(), file);
+			profile.setProfile_file_name(file.getOriginalFilename());
+			
+			profileService.register(profile, file);		
+		}
+		
+		
+		return "redirect:"+url;
 	}
 	
 	/* 내 활동 */

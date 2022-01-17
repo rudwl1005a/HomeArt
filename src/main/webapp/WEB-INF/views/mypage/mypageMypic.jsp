@@ -20,7 +20,7 @@
 
 <c:url value="/picShare/get" var="picBoardUrl"></c:url>
 
-<title>Insert title here</title>
+<title>My picture</title>
 </head>
 <body style="background-color: #333333;">
 <b:navBar></b:navBar>
@@ -29,7 +29,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 style="color: white;">내 그림</h1>
+				<h1 style="color: white; margin: 30px 0 20px 0">내 그림</h1>
 				<div class="row">
 					<c:forEach items="${picBoard }" var="picBoard">
 						<a href="${picBoardUrl }?id=${picBoard.board_id }">

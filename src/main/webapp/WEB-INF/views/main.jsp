@@ -76,7 +76,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h3>공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
+				<h3 style="margin-bottom: 20px">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
 				<table class="table">
 					<thead>
 						<tr>

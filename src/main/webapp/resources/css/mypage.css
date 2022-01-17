@@ -115,7 +115,7 @@
 
 /* 회원정보 */
 .memberInfo{
-	margin: 80px 0px 60px;
+	margin: 80px 0px 40px;
 }
 
 .memberModify {
@@ -146,4 +146,8 @@
 
 .activeBox h3 {
 	margin-left: 15px;
+}
+
+.col-1, .col-2, .col-5 {
+	text-align: center;
 }
