@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.homeart.domain.masterpiece.MasterpieceVO;
+import com.homeart.domain.masterpiece.likeVO;
 
 public interface MasterpieceMapper {
 	
@@ -38,6 +39,16 @@ public interface MasterpieceMapper {
 	
 	// file name 으로 file 삭제
 	void filedelete(@Param("masterpiece_id") Integer masterpiece_id, @Param("file_name") String file_name);
+
+	//좋아요
+	public likeVO getLike(@Param("masterpiece_id") Integer masterpiece_id, @Param("member_id") String member_id); 
+	
+	//likeTable pk값 가져오기
+	public int getLikeId(Integer masterpiece_id); 
+	
+	public int addLike(@Param("masterpiece_id") Integer masterpiece_id, @Param("member_id") String member_id ); 
+	
+	public int delLike(@Param("masterpiece_id") Integer masterpiece_id, @Param("member_id") String member_id ); 
 
 }
 

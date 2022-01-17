@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="b" tagdir="/WEB-INF/tags"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,11 +156,16 @@ body {
 									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 										<div class="text-center">
 											<a class="btn btn-outline-dark mt-auto" href="get?masterpiece_id=${m.masterpiece_id }">Go art</a>
+											<%-- <span class="text-muted text-decoration-line-through" id="updateLike">${m.likeSu}</span> --%>
+											<button class="btn btn-outline-light" type="button" onclick="updateLike('${m.masterpiece_id }','${sessionScope.loggedInMember.member_id }')">좋아요! ${m.likeSu }</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
+						<div class="container">
+							<button class="btn btn-outline-light" type="button" onclick="location.href='/controller/masterpiece/register'">Post</button>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -183,5 +187,68 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
 		crossorigin="anonymous"></script>
+		
+<script>
+const appRoot = '${pageContext.request.contextPath}';
+/* $(function(){
+		console.log(1234);
+		
+}
+ */
+	function updateLike(mp,mb) {
+			console.log("나옴");
+			console.log("엠피"+mp);
+			console.log("엠비"+mb);
+			var data = {
+					masterpiece_id : mp,
+					member_id : mb
+			}
+			console.log(appRoot);
+
+		$.ajax({
+	          url : appRoot + "/masterpiece/like",
+	          type : "get",
+	          data : data,
+	          success : function(result) {
+	        	  console.log(result); //이;거일듯 
+	        	  var resultSu = result.result;
+	        	  var msg = result.msg;
+	        	  if (resultSu == 1 ) {
+	        		  alert(msg);
+	        	  } else {
+	        		  alert("실패");
+	        	  }
+	        	  //location.herf= appRoot+"/masterpiece/list";
+	        	  
+	        	  
+	        	  $.ajax({
+			          url : appRoot + "/masterpiece/list",
+			          type : "get",
+			          data : null,
+			          success : function() {
+			            alert("리스트 다시조회");
+			          },
+			          error : function() {
+			            alert("리스트 다시조회 실패.");
+			          }
+			        });
+	        	  
+	        	  
+	        	  
+	        	  
+	        	  
+	        	  
+	        	  alert("지나가요");
+	        	 //여기다 리스트를 다시 조회하면됌
+	          },
+	          error : function() {
+	            alert("아작스 실패.");
+	          }
+	        });
+	}
+	
+
+	
+</script>
 </body>
 </html>

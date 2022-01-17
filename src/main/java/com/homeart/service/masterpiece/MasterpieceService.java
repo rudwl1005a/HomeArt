@@ -2,7 +2,9 @@ package com.homeart.service.masterpiece;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.masterpiece.MasterpieceVO;
 import com.homeart.domain.masterpiece.PageInfoVO;
+import com.homeart.domain.masterpiece.likeVO;
 import com.homeart.mapper.masterpiece.MasterpieceMapper;
 
 import lombok.Setter;
@@ -213,6 +216,31 @@ public class MasterpieceService {
 
 		// 3. 게시물 지우기
 		return mapper.delete(id) == 1;
+	}
+	
+	//좋아요 갯수
+	public Map<String,Object> updateLike(Integer masterpiece_id, String member_id) {
+		System.out.println("updateLike 서비스 접근");
+		//좋아요 있나없나.
+		likeVO vo = new likeVO();
+		vo = mapper.getLike(masterpiece_id, member_id);
+		System.out.println("업데이트라이크 잘되나 vo: " + vo);
+		String msg="";
+		int result = 0;
+		if( vo==null) { //좋아요테이블에 값이 없을경우
+			//인서트
+			result = mapper.addLike(masterpiece_id, member_id);
+			msg = "좋아요 !";
+		} else { //있을경우
+			//딜리트
+			result = mapper.delLike(masterpiece_id, member_id);
+			msg = "좋아요 취소";
+		}
+		Map<String,Object> map = new HashMap();
+		System.out.println("업데이트라이크 result: " + result);
+		map.put("result",result);
+		map.put("msg",msg);
+		return map;
 	}
 	
 

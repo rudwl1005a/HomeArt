@@ -28,11 +28,12 @@ SELECT
     p.artist,
     p.age,
     m.nickName,
-    p.file_name
+    p.file_name,
+    count(lt.masterpiece_id) as likeSu
 FROM
-	masterpiece p
-JOIN 
-	Member m ON p.member_id = m.member_id
+	masterpiece p JOIN Member m ON p.member_id = m.member_id
+	left outer join likeTable lt on p.masterpiece_id = lt.masterpiece_id
+group by p.masterpiece_id
 ORDER BY masterpiece_id DESC
 LIMIT #{from}, #{items}
 	</select>
@@ -114,6 +115,31 @@ WHERE
 	<insert id="fileinsert">
 	INSERT INTO File (masterpiece_id, file_name) VALUES (#{masterpiece_id}, #{file_name})
 	</insert> -->
+
+<!-- 	<insert id="insert" useGeneratedKeys="true" keyColumn="masterpiece_id" keyProperty="masterpiece_id">
+	-->
+	
+	<select id="getLike" resultType="com.homeart.domain.masterpiece.likeVO">
+		SELECT 
+			*
+		FROM
+		    likeTable
+		WHERE
+			masterpiece_id = #{masterpiece_id}
+			and member_id = #{member_id}
+	</select>
+
+	
+	<insert id="addLike" useGeneratedKeys="true">
+	INSERT INTO
+		likeTable (masterpiece_id, member_id)
+	VALUES
+		(#{masterpiece_id}, #{member_id})
+	</insert>
+	
+ 	<delete id="delLike">
+		delete from likeTable where like_id=(select like_id from likeTable where masterpiece_id = #{masterpiece_id} and member_id = #{member_id})
+	</delete>
 
 </mapper>
 
