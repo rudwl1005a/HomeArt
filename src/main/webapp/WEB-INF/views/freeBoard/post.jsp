@@ -18,24 +18,26 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 <!-- include summernote-ko-KR -->
 <script src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/summernote/freeboard.js"></script>
-<title>HomeArt 자유게시판 글 등록</title>
+<title>HomeArt 자유게시판</title>
 </head>
 <body>
 <b:navBar></b:navBar>
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					<div class="post-group">
 						<textarea class="post-title" name="title" placeholder="제목을 입력하세요" required></textarea>
 						<div class="float-right" id="post_cnt">(0 / 100)</div>
 					</div>
 					<div class="post-group2">
 						<textarea id="summernote" name="content"></textarea>   
+					</div>
+					<div class="post-group">
+						<input type="file" class="form-control-file" id="file-Button" name="files" accept="image/*" multiple>
 					</div>
 					<div class="switch switch--horizontal">
 						<input class="inputBox" id="radio-a" type="radio" name="isPublic" value="0">
@@ -55,7 +57,6 @@
 			</div>
 		</div>
 	</div>
-	<b:bottomInfo></b:bottomInfo>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -5,6 +5,10 @@
 
 <mapper namespace="com.homeart.mapper.freeBoard.freeBoardMapper">
 
+	<update id="viewCount">
+		UPDATE freeBoard SET viewCount = viewCount + 1 WHERE board_id = #{board_id}
+	</update>
+	
 	<select id="getAdminList" resultType="com.homeart.domain.freeBoard.freeBoardVO">
 		SELECT
 			b.board_id,
@@ -15,16 +19,33 @@
             b.viewCount,
             b.isPublic,
 			m.nickName,
-			m.isAdmin
+			m.isAdmin,
+			COUNT(r.id) replyCount,
+			(SELECT EXISTS(SELECT * FROM FreeBoardFile WHERE fileId = b.board_id)) hasFile
 		FROM
 			freeBoard b 
 				JOIN 
 			Member m ON b.writer = m.member_id
+				LEFT JOIN
+			FreeBoardReply r ON b.board_id = r.board_id
 		WHERE
 			m.isAdmin = 1
-		ORDER BY
-			board_id DESC
+			<choose>
+				<when test="searchType != null and searchType.equals('all')">
+				AND (b.title LIKE CONCAT('%', #{keyword} ,'%')
+            	OR m.nickName LIKE CONCAT('%', #{keyword} ,'%'))
+				</when>
+				<when test="searchType != null and searchType.equals('title')">
+				AND b.title LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+				<when test="searchType != null and searchType.equals('writer')">
+				AND m.nickName LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+			</choose>
+		GROUP BY b.board_id
+		ORDER BY b.board_id DESC
 	</select>
+	
 	<select id="getList" resultType="com.homeart.domain.freeBoard.freeBoardVO">
 		SELECT
 			b.board_id,
@@ -35,13 +56,29 @@
             b.viewCount,
             b.isPublic,
 			m.nickName,
-			m.isAdmin
+			m.isAdmin,
+			COUNT(r.id) replyCount,
+			(SELECT EXISTS(SELECT * FROM FreeBoardFile WHERE fileId = b.board_id)) hasFile
 		FROM
 			freeBoard b 
 				JOIN 
 			Member m ON b.writer = m.member_id
+				LEFT JOIN
+			FreeBoardReply r ON b.board_id = r.board_id
 		WHERE
 			m.isAdmin = 0
+			<choose>
+				<when test="searchType != null and searchType.equals('all')">
+				AND (b.title LIKE CONCAT('%', #{keyword} ,'%')
+            	OR m.nickName LIKE CONCAT('%', #{keyword} ,'%'))
+				</when>
+				<when test="searchType != null and searchType.equals('title')">
+				AND b.title LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+				<when test="searchType != null and searchType.equals('writer')">
+				AND b.writer LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+			</choose>
 		GROUP BY b.board_id
 		ORDER BY b.board_id DESC
 		LIMIT #{from}, #{items}
@@ -49,11 +86,25 @@
 	
 	<select id="countBoard" resultType="int">
 		SELECT
-            COUNT(CASE WHEN m.isAdmin=0 THEN 1 END) countBoard
+            COUNT(*) countBoard
 		FROM
 			freeBoard b 
 				JOIN 
 			Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 0
+			<choose>
+				<when test="searchType != null and searchType.equals('all')">
+				AND (b.title LIKE CONCAT('%', #{keyword} ,'%')
+            	OR m.nickName LIKE CONCAT('%', #{keyword} ,'%'))
+				</when>
+				<when test="searchType != null and searchType.equals('title')">
+				AND b.title LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+				<when test="searchType != null and searchType.equals('writer')">
+				AND b.writer LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+			</choose>
 	</select>
 	
 	<select id="read" resultType="com.homeart.domain.freeBoard.freeBoardVO">
@@ -64,6 +115,7 @@
 			b.writer,
 			b.inserted,
 			b.updated,
+			b.isPublic,
 			m.nickName
 		FROM
 			freeBoard b 
@@ -72,7 +124,7 @@
 		WHERE b.board_id = #{board_id};
 	</select>
 		
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyColumn="board_id" keyProperty="board_id">
 		INSERT INTO
 			freeBoard (title, content, isPublic, writer)
 		VALUES
