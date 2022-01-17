@@ -42,7 +42,6 @@ public class GuestbookController {
 				guestbook.setOwn(loggedIn.getMember_id().equals(writerId));
 			}
 		}
-		System.out.println(list);
 
 		return list;
 	}

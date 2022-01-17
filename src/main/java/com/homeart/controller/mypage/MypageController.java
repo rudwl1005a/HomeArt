@@ -48,7 +48,7 @@ public class MypageController {
 	public String mypage(String member_id, Model model, HttpSession session, RedirectAttributes rttr) {
 
 		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
-		List<GuestbookVO> list = guestbookService.getList(member_id);
+//		List<GuestbookVO> list = guestbookService.getList(member_id);
 //		HashMap<String, Object> commentList = new HashMap<>();
 		MemberVO member = memberService.read(member_id);
 		List<freeBoardVO> freeBoard = memberService.getWritingLimit5(member_id);
