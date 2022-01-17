@@ -12,6 +12,7 @@ public class MasterpieceVO {
 	private String artist;			// 작가
 	private String age;				// 시대
 	private String file_name;		// 파일이름
+	private String likeSu;		// 좋아요수
 	
 	private String nickName;		// 멤버TABLE 닉네임
 }

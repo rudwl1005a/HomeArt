@@ -70,10 +70,9 @@ body {
 							</div>
 							
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="ID" aria-describedby="button-addon2" name="member_id">
+								<input type="hidden" name="member_id" value="${sessionScope.loggedInMember.member_id }">
 							</div>
 							
-								<%-- <input type="hidden" name="writer" value="${sessionScope.loggedInMember.id }"> --%>
 						</div>
 					</div>
 				</div>

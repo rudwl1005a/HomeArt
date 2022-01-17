@@ -28,6 +28,8 @@
 body {
 	background-color: #222;
 }
+
+
 </style>
 </head>
 <body>
@@ -42,26 +44,20 @@ body {
 			<form method="post" enctype="multipart/form-data" id="modifyForm">
 				<div class="container px-4 px-lg-8 my-5">
 					<div class="row gx-4 gx-lg-5 align-items-center">
-
-
+						
 						<!-- fileUpload(left) -->
 						<div class="form-group col-md-6">
 							<div class="input-group mb-3">
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="input-image"
-										name="file"> <label class="custom-file-label"
-										for="inputGroupFile02"
-										aria-describedby="inputGroupFileAddon02">Choose file</label>
+									<input type="file" class="custom-file-input" id="input-image" name="file">
+									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
 								</div>
 								<div class="input-group-append">
 									<span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
 								</div>
 							</div>
-							<img class="img-fluid"
-								src="${staticUrl }/masterpiece/${masterpiece.masterpiece_id }/${masterpiece.file_name }"
-								alt="${masterpiece.file_name}">
+							<img class="card-img-top mb-5 mb-md-0" id="preview-image" src="${staticUrl }/masterpiece/${masterpiece.masterpiece_id }/${masterpiece.file_name }" alt="${masterpiece.file_name}">
 						</div>
-
 						<!-- artName, artist, artInfo (right) -->
 						<div class="form-group col-md-6">
 							<div class="input-group mb-3">
@@ -88,17 +84,13 @@ body {
 							<div>
 								<div class="input-group-prepend"></div>
 								<textarea class="form-control" aria-label="With textarea"
-									placeholder="ARTINFO" style="resize: none;" rows="10"
-									name="content"></textarea>
+									style="resize: none;" rows="10"
+									name="content" >${masterpiece.content }</textarea>
 							</div>
 
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="ID"
-									aria-describedby="button-addon2" name="member_id"
-									value="${masterpiece.member_id }">
-							</div>
-
-							<%-- <input type="hidden" name="writer" value="${sessionScope.loggedInMember.id }"> --%>
+							<input type="hidden" name="member_id" value="${sessionScope.loggedInMember.member_id }"> --%>
+							</div>								<!-- // 세션 로그드인 멤버^ -->
 						</div>
 					</div>
 				</div>
@@ -108,7 +100,7 @@ body {
 					<button class="btn btn-outline-danger" type="submit"
 						id="removeSubmitButton">Delete</button>
 					<button class="btn btn-outline-light" type="submit"
-						id="modifySubmitButton">Modify</button>
+						id="modifySubmitButton">Modify</button> 		
 				</div>
 			</form>
 
@@ -129,21 +121,26 @@ body {
 		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
 		crossorigin="anonymous"></script>
 
-	<script>
-  $(document).ready(function() {
-	  
-    $("#removeSubmitButton").click(function(e) {
-      e.preventDefault(); // 기본 동작을 진행하지 않도록 함.
-      $("#modifyForm").attr("action", "remove").submit();
-    });
-
-    $("#modifySubmitButton").click(function(e) {
-      e.preventDefault();
-      $("#modifyForm").attr("action", "modify").submit();
-    });
-    
+	
+	
+<script>
+		
+// 버튼 클릭시 remove, modify  실행
+$(document).ready(function() {
+  $("#removeSubmitButton").click(function(e) {
+    e.preventDefault(); // 기본 동작을 진행하지 않도록 함.
+    $("#modifyForm").attr("action", "remove").submit();
   });
 
+  $("#modifySubmitButton").click(function(e) {
+    e.preventDefault();
+    $("#modifyForm").attr("action", "modify").submit();
+  });
+  
+});
+
+
+//이미지 업로드시 미리보기
 function readImage(input) {
     // 인풋 태그에 파일이 있는 경우
     if(input.files && input.files[0]) {
@@ -163,6 +160,7 @@ const inputImage = document.getElementById("input-image")
 inputImage.addEventListener("change", e => {
     readImage(e.target)
 });
+
 </script>
 </body>
 </html>

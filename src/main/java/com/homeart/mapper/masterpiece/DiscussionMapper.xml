@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.homeart.mapper.masterpiece.DiscussionMapper">
+	<delete id="delete">
+	DELETE FROM masterpiece_discussion WHERE discussion_id = #{discussion_id}
+	</delete>
+
+	<update id="update">
+	UPDATE masterpiece_discussion
+	SET
+		discussion = #{discussion},
+	WHERE
+		discussion_id = #{discussion_id}
+	
+	</update>
+
+	<select id="selectById" resultType="com.homeart.domain.masterpiece.DiscussionVO">
+	SELECT discussion_id, masterpiece_id, member_id, discussion
+	FROM masterpiece_discussion
+	WHERE discussion_id = #{discussion_id}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="discussion_id" keyColumn="discussion_id">
+	INSERT INTO Reply (masterpiece_id, member_id, discussion)
+	VALUES (#{masterpiece_id}, #{member_id}, #{discussion})
+	</insert>
+
+	<select id="list" resultType="com.homeart.domain.masterpiece.DiscussionVO">
+	SELECT
+		d.discussion_id,
+		d.masterpiece_id,
+		d.member_id,
+		d.discussion,
+		m.nickName
+	FROM 
+		discussion d JOIN Member m ON d.member_id = m.member_id
+	WHERE
+		d.masterpiece_id = #{masterpiece_id}
+	ORDER BY 
+		d.discussion_id DESC
+	
+	</select>
+
+</mapper>
