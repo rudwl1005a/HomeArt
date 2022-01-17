@@ -24,10 +24,11 @@ public interface freeBoardMapper {
 	public List<freeBoardVO> getList(@Param("from") Integer from, @Param("searchType") String searchType, @Param("keyword") String keyword, @Param("items") Integer numberPerPage);
 
 	//총 게시물 수 가져오기
-	public Integer countBoard();
+	public Integer countBoard(@Param("searchType") String searchType, @Param("keyword") String keyword);
 
 	public List<freeBoardVO> getAdminList(@Param("searchType") String searchType, @Param("keyword") String keyword);
 
 	public Integer viewCount(Integer id);
+
 
 }

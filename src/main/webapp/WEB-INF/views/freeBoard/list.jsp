@@ -148,6 +148,8 @@
 					<ul class="pagination p1 justify-content-center">
 						<c:if test="${pageInfo.hasPrevButton }">
 					  		<c:url value="/freeBoard/list" var="pageLink">
+					    		<c:param name="keyword" value="${param.keyword}"></c:param>
+					    		<c:param name="searchType" value="${param.searchType}"></c:param>
 					    		<c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
 					    	</c:url>
 						    <li class="page-item">
@@ -159,6 +161,8 @@
 					  	
 					  	<c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
 					    	<c:url value="/freeBoard/list" var="pageLink">
+					    		<c:param name="keyword" value="${param.keyword}"></c:param>
+					    		<c:param name="searchType" value="${param.searchType}"></c:param>
 					    		<c:param name="page" value="${pageNumber }"></c:param>
 					    	</c:url>
 						    <li class="page-item">
@@ -168,6 +172,8 @@
 							
 						<c:if test="${pageInfo.hasNextButton }">
 					    	<c:url value="/freeBoard/list" var="pageLink">
+					    		<c:param name="keyword" value="${param.keyword}"></c:param>
+					    		<c:param name="searchType" value="${param.searchType}"></c:param>
 					    		<c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
 					    	</c:url>
 						    <li class="page-item">

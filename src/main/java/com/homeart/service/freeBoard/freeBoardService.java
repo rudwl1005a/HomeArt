@@ -134,9 +134,9 @@ public class freeBoardService {
 	}
 
 	//pagination
-	public PageInfoVO getPageInfo(Integer page, Integer numberPerPage) {
+	public PageInfoVO getPageInfo(Integer page, String searchType, String keyword,Integer numberPerPage) {
 		
-		Integer countBoard = mapper.countBoard();//총 게시물수
+		Integer countBoard = mapper.countBoard(searchType, keyword);//총 게시물수
 		Integer lastPage = (countBoard-1) / numberPerPage + 1; //마지막 페이지 번호
 		Integer leftPageNumber = (page-1) / 5 * 5 + 1; //가장 왼쪽 번호
 		Integer rightPageNumber = (page-1) / 5 * 5 + 5; //가장 오른쪽 번호

@@ -86,11 +86,25 @@
 	
 	<select id="countBoard" resultType="int">
 		SELECT
-            COUNT(CASE WHEN m.isAdmin=0 THEN 1 END) countBoard
+            COUNT(*) countBoard
 		FROM
 			freeBoard b 
 				JOIN 
 			Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 0
+			<choose>
+				<when test="searchType != null and searchType.equals('all')">
+				AND (b.title LIKE CONCAT('%', #{keyword} ,'%')
+            	OR m.nickName LIKE CONCAT('%', #{keyword} ,'%'))
+				</when>
+				<when test="searchType != null and searchType.equals('title')">
+				AND b.title LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+				<when test="searchType != null and searchType.equals('writer')">
+				AND b.writer LIKE CONCAT('%', #{keyword} ,'%')
+				</when>
+			</choose>
 	</select>
 	
 	<select id="read" resultType="com.homeart.domain.freeBoard.freeBoardVO">

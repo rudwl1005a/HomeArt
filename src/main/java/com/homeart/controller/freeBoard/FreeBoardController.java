@@ -35,7 +35,7 @@ public class FreeBoardController {
 		//게시물 목록
 		List<freeBoardVO> listAdmin = service.getList(searchType, keyword);
 		List<freeBoardVO> listMember = service.getList(page, searchType, keyword, numberPerPage);
-		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
+		PageInfoVO pageInfo = service.getPageInfo(page, searchType, keyword, numberPerPage);
 		
 		model.addAttribute("listAdmin", listAdmin);
 		model.addAttribute("listMember", listMember);
