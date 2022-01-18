@@ -1,4 +1,4 @@
-package com.homeart.controller.mainpage;
+package com.homeart.controller.mainPage;
 
 import java.util.List;
 
