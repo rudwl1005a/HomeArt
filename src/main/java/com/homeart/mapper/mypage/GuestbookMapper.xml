@@ -26,6 +26,12 @@
 	FROM mypage_guestbook
 	WHERE guestbook_id = #{guestbook_id}
 	</select>
+	
+ 	<select id="selectCommentById" resultType="com.homeart.domain.mypage.GuestbookCommentVO">
+	SELECT *
+	FROM mypage_guestbook_comment
+	WHERE guestbook_comment_id = #{guestbook_comment_id}
+	</select>
  	
  	<select id="listWithComment" resultType="com.homeart.domain.mypage.GuestbookVO">
 	SELECT 
@@ -49,8 +55,8 @@
  	</delete>
  	
  	<insert id="insertComment">
- 	INSERT INTO mypage_guestbook_comment (guestbook_comment_id, member_id, guestbook_id, content)
- 	VALUE (#{guestbook_comment_id}, #{member_id}, #{guestbook_id}, #{content})
+ 	INSERT INTO mypage_guestbook_comment (member_id, guestbook_id, content)
+ 	VALUE (#{member_id}, #{guestbook_id}, #{content})
  	</insert>
  	
  	<select id="listComment" resultType="com.homeart.domain.mypage.GuestbookCommentVO">

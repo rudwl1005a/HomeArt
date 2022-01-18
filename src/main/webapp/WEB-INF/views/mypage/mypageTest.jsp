@@ -30,14 +30,6 @@
 <script>
 	/* 답글 토글 */
 	$(document).ready(function(){
-		// 이건 왜 또 안먹음...ㅠㅠ
-		$(".guestbookReply").click(function(){
-			console.log("click");
-			var element = $(this).parent();
-			var element2 = element.parent();
-			element2.next().slideToggle("fast");
-		});
-		
 		/* 모달 창 */
 		if(history.state == null){
 			$("#modal1").modal('show');
@@ -64,13 +56,13 @@
 						if (lastGuestBookId != list[i].guestbook_id) {
 							if(list[i].profile_file_name == null){								
 								currentGuestBook = $(`
+								  <div>
 									<div class="row guestbook">
 										<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
 										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
 										<p class="guestbookContent">　　</p>
 										<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
 										<div class="guestbookButton ml-auto">
-											<span class="guestbookDelete">삭제</span>
 											<span class="guestbookReply">답글</span>
 										</div>
 									</div>
@@ -81,93 +73,127 @@
 									    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
 									  </div>
 									</div>
+								  </div>
 								`);
+								
 							}
 							else{
 								let guestbookWriter = list[i].member_id;
 								currentGuestBook = $(`
+									  <div>
 										<div class="row guestbook">
 										<img class="pic40" src="\${staticUrl}/profile/\${list[i].member_id}/\${list[i].profile_file_name}" class="img-thumbnail" alt="...">
 											<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
 											<p class="guestbookContent">　　</p>
 											<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
 											<div class="guestbookButton ml-auto">
-												<span class="guestbookDelete">삭제</span>
 												<span class="guestbookReply">답글</span>
 											</div>
 										</div>
-										<div class="guestbookCommentWrap"></div>
-										<div class="input-group mb-3 guestbookCommentSubmit">
-										  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
-										  <div class="input-group-append">
-										    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
-										  </div>
+										<div class="guestbookCommentWrap">
+											<div class="input-group mb-3 guestbookCommentSubmit">
+											  <input type="text" id="guestbookCommentInput" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+											  <div class="input-group-append">
+											    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+											  </div>
+											</div>
 										</div>
+									  </div>
 								`);
+								
 							}
 							
 							$("#guestbookWrap").append(currentGuestBook);
 							lastGuestBookId = list[i].guestbook_id;
+							
+							currentGuestBook.find(".guestbookReply").click(function(){
+								let element = $(this).parent();
+								let element2 = element.parent();
+								let element3 = element2.next();
+								element3.slideToggle("fast");
+							});
+							
+							/* 대댓글 전송 */
+						    currentGuestBook.find("#guestbookComment").click(function() {
+						      let content = $(this).parent();
+						      let content2 = content.siblings().val();
+						      const member_id = '${sessionScope.loggedInMember.member_id}';
+							  const guestbook_id = list[i].guestbook_id;
+							  
+							  const data = {
+							          content : content2,
+							          member_id : member_id,
+							          guestbook_id : guestbook_id
+							      };
+							      $.ajax({
+							        url : appRoot + "/guestbook/writeComment",
+							        type : "post",
+							        data : data,
+							        success : function() {
+							          // textarea reset
+							           currentGuestBook.find("#guestbookCommentInput").val("");
+							        },
+							        error : function() {
+							          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
+							        },
+							        complete : function() {
+							          // 댓글 리스트 새로고침
+							          listGuestbook();
+							        }
+							      });
+							    
+						    });
+							
+						    if (list[i].own) {
+					        	/* 삭제 버튼 추가 */
+					            const removeButton = $(`<span class="guestbookDelete">삭제</span>`);
+					            removeButton.click(function() {
+					            	if (confirm("삭제 하시겠습니까?")) {
+					            		$.ajax({
+					            			url : appRoot + "/guestbook/" + list[i].guestbook_id,
+					            			type : "delete",
+					            			complete : function() {
+					           					listGuestbook();
+					            			}
+					           			});
+					            	}
+					            });
+					            currentGuestBook.find(".guestbookButton").prepend(removeButton);
+						    }
 						}
 												
 						if (list[i].guestbook_comment_id != 0) {
 							if(list[i].guestbook_id == list[i].guestbook_id2){
-								console.log("들어옴1!" + list[i].guestbook_id);
-								console.log("들어옴!" + list[i].guestbook_id2);
-								// 이걸로 하면 아예 안들어감..
-								//currentGuestBook.find('.guestbookCommentWrap').append(`
-								// 이걸로 하면 전부 들어가고
-								$("#guestbookWrap").find('.guestbookCommentWrap').append(`
+								const guestbookComment = $(`
 									<div class="row guestbookComment">
 										<a class="guestbookCommentContent" href="\${mypageUrl }?member_id=\${list[i].comment_writer }">\${list[i].comment_writer }</a>
 										<p class="guestbookCommentContent">　　</p>
 										<p class="guestbookCommentContent">\${list[i].comment_content }</p>
-										<div class="guestbookButton ml-auto">
-											<span class="guestbookCommentDelete">삭제</span>
+										<div class="guestbookCommentButton ml-auto">
 										</div>						
 									</div>
 								`);
+								currentGuestBook.find('.guestbookCommentWrap').prepend(guestbookComment);
+								if (list[i].commentOwn) {
+						        	/* 삭제 버튼 추가 */
+						            const removeButton = $(`<span class="guestbookCommentDelete">삭제</span>`);
+						            removeButton.click(function() {
+						            	if (confirm("삭제 하시겠습니까?")) {
+						            		$.ajax({
+						            			url : appRoot + "/guestbook/comment/" + list[i].guestbook_comment_id,
+						            			type : "delete",
+						            			complete : function() {
+						           					listGuestbook();
+						            			}
+						           			});
+						            	}
+						            });
+						            guestbookComment.find(".guestbookCommentButton").prepend(removeButton);
+							    }
 							}
 						}
+						
 					}	
-						
-						
-					/* 방명록만 보여주는건 완성.. 	
-					for (let i = 0; i < list.length; i++) {
-						let replyMediaObject;
-						if(list[i].profile_file_name == null){
-							replyMediaObject = $(`
-									<div class="row guestbook">
-										<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
-										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }"></a>
-										<p class="guestbookContent">　　</p>
-										<p class="guestbookContent guestbookContentContent"></p>
-										<div class="guestbookButton ml-auto">
-											<span class="guestbookDelete">삭제</span>
-										</div>
-									</div>
-							`);
-						}
-						else {
-							replyMediaObject = $(`
-									<div class="row guestbook">
-										<img class="pic40" src="\${staticUrl}/profile/\${list[i].member_id}/\${list[i].profile_file_name}" class="img-thumbnail" alt="...">
-										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }"></a>
-										<p class="guestbookContent">　　</p>
-										<p class="guestbookContent guestbookContentContent"></p>
-										<div class="guestbookButton ml-auto">
-											<span class="guestbookDelete">삭제</span>
-										</div>
-									</div>
-							`);		
-						}
-						
-			            replyMediaObject.find(".guestbookContentID").text(list[i].member_id);
-			            replyMediaObject.find(".guestbookContentContent").text(list[i].content);
-			            
-			            $("#guestbookWrap").append(replyMediaObject);
-			            
-				 	} */
 				}
 			});
 	    }
@@ -213,32 +239,7 @@
 	      });
 	    });
 	    
-        /* 본인이 작성한것만 수정,삭제 버튼 활성화
-        if (list[i].own) {
-          const modifyButton = $("<button class='btn btn-outline-secondary'><i class='far fa-edit'></i></button>");
-          modifyButton.click(function() {
-            $(this).parent().find('.reply-body').hide();
-            $(this).parent().find('.input-group').show();
-          });
-          
-          replyMediaObject.find(".media-body").append(modifyButton);
-          
-          // 삭제버튼 추가
-          const removeButton = $("<button class='btn btn-outline-danger'><i class='far fa-trash-alt'></i></button>");
-          removeButton.click(function() {
-            if (confirm("삭제 하시겠습니까?")) {
-              $.ajax({
-                url : appRoot + "/reply/" + list[i].id,
-                type : "delete",
-                complete : function() {
-                  listReply();
-                }
-              });
-            }
-          });
-          
-          replyMediaObject.find(".media-body").append(removeButton);
-        } */
+	    
 	});
 </script>
 
@@ -294,7 +295,6 @@
 				<!-- 방명록 -->
 				<h2> ${member.nickName }님의 방명록 </h2>
 				<div id="guestbookWrap"></div>
-				<div class="guestbookCommentWrap2"></div>
 				
 				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
 					<div class="input-group mb-3 guestbookSubmit">

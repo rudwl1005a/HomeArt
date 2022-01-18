@@ -84,7 +84,7 @@
 }
 
 .guestbookCommentWrap {
-	/* display: none; */
+	display: none;
 }
 
 .guestbookContent {
@@ -98,12 +98,12 @@
 }
 
 .guestbookCommentSubmit {
-	width: 650px;
+	width: 670px;
 	height: 30px;
-	margin: 5px 10px 0px 70px;
+	margin: 5px 10px 0px 90px;
 }
 
-.guestbookButton {
+.guestbookButton, .guestbookCommentButton {
 	 margin: auto 0px auto 3px;
 	 color: rgb(179, 177, 178); 
 }

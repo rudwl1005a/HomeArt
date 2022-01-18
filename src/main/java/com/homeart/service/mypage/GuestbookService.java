@@ -81,4 +81,8 @@ public class GuestbookService {
 		return mapper.selectById(guestbook_id);
 
 	}
+	public GuestbookCommentVO readCommentById(String guestbook_comment_id) {
+		return mapper.selectCommentById(guestbook_comment_id);
+		
+	}
 }

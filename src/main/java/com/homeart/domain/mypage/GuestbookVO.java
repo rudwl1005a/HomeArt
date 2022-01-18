@@ -13,8 +13,10 @@ public class GuestbookVO {
 	private boolean own;
 	
 	// with comment
-//	private int guestbook_comment_id;
-//	private int guestbook_id2;
-//	private String comment_writer;
-//	private String comment_content;
+	private int guestbook_comment_id;
+	private int guestbook_id2;
+	private String comment_writer;
+	private String comment_content;
+	
+	private boolean commentOwn;
 }
