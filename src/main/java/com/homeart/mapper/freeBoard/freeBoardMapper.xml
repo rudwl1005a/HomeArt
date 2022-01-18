@@ -5,6 +5,50 @@
 
 <mapper namespace="com.homeart.mapper.freeBoard.freeBoardMapper">
 
+	<select id="movePage" resultType="com.homeart.domain.freeBoard.freeBoardVO">
+	(SELECT * 
+	FROM
+		freeBoard b 
+			JOIN 
+		Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 0 AND b.isPublic = 1
+		AND b.board_id &lt; #{board_id}
+	    order by b.board_id DESC limit 1)
+	UNION
+	(SELECT * 
+	FROM
+		freeBoard b 
+			JOIN 
+		Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 0 AND b.isPublic = 1
+		AND b.board_id &gt; #{board_id}
+	    order by b.board_id limit 1);
+	</select>
+
+	<select id="movePageAdmin" resultType="com.homeart.domain.freeBoard.freeBoardVO">
+	(SELECT * 
+	FROM
+		freeBoard b 
+			JOIN 
+		Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 1 AND b.isPublic = 1
+		AND b.board_id &lt; #{board_id}
+	    order by b.board_id DESC limit 1)
+	UNION
+	(SELECT * 
+	FROM
+		freeBoard b 
+			JOIN 
+		Member m ON b.writer = m.member_id
+		WHERE
+			m.isAdmin = 1 AND b.isPublic = 1
+		AND b.board_id &gt; #{board_id}
+	    order by b.board_id limit 1);
+	</select>
+
 	<update id="viewCount">
 		UPDATE freeBoard SET viewCount = viewCount + 1 WHERE board_id = #{board_id}
 	</update>
@@ -116,6 +160,7 @@
 			b.inserted,
 			b.updated,
 			b.isPublic,
+			m.isAdmin,
 			m.nickName
 		FROM
 			freeBoard b 

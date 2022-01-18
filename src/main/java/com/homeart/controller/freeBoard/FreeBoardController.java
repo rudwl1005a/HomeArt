@@ -47,11 +47,17 @@ public class FreeBoardController {
 	public void getPost(@RequestParam("id") Integer id, Model model) {
 		
 		service.viewCount(id);
+		
 		freeBoardVO freeBoard = service.get(id);
 		String[] fileNames = service.getFileNames(id);
 		
+		List<freeBoardVO> movePageAdmin = service.movePageAdmin(id);
+		List<freeBoardVO> movePage = service.movePage(id);
+		
 		model.addAttribute("freeBoard", freeBoard);
 		model.addAttribute("fileNames", fileNames);
+		model.addAttribute("movePageAdmin", movePageAdmin);
+		model.addAttribute("movePage", movePage);
 	}
 	
 	@GetMapping("/modify")

@@ -61,7 +61,7 @@ $(document).ready(function() {
 							    	<span class="reply-nickName"></span>
 								</h6>
 								
-								<p class="reply-body" style="white-space: pre;"></p>
+								<p class="reply-body" style="padding: 0px 5px 3px;"></p>
 								
 								<div class="reply-group ReplyBox" style="display: none;">
 									<span class="reply-nickName" style="font-weight: 600;"></span>
@@ -233,6 +233,46 @@ $(document).ready(function() {
 							</c:forEach>
 						</div>
 						
+						<!-- 페이지 이동 (자유게시판 다른 글들 표시)-->
+						<div class="pageMove">
+							<c:if test="${freeBoard.isAdmin == 1 }">
+								<c:if test="${movePageAdmin[1] != null and movePageAdmin[1].board_id > freeBoard.board_id }">
+									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePage[1].board_id}">${movePageAdmin[1].title}</a>
+										<div>${movePageAdmin[1].writer}</div>
+									</div>
+								</c:if>
+								<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id > freeBoard.board_id }">
+									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}" >${movePageAdmin[0].title}</a>
+										<div>${movePageAdmin[0].writer}</div>
+									</div>
+								</c:if>
+								<div style="margin: 7px 0;"><a class="currentPageLink pl" href="get?id=${freeBoard.board_id }">${freeBoard.title }</a>
+									<div>${freeBoard.writer }</div>
+								</div>
+								<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id < freeBoard.board_id}">
+									<div><i class="fas fa-arrow-down"></i><a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}">${movePageAdmin[0].title}</a>
+										<div>${movePageAdmin[0].writer}</div>
+									</div>
+								</c:if>
+							</c:if>
+							<c:if test="${freeBoard.isAdmin == 0 }">
+								<c:if test="${movePage[1] != null and movePage[1].board_id > freeBoard.board_id }">
+									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePage[1].board_id}">${movePage[1].title}</a>
+									${movePageAdmin[1].writer}</div>
+								</c:if>
+								<c:if test="${movePage[0] != null and movePage[0].board_id > freeBoard.board_id }">
+									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}">${movePage[0].title}</a>
+									${movePageAdmin[0].writer}</div>
+								</c:if>
+								<div style="margin: 7px 0;"><a class="currentPageLink pl" href="get?id=${freeBoard.board_id }">${freeBoard.title }</a>
+								${freeBoard.writer }</div>
+								<c:if test="${movePage[0] != null and movePage[0].board_id < freeBoard.board_id}">
+									<div><i class="fas fa-arrow-down"></i><a class="pageLink pl" href="get?id=${movePage[0].board_id}">${movePage[0].title}</a>
+									${movePage[0].writer}</div>
+								</c:if>
+							</c:if>
+						</div>
+						
 						<!-- 댓글 리스트 -->
 						<div id="ReplyList"></div>
 						
@@ -249,13 +289,6 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</c:if>
-						
-						<!-- 페이지 이동 (자유게시판 다른 글들 표시)-->
-						<div class="pageMove">
-							<a href="">${ }</a><p>
-							<a href="" style="font-weight: bold;">${ }</a><p>
-							<a href="">${ }</a><p>
-						</div>
 						
 						<div class="get-buttons">
 							<a class="btn btn-dark float-left" type="button" href="post">글쓰기</a>
