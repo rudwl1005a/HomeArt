@@ -48,8 +48,7 @@ body {
 					<h5 class="card-header">작가그림공유</h5>
 					<div class="card-body">
 						<p class="card-text">작가그림공유 페이지의 게시판 관리를 할 수 있습니다.</p>
-						<a href="adminPicShare/AdminPicShare" class="btn btn-primary">공게</a> <a
-							href="adminPicShare/AdminPicAdmit" class="btn btn-primary">그림신고</a>
+						<a href="adminPicShare/AdminPicShare" class="btn btn-primary">공게</a>
 					</div>
 				</div>
 			</div>

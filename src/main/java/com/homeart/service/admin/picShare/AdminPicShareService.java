@@ -68,16 +68,16 @@ public class AdminPicShareService {
 		s3.deleteObject(deleteObjectRequest);
 	}
 	
-	public List<AdminPicShareVO> getListPage(Integer page, Integer numberPerPage) {
+	public List<AdminPicShareVO> getListPage(Integer page, Integer numberPerPage, String keyword) {
 		
 		Integer from = (page-1) * 10;
 		
-		return boardMapper.getListPage(from, numberPerPage);
+		return boardMapper.getListPage(from, numberPerPage, keyword);
 	}
 
-	public AdminPageInfoVO getPageInfo(Integer page, Integer numberPerPage) {
+	public AdminPageInfoVO getPageInfo(Integer page, Integer numberPerPage, String keyword) {
 		
-		Integer countRows = boardMapper.getCountRows();
+		Integer countRows = boardMapper.getCountRows(keyword);
 		
 		Integer lastPage = (countRows - 1) / numberPerPage + 1;
 		Integer leftPageNumber = (page - 1) / 10 * 10 + 1;
@@ -108,9 +108,9 @@ public class AdminPicShareService {
 	}
 	
 	@Transactional
-	public void remove(@Param("id") Integer id, MultipartFile file) {
+	public void remove(@Param("id") Integer id, String file) {
 		
-		if (file != null && file.getSize() > 0) {
+		if (file != null) {
 			boardMapper.delete(id);
 			
 			String key = "picShare/" + id + "/" + file; 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.homeart.domain.admin.AdminPageInfoVO;
 import com.homeart.domain.admin.AdminPicShareVO;
@@ -25,13 +26,14 @@ public class AdminPicShare {
 	private AdminPicShareService service;
 	
 	@GetMapping("/AdminPicShare")
-	public void list(@RequestParam(value="page", defaultValue="1") Integer page, Model model, Integer id) {
+	public void list(@RequestParam(value="page", defaultValue="1") Integer page, 
+			Model model, Integer id, @RequestParam(defaultValue="") String keyword) {
 		
 		// 한 페이지의 card 수
 		Integer numberPerPage = 9;
 		
-		List<AdminPicShareVO> list = service.getListPage(page, numberPerPage);
-		AdminPageInfoVO picPageInfo = service.getPageInfo(page, numberPerPage);
+		List<AdminPicShareVO> list = service.getListPage(page, numberPerPage, keyword);
+		AdminPageInfoVO picPageInfo = service.getPageInfo(page, numberPerPage, keyword);
 		
 		// 값이 잘 들어오는지 확인.
 		for(AdminPicShareVO lists : list) {
@@ -42,14 +44,16 @@ public class AdminPicShare {
 		model.addAttribute("list", list);
 		model.addAttribute("picPageInfo", picPageInfo);
 		model.addAttribute("read", service.get(id));
+		
 	}
 	
-	@PostMapping("/remove")
-	public String remove(Integer id, MultipartFile file) {
+	@GetMapping("/remove")
+	public String remove(Integer id, String file) {
 		
 		service.remove(id, file);
 		
 		return "redirect:/adminPage/adminPicShare/AdminPicShare";
 	}
+	
 }
 

@@ -66,7 +66,7 @@ h4 {
 			<div class="col-1"></div>
 
 			<div class="col-4">
-			<form role="form" action="/controller/adminPage/adminPicShare/AdminPicShare?id=${read.board_id}">
+			<form role="form" action="/controller/adminPage/adminPicShare/AdminPicShare?id=${read.board_id}" method="post">
 				<div class="input-group mb-1">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">제목</span>
@@ -100,7 +100,7 @@ h4 {
 				<div class="collapse" id="collapse">
 						<h4>삭제 사유를 입력해주세요</h4>
 						<input type="textarea" class="form-control">
-						<input type="submit" class="btn" value="입력완료" style="color: white;" id="deletion">
+						<a href="/controller/adminPage/adminPicShare/remove?id=${read.board_id}&file=${read.file_name}">입력완료</a>
 				</div>
 			</form>
 			</div>
@@ -110,7 +110,7 @@ h4 {
 	<div class="row">
 		<div class="col">
 			<form class="form-inline my-2 my-lg-0 ml-5">
-				<input class="form-control mr-sm-2" type="search" placeholder="찾기" aria-label="Search">
+				<input class="form-control mr-sm-2" type="search" placeholder="찾기" aria-label="Search" name="keyword">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-color: white; color: white;">작가찾기</button>
 			</form>
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -141,6 +141,7 @@ h4 {
 						<c:forEach begin="${picPageInfo.leftPageNumber }" end="${picPageInfo.rightPageNumber }" var="pageNumber">
 							<c:url value="/adminPage/adminPicShare/AdminPicShare" var="pageLink">
 								<c:param name="page" value="${pageNumber }" />
+								<c:param name="keyword" value="${param.keyword}" />
 							</c:url>
 							<li class="page-item">
 								<a class="${picPageInfo.currentPage == pageNumber ? 'is-active' : 'active' }" href="${pageLink }">${pageNumber }</a>
@@ -178,10 +179,6 @@ h4 {
 							$('.btn-toolbar>.btn-group>.btn, .btn-toolbar>.btn-group>.card>.btn')
 									.css('border-color', '#fff');
 							$('.btn-toolbar>.btn-group>.card>.btn').css('background-color', '#b3b1b2');
-							
-							$("#deletion").click(function(e){
-								e.preventDefault();
-								$("form").attr("action", "/controller/adminPage/adminPicShare/remove?id=<c:out value='${read.board_id}'/>").submit();
 							});
 						});
 	</script>

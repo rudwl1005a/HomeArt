@@ -59,7 +59,7 @@ public class AdminPicService {
 		s3.deleteObject(deleteObjectRequest);
 	}
 
-	public List<AdminPicVO> get(Long masterpiece_id) {
+	public List<AdminPicVO> get(int masterpiece_id) {
 		
 		log.info("get........." + masterpiece_id);
 		
@@ -67,7 +67,7 @@ public class AdminPicService {
 	}
 
 	@Transactional
-	public void remove(Long masterpiece_id, MultipartFile file) {
+	public void remove(Integer masterpiece_id, MultipartFile file) {
 		
 		log.info("remove............" + masterpiece_id + file);
 		

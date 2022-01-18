@@ -12,6 +12,8 @@
 		JOIN
 		Member m
 		ON b.writer = m.member_id
+		WHERE 
+		b.writer LIKE CONCAT('%', #{keyword}, '%')
 		ORDER BY board_id DESC
 		LIMIT #{from},
 		#{items}
@@ -19,7 +21,8 @@
 
 	<select id="getCountRows" resultType="int">
 		SELECT COUNT(*) FROM
-		picBoard
+		picBoard b
+		WHERE b.writer LIKE CONCAT('%', #{keyword},'%')
 	</select>
 
 	<select id="read"
@@ -34,7 +37,7 @@
 	</select>
 	
 	<delete id="delete">
-		DELETE FROM picBoard WHERE picBoard_id = #{id}
+		DELETE FROM picBoard WHERE board_id = #{id}
 	</delete>
 
 </mapper>
