@@ -45,6 +45,7 @@ public class FreeBoardController {
 	//파라미터로 원하는 목록(값)출력
 	@GetMapping("/get")
 	public void getPost(@RequestParam("id") Integer id, Model model) {
+		
 		service.viewCount(id);
 		freeBoardVO freeBoard = service.get(id);
 		String[] fileNames = service.getFileNames(id);
