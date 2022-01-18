@@ -28,59 +28,123 @@
 <c:url value="/picShare/get" var="picBoardUrl"></c:url>
 
 <script>
-	/* 답글 토글 */
-	$(document).ready(function(){		
-		/* 모달 창 */
-		if(history.state == null){
-			$("#modal1").modal('show');
-			history.replaceState({}, null);
-		}
-		
-		/* 방명록 */
-		/* contextPath */
-	    const appRoot = '${pageContext.request.contextPath}';
-		const staticUrl = '${staticUrl }'
-		const mypageUrl = '${mypageUrl}';
-		
-	    /* 현재 게시물의 댓글 목록 가져오는 함수 */
-		const listGuestbook = function() {
-			$("#guestbookWrap").empty();
-			$.ajax({
-				url : appRoot + "/guestbook/guestbook/${member.member_id}",
-				success : function(list) {	
-					for (let i = 0; i < list.length; i++) {
-						let replyMediaObject;
-						if(list[i].profile_file_name == null){
-							replyMediaObject = $(`
-									<div class="row guestbook">
-										<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
-										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }"></a>
-										<p class="guestbookContent">　　</p>
-										<p class="guestbookContent guestbookContentContent"></p>
-										<div class="guestbookButton ml-auto">
-										</div>
+/* 답글 토글 */
+$(document).ready(function(){
+	/* 모달 창 */
+	if(history.state == null){
+		$("#modal1").modal('show');
+		history.replaceState({}, null);
+	}
+	
+	/* 방명록 */
+	/* contextPath */
+    const appRoot = '${pageContext.request.contextPath}';
+	const staticUrl = '${staticUrl }'
+	const mypageUrl = '${mypageUrl}';
+	
+    /* 현재 게시물의 댓글 목록 가져오는 함수 */
+	const listGuestbook = function() {
+		$("#guestbookWrap").empty();
+		$.ajax({
+			url : appRoot + "/guestbook/guestbook/${member.member_id}",
+			success : function(list) {
+				
+				/* 방명록 + 댓글 시도 */
+				let lastGuestBookId = 0;
+				let currentGuestBook = '';
+				for (let i = 0; i < list.length; i++) {
+					if (lastGuestBookId != list[i].guestbook_id) {
+						if(list[i].profile_file_name == null){								
+							currentGuestBook = $(`
+							  <div>
+								<div class="row guestbook">
+									<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
+									<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
+									<p class="guestbookContent">　　</p>
+									<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
+									<div class="guestbookButton ml-auto">
+										<span class="guestbookReply">답글</span>
 									</div>
+								</div>
+								<div class="guestbookCommentWrap"></div>
+								<div class="input-group mb-3 guestbookCommentSubmit">
+								  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+								  <div class="input-group-append">
+								    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+								  </div>
+								</div>
+							  </div>
 							`);
+							
 						}
-						else {
-							replyMediaObject = $(`
+						else{
+							let guestbookWriter = list[i].member_id;
+							currentGuestBook = $(`
+								  <div>
 									<div class="row guestbook">
-										<img class="pic40" src="\${staticUrl}/profile/\${list[i].member_id}/\${list[i].profile_file_name}" class="img-thumbnail" alt="...">
-										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }"></a>
+									<img class="pic40" src="\${staticUrl}/profile/\${list[i].member_id}/\${list[i].profile_file_name}" class="img-thumbnail" alt="...">
+										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
 										<p class="guestbookContent">　　</p>
-										<p class="guestbookContent guestbookContentContent"></p>
+										<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
 										<div class="guestbookButton ml-auto">
+											<span class="guestbookReply">답글</span>
 										</div>
 									</div>
-							`);		
+									<div class="guestbookCommentWrap">
+										<div class="input-group mb-3 guestbookCommentSubmit">
+										  <input type="text" id="guestbookCommentInput" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+										  <div class="input-group-append">
+										    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+										  </div>
+										</div>
+									</div>
+								  </div>
+							`);
+							
 						}
 						
-			            replyMediaObject.find(".guestbookContentID").text(list[i].member_id);
-			            replyMediaObject.find(".guestbookContentContent").text(list[i].content);
-			            
-			            $("#guestbookWrap").append(replyMediaObject);
-			            
-			            if (list[i].own) {
+						$("#guestbookWrap").append(currentGuestBook);
+						lastGuestBookId = list[i].guestbook_id;
+						
+						currentGuestBook.find(".guestbookReply").click(function(){
+							let element = $(this).parent();
+							let element2 = element.parent();
+							let element3 = element2.next();
+							element3.slideToggle("fast");
+						});
+						
+						/* 대댓글 전송 */
+					    currentGuestBook.find("#guestbookComment").click(function() {
+					      let content = $(this).parent();
+					      let content2 = content.siblings().val();
+					      const member_id = '${sessionScope.loggedInMember.member_id}';
+						  const guestbook_id = list[i].guestbook_id;
+						  
+						  const data = {
+						          content : content2,
+						          member_id : member_id,
+						          guestbook_id : guestbook_id
+						      };
+						      $.ajax({
+						        url : appRoot + "/guestbook/writeComment",
+						        type : "post",
+						        data : data,
+						        success : function() {
+						          // textarea reset
+						           currentGuestBook.find("#guestbookCommentInput").val("");
+						        },
+						        error : function() {
+						          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
+						        },
+						        complete : function() {
+						          // 댓글 리스트 새로고침
+						          listGuestbook();
+						        }
+						      });
+						    
+					    });
+						
+					    if (list[i].own) {
 				        	/* 삭제 버튼 추가 */
 				            const removeButton = $(`<span class="guestbookDelete">삭제</span>`);
 				            removeButton.click(function() {
@@ -94,56 +158,91 @@
 				           			});
 				            	}
 				            });
-				            
-				            replyMediaObject.find(".guestbookButton").append(removeButton);
-				 		}
+				            currentGuestBook.find(".guestbookButton").prepend(removeButton);
+					    }
 					}
-				}
-			});
-	    }
-	    
-		listGuestbook();
-		
-	    /* 댓글 전송 */
-	    $("#guestbook").click(function() {
-	      const content = $("#guestbookContent").val();
-	      const member_id = '${sessionScope.loggedInMember.member_id}';
-	      const mypage_owner = '${member.member_id}';
-	      const fileName = '${loggedProfile.profile_file_name}';
-	      let profile_file_name;
-	      
-	      if(fileName == ""){
-	    	  profile_file_name = "";
-	      }
-	      else{
-		      profile_file_name = '${loggedProfile.profile_file_name}';	    	  
-	      }
-	      
-	      const data = {
-	          content : content,
-	          member_id : member_id,
-	          mypage_owner : mypage_owner,
-	          profile_file_name : profile_file_name
-	      };
-	      $.ajax({
-	        url : appRoot + "/guestbook/write",
-	        type : "post",
-	        data : data,
-	        success : function() {
-	          // textarea reset
-	          $("#guestbookContent").val("");
-	        },
-	        error : function() {
-	          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
-	        },
-	        complete : function() {
-	          // 댓글 리스트 새로고침
-	          listGuestbook();
-	        }
-	      });
-	    });
-	});
+											
+					if (list[i].guestbook_comment_id != 0) {
+						if(list[i].guestbook_id == list[i].guestbook_id2){
+							const guestbookComment = $(`
+								<div class="row guestbookComment">
+									<a class="guestbookCommentContent" href="\${mypageUrl }?member_id=\${list[i].comment_writer }">\${list[i].comment_writer }</a>
+									<p class="guestbookCommentContent">　　</p>
+									<p class="guestbookCommentContent">\${list[i].comment_content }</p>
+									<div class="guestbookCommentButton ml-auto">
+									</div>						
+								</div>
+							`);
+							currentGuestBook.find('.guestbookCommentWrap').prepend(guestbookComment);
+							if (list[i].commentOwn) {
+					        	/* 삭제 버튼 추가 */
+					            const removeButton = $(`<span class="guestbookCommentDelete">삭제</span>`);
+					            removeButton.click(function() {
+					            	if (confirm("삭제 하시겠습니까?")) {
+					            		$.ajax({
+					            			url : appRoot + "/guestbook/comment/" + list[i].guestbook_comment_id,
+					            			type : "delete",
+					            			complete : function() {
+					           					listGuestbook();
+					            			}
+					           			});
+					            	}
+					            });
+					            guestbookComment.find(".guestbookCommentButton").prepend(removeButton);
+						    }
+						}
+					}
+					
+				}	
+			}
+		});
+    }
+    
+	listGuestbook();
+	
+    /* 댓글 전송 */
+    $("#guestbook").click(function() {
+      const content = $("#guestbookContent").val();
+      const member_id = '${sessionScope.loggedInMember.member_id}';
+      const mypage_owner = '${member.member_id}';
+      const fileName = '${loggedProfile.profile_file_name}';
+      let profile_file_name;
+      
+      if(fileName == ""){
+    	  profile_file_name = "";
+      }
+      else{
+	      profile_file_name = '${loggedProfile.profile_file_name}';	    	  
+      }
+      
+      const data = {
+          content : content,
+          member_id : member_id,
+          mypage_owner : mypage_owner,
+          profile_file_name : profile_file_name
+      };
+      $.ajax({
+        url : appRoot + "/guestbook/write",
+        type : "post",
+        data : data,
+        success : function() {
+          // textarea reset
+          $("#guestbookContent").val("");
+        },
+        error : function() {
+          alert("댓글이 작성되지 않았습니다. 권한이 있는 지 확인해보세요.");
+        },
+        complete : function() {
+          // 댓글 리스트 새로고침
+          listGuestbook();
+        }
+      });
+    });
+    
+    
+});
 </script>
+
 
 <title>${member.member_id}'s MyPage</title>
 </head>
@@ -197,14 +296,15 @@
 				<!-- 방명록 -->
 				<h2> ${member.nickName }님의 방명록 </h2>
 				<div id="guestbookWrap"></div>
-				<div class="guestbookCommentWrap2"></div>
 				
-				<div class="input-group mb-3 guestbookSubmit">
-				  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="guestbook" id="guestbookContent">
-				  <div class="input-group-append">
-				    <button class="btn btn-dark" type="button" id="guestbook">작성</button>
-				  </div>
-				</div>
+				<c:if test="${sessionScope.loggedInMember.member_id != member.member_id }">
+					<div class="input-group mb-3 guestbookSubmit">
+					  <input type="text" class="form-control" placeholder="방명록을 작성해주세요. (최대 100자)" aria-label="방명록" aria-describedby="guestbook" id="guestbookContent">
+					  <div class="input-group-append">
+					    <button class="btn btn-dark" type="button" id="guestbook">작성</button>
+					  </div>
+					</div>
+				</c:if>
 				
 				<hr style="margin-top:30px">
 				<!-- 내 활동 -->

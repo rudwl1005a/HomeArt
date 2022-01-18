@@ -99,7 +99,7 @@ public class MypageController {
 		/* 내 댓글 5개 */
 		model.addAttribute("replyLimit5", reply);
 		
-		return "/mypage/mypageTest";
+		return "/mypage/mypage";
 	}
 	
 	/* 회원정보 수정 */
