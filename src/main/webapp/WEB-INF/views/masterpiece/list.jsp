@@ -10,25 +10,32 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-<link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+	crossorigin="anonymous">
+<link
+	href="${pageContext.request.contextPath}/resources/css/homeart.css"
+	rel="stylesheet" type="text/css">
 
 <title>Masterpiece-list</title>
 
 <style>
-body {
+body, section {
 	background-color: #222;
 }
 
-
 /* 카테고리 */
-#category_menu  {
+#category_menu {
 	position: relative;
 }
 
 /* 색 변경하기 그리고 하나만 클릭되도록 바꿔보기 */
-#category_menu:hover  {
+#category_menu:hover {
 	background-color: red;
 }
 
@@ -46,15 +53,21 @@ body {
 
 .main_category:active .category {
 	display: block;
-} 
+}
 /* 카드 이미지 고정 */
 .card-img-top {
 	height: 15rem;
 	object-fit: cover;
 }
+
+img {
+	display: block;
+	margin: 0px auto;
+}
 </style>
 
 <script>
+
 
 
 </script>
@@ -63,48 +76,87 @@ body {
 
 	<b:navBar></b:navBar>
 
-<div class="contents-wrap">
+	<div class="contents-wrap">
 
-	<!-- header board -->
-	<!-- 상단 이미지 보드 -->
-	<!-- .header_board>ul.header_wp>li.header_items -->
-	<section class="py-4">
-				<div class="container px-4 px-lg-8 my-5">
-						<div class="row gx-4 gx-lg-5 align-items-center">
-								<div class="col-md-6">
-										<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="...">
+		<!-- header board -->
+		<!-- 상단 이미지 보드 -->
+		<!-- .header_board>ul.header_wp>li.header_items -->
+		<section class="py-4">
+			<div class="container px-4 px-lg-8 my-5">
+				<div class="row gx-4 gx-lg-5 align-items-center main-top-img">
+					<c:forEach items="${ran }" var="ran">
+						<img src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }" alt="${ran.file_name }" style="width: auto; height: 650px;">
+					</c:forEach>
+					
+				
+					
+	<%--				<div id="carouselExampleCaptions" class="carousel slide"
+							data-ride="carousel">
+							<ol class="carousel-indicators">
+								<li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+								<li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+								<li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+							</ol>
+							<div class="carousel-inner">
+							 <c:forEach items="${ran }" var="ran" varStatus=”status”>
+							${status.count }
+							<c:choose>
+								<c:when>
+								
+								</c:when>
+								
+							</c:choose> 
+								<div class="carousel-item active">
+									<img
+										src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }"
+										alt="${ran.file_name }" style="width: auto; height: 650px;">
 								</div>
-								<div class="col-md-6 text-white">
-
-										<h1 class="display-5 fw-bolder">1 art</h1>
-										<div class="fs-5 mb-5">
-												<span class="text-decoration-line-through">1 artist</span>
-
-										</div>
-										<p class="lead text-white">작품 설명이 들어갈 것.raesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-										<div class="d-flex">
-
-												<button class="btn btn-light flex-shrink-0" type="button">Go Artist(작가 더보러가기)</button>
-										</div>
+								<div class="carousel-item">
+									<img
+										src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }"
+										alt="${ran.file_name }" style="width: auto; height: 650px;">
 								</div>
+
+								<div class="carousel-item">
+									<img
+										src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }"
+										alt="${ran.file_name }" style="width: auto; height: 650px;">
+								</div>
+							 </c:forEach> 
 						</div>
+						</div> 
+						
+					<button class="carousel-control-prev" type="button"
+						data-target="#carouselExampleCaptions" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button"
+						data-target="#carouselExampleCaptions" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</button>--%>
 				</div>
+				
+				
+			</div>
+
 		</section>
-		
-  
-	<!-- main board -->
-	<!-- 이미지 게시판 -->
-	<!-- .container>.main_board>.main_content -->
-		<section class="py-5">
+
+
+		<!-- main board -->
+		<!-- 검색바 -->
+		<!-- .container>.main_board>.main_content -->
+		<!-- 		<section class="py-5">
 			<div class="container px-4 px-lg-5 mt-5">
 				<div class="main_board" style="background-color: white;">
-					<!-- 검색바 및 카테고리 분류판 -->
-					<!-- 여기서 ajax사용해서 하단 이미지 리스트 보여주기 바꾸고싶다 -->
-					<!-- ul.main_search>li.search_bar^ul.main_select>li.category*4 -->
+					검색바 및 카테고리 분류판
+					여기서 ajax사용해서 하단 이미지 리스트 보여주기 바꾸고싶다
+					ul.main_search>li.search_bar^ul.main_select>li.category*4
 					<ul class="main_category">
-						<!-- <li class="search_bar"></li> 검색창은 필요한가??-->
+						<li class="search_bar"></li> 검색창은 필요한가??
 						<div class="row">
-							<li class="col" id="category_menu">COUNTRY <!-- <i class="fas fa-caret-down"></i> -->
+							<li class="col" id="category_menu">COUNTRY <i class="fas fa-caret-down"></i>
 								<div class="category" id="category">나라1</div>
 								<div class="category" id="category">나라2</div>
 								<div class="category" id="category">나라3</div>
@@ -114,75 +166,65 @@ body {
 						</div>
 					</ul>
 				</div>
+			</div> -->
+
+		<!-- register button & search button -->
+		<section>
+			<div class="py-3 pt-5" id="cardStart">
+				<div class="container card-search" id="card-search">
+					<form action="./list.do" method="get" class="d-flex">
+						<!-- list button -->
+						<button class="btn btn-outline-light mx-1" type="button"
+							onclick="location.href='${pageContext.request.contextPath}/masterpiece/list'">List</button>
+						<!-- register button -->
+						<button class="btn btn-outline-light mx-1" type="button"
+							onclick="location.href='${pageContext.request.contextPath}/masterpiece/register'">Post</button>
+						<!-- search button -->
+						<select name="type" class="btn btn-outline-light mx-1 form-select"
+							id="type">
+							<option class="text-weight-light" selected value="all"
+								${type eq 'all' ? 'selected' : '' }>select <i
+									class="fas fa-caret-square-down"></i></option>
+							<option value="title" ${type eq 'title' ? 'selected' : '' }>title</option>
+							<option value="artist" ${type eq 'artist' ? 'selected' : '' }>artist</option>
+							<option value="country" ${type eq 'country' ? 'selected' : '' }>country</option>
+							<option value="age" ${type eq 'age' ? 'selected' : '' }>age</option>
+
+						</select> <input class="form-control me-2 mx-1" type="text"
+							placeholder="Search" aria-label="Search" name="keyword"
+							value="${keyword }">
+						<button class="btn btn-outline-light" type="submit">
+							<i class="fas fa-search"></i>
+						</button>
+					</form>
+				</div>
 			</div>
 
-			<!-- Section art-->
-			<section class="py-5">
-				<div class="container px-4 px-lg-5 mt-5">
-					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-						<c:forEach items="${list }" var="m">
-							<div class="col mb-5">
-								<div class="card h-100">
-									<!-- dropdown -->
-									<div class="dropdown">
-										<button class="btn btn-outline-light dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-											<i class="fas fa-ellipsis-h"></i>
-										</button>
-										<div class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="modify?masterpiece_id=${m.masterpiece_id }">modify(admin)</a> 
-											<a class="dropdown-item" href="#">delete(admin)</a> 
-											<a class="dropdown-item" href="#">share(admin, member)</a> 
-											<a class="dropdown-item" href="#">go artist(member)</a> 
-											<a class="dropdown-item" href="#">declaration(member)</a>
-										</div>
-									</div>
-									<!-- HOT badge -->
-									<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
-									<!-- Product image-->
-									<img class="card-img-top" src="${staticUrl }/masterpiece/${m.masterpiece_id }/${m.file_name }" alt="${m.file_name }">
-									<!-- Product details-->
-									<div class="card-body p-4">
-										<div class="text-center">
-											<!-- 작품 이름-->
-											<h5 class="fw-bolder">${m.title }</h5>
-											<!-- text-warning이 글씨의 색깔을 나타냄. -->
-											<!-- 작가 이름 -->
-											<div class="d-flex justify-content-center small text-warning mb-2">
-												<div class="bi-star-fill">${m.artist }</div>
-											</div>
-											<!-- Like, View-->
-											<span class="text-muted text-decoration-line-through">Like View</span>
-
-										</div>
-									</div>
-									<!-- Product actions-->
-									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-										<div class="text-center">
-											<a class="btn btn-outline-dark mt-auto" href="get?masterpiece_id=${m.masterpiece_id }">Go art</a>
-											<%-- <span class="text-muted text-decoration-line-through" id="updateLike">${m.likeSu}</span> --%>
-											<button id="likeBtn${m.masterpiece_id }" class="btn btn-outline-light" type="button" onclick="updateLike('${m.masterpiece_id }','${sessionScope.loggedInMember.member_id }')">좋아요 ${m.likeSu }</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-						<div class="container">
-							<button class="btn btn-outline-light" type="button" onclick="location.href='/controller/masterpiece/register'">Post</button>
-						</div>
-					</div>
+			<c:if test="${not empty keyword }">
+				<div class="alert text-center my-0">
+					<h3 class="text-light font-weight-light my-3">"${totalRow }개"
+						의 자료가 검색되었습니다.</h3>
 				</div>
-			</section>
+			</c:if>
+		</section>
+		<!-- Section art-->
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 mt-5">
+				<div
+					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center card-list-container">
 
 
+				</div>
+			</div>
 		</section>
 
 
 
 
 
+
 		<b:bottomInfo></b:bottomInfo>
-</div>
+	</div>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -191,8 +233,8 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
 		crossorigin="anonymous"></script>
-		
-<script>
+
+	<script>
 const appRoot = '${pageContext.request.contextPath}';
 /* $(function(){
 		console.log(1234);
@@ -226,10 +268,10 @@ const appRoot = '${pageContext.request.contextPath}';
 	        	  } else {
 	        		  alert("실패");
 	        	  }
-	        	  //location.herf= appRoot+"/masterpiece/list";
-	        	  
-	        	  $.ajax({
-			          url : appRoot + "/masterpiece/list",
+	        	  /* location.herf= appRoot+"/masterpiece/list.do"; */
+
+	        	  /*  $.ajax({
+			          url : appRoot + "/masterpiece/list.do",
 			          type : "get",
 			          data : null,
 			          success : function() {
@@ -238,9 +280,9 @@ const appRoot = '${pageContext.request.contextPath}';
 			          error : function() {
 			            alert("리스트 다시조회 실패.");
 			          }
-			        });
+			        }); */
 	        	  
-	        	 //여기다 리스트를 다시 조회하면됌
+
 	          },
 	          error : function() {
 	            alert("아작스 실패.");
@@ -249,6 +291,77 @@ const appRoot = '${pageContext.request.contextPath}';
 		
 	}
  	
+
+//페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정.
+let currentPage = 1;
+//현재 페이지가 로딩중인지 여부를 저장할 변수.
+let isLoading = false;
+
+//웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
+$(window).on("scroll", function () {
+	// 위로 스크롤된 길이
+	let scrollTop = $(window).scrollTop();
+	// 웹브라우저의 창의 높이
+	let windowHeight = $(window).height();
+	// 문서 전체의 높이
+	let documentHeight = $(document).height();
+	// 바닥까지 스크롤 되었는지의 여부
+	let isBottom = scrollTop+windowHeight + 10 >= documentHeight;
+	
+	if (isBottom) {
+		
+		// 만일 현재 마지막 페이지라면
+		if(currentPage == ${totalPageCount} || isLoading) {
+			return;
+		}
+		
+		// 현재 로딩 중을 표시.
+		isLoading = true;
+		// 로딩바
+		$(".back-drop").show();
+		// 요청할 페이지 번호를 1 증가.
+		currentPage++;
+		// 추가로 받아올 페이지를 서버에 ajax 요청을 하고
+		console.log("inscroll"+currentPage);
+		GetList(currentPage);
+			
+	};
+	
+});
+
+const GetList = function (currentPage) {
+	
+	const appRoot = '${pageContext.request.contextPath}'; 
+	
+	console.log("inGetList"+currentPage);
+	
+	// 무한 스크롤 부분
+	$.ajax ({
+		url: "ajax_page.do",
+		method: "GET",
+		//검색 기능이 있는 경우 type과 keyword를 함께 넘겨줘야 한다.
+		data: "pageNum="+currentPage+"&type=${type}&keyword=${keyword}",
+		//ajax_page.jsp의 내용이 data로 들어온다.
+		success: function (data) {
+			console.log(data);
+			//응답된 문자열은 html 형식이고 (picShare/ajax_page.jsp에 응답내용이 있다.)
+			//해당 문자열을 .card-list-container div에 html로 해석하라고 추가한다.
+			$(".card-list-container").append(data);
+			//로딩바를 숨김.
+			$(".back-drop").hide();
+			isLoading=false;
+			console.log("ajax");
+			
+		}
+	});
+}
+
+$(document).ready(function () {
+	GetList(1);
+	
+	
+});
+
 	
 
 	

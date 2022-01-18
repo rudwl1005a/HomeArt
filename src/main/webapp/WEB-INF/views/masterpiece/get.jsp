@@ -200,7 +200,7 @@ body {
 					<div class="col-md-6">
 						<img class="card-img-top mb-5 mb-md-0"
 							src="${staticUrl }/masterpiece/${masterpiece.masterpiece_id }/${masterpiece.file_name }"
-							alt="${masterpiece.file_name }">
+							alt="${masterpiece.file_name }" id="zoom-img">
 					</div>
 					<div class="col-md-6 text-white">
 
@@ -232,7 +232,7 @@ body {
 
 
 		<!-- Reply section -->
-		<section class="py-5 my-5 bg-rgb(100, 0, 0)">
+<%-- 		<section class="py-5 my-5 bg-rgb(100, 0, 0)">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
 				
@@ -255,10 +255,10 @@ body {
 					</c:if>
 					
 				</div>
-			</div>
+			</div> --%>
 
 			<!-- 댓글 container -->
-			<div class="container">
+<!-- 			<div class="container">
 				<div class="row">
 					<div class="col">
 
@@ -266,7 +266,7 @@ body {
 
 					</div>
 				</div>
-			</div>
+			</div> -->
 	
 	</section>
 
@@ -415,9 +415,10 @@ body {
 		// 클릭시 이미지 확대
 		$(document).ready(
 				function(e) {
-
-					$(document).on("click", "img", function() {
+					
+					$(document).on("click", "#zoom-img", function() {
 						var path = $(this).attr('src')
+						console.log(path)
 						showImage(path);
 					});//end click event
 

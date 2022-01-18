@@ -2,6 +2,7 @@ package com.homeart.service.masterpiece;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,10 @@ public class MasterpieceService {
 		return mapper.read(masterpiece_id);
 	}
 
+	public ArrayList<MasterpieceVO> randomone(MasterpieceVO masterpiece_id) {
+		return (ArrayList<MasterpieceVO>) mapper.randomone(masterpiece_id);
+	}
+	
 	public boolean modify(MasterpieceVO masterpiece) {
 		return mapper.update(masterpiece) == 1;
 	}
@@ -130,9 +135,17 @@ public class MasterpieceService {
 	}
 
 
-	public List<MasterpieceVO> getList() {
-		return mapper.getList();
+	public ArrayList<MasterpieceVO> getList(MasterpieceVO masterpiece_id) {
+		return (ArrayList<MasterpieceVO>) mapper.getList(masterpiece_id);
 	}
+	
+	public int getCountRow(MasterpieceVO masterpiece_id) {
+
+		// 게시물 갯수 가져오기
+		int result = mapper.card_count(masterpiece_id);
+
+		return result;
+	}	
 
 	public List<MasterpieceVO> getListPage(Integer page, Integer numberPerPage) {
 
