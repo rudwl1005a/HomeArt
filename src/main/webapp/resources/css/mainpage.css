@@ -53,11 +53,20 @@
 	text-align: center;
 }
 
+.freeBoard-title{
+	justify-content: center;
+    min-width: 460px;
+    text-align: center;
+}
+.table{
+	min-width: 720px;
+}
+
 td a {
-	max-width: 380px;
-	display: inline-block;
-  	overflow: hidden;
-	word-wrap: break-word;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+    max-width: 380px;
+    display: inline-block;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

@@ -250,6 +250,13 @@ $(document).ready(function() {
 							</div>
 						</c:if>
 						
+						<!-- 페이지 이동 (자유게시판 다른 글들 표시)-->
+						<div class="pageMove">
+							<a href="">${ }</a><p>
+							<a href="" style="font-weight: bold;">${ }</a><p>
+							<a href="">${ }</a><p>
+						</div>
+						
 						<div class="get-buttons">
 							<a class="btn btn-dark float-left" type="button" href="post">글쓰기</a>
 							<div class="float-right">
@@ -266,15 +273,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-
-<!-- 페이지 이동 (자유게시판 다른 글들 표시)-->
-<div class="container">
-	<div class="row">
-		<div class="col">
-			
-		</div>
-	</div>
-</div>
 <b:bottomInfo></b:bottomInfo>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
