@@ -75,29 +75,35 @@
 	<!-- 공지사항 -->
 	<div class="container">
 		<div class="row">
-			<div class="col">
-				<h3 style="margin-bottom: 20px">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
-				<table class="table">
+			<div class="col" style="padding-bottom: 20px;">
+				<h3 style="margin-bottom: 20px; font-weight:bold;">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
+				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class=col-1>
-								<i class="fab fa-slack-hash"></i>
-							</th>
-							<th class=col-5>제목</th>
-							<th class=col-2>작성자</th>
-							<th class=col-2 style="text-align: center;">작성일</th>
+							<th class="col-2">No.</th>
+							<th class="col-4 freeBoard-title">제목</th>
+							<th class="col-2">작성자</th>
+							<th class="col-2" style="text-align: center;">작성일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${notice }" var="notice" varStatus="status" >
+							<c:if test="${notice.isPublic == 1 }">
 							<tr>
-								<td class=col-1>${status.count }</td>
-								<td class=col-5>
+								<td class="col-2" style="color: red; font-weight: bold;">${status.count }</td>
+								<td class="col-4 freeBoard-title" style="color: red; font-weight: bold;">
 									<a href="${freeBoardUrl }?id=${notice.board_id}" id="noticeTitle">${notice.title}</a>
+									<c:if test="${notice.replyCount > 0 }">
+										<a href="get?id=${notice.board_id }" style="color: red; font-weight: 550;">[${notice.replyCount }]</a>
+									</c:if>
+									<c:if test="${notice.hasFile }">
+										<i class="far fa-images"></i>
+									</c:if>
 								</td>
-								<td class=col-2 >${notice.nickName }</td>
-								<td class=col-2>${notice.boardInserted }</td>
+								<td class="col-2" >${notice.nickName }</td>
+								<td class="col-2">${notice.boardInserted }</td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
