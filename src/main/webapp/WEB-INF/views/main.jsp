@@ -39,24 +39,24 @@
 			  </ol>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="<spring:url value='/resources/img/logo.jpg'/>" class="d-block w-100" alt="Today's best">
+			      <img src="${staticUrl }/picShare/${week[0].board_id }/${week[0].file_name}" class="d-block w-100" alt="Week's best">
 			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Today's BEST!</h5>
-			        <p>작품이름 - 작가이름</p>
+			        <h5>Week's BEST!</h5>
+			        <p>${week[0].title } - ${week[0].writer }</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item" >
-			      <img src="<spring:url value='/resources/img/logo1.jpg'/>" class="d-block w-100" alt="Monthly best">
+			      <img src="${staticUrl }/picShare/${month[0].board_id }/${month[0].file_name}" class="d-block w-100" alt="Month's best">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Month's BEST!</h5>
-			        <p>작품이름 - 작가이름</p>
+			        <p>${month[0].title } - ${month[0].writer }</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="<spring:url value='/resources/img/logo2.jpg'/>" class="d-block w-100" alt="Yearly best">
+			      <img src="${staticUrl }/picShare/${year[0].board_id }/${year[0].file_name}" class="d-block w-100" alt="Year's best">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Year's BEST!</h5>
-			        <p>작품이름 - 작가이름</p>
+			        <p>${year[0].title } - ${year[0].writer }</p>
 			      </div>
 			    </div>
 			  </div>
