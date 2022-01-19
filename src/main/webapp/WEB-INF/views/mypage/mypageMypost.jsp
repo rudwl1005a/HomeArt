@@ -31,21 +31,21 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th class=col-1>
+							<th class="col-1">
 								<i class="fab fa-slack-hash"></i>
 							</th>
-							<th class=col-5>제목</th>
-							<th class=col-2 style="text-align: center;">작성일</th>
+							<th class="col-5">제목</th>
+							<th class="col-2">작성일</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="myPost">
 						<c:forEach items="${freeBoard }" var="writing" varStatus="status">
 							<tr>
-								<td class=col-1>${status.count }</td>
-								<td class=col-5>
+								<td class="col-1">${status.count }</td>
+								<td class="col-5">
 									<a href="${freeBoardUrl }?id=${writing.board_id}">${writing.title }</a>
 								</td>
-								<td class=col-2>${writing.boardInserted }</td>
+								<td class="col-2">${writing.boardInserted }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
