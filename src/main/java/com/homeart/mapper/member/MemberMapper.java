@@ -5,6 +5,7 @@ import java.util.List;
 import com.homeart.domain.freeBoard.FreeBoardReplyVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.domain.member.MemberVO;
+import com.homeart.domain.mypage.likeListVO;
 import com.homeart.domain.mypage.replyVO;
 import com.homeart.domain.picShare.picBoardVO;
 
@@ -34,4 +35,10 @@ public interface MemberMapper {
 	public List<replyVO> selectReply(String member_id);
 
 	public List<FreeBoardReplyVO> selectReplyLimit5(String member_id);
+
+	public List<likeListVO> selectLikeMasterpiece(String member_id);
+	
+	public List<likeListVO> selectLikePicture(String member_id);
+
+	public List<likeListVO> selectLikeLimit5(String member_id);
 }
