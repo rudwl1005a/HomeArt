@@ -127,12 +127,12 @@ body {
 				$(".heart-click").click(function () {
 					
 					// 게시물 번호를 idx로 전달받아 저장
-					let boardId = $(this).attr('idx');
-					console.log("heart-click"+boardId);
+					let boardId = $(this).attr('idx'); 
+					/* console.log("heart-click"+boardId); */
 					
 					// 빈하트를 눌렀을 때,
 					if($(this).children('i').attr('class') == "far fa-heart") {
-						console.log("빈하트 클릭" + boardId);
+						/* console.log("빈하트 클릭" + boardId); */
 						
 						$.ajax({
 							url: 'saveHeart.do',
@@ -146,12 +146,12 @@ body {
 								
 							 	/* let heart = '${board.like_cnt}';  */
 								
-								console.log(board.like_cnt);
-							 	console.log(board.likeId);
+								/* console.log(board.like_cnt);
+							 	console.log(board.likeId); */
 								
 								$('#heart'+boardId).text(board.like_cnt);
 								
-								console.log("하트추가 성공");
+								/* console.log("하트추가 성공"); */
 							},
 							error: function () {
 								alert('서버 에러');
@@ -168,7 +168,7 @@ body {
 						
 					// 꽉 찬 하트를 눌렀을때는? 다시 빈 하트로 바뀌어야함.
 					} else if($(this).children('i').attr('class') == "fas fa-heart") {
-						console.log("꽉 찬 하트를 클릭" + boardId);
+						/* console.log("꽉 찬 하트를 클릭" + boardId); */
 						
 						$.ajax({
 							url: 'removeHeart.do',
@@ -181,19 +181,19 @@ body {
 								// document.location.reload(true);
 								
 							/* let heart = '${board.like_cnt}';  */
-								console.log(board.like_cnt);	
-								console.log(board.likeId);
+								/* console.log(board.like_cnt);	
+								console.log(board.likeId); */
 							
 								// 페이지 하트 수 갱신
 								$('#heart'+boardId).text(board.like_cnt);
 								
-								console.log("하트 삭제, 빈하트로 변경 성공!");
+								/* console.log("하트 삭제, 빈하트로 변경 성공!"); */
 							},
 							error: function () {
 								alert('서버에러');
 							}
 						});
-						console.log("빈하트로 다시 바뀌냐 ?");
+						/* console.log("빈하트로 다시 바뀌냐 ?"); */
 						
 						// 빈하트로 바꾸기
 						// 안에 내용을 비우고, (추가한 코드)

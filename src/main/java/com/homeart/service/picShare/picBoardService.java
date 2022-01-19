@@ -87,10 +87,6 @@ public class picBoardService {
 		List<picBoardVO> getLikeIdOne = null;
 		
 		getLikeIdOne = (List<picBoardVO>) boardMapper.getLikeIdOne(member_id);
-		
-		System.out.println("service");
-
-		System.out.println(getLikeIdOne);
 
 		return getLikeIdOne;
 		
@@ -194,11 +190,6 @@ public class picBoardService {
 
 		}
 
-		System.out.println("cnt");
-		System.out.println(board.getLike_cnt());
-		System.out.println("id");
-		System.out.println(board.getLike_id());
-
 		return board;
 
 	}
@@ -212,8 +203,6 @@ public class picBoardService {
 		// like 테이블에 삭제
 		int result = boardMapper.deleteLike(likeVO);
 
-		System.out.println(board);
-
 		// like 테이블에 좋아요 삭제가 성공한다면?
 		if (result == 1) {
 			// 갱신된 하트수를 가져옴
@@ -221,13 +210,6 @@ public class picBoardService {
 			board.setLike_cnt(boardMapper.heart_count(board));
 
 		}
-		
-//		board.setLike_id(likeVO.getLike_id());
-
-		System.out.println("cnt");
-		System.out.println(board.getLike_cnt());
-		System.out.println("id");
-		System.out.println(board.getLike_id());
 
 		return board;
 	}

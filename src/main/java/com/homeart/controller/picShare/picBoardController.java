@@ -411,7 +411,6 @@ public class picBoardController {
 
 //		board.setLike_id(likeVO.getLike_id());
 
-
 		return board;
 	}
 
