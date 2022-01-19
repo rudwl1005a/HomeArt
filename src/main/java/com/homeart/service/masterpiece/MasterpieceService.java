@@ -98,6 +98,10 @@ public class MasterpieceService {
 		return (ArrayList<MasterpieceVO>) mapper.randomone(masterpiece_id);
 	}
 	
+	public ArrayList<MasterpieceVO> randomfour(MasterpieceVO masterpiece_id) {
+		return (ArrayList<MasterpieceVO>) mapper.randomfour(masterpiece_id);
+	}
+	
 	public boolean modify(MasterpieceVO masterpiece) {
 		return mapper.update(masterpiece) == 1;
 	}
@@ -262,6 +266,8 @@ public class MasterpieceService {
 		map.put("msg",msg);
 		return map;
 	}
+
+
 	
 
 	

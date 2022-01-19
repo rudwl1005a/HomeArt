@@ -219,11 +219,14 @@ public class MasterpieceController {
 	
 
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("masterpiece_id") Integer masterpiece_id,  Model model) {
+	public void get(@RequestParam("masterpiece_id") Integer masterpiece_id, MasterpieceVO masterpiece_id2, Model model) {
 		MasterpieceVO masterpiece = service.get(masterpiece_id);
 		
 		System.out.println(masterpiece);
 		model.addAttribute("masterpiece", masterpiece);
+		
+		List<MasterpieceVO> randomfour = service.randomfour(masterpiece_id2);
+		model.addAttribute("ran4", randomfour);
 	}
 	
 	@PostMapping("/modify")

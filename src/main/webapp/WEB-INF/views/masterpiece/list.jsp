@@ -21,56 +21,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/homeart.css"
 	rel="stylesheet" type="text/css">
-
+<link href="${pageContext.request.contextPath}/resources/css/masterpiece/list.css" rel="stylesheet" type="text/css">
 <title>Masterpiece-list</title>
-
-<style>
-body, section {
-	background-color: #222;
-}
-
-/* 카테고리 */
-#category_menu {
-	position: relative;
-}
-
-/* 색 변경하기 그리고 하나만 클릭되도록 바꿔보기 */
-#category_menu:hover {
-	background-color: red;
-}
-
-#category {
-	display: none;
-	position: absolute;
-	background-color: white;
-	color: black;
-	/* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	left: 0px;
-	top: 50px;
-	padding: 14px;
-	width: 80px; */
-}
-
-.main_category:active .category {
-	display: block;
-}
-/* 카드 이미지 고정 */
-.card-img-top {
-	height: 15rem;
-	object-fit: cover;
-}
-
-img {
-	display: block;
-	margin: 0px auto;
-}
-</style>
-
-<script>
-
-
-
-</script>
 </head>
 <body>
 
@@ -83,9 +35,13 @@ img {
 		<!-- .header_board>ul.header_wp>li.header_items -->
 		<section class="py-4">
 			<div class="container px-4 px-lg-8 my-5">
-				<div class="row gx-4 gx-lg-5 align-items-center main-top-img">
+				<div class="row gx-4 gx-lg-5 main-top-img justify-content-center" >
 					<c:forEach items="${ran }" var="ran">
-						<img src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }" alt="${ran.file_name }" style="width: auto; height: 650px;">
+						<a href="get?masterpiece_id=${ran.masterpiece_id }"><!-- class="help-tip" --> 
+							<img src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }" alt="${ran.file_name }" style="width: auto; height: 650px;">
+							<%-- <p>마우스 오버시 알림메시지창이 뜹니다.<br>CSS로만 만들어졌습니다.</p> --%>
+						</a>
+						
 					</c:forEach>
 					
 				
@@ -235,6 +191,7 @@ img {
 		crossorigin="anonymous"></script>
 
 	<script>
+	
 const appRoot = '${pageContext.request.contextPath}';
 /* $(function(){
 		console.log(1234);

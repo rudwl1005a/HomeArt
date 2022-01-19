@@ -87,6 +87,11 @@ body {
 									style="resize: none;" rows="10"
 									name="content" >${masterpiece.content }</textarea>
 							</div>
+							<div class="input-group mb-3">
+								<input type="text" class="form-control"
+									aria-describedby="button-addon2" name="source"
+									value="${masterpiece.source }">
+							</div>
 
 							<div class="input-group mb-3">
 							<input type="hidden" name="member_id" value="${sessionScope.loggedInMember.member_id }"> --%>

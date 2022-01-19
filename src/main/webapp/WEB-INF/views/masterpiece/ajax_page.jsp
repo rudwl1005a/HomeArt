@@ -26,7 +26,7 @@
 										</div>
 									</div>
 									<!-- HOT badge -->
-									<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
+									<!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div> -->
 									<!-- Product image-->
 									<img class="card-img-top" src="${staticUrl }/masterpiece/${m.masterpiece_id }/${m.file_name }" alt="${m.file_name }">
 									<!-- Product details-->

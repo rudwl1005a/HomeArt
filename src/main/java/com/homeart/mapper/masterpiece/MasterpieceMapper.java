@@ -55,7 +55,11 @@ public interface MasterpieceMapper {
 	
 	public int card_count(MasterpieceVO masterpiece);
 	
+	// 랜덤으로 하나의 풀셋트 가져오기
 	public List<MasterpieceVO> randomone(MasterpieceVO masterpiece_id); 
+	
+	// 랜덤으로 네개의 풀셋트 가져오기
+	public List<MasterpieceVO> randomfour(MasterpieceVO masterpiece_id); 
 }
 
 

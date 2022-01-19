@@ -68,6 +68,9 @@ body {
 								<div class="input-group-prepend"></div>
 								<textarea class="form-control" aria-label="With textarea" placeholder="ARTINFO" style="resize: none;" rows="10" name="content"></textarea>
 							</div>
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="SOURCE" aria-describedby="button-addon2" name="source">
+							</div>
 							
 							<div class="input-group mb-3">
 								<input type="hidden" name="member_id" value="${sessionScope.loggedInMember.member_id }">
