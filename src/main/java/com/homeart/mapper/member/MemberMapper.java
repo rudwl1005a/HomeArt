@@ -2,8 +2,10 @@ package com.homeart.mapper.member;
 
 import java.util.List;
 
+import com.homeart.domain.freeBoard.FreeBoardReplyVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.domain.member.MemberVO;
+import com.homeart.domain.mypage.replyVO;
 import com.homeart.domain.picShare.picBoardVO;
 
 public interface MemberMapper {
@@ -28,4 +30,8 @@ public interface MemberMapper {
 	public List<picBoardVO> selectPicture(String member_id);
 
 	public List<picBoardVO> selectPictureLimit5(String member_id);
+
+	public List<replyVO> selectReply(String member_id);
+
+	public List<FreeBoardReplyVO> selectReplyLimit5(String member_id);
 }

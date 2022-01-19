@@ -45,6 +45,60 @@
 		ORDER BY board_id DESC
 		LIMIT #{startRowNum}, #{rowCount}
 	</select>
+	
+	<select id="getLikeId" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt , l.like_id
+		FROM picBoard b
+			JOIN Member m
+				ON b.writer = m.member_id
+			JOIN picBoardLike l
+				ON l.board_id = b.board_id AND l.member_id = #{memberId}
+		ORDER BY board_id DESC
+		LIMIT #{startRowNum}, #{rowCount}
+	</select>
+	
+	<select id="getLikeIdOne" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT l.like_id, b.board_id 
+		FROM picBoard b
+		JOIN Member m
+				ON b.writer = m.member_id
+			JOIN picBoardLike l
+				ON l.board_id = b.board_id AND l.member_id = #{memberId}
+	</select>
+	
+	<select id="getWeeklyList" parameterType="com.homeart.domain.picShare.picBoardVO" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt
+		FROM picBoard b
+			LEFT JOIN Member m
+				ON b.writer = m.member_id
+		WHERE b.inserted BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+		ORDER BY b.like_cnt DESC
+		LIMIT 4
+	</select>
+	
+	<select id="getMonthlyList" parameterType="com.homeart.domain.picShare.picBoardVO" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt
+		FROM picBoard b
+			JOIN Member m
+				ON b.writer = m.member_id
+		WHERE b.inserted BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW()
+		ORDER BY b.like_cnt DESC
+		LIMIT 4
+	</select>
+	
+	<select id="getYearlyList" parameterType="com.homeart.domain.picShare.picBoardVO" resultType="com.homeart.domain.picShare.picBoardVO">
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt
+		FROM picBoard b
+			JOIN Member m
+				ON b.writer = m.member_id
+		WHERE b.inserted BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW()
+		ORDER BY b.like_cnt DESC
+		LIMIT 4
+	</select>
 
 	<!-- like query -->
 	<insert id="insertLike" useGeneratedKeys="true" keyColumn="like_id" keyProperty="like_id">
@@ -82,10 +136,11 @@
 	</select>
 	
 	<select id="read" resultType="com.homeart.domain.picShare.picBoardVO">
-		SELECT b.board_id, b.title, b.content, b.writer,  b.file_name, b.inserted, b.updated, m.nickName, b.like_cnt
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt
 		FROM picBoard b
-		JOIN Member m
-		ON b.writer = m.member_id
+			JOIN Member m
+				ON b.writer = m.member_id
 		WHERE b.board_id = #{id}
 	</select>
 	
@@ -107,7 +162,17 @@
 	</update>
 	
 	<select id="getWriterArt" resultType="com.homeart.domain.picShare.picBoardVO">
-		SELECT b.board_id, b.title, b.content, b.writer,  b.file_name, b.inserted, b.updated, m.nickName
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt
+		FROM picBoard b
+			JOIN Member m
+				ON b.writer = m.member_id
+		WHERE b.writer = (SELECT a.writer FROM picBoard a WHERE a.board_id = #{id}) AND (b.board_id != #{id})
+		ORDER BY rand()
+	</select>
+	
+	<select id="getWriterArtCnt" resultType="int">
+		SELECT count(b.board_id)
 		FROM picBoard b
 		JOIN Member m
 		ON b.writer = m.member_id
@@ -115,34 +180,14 @@
 	</select>
 	
 	<select id="getArtist" resultType="com.homeart.domain.picShare.picBoardVO">
-		SELECT b.board_id, b.title, b.content, b.writer,  b.file_name, b.inserted, b.updated, m.nickName
+		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, 
+			   m.nickName, b.like_cnt
 		FROM picBoard b
-		JOIN Member m
-		ON b.writer = m.member_id
+			JOIN Member m
+				ON b.writer = m.member_id
 		WHERE b.writer = (SELECT a.writer FROM picBoard a WHERE a.board_id = #{id})
 		ORDER BY board_id DESC
 	</select>
-	
-	<select id="selectSearchList" parameterType="com.homeart.domain.picShare.picBoardVO" resultType="com.homeart.domain.picShare.picBoardVO">
-		SELECT b.board_id, b.title, b.content, b.writer, b.file_name, b.inserted, b.updated, m.nickName
-		FROM picBoard b
-		JOIN Member m
-		ON b.writer = m.member_id
-		<choose>
-			<when test="type != null and type.equals('title')">
-				WHERE b.title LIKE concat('%', #{keyword}, '%')			
-			</when>
-			<when test="type != null and type.equals('writer')">
-				WHERE m.nickName LIKE concat('%', #{keyword}, '%')
-			</when>
-			<otherwise>
-				WHERE b.title, b.content, b.writer LIKE concat('%', #{keyword}, '%')
-			</otherwise>
-		</choose>
-		ORDER BY board_id DESC
-	</select>
-	
-	
 	
 
 

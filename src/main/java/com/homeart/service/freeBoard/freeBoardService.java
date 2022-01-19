@@ -216,4 +216,13 @@ public class freeBoardService {
 	public int viewCount(Integer id) {
 		return mapper.viewCount(id);
 	}
+
+	public List<freeBoardVO> movePageAdmin(Integer id) {
+		return mapper.movePageAdmin(id);
+	}
+
+	public List<freeBoardVO> movePage(Integer id) {
+		return mapper.movePage(id);
+	}
+	
 }

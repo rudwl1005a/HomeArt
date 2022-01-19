@@ -39,24 +39,24 @@
 			  </ol>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="<spring:url value='/resources/img/logo.jpg'/>" class="d-block w-100" alt="Today's best">
+			      <img src="${staticUrl }/picShare/${week[0].board_id }/${week[0].file_name}" class="d-block w-100" alt="Week's best">
 			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Today's BEST!</h5>
-			        <p>작품이름 - 작가이름</p>
+			        <h5>Week's BEST!</h5>
+			        <p>${week[0].title } - ${week[0].writer }</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item" >
-			      <img src="<spring:url value='/resources/img/logo1.jpg'/>" class="d-block w-100" alt="Monthly best">
+			      <img src="${staticUrl }/picShare/${month[0].board_id }/${month[0].file_name}" class="d-block w-100" alt="Month's best">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Month's BEST!</h5>
-			        <p>작품이름 - 작가이름</p>
+			        <p>${month[0].title } - ${month[0].writer }</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="<spring:url value='/resources/img/logo2.jpg'/>" class="d-block w-100" alt="Yearly best">
+			      <img src="${staticUrl }/picShare/${year[0].board_id }/${year[0].file_name}" class="d-block w-100" alt="Year's best">
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Year's BEST!</h5>
-			        <p>작품이름 - 작가이름</p>
+			        <p>${year[0].title } - ${year[0].writer }</p>
 			      </div>
 			    </div>
 			  </div>
@@ -75,29 +75,35 @@
 	<!-- 공지사항 -->
 	<div class="container">
 		<div class="row">
-			<div class="col">
-				<h3 style="margin-bottom: 20px">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
-				<table class="table">
+			<div class="col" style="padding-bottom: 20px;">
+				<h3 style="margin-bottom: 20px; font-weight:bold;">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
+				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class=col-1>
-								<i class="fab fa-slack-hash"></i>
-							</th>
-							<th class=col-5>제목</th>
-							<th class=col-2>작성자</th>
-							<th class=col-2 style="text-align: center;">작성일</th>
+							<th class="col-2">No.</th>
+							<th class="col-4 freeBoard-title">제목</th>
+							<th class="col-2">작성자</th>
+							<th class="col-2" style="text-align: center;">작성일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${notice }" var="notice" varStatus="status" >
+							<c:if test="${notice.isPublic == 1 }">
 							<tr>
-								<td class=col-1>${status.count }</td>
-								<td class=col-5>
+								<td class="col-2" style="color: red; font-weight: bold;">${status.count }</td>
+								<td class="col-4 freeBoard-title" style="color: red; font-weight: bold;">
 									<a href="${freeBoardUrl }?id=${notice.board_id}" id="noticeTitle">${notice.title}</a>
+									<c:if test="${notice.replyCount > 0 }">
+										<a href="get?id=${notice.board_id }" style="color: red; font-weight: 550;">[${notice.replyCount }]</a>
+									</c:if>
+									<c:if test="${notice.hasFile }">
+										<i class="far fa-images"></i>
+									</c:if>
 								</td>
-								<td class=col-2 >${notice.nickName }</td>
-								<td class=col-2>${notice.boardInserted }</td>
+								<td class="col-2" >${notice.nickName }</td>
+								<td class="col-2">${notice.boardInserted }</td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>

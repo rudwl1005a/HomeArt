@@ -14,7 +14,6 @@ import com.homeart.domain.admin.AdminPageInfoVO;
 import com.homeart.domain.admin.AdminPicVO;
 import com.homeart.mapper.admin.AdminPicMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -60,7 +59,7 @@ public class AdminPicService {
 		s3.deleteObject(deleteObjectRequest);
 	}
 
-	public List<AdminPicVO> get(Long masterpiece_id) {
+	public List<AdminPicVO> get(int masterpiece_id) {
 		
 		log.info("get........." + masterpiece_id);
 		
@@ -68,7 +67,7 @@ public class AdminPicService {
 	}
 
 	@Transactional
-	public void remove(Long masterpiece_id, MultipartFile file) {
+	public void remove(Integer masterpiece_id, MultipartFile file) {
 		
 		log.info("remove............" + masterpiece_id + file);
 		
