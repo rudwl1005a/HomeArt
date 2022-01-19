@@ -57,6 +57,13 @@
 	text-decoration-line: none;
 }
 
+.navbar-nav {
+ 	/*원래 nav기능 덮어씌움*/
+	flex-direction : row;
+}
+li{
+	padding : 0 10px;
+}
 </style>
 
 <c:url value="/" var="mainUrl"></c:url>
@@ -78,43 +85,49 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-				<a class="nav-link" href="${picShareUrl }">그림공유</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${masterpieceUrl }">명화추천</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${freeBoardUrl }">자유게시판</a>
-			</li>
-		</ul>
-		<c:if test="${not empty sessionScope.loggedInMember }">	
-			<div style="padding-right: 20px;" id="loggedInNickName">${sessionScope.loggedInMember.nickName }님</div>
-		</c:if>
-		<div style="padding-right: 80px">
-			<c:if test="${empty sessionScope.loggedInMember }">
-				<a class="memberSign" id="login" title="로그인" href="${loginUrl }">
-					로그인
-				</a>
-				<a class="memberSign" id="signUp" title="회원가입" href="${signupUrl }">
-					회원가입
-				</a>
-			</c:if>
-			<c:if test="${not empty sessionScope.loggedInMember }">	
-				<c:if test="${sessionScope.loggedInMember.isAdmin == 1 }">
-					<a class="memberSign" id="admin" title="관리자 페이지" href="${adminUrl }">
-						관리자 페이지
+	<div class="collapse navbar-collapse" id="navbarSupportedContent" style="min-width: 610px;">
+		<div class="w-100 d-flex justify-content-between">
+			<div class="d-flex">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="${picShareUrl }">그림공유</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${masterpieceUrl }">명화추천</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${freeBoardUrl }">자유게시판</a>
+					</li>
+				</ul>
+			</div>
+			<div class="d-flex" style="padding-top: 8px;">
+				<c:if test="${not empty sessionScope.loggedInMember }">	
+					<div id="loggedInNickName">${sessionScope.loggedInMember.nickName }님</div>
+				</c:if>
+				<div style="padding-right: 50px">
+				<c:if test="${empty sessionScope.loggedInMember }">
+					<a class="memberSign" id="login" title="로그인" href="${loginUrl }">
+						로그인
+					</a>
+					<a class="memberSign" id="signUp" title="회원가입" href="${signupUrl }">
+						회원가입
 					</a>
 				</c:if>
-				<a class="memberSign" id="mypage" title="마이페이지" href="${mypageUrl }?member_id=${sessionScope.loggedInMember.member_id}">
-					마이페이지
-				</a>
-				<a class="memberSign" id="logout" title="로그아웃" href="${logoutUrl }">
-					로그아웃
-				</a>
-			</c:if>
+				</div>
+				<c:if test="${not empty sessionScope.loggedInMember }">	
+					<c:if test="${sessionScope.loggedInMember.isAdmin == 1 }">
+						<a class="memberSign" id="admin" title="관리자 페이지" href="${adminUrl }">
+							관리자 페이지
+						</a>
+					</c:if>
+					<a class="memberSign" id="mypage" title="마이페이지" href="${mypageUrl }?member_id=${sessionScope.loggedInMember.member_id}">
+						마이페이지
+					</a>
+					<a class="memberSign" id="logout" title="로그아웃" href="${logoutUrl }">
+						로그아웃
+					</a>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </nav>

@@ -39,21 +39,27 @@
 			  </ol>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="${staticUrl }/picShare/${week[0].board_id }/${week[0].file_name}" class="d-block w-100" alt="Week's best">
+				  <div class="image">
+				    <img src="${staticUrl }/picShare/${week[0].board_id }/${week[0].file_name}" class="d-block w-100" alt="Week's best">
+				  </div>
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Week's BEST!</h5>
 			        <p>${week[0].title } - ${week[0].writer }</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item" >
-			      <img src="${staticUrl }/picShare/${month[0].board_id }/${month[0].file_name}" class="d-block w-100" alt="Month's best">
+			      <div class="image">
+			        <img src="${staticUrl }/picShare/${month[0].board_id }/${month[0].file_name}" class="d-block w-100" alt="Month's best">
+			      </div>
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Month's BEST!</h5>
 			        <p>${month[0].title } - ${month[0].writer }</p>
 			      </div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="${staticUrl }/picShare/${year[0].board_id }/${year[0].file_name}" class="d-block w-100" alt="Year's best">
+			      <div class="image">
+				    <img src="${staticUrl }/picShare/${year[0].board_id }/${year[0].file_name}" class="d-block w-100" alt="Year's best">
+			      </div>
 			      <div class="carousel-caption d-none d-md-block">
 			        <h5>Year's BEST!</h5>
 			        <p>${year[0].title } - ${year[0].writer }</p>
@@ -75,7 +81,7 @@
 	<!-- 공지사항 -->
 	<div class="container">
 		<div class="row">
-			<div class="col" style="padding-bottom: 20px;">
+			<div class="col">
 				<h3 style="margin-bottom: 20px; font-weight:bold;">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
 				<table class="table table-hover">
 					<thead>
