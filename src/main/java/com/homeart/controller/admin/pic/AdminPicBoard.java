@@ -26,21 +26,29 @@ public class AdminPicBoard {
 	private AdminPicService service;
 	
 	@GetMapping("/AdminPicBoard")
-	public void list(int masterpiece_id, Model model,@RequestParam(value="page", defaultValue = "1") Integer page) {
+	public void list(Long masterpiece_id, Model model,
+			@RequestParam(value="page", defaultValue = "1") Integer page,
+			@RequestParam(defaultValue="")String keyword) {
 		Integer numberPerPage = 9;
 		
-		List<AdminPicVO> list = service.getList(page, numberPerPage);
-		AdminPageInfoVO infoVo = service.getPageInfo(page, numberPerPage);
+		List<AdminPicVO> list = service.getList(page, numberPerPage, keyword);
+		AdminPageInfoVO infoVo = service.getPageInfo(page, numberPerPage, keyword);
 		
-		System.out.println("list출력" + list);
+		for(AdminPicVO lists: list) {
+			System.out.println(lists);
+		}
+		
+		System.out.println("");
+		
+		System.out.println(infoVo);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("infoVo", infoVo);
+		model.addAttribute("infoVO", infoVo);
 		model.addAttribute("pic", service.get(masterpiece_id));
 	}
 	
 	@GetMapping("/remove")
-	public String remove(Integer masterpiece_id, MultipartFile file) {
+	public String remove(Long masterpiece_id, String file) {
 		log.info("remove......." + masterpiece_id);
 		
 		service.remove(masterpiece_id, file);

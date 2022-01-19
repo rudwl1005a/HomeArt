@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class AdminPicService {
 		s3.deleteObject(deleteObjectRequest);
 	}
 
-	public List<AdminPicVO> get(int masterpiece_id) {
+	public AdminPicVO get(Long masterpiece_id) {
 		
 		log.info("get........." + masterpiece_id);
 		
@@ -67,11 +68,11 @@ public class AdminPicService {
 	}
 
 	@Transactional
-	public void remove(Integer masterpiece_id, MultipartFile file) {
+	public void remove(@Param("masterpiece_id")Long masterpiece_id, String file) {
 		
 		log.info("remove............" + masterpiece_id + file);
 		
-		if(file != null && file.getSize() > 0) {
+		if(file != null) {
 			mapper.delete(masterpiece_id);
 			
 			String key = "masterpiece/" + masterpiece_id + "/" + file;
@@ -82,17 +83,17 @@ public class AdminPicService {
 		return;
 	}
 
-	public List<AdminPicVO> getList(Integer page, Integer numberPerPage) {
+	public List<AdminPicVO> getList(Integer page, Integer numberPerPage, String keyword) {
 		
-		Integer from = (page - 1) * 10;
+		Integer from = (page-1) * 10;
 		
 		log.info("getList.......");
 		
-		return mapper.getList(from, numberPerPage);
+		return mapper.getList(from, numberPerPage, keyword);
 	}
 	
-	public AdminPageInfoVO getPageInfo(Integer page, Integer numberPerPage) {
-		Integer countRows = mapper.getCountRows();
+	public AdminPageInfoVO getPageInfo(Integer page, Integer numberPerPage, String keyword) {
+		Integer countRows = mapper.getCountRows(keyword);
 		
 		Integer lastPage = (countRows - 1) / numberPerPage + 1;
 		Integer leftPageNumber = (page - 1) / 10 * 10 + 1;

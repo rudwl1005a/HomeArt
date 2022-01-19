@@ -60,7 +60,7 @@
         
         <aside:CategoryAside />
 
-        <div class="row mt-3">
+               <div class="row">
             <div class="col-7">
                 <img src="${staticUrl}/masterpiece/${pic.masterpiece_id}/${pic.file_name}" class="w-100 p-3" alt="...">
             </div>
@@ -74,14 +74,14 @@
                         <span class="input-group-text" id="basic-addon1">제목</span>
                     </div>
                     <input type="text" class="form-control" placeholder="그림제목" aria-label="Username"
-                        aria-describedby="basic-addon1" readonly="readonly" value="">
+                        aria-describedby="basic-addon1" readonly="readonly" value="${pic.title }">
                 </div>
                 <div class="input-group mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">글쓴이</span>
                     </div>
                     <input type="text" class="form-control" placeholder="아이디" aria-label="Username"
-                        aria-describedby="basic-addon1" readonly="readonly" value="">
+                        aria-describedby="basic-addon1" readonly="readonly" value="${pic.member_id}">
                 </div>
 
                 <div class="input-group mb-1">
@@ -89,7 +89,7 @@
                         <span class="input-group-text">내용</span>
                     </div>
                     <textarea class="form-control" rows="10" aria-label="With textarea" readonly="readonly"
-            		><c:out value=""/></textarea>
+            		><c:out value="${pic.content}"/></textarea>
                 </div>
 
                 <div class="btn-toolbar justify-content-between mb-1" role="toolbar"
@@ -105,11 +105,9 @@
 
                 </div>
                 <div class="collapse" id="collapse">
-                    <form>
                         <h4>삭제 사유를 입력해주세요</h4>
                         <input type="text" class="form-control">
-                        <input type="submit" class="btn" value="입력완료" style="color: white;">
-                    </form>
+                        <a href="/controller/adminPage/adminPic/remove?id=${pic.masterpiece_id}&file=${pic.file_name}">입력완료</a>
                 </div>
             </div>
         </div>
@@ -118,7 +116,7 @@
     <div class="row">
         <div class="col">
             <form class="form-inline my-2 my-lg-0 ml-5">
-                <input class="form-control mr-sm-2" type="search" placeholder="찾기" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="찾기" aria-label="Search" name="keyword">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
                 style="border-color: white; color: white;">작가찾기</button>
             </form>
@@ -127,21 +125,48 @@
                     <div class="carousel-item active">
                         <div class="grid-image">
 			            <c:forEach items="${list}" var="list">
-                            <img src="${staticUrl}/masterpiece/${list.masterpiece_id}/${list.file_name}" class="d-block img-thumbnail" alt="...">
+                            <img src="${staticUrl}/masterpiece/${list.masterpiece_id}/${list.file_name}" class="d-block img-thumbnail" alt="..."
+                            onclick="location.href='/controller/adminPage/adminPic/AdminPicBoard?masterpiece_id=${list.masterpiece_id}'">
 			            </c:forEach>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls"
-                    data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-target="#carouselExampleControls"
-                    data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </button>
+               
+                <nav aria-label="Page navigation">
+					<ul class="pagination p1 justify-content-center">
+						<c:if test="${infoVO.hasPrevButton }">
+							<c:url value="/adminPage/adminPic/AdminPicBoard" var="pageLink">
+								<c:param name="page" value="${infoVO.leftPageNumber - 1 }" />
+							</c:url>
+							<li class="page-item disabled">
+								<a href="${pageLink }">
+									<i class="fas fa-chevron-left"></i>
+								</a>
+							</li>
+						</c:if>
+
+						<c:forEach begin="${infoVO.leftPageNumber }" end="${infoVO.rightPageNumber }" var="pageNumber">
+							<c:url value="/adminPage/adminPic/AdminPicBoard" var="pageLink">
+								<c:param name="page" value="${pageNumber }" />
+								<c:param name="keyword" value="${param.keyword}" />
+							</c:url>
+							<li class="page-item">
+								<a class="${infoVO.currentPage == pageNumber ? 'is-active' : 'active' }" href="${pageLink }">${pageNumber }</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${infoVO.hasNextButton }">
+							<c:url value="/adminPage/adminPic/AdminPicBoard" var="pageLink">
+								<c:param name="page" value="${infoVO.rightPageNumber + 1 }" />
+							</c:url>
+							<li class="page-item disabled">
+								<a href="${pageLink }">
+									<i class="fas fa-chevron-right"></i>
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
             </div>
         </div>
     </div>
