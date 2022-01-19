@@ -36,5 +36,9 @@ public interface MemberMapper {
 
 	public List<FreeBoardReplyVO> selectReplyLimit5(String member_id);
 
+	public List<likeListVO> selectLikeMasterpiece(String member_id);
+	
+	public List<likeListVO> selectLikePicture(String member_id);
+
 	public List<likeListVO> selectLikeLimit5(String member_id);
 }

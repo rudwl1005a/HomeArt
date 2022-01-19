@@ -122,6 +122,36 @@
 	LIMIT 0, 5
 	</select>
 	
+	<select id="selectLikePicture" resultType="com.homeart.domain.mypage.likeListVO">
+	SELECT 
+	    b.board_id AS board_id,
+	    b.file_name AS file_name,
+	    l.pic AS board
+	FROM
+	    picBoardLike l
+	        JOIN
+	    picBoard b
+	WHERE
+	    l.board_id = b.board_id
+	        AND l.member_id = #{member_id}
+	ORDER BY board
+	</select>
+	
+	<select id="selectLikeMasterpiece" resultType="com.homeart.domain.mypage.likeListVO">
+	SELECT 
+	    b.masterpiece_id AS board_id,
+	    b.file_name AS file_name,
+	    l.master AS board
+	FROM
+	    likeTable l
+	        JOIN
+	    masterpiece b
+	WHERE
+	    l.masterpiece_id = b.masterpiece_id
+	        AND l.member_id = #{member_id}
+	ORDER BY board
+	</select>
+	
 	<select id="selectLikeLimit5" resultType="com.homeart.domain.mypage.likeListVO">
 	SELECT 
 	    b.board_id AS board_id,
@@ -133,7 +163,7 @@
 	    picBoard b
 	WHERE
 	    l.board_id = b.board_id
-	        AND l.member_id = 'id2' 
+	        AND l.member_id = #{member_id} 
 	UNION (SELECT 
 	    b.masterpiece_id AS board_id,
 	    b.file_name AS file_name,
@@ -144,7 +174,9 @@
 	    masterpiece b
 	WHERE
 	    l.masterpiece_id = b.masterpiece_id
-	        AND l.member_id = 'id2');
+	        AND l.member_id = #{member_id} )
+	ORDER BY RAND()
+	LIMIT 0, 5
 	</select>
 	
  </mapper>

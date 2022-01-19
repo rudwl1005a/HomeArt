@@ -90,6 +90,14 @@ public class MemberService {
 	public List<FreeBoardReplyVO> getReplyLimit5(String member_id) {
 		return mapper.selectReplyLimit5(member_id);
 	}
+	
+	public List<likeListVO> getLikeMasterpiece(String member_id) {
+		return mapper.selectLikeMasterpiece(member_id);
+	}
+	
+	public List<likeListVO> getLikePicture(String member_id) {
+		return mapper.selectLikePicture(member_id);
+	}
 
 	public List<likeListVO> getLikeLimit5(String member_id) {
 		return mapper.selectLikeLimit5(member_id);

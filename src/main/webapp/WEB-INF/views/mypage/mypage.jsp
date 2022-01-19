@@ -26,6 +26,7 @@
 <c:url value="/mypage/modify" var="modifyUrl"></c:url>
 <c:url value="/freeBoard/get" var="freeBoardUrl"></c:url>
 <c:url value="/picShare/get" var="picBoardUrl"></c:url>
+<c:url value="/masterpiece/get" var="masterpieceUrl"></c:url>
 
 <script>
 /* 답글 토글 */
@@ -328,11 +329,18 @@ $(document).ready(function(){
 							<a class="more" href="${favpicUrl }">..more</a>
 						</div>
 						<div class="row">
-							<a><img class="pic150" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="..."></a>
-							<img class="pic150" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic150" src="<spring:url value='/resources/img/logo2.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic150" src="<spring:url value='/resources/img/logo3.jpg'/>" class="img-thumbnail" alt="...">	
-							<img class="pic150" src="<spring:url value='/resources/img/logo4.jpg'/>" class="img-thumbnail" alt="...">	
+							<c:forEach items="${likeLimit5 }" var="like">
+								<c:if test="${like.board == 'pic' }">
+									<a href="${picBoardUrl }?id=${like.board_id }">
+										<img class="pic150" src="${staticUrl }/picShare/${like.board_id }/${like.file_name}" alt="${like.file_name }">
+									</a>
+								</c:if>
+								<c:if test="${like.board == 'master'}">
+									<a href="${masterpieceUrl }?masterpiece_id=${like.board_id }">
+										<img class="pic150" src="${staticUrl }/masterpiece/${like.board_id }/${like.file_name}" alt="${like.file_name }">
+									</a>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="activeBox">

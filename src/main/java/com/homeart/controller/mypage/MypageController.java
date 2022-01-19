@@ -204,7 +204,13 @@ public class MypageController {
 	public String fpic(Model model, HttpSession session) {
 		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
 		String member_id = loggedIn.getMember_id();
-
+		
+		List<likeListVO> likeMasterpiece = memberService.getLikeMasterpiece(member_id);		
+		List<likeListVO> likePicture = memberService.getLikePicture(member_id);
+		
+		model.addAttribute("likeMasterpiece", likeMasterpiece);
+		model.addAttribute("likePicture", likePicture);
+		
 		return "/mypage/mypageFavpic";
 	}
 	
