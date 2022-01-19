@@ -1,5 +1,6 @@
 package com.homeart.controller.member;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +82,14 @@ public class MemberController {
 		
 	}
 	
+	//Referer이라는 login버튼 누르기 전의 경로를 session으로 받음.
 	@GetMapping("/login")
-	public void login() {
+	public void login(HttpServletRequest request, HttpSession session) {
+		String prevUrl = request.getHeader("Referer");
 		
+		if (prevUrl != null && !prevUrl.isEmpty()) {
+			session.setAttribute("prevUrl", request.getHeader("Referer"));
+		}
 	}
 	
 	@PostMapping("/login")
@@ -119,6 +125,13 @@ public class MemberController {
 			// 로그인 성공
 			rttr.addFlashAttribute("result", vo.getNickName() + "님 반갑습니다.");
 			session.setAttribute("loggedInMember", vo);
+			
+			//위에서 받은 referer 경로로 로그인 성공시 이동
+			String prevUrl = (String) session.getAttribute("prevUrl");
+			if (prevUrl != null && !prevUrl.isEmpty()) {
+				return "redirect:" + prevUrl;
+			}
+			
 			return "redirect:/";
 		}
 		
