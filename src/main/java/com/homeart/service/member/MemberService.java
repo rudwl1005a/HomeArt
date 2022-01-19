@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.homeart.domain.freeBoard.FreeBoardReplyVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.domain.member.MemberVO;
+import com.homeart.domain.mypage.replyVO;
 import com.homeart.domain.picShare.picBoardVO;
 import com.homeart.mapper.member.MemberMapper;
 
@@ -78,6 +80,14 @@ public class MemberService {
 	
 	public List<picBoardVO> getPictureLimit5(String member_id) {
 		return mapper.selectPictureLimit5(member_id);
+	}
+
+	public List<replyVO> getReply(String member_id) {
+		return mapper.selectReply(member_id);
+	}
+	
+	public List<FreeBoardReplyVO> getReplyLimit5(String member_id) {
+		return mapper.selectReplyLimit5(member_id);
 	}
 	
 }

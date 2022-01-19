@@ -21,14 +21,42 @@
  	ORDER BY guestbook_id DESC
  	</select>
  	
+ 	<select id="selectById" resultType="com.homeart.domain.mypage.GuestbookVO">
+	SELECT *
+	FROM mypage_guestbook
+	WHERE guestbook_id = #{guestbook_id}
+	</select>
+	
+ 	<select id="selectCommentById" resultType="com.homeart.domain.mypage.GuestbookCommentVO">
+	SELECT *
+	FROM mypage_guestbook_comment
+	WHERE guestbook_comment_id = #{guestbook_comment_id}
+	</select>
+ 	
+ 	<select id="listWithComment" resultType="com.homeart.domain.mypage.GuestbookVO">
+	SELECT 
+	    g.*,
+	    c.guestbook_comment_id,
+	    c.member_id AS comment_writer,
+	    c.guestbook_id AS guestbook_id2,
+	    c.content AS comment_content
+	FROM
+	    mypage_guestbook g
+	        LEFT JOIN
+	    mypage_guestbook_comment c ON g.guestbook_id = c.guestbook_id
+	WHERE
+	    g.mypage_owner = #{member_id}
+	ORDER BY g.guestbook_id DESC , c.guestbook_comment_id DESC;
+ 	</select>
+ 	
  	<delete id="delete">
  	DELETE FROM mypage_guestbook
  	WHERE guestbook_id = #{gusetbook_id}
  	</delete>
  	
  	<insert id="insertComment">
- 	INSERT INTO mypage_guestbook_comment (guestbook_comment_id, member_id, guestbook_id, content)
- 	VALUE (#{guestbook_comment_id}, #{member_id}, #{guestbook_id}, #{content})
+ 	INSERT INTO mypage_guestbook_comment (member_id, guestbook_id, content)
+ 	VALUE (#{member_id}, #{guestbook_id}, #{content})
  	</insert>
  	
  	<select id="listComment" resultType="com.homeart.domain.mypage.GuestbookCommentVO">
