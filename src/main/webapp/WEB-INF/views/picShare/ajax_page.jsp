@@ -24,7 +24,7 @@
 			});
 
 			//remove 버튼 실행.
-			$("#removeSubmitButton${picBoard.board_id}").click(function(e) {
+			$("#removeSubmitButton${picBoard.board_id }").click(function(e) {
 				e.preventDefault();
 				if (confirm("삭제하시겠습니까?")) {
 					$("#modifyForm").attr("action", "remove").submit();
@@ -61,7 +61,7 @@
 							<!-- c:if 태그로 로그인 한 멤버와 아닌 멤버의 메뉴 다르게 보이게끔 함.  -->
 							<c:if test="${sessionScope.loggedInMember.member_id eq picBoard.writer }">
 								<a class="dropdown-item" href="modify?id=${picBoard.board_id }">modify</a>
-								<button class="dropdown-item" href="" id="removeSubmitButton${picBoard.board_id }">delete</button>
+								<a class="dropdown-item" href="" type="button" id="removeSubmitButton${picBoard.board_id }">delete</a>
 							</c:if>
 
 							<a class="dropdown-item" href="javascript:" data-clipboard-target="http://localhost:8080/controller/picShare/get?id=${picBoard.board_id }" id="shareButton${picBoard.board_id }">share</a>
