@@ -235,40 +235,97 @@ $(document).ready(function() {
 						
 						<!-- 페이지 이동 (자유게시판 다른 글들 표시)-->
 						<div class="pageMove">
+						<div style="font-weight: bold; padding-bottom: 5px;">&lt;자유게시판의 다른글&gt;</div>
 							<c:if test="${freeBoard.isAdmin == 1 }">
 								<c:if test="${movePageAdmin[1] != null and movePageAdmin[1].board_id > freeBoard.board_id }">
-									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePage[1].board_id}">${movePageAdmin[1].title}</a>
-										<div>${movePageAdmin[1].writer}</div>
+									<div class="pageInfo" style="padding-top: 8px;">
+										<div class="d-flex">
+											<i class="fas fa-arrow-up"></i>
+											<a class="pageLink pl" href="get?id=${movePage[1].board_id}">${movePageAdmin[1].title}</a>
+										</div>
+										<div class="postInfo">
+											<div>${movePageAdmin[1].nickName}</div>
+											<div style="min-width: 150px; text-align: right;">${movePageAdmin[1].boardInserted}</div>
+										</div>
 									</div>
 								</c:if>
 								<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id > freeBoard.board_id }">
-									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}" >${movePageAdmin[0].title}</a>
-										<div>${movePageAdmin[0].writer}</div>
+									<div class="pageInfo" style="padding-top: 8px;">
+										<div class="d-flex">
+											<i class="fas fa-arrow-up"></i>
+											<a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}" >${movePageAdmin[0].title}</a>
+										</div>
+										<div class="postInfo">
+											<div>${movePageAdmin[0].nickName}</div>
+											<div style="min-width: 150px; text-align: right;">${movePageAdmin[0].boardInserted}</div>
+										</div>
 									</div>
 								</c:if>
-								<div style="margin: 7px 0;"><a class="currentPageLink pl" href="get?id=${freeBoard.board_id }">${freeBoard.title }</a>
-									<div>${freeBoard.writer }</div>
+								<div class="pageInfo" style="margin: 10px 0;">
+									<div>
+										<a class="currentPageLink pl" href="get?id=${freeBoard.board_id }" style="text-decoration: underline;">${freeBoard.title }</a>
+									</div>
+									<div class="postInfo">
+										<div>${freeBoard.nickName }</div>
+										<div style="min-width: 150px; text-align: right;">${freeBoard.boardInserted}</div>
+									</div>
 								</div>
 								<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id < freeBoard.board_id}">
-									<div><i class="fas fa-arrow-down"></i><a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}">${movePageAdmin[0].title}</a>
-										<div>${movePageAdmin[0].writer}</div>
+									<div class="pageInfo">
+										<div class="d-flex">
+											<i class="fas fa-arrow-down"></i>
+											<a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}">${movePageAdmin[0].title}</a>
+										</div>
+										<div class="postInfo">
+											<div>${movePageAdmin[0].nickName}</div>
+											<div style="min-width: 150px; text-align: right;">${movePageAdmin[0].boardInserted}</div>
+										</div>
 									</div>
 								</c:if>
 							</c:if>
 							<c:if test="${freeBoard.isAdmin == 0 }">
 								<c:if test="${movePage[1] != null and movePage[1].board_id > freeBoard.board_id }">
-									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePage[1].board_id}">${movePage[1].title}</a>
-									${movePageAdmin[1].writer}</div>
+									<div class="pageInfo" style="padding-top: 8px;">
+										<div class="d-flex">
+											<i class="fas fa-arrow-up"></i>
+											<a class="pageLink pl" href="get?id=${movePage[1].board_id}">${movePage[1].title}</a>
+										</div>
+										<div class="postInfo">
+											<div>${movePage[1].nickName}</div>
+											<div style="min-width: 150px; text-align: right;">${movePage[1].boardInserted}</div>
+										</div>
+									</div>
 								</c:if>
 								<c:if test="${movePage[0] != null and movePage[0].board_id > freeBoard.board_id }">
-									<div><i class="fas fa-arrow-up"></i><a class="pageLink pl" href="get?id=${movePageAdmin[0].board_id}">${movePage[0].title}</a>
-									${movePageAdmin[0].writer}</div>
+									<div class="pageInfo" style="padding-top: 8px;">
+										<div class="d-flex">
+											<i class="fas fa-arrow-up"></i>
+											<a class="pageLink pl" href="get?id=${movePage[0].board_id}">${movePage[0].title}</a>
+										</div>
+										<div class="postInfo">
+											<div>${movePage[0].nickName}</div>
+											<div style="min-width: 150px; text-align: right;">${movePage[0].boardInserted}</div>
+										</div>
+									</div>
 								</c:if>
-								<div style="margin: 7px 0;"><a class="currentPageLink pl" href="get?id=${freeBoard.board_id }">${freeBoard.title }</a>
-								${freeBoard.writer }</div>
+								<div class="pageInfo" style="margin: 10px 0;">
+									<div><a class="currentPageLink pl" href="get?id=${freeBoard.board_id }" style="text-decoration: underline;">${freeBoard.title }</a></div>
+									<div class="postInfo">
+										<div>${freeBoard.nickName }</div>
+										<div style="min-width: 150px; text-align: right;">${freeBoard.boardInserted}</div>
+									</div>
+								</div>
 								<c:if test="${movePage[0] != null and movePage[0].board_id < freeBoard.board_id}">
-									<div><i class="fas fa-arrow-down"></i><a class="pageLink pl" href="get?id=${movePage[0].board_id}">${movePage[0].title}</a>
-									${movePage[0].writer}</div>
+									<div class="pageInfo">
+										<div class="d-flex">
+											<i class="fas fa-arrow-down"></i>
+											<a class="pageLink pl" href="get?id=${movePage[0].board_id}">${movePage[0].title}</a>
+										</div>
+										<div class="postInfo">
+											<div>${movePage[0].nickName}</div>
+											<div style="min-width: 150px; text-align: right;">${movePage[0].boardInserted}</div>
+										</div>
+									</div>
 								</c:if>
 							</c:if>
 						</div>

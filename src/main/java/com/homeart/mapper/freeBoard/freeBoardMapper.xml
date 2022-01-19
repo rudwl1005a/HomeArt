@@ -24,7 +24,7 @@
 		WHERE
 			m.isAdmin = 0 AND b.isPublic = 1
 		AND b.board_id &gt; #{board_id}
-	    order by b.board_id limit 1);
+	    order by b.board_id limit 1)
 	</select>
 
 	<select id="movePageAdmin" resultType="com.homeart.domain.freeBoard.freeBoardVO">
@@ -46,7 +46,7 @@
 		WHERE
 			m.isAdmin = 1 AND b.isPublic = 1
 		AND b.board_id &gt; #{board_id}
-	    order by b.board_id limit 1);
+	    order by b.board_id limit 1)
 	</select>
 
 	<update id="viewCount">
@@ -161,11 +161,15 @@
 			b.updated,
 			b.isPublic,
 			m.isAdmin,
-			m.nickName
+			m.nickName,
+			COUNT(r.id) replyCount,
+			(SELECT EXISTS(SELECT * FROM FreeBoardFile WHERE fileId = b.board_id)) hasFile
 		FROM
 			freeBoard b 
 				JOIN 
 			Member m ON b.writer = m.member_id
+				LEFT JOIN
+			FreeBoardReply r ON b.board_id = r.board_id
 		WHERE b.board_id = #{board_id};
 	</select>
 		
