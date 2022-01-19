@@ -13,11 +13,18 @@ public interface picBoardMapper {
 
 	
 	public Integer getCountRows();
+	
+	// 로그인 상태가 아닐 때의 list 와 검색
+	public List<picBoardVO> getList(picBoardVO board);
+		
+	// 로그인 상태일때의 list와 검색
+	public List<picBoardVO> getLikeId(String member_id);
+	
+	public List<picBoardVO> getLikeIdOne(String member_id);
 
 	// get
 	public picBoardVO read(Integer id);
 	
-	// insert와 delete 모두 void 였는데 int로 바꾸고 실행안시켜봄 오류나면 다시 void로 바꾸기.
 	public void insert(picBoardVO board);
 
 	// remove
@@ -29,11 +36,16 @@ public interface picBoardMapper {
 	// boardId에서 writer를 가져와서 작품들을 가져오는 것. (그 board_id는 제외하고 가져옴.)
 	public List<picBoardVO> getWriterArt(Integer id);
 	
+	public int getWriterArtCnt(Integer id);
+	
 	// boardId에서 writer를 가져와서 작품들을 전부 가져오는 것.
 	public List<picBoardVO> getArtist(Integer id);
 	
-	// 검색
-	public List<picBoardVO> getList(picBoardVO board);
+	public ArrayList<picBoardVO> getWeeklyList(picBoardVO board);
+
+	public ArrayList<picBoardVO> getMonthlyList(picBoardVO board);
+
+	public ArrayList<picBoardVO> getYearlyList(picBoardVO board);
 	
 	public int card_count(picBoardVO board);
 
@@ -47,7 +59,10 @@ public interface picBoardMapper {
 
 	// like수를 세는 경우
 	public Integer heart_count(picBoardVO board);
-	
+
+
+
+
 	
 
 }

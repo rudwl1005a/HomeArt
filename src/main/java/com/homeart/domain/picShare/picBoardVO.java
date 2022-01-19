@@ -17,6 +17,7 @@ public class picBoardVO {
 	
 	// Member DB의 nickName
 	private String nickName;
+	private String memberId;
 	
 	private String file_name;
 	
@@ -33,6 +34,12 @@ public class picBoardVO {
 	private int startRowNum;
 	private int endRowNum;
 	private int rowCount;
+	
+	// 좋아요를 누른건지 안누른건지 (picLikeVO의 like_id)
+	private Integer like_id;
+	
+	// as 별칭으로 지정해준 likeId
+	private Integer likeId;
 	
 	
 	
