@@ -44,6 +44,6 @@ public class MainpageController {
 		List<freeBoardVO> notice = memberService.getNotice();
 		model.addAttribute("notice", notice);
 		
-		return "main";
+		return "main"; 
 	}
 }
