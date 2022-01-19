@@ -180,8 +180,6 @@ public class picBoardService {
 		// like 테이블에 추가
 		int result = boardMapper.insertLike(likeVO);
 
-		System.out.println(board);
-
 		// like 테이블에 좋아요 삭제가 성공한다면?
 		if (result == 1) {
 			// 갱신된 하트수를 가져옴
