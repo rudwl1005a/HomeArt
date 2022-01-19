@@ -16,6 +16,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/mypage.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 
+<c:url value="/freeBoard/get" var="freeBoardUrl"></c:url>
+
 <title>My reply</title>
 </head>
 <body>
@@ -25,13 +27,31 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>내 댓글</h1>
-				<p>댓글</p>
-				<p>댓글</p>
-				<p>댓글</p>
-				<p>댓글</p>
-				<p>댓글</p>
-				<p>댓글</p>
+				<h1 style="margin: 30px 0 20px 0">내 댓글</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th class=col-1>
+								<i class="fab fa-slack-hash"></i>
+							</th>
+							<th class=col-4>게시물 제목</th>
+							<th class=col-4>댓글 내용</th>
+							<th class=col-2>작성일</th>
+						</tr>
+					</thead>
+					<tbody id="myPost">
+						<c:forEach items="${reply }" var="reply" varStatus="status">
+							<tr>
+								<td class=col-1>${status.count }</td>
+								<td class=col-4>
+									<a href="${freeBoardUrl }?id=${reply.board_id}">${reply.title }</a>
+								</td>
+								<td class=col-4><a style="color: black;">${reply.reply }</a></td>
+								<td class=col-2>${reply.replyInserted }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
