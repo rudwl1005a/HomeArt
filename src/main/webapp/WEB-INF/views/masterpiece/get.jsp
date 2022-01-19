@@ -180,6 +180,12 @@ body {
 .bigPicture img {
 	width: 800px;
 }
+
+/* 하단 카드 이미지 고정 */
+.bottom-card-img-top {
+	height: 15rem;
+	object-fit: cover;
+}
 </style>
 
 </head>
@@ -200,25 +206,28 @@ body {
 					<div class="col-md-6">
 						<img class="card-img-top mb-5 mb-md-0"
 							src="${staticUrl }/masterpiece/${masterpiece.masterpiece_id }/${masterpiece.file_name }"
-							alt="${masterpiece.file_name }">
+							alt="${masterpiece.file_name }" id="zoom-img">
 					</div>
 					<div class="col-md-6 text-white">
 
 						<h1 class="display-5 fw-bolder">${masterpiece.title }</h1>
 						<div class="fs-5 mb-5">
-							<span class="text-decoration-line-through">${masterpiece.artist }</span>
+							<span>${masterpiece.artist }</span>
 						</div>
 						<div class="fs-5 mb-5">
-							<span class="text-decoration-line-through">${masterpiece.country }</span>
+							<span>${masterpiece.country }</span>
 						</div>
 						<div class="fs-5 mb-5">
-							<span class="text-decoration-line-through">${masterpiece.age }</span>
+							<span>${masterpiece.age }</span>
 						</div>
 						<div class="fs-5 mb-5">
-							<span class="text-decoration-line-through">${masterpiece.member_id }</span>
+							<span>${masterpiece.member_id }</span>
 						</div>
 						<p class="lead text-white">${masterpiece.content }</p>
-
+						<div class="fs-5 mb-5">
+							<a href="${masterpiece.source }">${masterpiece.source }</a>
+						</div>
+						
 						<%-- <div class="d-flex">
 							<button class="btn btn-light flex-shrink-0" type="button">Go Artist(작가 더보러가기)</button>
 						</div> --%>
@@ -232,7 +241,7 @@ body {
 
 
 		<!-- Reply section -->
-		<section class="py-5 my-5 bg-rgb(100, 0, 0)">
+<%-- 		<section class="py-5 my-5 bg-rgb(100, 0, 0)">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
 				
@@ -255,10 +264,10 @@ body {
 					</c:if>
 					
 				</div>
-			</div>
+			</div> --%>
 
 			<!-- 댓글 container -->
-			<div class="container">
+<!-- 			<div class="container">
 				<div class="row">
 					<div class="col">
 
@@ -266,7 +275,7 @@ body {
 
 					</div>
 				</div>
-			</div>
+			</div> -->
 	
 	</section>
 
@@ -274,126 +283,45 @@ body {
 	<section class="py-5 bg-rgb(173, 166, 146) secondSection">
 		<div class="container px-4 px-lg-5 mt-5 bg-rgb(173, 166, 146)">
 			<h2 class="fw-bolder mb-4">the Other arts</h2>
-			<div
-				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-				<div class="col mb-5">
-					<div class="card h-100">
-						<!-- Product image-->
-						<img class="card-img-top"
-							src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-						<!-- Product details-->
-						<div class="card-body p-4">
-							<div class="text-center">
-								<img class="img-fluid"
-									src="${staticUrl }/masterpiece/${masterpiece.masterpiece_id }/${masterpiece.file_name }"
-									alt="${masterpiece.file_name}">
-								<!-- Product name-->
-								<h5 class="fw-bolder">1art</h5>
-								<div
-									class="d-flex justify-content-center small text-warning mb-2">
-									<div class="bi-star-fill">artistName</div>
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				
+				<c:forEach items="${ran4 }" var="ran4">
+					<div class="col mb-5">
+						<div class="card h-100">
+							<!-- Product image-->
+							<img class="bottom-card-img-top"
+								src="${staticUrl }/masterpiece/${ran4.masterpiece_id }/${ran4.file_name }"
+								alt="${ran4.file_name}">
+							<!-- Product details-->
+							<div class="card-body p-4">
+								<div class="text-center">
+									<!-- 작품 이름-->
+									<h5 class="fw-bolder">${ran4.title }</h5>
+									<!-- text-warning이 글씨의 색깔을 나타냄. -->
+									<!-- 작가 이름 -->
+									<div class="d-flex justify-content-center small text-warning mb-2">
+										<div class="bi-star-fill">작가 : ${ran4.artist }</div>
+									</div>
+									<!-- 작품 나라 -->
+									<div class="d-flex justify-content-center small text-warning mb-2">
+										<div class="bi-star-fill">나라 : ${ran4.country }</div>
+									</div>
+									<!-- 작품 시대 -->
+									<div class="d-flex justify-content-center small text-warning mb-2">
+										<div class="bi-star-fill">시대 : ${ran4.age }</div>
+									</div>
 								</div>
-								<!-- Product price-->
-								Like View
 							</div>
-						</div>
-						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
+							<!-- Product actions-->
+							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+								<div class="text-center">
+									<a class="btn btn-outline-dark mt-auto" href="get?masterpiece_id=${ran4.masterpiece_id }">Go art</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col mb-5">
-					<div class="card h-100">
-						<!-- Sale badge-->
-						<div class="badge bg-dark text-white position-absolute"
-							style="top: 0.5rem; right: 0.5rem">Hot</div>
-						<!-- Product image-->
-						<img class="card-img-top"
-							src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-						<!-- Product details-->
-						<div class="card-body p-4">
-							<div class="text-center">
-								<!-- Product name-->
-								<h5 class="fw-bolder">2art</h5>
-								<div
-									class="d-flex justify-content-center small text-warning mb-2">
-									<div class="bi-star-fill">artistName</div>
-								</div>
-								<!-- Product price-->
-								<span class="text-muted text-decoration-line-through">Like
-									View</span>
-
-							</div>
-						</div>
-						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-5">
-					<div class="card h-100">
-						<!-- Sale badge-->
-						<div class="badge bg-dark text-white position-absolute"
-							style="top: 0.5rem; right: 0.5rem">Hot</div>
-						<!-- Product image-->
-						<img class="card-img-top"
-							src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-						<!-- Product details-->
-						<div class="card-body p-4">
-							<div class="text-center">
-								<!-- Product name-->
-								<h5 class="fw-bolder">3art</h5>
-								<div
-									class="d-flex justify-content-center small text-warning mb-2">
-									<div class="bi-star-fill">artistName</div>
-								</div>
-								<!-- Product price-->
-								<span class="text-muted text-decoration-line-through">Like
-									View</span>
-
-							</div>
-						</div>
-						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-5">
-					<div class="card h-100">
-						<!-- Product image-->
-						<img class="card-img-top"
-							src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-						<!-- Product details-->
-						<div class="card-body p-4">
-							<div class="text-center">
-								<!-- Product name-->
-								<h5 class="fw-bolder">4art</h5>
-								<div
-									class="d-flex justify-content-center small text-warning mb-2">
-									<div class="bi-star-fill">artistName</div>
-								</div>
-
-								<span class="text-muted text-decoration-line-through">Like
-									View</span>
-							</div>
-						</div>
-						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" href="#">Go art</a>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
+				
 			</div>
 		</div>
 
@@ -415,9 +343,10 @@ body {
 		// 클릭시 이미지 확대
 		$(document).ready(
 				function(e) {
-
-					$(document).on("click", "img", function() {
+					
+					$(document).on("click", "#zoom-img", function() {
 						var path = $(this).attr('src')
+						/* console.log(path) */
 						showImage(path);
 					});//end click event
 

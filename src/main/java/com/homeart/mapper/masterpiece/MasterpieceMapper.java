@@ -5,11 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.homeart.domain.masterpiece.MasterpieceVO;
 import com.homeart.domain.masterpiece.likeVO;
+import com.homeart.domain.masterpiece.MasterpieceVO;
 
 public interface MasterpieceMapper {
 	
 	// 모든 게시물 조회
-	public List<MasterpieceVO> getList(); 
+	public List<MasterpieceVO> getList(MasterpieceVO masterpiece_id); 
 	
 	// 새 게시물 입력 & get generated key
 	public int insert(MasterpieceVO masterpiece_id); 
@@ -51,6 +52,14 @@ public interface MasterpieceMapper {
 	public int delLike(@Param("masterpiece_id") Integer masterpiece_id, @Param("member_id") String member_id ); 
 
 	public int getLikeSu(Integer masterpiece_id);
+	
+	public int card_count(MasterpieceVO masterpiece);
+	
+	// 랜덤으로 하나의 풀셋트 가져오기
+	public List<MasterpieceVO> randomone(MasterpieceVO masterpiece_id); 
+	
+	// 랜덤으로 네개의 풀셋트 가져오기
+	public List<MasterpieceVO> randomfour(MasterpieceVO masterpiece_id); 
 }
 
 
