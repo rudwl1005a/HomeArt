@@ -62,8 +62,6 @@ public class freeBoardService {
 				.credentialsProvider(StaticCredentialsProvider.create(credentials))
 				.region(region)
 				.build();
-		System.out.println("########### s3cilent ###########");
-		System.out.println(s3);
 	}
 	
 	//s3에서 key에 해당하는 객체 삭제

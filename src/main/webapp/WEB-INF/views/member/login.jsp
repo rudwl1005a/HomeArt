@@ -23,7 +23,9 @@
 
 #loginButton, #signupButton {
 	margin: 10px 7px 10px 0px;
-	width: 150px;
+    height: 45px;
+    width: 159px;
+    font-size: 18px;
 }
 
 table tr td {
@@ -67,7 +69,7 @@ table tr th {
 						</tr>
 					</table>
 					</div>
-					<div style="text-align:center;">
+					<div style="text-align:center; width: 635px;">
 						<button class="btn btn-dark" id="loginButton">로그인</button>
 						<a class="btn btn-dark" id="signupButton" href="${signupUrl }">회원가입</a>
 					</div>

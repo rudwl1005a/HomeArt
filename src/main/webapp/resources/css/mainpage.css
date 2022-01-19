@@ -2,13 +2,13 @@
 
 .background1 {
 	background-color: #333;
-	height: 550px;
+	height: 580px;
+	padding-top: 55px;
 }
 
 .small {
 	width: 650px;
-	padding-top: 40px;
-    margin: 0px auto 25px auto;
+    margin:auto;
     max-width: 940px;
 }
 
@@ -17,7 +17,7 @@
     border-left: 10px;
     border-right: 10px;
     border-bottom: 10px;
-    border-color: rgb(173, 166, 146);
+    border-color: rgb(70, 70, 70);
     border-style: solid;
     border-radius: 8px;
 }
@@ -36,8 +36,8 @@
 }
 
 .container {
-	margin-top: 20px;
-	
+	margin-top: 60px;
+    margin-bottom: 70px;
 }
 
 #noticeTitle {
@@ -59,7 +59,7 @@
     text-align: center;
 }
 .table{
-	min-width: 720px;
+	min-width: 760px;
 }
 
 td a {
@@ -69,4 +69,8 @@ td a {
     word-wrap: break-word;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.image{
+	
 }
