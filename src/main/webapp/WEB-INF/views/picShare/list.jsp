@@ -229,7 +229,7 @@ body {
 </head>
 <body>
 
-	<b:navBar></b:navBar>
+	<b:navBar active="picture"></b:navBar>
 
 	<div class="contents-wrap">
 

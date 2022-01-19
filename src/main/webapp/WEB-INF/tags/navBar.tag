@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
+<%@ attribute name="active" %>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap');
@@ -90,13 +91,13 @@ li{
 			<div class="d-flex">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="${picShareUrl }">그림공유</a>
+						<a class="nav-link ${active == 'picture' ? 'active' : '' }" href="${picShareUrl }">그림공유</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="${masterpieceUrl }">명화추천</a>
+						<a class="nav-link ${active == 'masterpiece' ? 'active' : '' }" href="${masterpieceUrl }">명화추천</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="${freeBoardUrl }">자유게시판</a>
+						<a class="nav-link ${active == 'free' ? 'active' : '' }" href="${freeBoardUrl }">자유게시판</a>
 					</li>
 				</ul>
 			</div>

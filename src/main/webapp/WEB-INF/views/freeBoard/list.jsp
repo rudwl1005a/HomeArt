@@ -19,7 +19,7 @@
 </head>
 <body>
 	<!-- header tag -->
-	<b:navBar></b:navBar>
+	<b:navBar active="free"></b:navBar>
 
 <div class="contents-wrap">
 	<div class="container">

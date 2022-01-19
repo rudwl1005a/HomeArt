@@ -26,7 +26,7 @@
 </head>
 <body>
 
-	<b:navBar></b:navBar>
+	<b:navBar active="masterpiece"></b:navBar>
 
 	<div class="contents-wrap">
 
