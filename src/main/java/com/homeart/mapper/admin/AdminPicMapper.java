@@ -7,12 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import com.homeart.domain.admin.AdminPicVO;
 
 public interface AdminPicMapper {
-	public List<AdminPicVO> getList(@Param("from") Integer from, @Param("numberPerPage") Integer numberPerPage);
+	public List<AdminPicVO> getList(@Param("from") Integer from, @Param("numberPerPage") Integer numberPerPage, @Param("keyword")String keyword);
 	
-	public List<AdminPicVO> read(int masterpiece_id);
+	public AdminPicVO read(Long masterpiece_id);
 	
-	public Integer getCountRows();
+	public Integer getCountRows(@Param("keyword")String keyword);
 	
-	public int delete(Integer masterpiece_id);
+	public void delete(Long masterpiece_id);
 	
 }

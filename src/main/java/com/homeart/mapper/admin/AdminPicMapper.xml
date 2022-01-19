@@ -5,23 +5,22 @@
 <mapper namespace="com.homeart.mapper.admin.AdminPicMapper">
  
 <select id="getList" resultType="com.homeart.domain.admin.AdminPicVO">
-	SELECT file_name 
-	FROM masterpiece 
+	SELECT masterpiece_id, title, content, member_id, country, artist, age, file_name 
+	FROM masterpiece
+	WHERE member_id LIKE CONCAT('%', #{keyword}, '%')
 	ORDER BY masterpiece_id DESC
 	LIMIT #{from}, #{numberPerPage}
 </select> 
 
 <select id="getCountRows" resultType="int">
-	SELECT COUNT(*) FROM picBoard
+	SELECT COUNT(*) FROM masterpiece m
+	WHERE m.member_id LIKE CONCAT('%', #{keyword}, '%')
 </select>
  
 <select id="read" resultType="com.homeart.domain.admin.AdminPicVO">
-	SELECT mp.masterpiece_id, mp.title, mp.member_id, mp.content, mp.file_name, mpd.discussion_id ,mpd.discussion
-	FROM masterpiece AS mp 
-	JOIN masterpiece_discussion AS mpd 
-	ON mp.masterpiece_id = mpd.masterpiece_id
-	WHERE mp.masterpiece_id = #{masterpiece_id}
-	ORDER BY mp.masterpiece_id
+	SELECT masterpiece_id, title, member_id, content, file_name
+	FROM masterpiece
+	WHERE masterpiece_id = #{masterpiece_id}
 </select>
 
 <delete id="delete">

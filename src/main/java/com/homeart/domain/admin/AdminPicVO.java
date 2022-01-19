@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AdminPicVO {
 	
-	private int masterpiece_id;
+	private Long masterpiece_id;
 	private String title;
 	private String content;
 	private String member_id;
@@ -13,8 +13,5 @@ public class AdminPicVO {
 	private String artist;
 	private String age;
 	private String file_name;
-	
-	private Long discusstion_id;
-	private String discussion;
 	
 }

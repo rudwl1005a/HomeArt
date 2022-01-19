@@ -99,7 +99,7 @@ h4 {
 
 				<div class="collapse" id="collapse">
 						<h4>삭제 사유를 입력해주세요</h4>
-						<input type="textarea" class="form-control">
+						<input type="text" class="form-control">
 						<a href="/controller/adminPage/adminPicShare/remove?id=${read.board_id}&file=${read.file_name}">입력완료</a>
 				</div>
 			</form>
