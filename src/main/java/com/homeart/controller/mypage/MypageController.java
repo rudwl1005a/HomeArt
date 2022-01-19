@@ -17,8 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.homeart.domain.freeBoard.FreeBoardReplyVO;
 import com.homeart.domain.freeBoard.freeBoardVO;
 import com.homeart.domain.member.MemberVO;
-import com.homeart.domain.mypage.GuestbookVO;
 import com.homeart.domain.mypage.ProfilePictureVO;
+import com.homeart.domain.mypage.likeListVO;
 import com.homeart.domain.mypage.replyVO;
 import com.homeart.domain.picShare.picBoardVO;
 import com.homeart.service.member.CountryService;
@@ -54,6 +54,7 @@ public class MypageController {
 		List<freeBoardVO> freeBoard = memberService.getWritingLimit5(member_id);
 		List<picBoardVO> picBoard = memberService.getPictureLimit5(member_id);
 		List<FreeBoardReplyVO> reply = memberService.getReplyLimit5(member_id);
+		List<likeListVO> like = memberService.getLikeLimit5(member_id);
 		
 		/* 회원 정보 */
 		model.addAttribute("member", member);
@@ -92,6 +93,9 @@ public class MypageController {
 		
 		/* 내 그림 5개 */
 		model.addAttribute("picBoardLimit5", picBoard);
+		
+		/* 좋아요 누른 그림 5개 */
+		model.addAttribute("likeLimit5", like);
 		
 		/* 내가 쓴 글 5개 */
 		model.addAttribute("freeBoardLimit5", freeBoard);
