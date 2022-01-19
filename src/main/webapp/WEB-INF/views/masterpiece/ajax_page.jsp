@@ -7,6 +7,8 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
+	<body>
+		
 
 						<c:forEach items="${list }" var="m">
 							<div class="col mb-5">
@@ -16,8 +18,8 @@
 										<button class="btn btn-outline-light dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 											<i class="fas fa-ellipsis-h"></i>
 										</button>
-										<div class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton">
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											
 											<a class="dropdown-item" href="modify?masterpiece_id=${m.masterpiece_id }">modify(admin)</a> 
 											<a class="dropdown-item" href="#">delete(admin)</a> 
 											<a class="dropdown-item" href="#">share(admin, member)</a> 
@@ -62,6 +64,7 @@
 						</c:forEach>
 						
 
+	</body>
 
 
 

@@ -145,7 +145,6 @@
 							<option value="artist" ${type eq 'artist' ? 'selected' : '' }>artist</option>
 							<option value="country" ${type eq 'country' ? 'selected' : '' }>country</option>
 							<option value="age" ${type eq 'age' ? 'selected' : '' }>age</option>
-
 						</select> <input class="form-control me-2 mx-1" type="text"
 							placeholder="Search" aria-label="Search" name="keyword"
 							value="${keyword }">
@@ -225,7 +224,7 @@ const appRoot = '${pageContext.request.contextPath}';
 	        	  } else {
 	        		  alert("실패");
 	        	  }
-	        	  /* location.herf= appRoot+"/masterpiece/list.do"; */
+	        	  location.herf= appRoot+"/masterpiece/list.do";
 
 	        	  /*  $.ajax({
 			          url : appRoot + "/masterpiece/list.do",
