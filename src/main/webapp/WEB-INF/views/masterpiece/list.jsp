@@ -198,21 +198,21 @@ const appRoot = '${pageContext.request.contextPath}';
 }
  */
 	function updateLike(mp,mb) {
-			console.log("나옴");
+			/* console.log("나옴");
 			console.log("엠피"+mp);
-			console.log("엠비"+mb);
+			console.log("엠비"+mb); */
 			var data = {
 					masterpiece_id : mp,
 					member_id : mb
 			}
-			console.log(appRoot);
+			/* console.log(appRoot); */
 
 		$.ajax({
 	          url : appRoot + "/masterpiece/like",
 	          type : "get",
 	          data : data,
 	          success : function(result) {
-	        	  console.log(result); //이거일듯 
+	        	  /* console.log(result); */ //이거일듯 
 	        	  var resultSu = result.result;
 	        	  var msg = result.msg;
 	        	  var likeSu = result.likeSu;
@@ -278,7 +278,7 @@ $(window).on("scroll", function () {
 		// 요청할 페이지 번호를 1 증가.
 		currentPage++;
 		// 추가로 받아올 페이지를 서버에 ajax 요청을 하고
-		console.log("inscroll"+currentPage);
+		/* console.log("inscroll"+currentPage); */
 		GetList(currentPage);
 			
 	};
@@ -289,7 +289,7 @@ const GetList = function (currentPage) {
 	
 	const appRoot = '${pageContext.request.contextPath}'; 
 	
-	console.log("inGetList"+currentPage);
+	/* console.log("inGetList"+currentPage); */
 	
 	// 무한 스크롤 부분
 	$.ajax ({
@@ -299,14 +299,14 @@ const GetList = function (currentPage) {
 		data: "pageNum="+currentPage+"&type=${type}&keyword=${keyword}",
 		//ajax_page.jsp의 내용이 data로 들어온다.
 		success: function (data) {
-			console.log(data);
+			/* console.log(data); */
 			//응답된 문자열은 html 형식이고 (picShare/ajax_page.jsp에 응답내용이 있다.)
 			//해당 문자열을 .card-list-container div에 html로 해석하라고 추가한다.
 			$(".card-list-container").append(data);
 			//로딩바를 숨김.
 			$(".back-drop").hide();
 			isLoading=false;
-			console.log("ajax");
+			/* console.log("ajax"); */
 			
 		}
 	});

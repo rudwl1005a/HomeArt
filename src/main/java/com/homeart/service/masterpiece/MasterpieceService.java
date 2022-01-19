@@ -63,8 +63,6 @@ public class MasterpieceService {
 				.region(region)
 				.build();
 
-		System.out.println("############# s3 client ###############");
-		System.out.println(s3);
 	}
 
 	// s3에서 key에 해당하는 객체 삭제
@@ -237,30 +235,24 @@ public class MasterpieceService {
 	
 	//좋아요 갯수
 	public Map<String,Object> updateLike(Integer masterpiece_id, String member_id) {
-		System.out.println("updateLike 서비스 접근");
 		//좋아요 있나없나.
 		likeVO vo = new likeVO();
 		vo = mapper.getLike(masterpiece_id, member_id);
-		System.out.println("업데이트라이크 잘되나 vo: " + vo);
 		String msg="";
 		int result = 0;
 		int likeSu = 0;
 		if( vo==null) { //좋아요테이블에 값이 없을경우
 			//인서트
 			result = mapper.addLike(masterpiece_id, member_id);
-			System.out.println("addLike는" + result);
 			likeSu = mapper.getLikeSu(masterpiece_id);
-			System.out.println("likeSu는" + likeSu );
 			msg = "좋아요 !";
 		} else { //있을경우
 			//딜리트
 			result = mapper.delLike(masterpiece_id, member_id);
 			likeSu = mapper.getLikeSu(masterpiece_id);
-			System.out.println("likeSu는" + likeSu );
 			msg = "좋아요 취소";
 		}
 		Map<String,Object> map = new HashMap();
-		System.out.println("업데이트라이크 result: " + result);
 		map.put("result",result);
 		map.put("likeSu", likeSu);
 		map.put("msg",msg);

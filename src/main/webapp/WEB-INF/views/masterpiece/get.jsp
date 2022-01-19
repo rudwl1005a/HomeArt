@@ -346,7 +346,7 @@ body {
 					
 					$(document).on("click", "#zoom-img", function() {
 						var path = $(this).attr('src')
-						console.log(path)
+						/* console.log(path) */
 						showImage(path);
 					});//end click event
 

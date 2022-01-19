@@ -222,7 +222,6 @@ public class MasterpieceController {
 	public void get(@RequestParam("masterpiece_id") Integer masterpiece_id, MasterpieceVO masterpiece_id2, Model model) {
 		MasterpieceVO masterpiece = service.get(masterpiece_id);
 		
-		System.out.println(masterpiece);
 		model.addAttribute("masterpiece", masterpiece);
 		
 		List<MasterpieceVO> randomfour = service.randomfour(masterpiece_id2);
@@ -231,8 +230,6 @@ public class MasterpieceController {
 	
 	@PostMapping("/modify")
 	public String modify(MasterpieceVO masterpiece, String removeFile, MultipartFile file, RedirectAttributes rttr) {
-		
-		System.out.println("modify 접근");
 		
 		masterpiece.setFile_name(file.getOriginalFilename());
 		
@@ -278,7 +275,6 @@ public class MasterpieceController {
 	@PostMapping("/remove")
 	public String remove(MasterpieceVO Masterpiece, RedirectAttributes rttr, MultipartFile file) {
 
-		System.out.println("remove 접근");
 		
 		service.remove(Masterpiece.getMasterpiece_id(), file);
 		
@@ -293,15 +289,11 @@ public class MasterpieceController {
 	@GetMapping("/like")
 	@ResponseBody
 	public Map<String,Object> like(String masterpiece_id, String member_id) {
-		System.out.println("like 메서드 접근");
-		System.out.println(masterpiece_id);
-		System.out.println(member_id);
 		Integer mp_id = Integer.parseInt(masterpiece_id);
 		
 		
 		
 		Map<String,Object>result = service.updateLike(mp_id,member_id);
-		System.out.println("라이크 result : "+result);
 		
 		return result; //여기 리저트 값이 
 
