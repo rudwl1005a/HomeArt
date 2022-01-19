@@ -29,6 +29,7 @@ SELECT
     p.age,
     m.nickName,
     p.file_name,
+    p.source,
     count(lt.masterpiece_id) as likeSu
 FROM
 	masterpiece p JOIN Member m ON p.member_id = m.member_id
@@ -38,7 +39,46 @@ ORDER BY rand()
 LIMIT #{from}, #{items}
 	</select>
 
-	<select id="getList" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+	<select id="getList" parameterType="com.homeart.domain.masterpiece.MasterpieceVO" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+<!-- SELECT 
+	p.masterpiece_id,
+    p.title,
+    p.content,
+    p.member_id,
+    p.country,
+    p.artist,
+    p.age,
+    m.nickName,
+    p.file_name,
+    count(lt.masterpiece_id) as likeSu
+FROM
+	masterpiece p
+JOIN 
+	Member m ON p.member_id = m.member_id
+	left outer join likeTable lt on p.masterpiece_id = lt.masterpiece_id
+		<choose>
+			<when test="title != null">
+				WHERE (p.title LIKE CONCAT('%', #{title}, '%'))
+			</when>
+			<when test="artist != null">
+				WHERE (p.artist LIKE CONCAT('%', #{artist}, '%'))
+			</when>
+			<when test="country != null">
+				WHERE (p.country LIKE CONCAT('%', #{country}, '%'))
+			</when>
+			<when test="age != null">
+				WHERE (p.age LIKE CONCAT('%', #{age}, '%'))
+			</when>
+			<when test="all != null">
+				WHERE (p.title LIKE CONCAT ('%', #{all}, '%'))
+				OR (p.artist LIKE CONCAT('%', #{all}, '%'))
+				OR (p.country LIKE CONCAT('%', #{all}, '%'))
+				OR (p.age LIKE CONCAT('%', #{all}, '%'))
+			</when>
+		</choose>	
+ORDER BY rand()
+LIMIT #{startRowNum}, #{rowCount}
+ORDER BY masterpiece_id DESC -->
 SELECT 
 	p.masterpiece_id,
     p.title,
@@ -48,13 +88,35 @@ SELECT
     p.artist,
     p.age,
     m.nickName,
-    p.file_name
+    p.file_name,
+    p.source,
+    count(lt.masterpiece_id) as likeSu
 FROM
-	masterpiece p
-JOIN 
-	Member m ON p.member_id = m.member_id
+	masterpiece p JOIN Member m ON p.member_id = m.member_id
+	left outer join likeTable lt on p.masterpiece_id = lt.masterpiece_id
+		<choose>
+			<when test="title != null">
+				WHERE (p.title LIKE CONCAT('%', #{title}, '%'))
+			</when>
+			<when test="artist != null">
+				WHERE (p.artist LIKE CONCAT('%', #{artist}, '%'))
+			</when>
+			<when test="country != null">
+				WHERE (p.country LIKE CONCAT('%', #{country}, '%'))
+			</when>
+			<when test="age != null">
+				WHERE (p.age LIKE CONCAT('%', #{age}, '%'))
+			</when>
+			<when test="all != null">
+				WHERE (p.title LIKE CONCAT ('%', #{all}, '%'))
+				OR (p.artist LIKE CONCAT('%', #{all}, '%'))
+				OR (p.country LIKE CONCAT('%', #{all}, '%'))
+				OR (p.age LIKE CONCAT('%', #{all}, '%'))
+			</when>
+		</choose>
+group by p.masterpiece_id
 ORDER BY rand()
-<!-- ORDER BY masterpiece_id DESC -->
+LIMIT #{startRowNum}, #{rowCount}
 	</select>
 		
 	<select id="read" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
@@ -67,7 +129,8 @@ SELECT
     p.artist,
     p.age,
     m.nickName,
-    p.file_name
+    p.file_name,
+    p.source
 FROM
     masterpiece p
 JOIN
@@ -78,9 +141,9 @@ WHERE
  
 	<insert id="insert" useGeneratedKeys="true" keyColumn="masterpiece_id" keyProperty="masterpiece_id">
 	INSERT INTO
-		masterpiece (title, content, country, artist, age, file_name, member_id)
+		masterpiece (title, content, country, artist, age, file_name, member_id, source)
 	VALUES
-		(#{title}, #{content}, #{country}, #{artist}, #{age}, #{file_name}, #{member_id})
+		(#{title}, #{content}, #{country}, #{artist}, #{age}, #{file_name}, #{member_id}, #{source})
 	</insert>
 	
 	<delete id="delete">
@@ -104,7 +167,8 @@ WHERE
 		country = #{country},
 		artist = #{artist},
 		age = #{age},
-		file_name = #{file_name}
+		file_name = #{file_name},
+		source = #{source}
 	WHERE
 		masterpiece_id = #{masterpiece_id}
 	</update>
@@ -150,6 +214,74 @@ WHERE
 	WHERE
 		masterpiece_id = #{masterpiece_id}
 	</select>
+	
+	<select id="card_count" parameterType="com.homeart.domain.masterpiece.MasterpieceVO" resultType="int">
+		SELECT count(p.masterpiece_id) FROM masterpiece p
+		JOIN Member m
+		ON p.member_id = m.member_id
+		<choose>
+			<when test="title != null">
+				WHERE (p.title LIKE CONCAT('%', #{title}, '%'))
+			</when>
+			<when test="artist != null">
+				WHERE (p.artist LIKE CONCAT('%', #{artist}, '%'))
+			</when>
+			<when test="country != null">
+				WHERE (p.country LIKE CONCAT('%', #{country}, '%'))
+			</when>
+			<when test="age != null">
+				WHERE (p.age LIKE CONCAT('%', #{age}, '%'))
+			</when>
+			<when test="all != null">
+				WHERE (p.title LIKE CONCAT ('%', #{all}, '%'))
+				OR (p.artist LIKE CONCAT('%', #{all}, '%'))
+				OR (p.country LIKE CONCAT('%', #{all}, '%'))
+				OR (p.age LIKE CONCAT('%', #{all}, '%'))
+			</when>
+		</choose>
+	</select>
+	
+	<select id="randomone" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+	SELECT 
+		p.masterpiece_id,
+	    p.title,
+	    p.content,
+	    p.member_id,
+	    p.country,
+	    p.artist,
+	    p.age,
+	    m.nickName,
+	    p.file_name,
+	    p.source,
+	    count(p.masterpiece_id) as idSu
+	FROM
+		masterpiece p JOIN Member m ON p.member_id = m.member_id
+	group by p.masterpiece_id
+	ORDER BY rand()
+	LIMIT 1
+	</select>	
+	
+	<select id="randomfour" resultType="com.homeart.domain.masterpiece.MasterpieceVO">
+	SELECT 
+		p.masterpiece_id,
+	    p.title,
+	    p.content,
+	    p.member_id,
+	    p.country,
+	    p.artist,
+	    p.age,
+	    m.nickName,
+	    p.file_name,
+	    p.source,
+	    count(p.masterpiece_id) as idSu
+	FROM
+		masterpiece p JOIN Member m ON p.member_id = m.member_id
+	group by p.masterpiece_id
+	ORDER BY rand()
+	LIMIT 4
+	</select>		
+	
+	
 </mapper>
 
 
