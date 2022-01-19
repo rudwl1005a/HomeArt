@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.homeart.domain.member.MemberVO;
 import com.homeart.domain.picShare.picBoardVO;
 import com.homeart.domain.picShare.picLikeVO;
 import com.homeart.domain.picShare.picPageInfoVO;
@@ -58,9 +59,6 @@ public class picBoardService {
 		this.s3 = S3Client.builder().credentialsProvider(StaticCredentialsProvider.create(credentials)).region(region)
 				.build();
 
-		System.out.println("#######s3client########");
-		System.out.println(s3);
-
 	}
 
 	// s3에서 key로 객체 삭제
@@ -84,6 +82,32 @@ public class picBoardService {
 		return (ArrayList<picBoardVO>) boardMapper.getList(board);
 	}
 
+	public List<picBoardVO> getLikeId(String member_id) {
+
+		List<picBoardVO> getLikeIdOne = null;
+		
+		getLikeIdOne = (List<picBoardVO>) boardMapper.getLikeIdOne(member_id);
+		
+		System.out.println("service");
+
+		System.out.println(getLikeIdOne);
+
+		return getLikeIdOne;
+		
+	}
+
+	public ArrayList<picBoardVO> getWeeklyList(picBoardVO board) {
+		return (ArrayList<picBoardVO>) boardMapper.getWeeklyList(board);
+	}
+
+	public ArrayList<picBoardVO> getMonthlyList(picBoardVO board) {
+		return (ArrayList<picBoardVO>) boardMapper.getMonthlyList(board);
+	}
+
+	public ArrayList<picBoardVO> getYearlyList(picBoardVO board) {
+		return (ArrayList<picBoardVO>) boardMapper.getYearlyList(board);
+	}
+
 	public int getCountRow(picBoardVO board) {
 
 		// 게시물 갯수 가져오기
@@ -95,6 +119,16 @@ public class picBoardService {
 	public List<picBoardVO> getArtist(Integer id) {
 
 		return boardMapper.getArtist(id);
+	}
+
+	public List<picBoardVO> getWriterArt(Integer id) {
+
+		return boardMapper.getWriterArt(id);
+	}
+
+	public int getWriterArtCnt(Integer id) {
+
+		return boardMapper.getWriterArtCnt(id);
 	}
 
 	public picBoardVO get(Integer id) {
@@ -142,11 +176,6 @@ public class picBoardService {
 
 	}
 
-	public List<picBoardVO> getWriterArt(Integer id) {
-
-		return boardMapper.getWriterArt(id);
-	}
-
 	public picBoardVO saveHeart(picLikeVO likeVO) {
 
 		picBoardVO board = new picBoardVO();
@@ -155,17 +184,20 @@ public class picBoardService {
 		// like 테이블에 추가
 		int result = boardMapper.insertLike(likeVO);
 
-		System.out.println(result);
-		
+		System.out.println(board);
+
 		// like 테이블에 좋아요 삭제가 성공한다면?
 		if (result == 1) {
 			// 갱신된 하트수를 가져옴
 			boardMapper.likeUp(board.getBoard_id());
-			System.out.println(board);
 			board.setLike_cnt(boardMapper.heart_count(board));
+
 		}
-		
+
+		System.out.println("cnt");
 		System.out.println(board.getLike_cnt());
+		System.out.println("id");
+		System.out.println(board.getLike_id());
 
 		return board;
 
@@ -179,17 +211,23 @@ public class picBoardService {
 
 		// like 테이블에 삭제
 		int result = boardMapper.deleteLike(likeVO);
-		
-		System.out.println(result);
+
+		System.out.println(board);
 
 		// like 테이블에 좋아요 삭제가 성공한다면?
 		if (result == 1) {
 			// 갱신된 하트수를 가져옴
 			boardMapper.likeUp(board.getBoard_id());
 			board.setLike_cnt(boardMapper.heart_count(board));
+
 		}
 		
+//		board.setLike_id(likeVO.getLike_id());
+
+		System.out.println("cnt");
 		System.out.println(board.getLike_cnt());
+		System.out.println("id");
+		System.out.println(board.getLike_id());
 
 		return board;
 	}

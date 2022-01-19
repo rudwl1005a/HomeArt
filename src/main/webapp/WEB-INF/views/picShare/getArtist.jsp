@@ -55,7 +55,7 @@ body {
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 mt-5">
 				<c:forEach items="${list }" var="picBoard" begin="1" end="1">
-					<h3 class="text-light font-weight-light">${picBoard.nickName }의 arts</h1>
+					<h3 class="text-light font-weight-light">${picBoard.nickName }의arts</h3>
 					<hr>
 				</c:forEach>
 				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -89,9 +89,6 @@ body {
 										</c:if>
 									</div>
 								</div>
-
-								<!-- HOT badge -->
-								<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
 
 								<!-- Product image-->
 								<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">

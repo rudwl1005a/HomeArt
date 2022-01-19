@@ -33,24 +33,71 @@ public class picBoardController {
 
 	// picBoard/getArtist?id=어쩌구
 	@GetMapping("/getArtist")
-	public void getArtist(@RequestParam("id") Integer id, Model model) {
+	public void getArtist(@RequestParam("id") Integer id, Model model, HttpSession session) {
 
-		List<picBoardVO> list = service.getArtist(id);
+		picBoardVO board = new picBoardVO();
+
+		List<picBoardVO> list = null;
+
+		list = service.getArtist(id);
 
 		model.addAttribute("list", list);
+
+		// 좋아요 기능에 대한 부분
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = "";
+
+		List<picBoardVO> getLikeId = null;
+
+		if (loggedIn != null) {
+			member_id = loggedIn.getMember_id();
+
+			board.setMemberId(member_id);
+
+			getLikeId = service.getLikeId(member_id);
+
+		} else {
+
+		}
+
+		model.addAttribute("getLikeId", getLikeId);
 
 	}
 
 	// picBoard/get?id=몇인지 적어줘야 페이지 나타남. (페이지끼리 연결 필요)
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("id") Integer id, Model model) {
+	public void get(@RequestParam("id") Integer id, Model model, HttpSession session) {
 
-		picBoardVO board = service.get(id);
-
-		List<picBoardVO> list = service.getWriterArt(id);
-
+		picBoardVO board = new picBoardVO();
+		board = service.get(id);
 		model.addAttribute("board", board);
+
+		List<picBoardVO> list = null;
+
+		list = service.getWriterArt(id);
 		model.addAttribute("list", list);
+
+		int count = service.getWriterArtCnt(id);
+		model.addAttribute("count", count);
+
+		// 좋아요 기능에 대한 부분
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = "";
+
+		List<picBoardVO> getLikeId = null;
+
+		if (loggedIn != null) {
+			member_id = loggedIn.getMember_id();
+
+			board.setMemberId(member_id);
+
+			getLikeId = service.getLikeId(member_id);
+
+		} else {
+
+		}
+
+		model.addAttribute("getLikeId", getLikeId);
 
 	}
 
@@ -86,7 +133,7 @@ public class picBoardController {
 		return "redirect:/picShare/list";
 	}
 
-	@RequestMapping(value = {"/list", "/list.do"})
+	@RequestMapping(value = { "/list", "/list.do" })
 	public String card_list(HttpServletRequest request, HttpSession session, Model model) {
 
 		// 한페이지의 몇개 = 20개
@@ -142,9 +189,36 @@ public class picBoardController {
 				board.setAll(keyword);
 			}
 		}
-		
+
 		list = service.getList(board);
-	
+
+//		// 로그인 상태일때
+//		if (session.getAttribute("member_id") == null) {
+//			list = service.getList(board);
+//
+//			// 로그인 상태가 아닐 때,
+//		} else {
+//			board.setMemberId((String) session.getAttribute("member_id"));
+//			list = service.getListLogin(board);
+//		}
+
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = "";
+
+		List<picBoardVO> getLikeId = null;
+
+		if (loggedIn != null) {
+			member_id = loggedIn.getMember_id();
+
+			board.setMemberId(member_id);
+
+			getLikeId = service.getLikeId(member_id);
+
+		} else {
+
+		}
+
+		model.addAttribute("getLikeId", getLikeId);
 
 		// 위의 분기에 따라 bean에 담기는 내용이 다 다름.
 
@@ -152,7 +226,7 @@ public class picBoardController {
 
 		// 글의 갯수
 		totalRow = service.getCountRow(board);
-		
+
 		// 전체 페이지의 개수 구하기
 		int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
 
@@ -160,13 +234,29 @@ public class picBoardController {
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
-		
+
 		request.setAttribute("totalRow", totalRow);
-		
+
 		request.setAttribute("pageNum", pageNum);
 
 		model.addAttribute("list", list);
-		
+
+		// best 만 가지고 오기
+		ArrayList<picBoardVO> weekly = new ArrayList();
+		weekly = service.getWeeklyList(board);
+
+		model.addAttribute("weekly", weekly);
+
+		ArrayList<picBoardVO> monthly = new ArrayList();
+		monthly = service.getMonthlyList(board);
+
+		model.addAttribute("monthly", monthly);
+
+		ArrayList<picBoardVO> yearly = new ArrayList();
+		yearly = service.getYearlyList(board);
+
+		model.addAttribute("yearly", yearly);
+
 		return "/picShare/list";
 	}
 
@@ -218,7 +308,25 @@ public class picBoardController {
 		}
 
 		list = service.getList(board);
-		
+
+		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
+		String member_id = "";
+
+		List<picBoardVO> getLikeId = null;
+
+		if (loggedIn != null) {
+			member_id = loggedIn.getMember_id();
+
+			board.setMemberId(member_id);
+
+			getLikeId = service.getLikeId(member_id);
+
+		} else {
+
+		}
+
+		model.addAttribute("getLikeId", getLikeId);
+
 		// 글의 갯수
 		totalRow = service.getCountRow(board);
 
@@ -235,86 +343,76 @@ public class picBoardController {
 
 //		model.addAttribute("list", list);
 
+		// best 만 가지고 오기
+		ArrayList<picBoardVO> weekly = new ArrayList();
+		weekly = service.getWeeklyList(board);
+
+		model.addAttribute("weekly", weekly);
+
+		ArrayList<picBoardVO> monthly = new ArrayList();
+		monthly = service.getMonthlyList(board);
+
+		model.addAttribute("monthly", monthly);
+
+		ArrayList<picBoardVO> yearly = new ArrayList();
+		yearly = service.getYearlyList(board);
+
+		model.addAttribute("yearly", yearly);
+
 		return "/picShare/ajax_page";
 
 	}
-	
+
 	// 빈하트 클릭시 하트를 저장
 	@ResponseBody
-	@RequestMapping(value="/saveHeart.do")
-	public picBoardVO save_heart(@RequestParam Integer boardId, HttpSession session, Model model) {
-		
+	@RequestMapping(value = "/saveHeart.do")
+	public picBoardVO save_heart(@RequestParam Integer boardId, HttpSession session) {
+
 		picLikeVO likeVO = new picLikeVO();
-		
+
 		// 게시물 번호 세팅
 		likeVO.setBoard_id(boardId);
-		
+
 		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
 		String member_id = loggedIn.getMember_id();
-		
+
 		// 좋아요를 누른 사람 memberId를 db에 저장
 		likeVO.setMember_id(member_id);
-		
+
 		picBoardVO board = new picBoardVO();
-		
+
 		board = service.saveHeart(likeVO);
-		
-		
-		System.out.println(likeVO);
-		System.out.println(board);
-		
-		model.addAttribute("likeVO", "like");
-		
+
+//		board.setLike_id(likeVO.getLike_id());
+
+
 		return board;
-		
+
 	}
-	
+
 	// 꽉 찬 하트 클릭시 하트를 해제
 	@ResponseBody
-	@RequestMapping(value="/removeHeart.do")
-	public picBoardVO remove_heart(@RequestParam Integer boardId, HttpSession session, Model model) {
+	@RequestMapping(value = "/removeHeart.do")
+	public picBoardVO remove_heart(@RequestParam Integer boardId, HttpSession session) {
+
 		picLikeVO likeVO = new picLikeVO();
-		
+
 		// 게시물 번호 세팅
 		likeVO.setBoard_id(boardId);
-		
+
 		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
 		String member_id = loggedIn.getMember_id();
-		
+
 		// 좋아요를 누른 사람 memberId를 db에 저장
 		likeVO.setMember_id(member_id);
-		
-		picBoardVO board = service.removeHeart(likeVO);
-		
-		System.out.println(likeVO);
-		System.out.println(board);
-		
-		model.addAttribute("likeVO", "like");
-		
+
+		picBoardVO board = new picBoardVO();
+		board = service.removeHeart(likeVO);
+
+//		board.setLike_id(likeVO.getLike_id());
+
+
 		return board;
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
