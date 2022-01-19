@@ -23,18 +23,7 @@ body {
 </style>
 
 <script>
-	// textarea 엔터키 \n으로 치환하기
-	function txtbr () {
-		var key = window.event.keyCode;
-		
-		if (key === 13) {
-			document.getElementById("txt").value = document.getElementById("txt").value + "\n*";
-			return false;
-		} else {
-			return true;
-		}
-	}
-
+	
 </script>
 
 </head>

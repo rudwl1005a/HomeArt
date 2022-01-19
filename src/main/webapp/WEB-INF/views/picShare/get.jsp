@@ -33,6 +33,8 @@ body {
 	object-fit: cover;
 }
 </style>
+
+<%-- 원래 하던 방식 --%>
 <c:forEach items="${list }" var="picBoard">
 	<script>
 		$(document).ready(function() {
@@ -41,6 +43,26 @@ body {
 				$("#dropdown${picBoard.board_id}").css("display", "block");
 			}, function() {
 				$("#dropdown${picBoard.board_id}").css("display", "none");
+			});
+			
+			//remove 버튼 실행.
+			$("#removeSubmitButton${picBoard.board_id}").click(function(e) {
+				e.preventDefault();
+				if (confirm("삭제하시겠습니까?")) {
+					$("#modifyForm${picBoard.board_id}").attr("action", "remove").submit();
+				}
+			});
+			
+			$("#shareButton${picBoard.board_id}").click(function (e) {
+				e.preventDefault();
+				alert("url이 복사되었습니다.");
+			});
+			
+			$("#declaration${picBoard.board_id }").click(function name(e) {
+				e.preventDefault();
+				if (confirm("이 게시물을 신고하시겠습니까?")) {
+					
+				}
 			});
 
 		});
@@ -180,14 +202,14 @@ body {
 									<c:choose>
 										<%-- 로그인 상태일 때, 하트가 클릭되게끔 --%>
 										<c:when test="${not empty sessionScope.loggedInMember.member_id }">
-										<%
-														List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
-														picBoardVO picBoard = (picBoardVO) request.getAttribute("board");
+											<%
+											List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
+											picBoardVO picBoard = (picBoardVO) request.getAttribute("board");
 
-														boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
-														//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
-														pageContext.setAttribute("liked", liked);
-														%>
+											boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
+											//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
+											pageContext.setAttribute("liked", liked);
+											%>
 											<c:choose>
 												<c:when test="${not liked}">
 													<%-- 빈 하트일때 --%>
@@ -221,17 +243,6 @@ body {
 									</div>
 								</div>
 
-								<%-- 
-						<span id="like${picBoard.board_id }" class="mr-auto my-auto btn btn-outline-link text-danger text-lg">
-							<i class="far fa-heart"></i>
-							<span class="likeCount${picBoard.board_id }">0</span>
-						</span>
-						--%>
-
-								<!-- go art -->
-								<div class="container" style="text-align: right;">
-									<a class="btn btn-outline-dark" href="get?id=${board.board_id }">Go art</a>
-								</div>
 							</div>
 						</div>
 						<div class="d-flex"></div>
@@ -304,7 +315,7 @@ body {
 													<c:when test="${not empty sessionScope.loggedInMember.member_id }">
 														<%
 														List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
-														picBoardVO picBoard = (picBoardVO) pageContext.getAttribute("picBoard");
+														picBoardVO picBoard = (picBoardVO) request.getAttribute("board");
 
 														boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
 														//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
@@ -313,19 +324,18 @@ body {
 
 														<c:choose>
 															<c:when test="${not liked}">
-
-																<%-- 찬 하트일때 --%>
-																<div>
-																	<a idx="${picBoard.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
-																		<i class="fas fa-heart"></i>
-																	</a>
-																</div>
-															</c:when>
-															<c:otherwise>
 																<%-- 빈 하트일때 --%>
 																<div>
 																	<a idx="${picBoard.board_id}" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
 																		<i class="far fa-heart"></i>
+																	</a>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<%-- 찬 하트일때 --%>
+																<div>
+																	<a idx="${picBoard.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
+																		<i class="fas fa-heart"></i>
 																	</a>
 																</div>
 															</c:otherwise>

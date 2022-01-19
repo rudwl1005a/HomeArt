@@ -252,9 +252,6 @@ body {
 									<div class="col-md-3" style="float: left;">
 										<div class="card h-100" id="card${picBoard.board_id }">
 
-											<!-- HOT badge -->
-											<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
-
 											<!-- Product image-->
 											<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
 											<!-- Product details-->
@@ -345,9 +342,6 @@ body {
 									<div class="col-md-3" style="float: left;">
 										<div class="card h-100" id="card${picBoard.board_id }">
 
-											<!-- HOT badge -->
-											<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
-
 											<!-- Product image-->
 											<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
 											<!-- Product details-->
@@ -437,9 +431,6 @@ body {
 								<form id="modifyForm" method="post" enctype="multipart/form-data">
 									<div class="col-md-3" style="float: left;">
 										<div class="card h-100" id="card${picBoard.board_id }">
-
-											<!-- HOT badge -->
-											<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">Hot</div>
 
 											<!-- Product image-->
 											<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
