@@ -118,9 +118,10 @@
 
 /* 페이지 이동 css */
 .pageMove{
-	margin-top: 12px;
+	min-width: 750px;
+	margin: 25px 30px 20px;
     border: 2px solid rgba(0, 0, 0, .1);
-    padding: 16px;
+    padding: 16px 35px;
 }
 
 .pageLink{
@@ -133,10 +134,28 @@
 }
 
 .pl{
-	max-width: 380px;
+	max-width: 430px;;
     display: inline-block;
     overflow: hidden;
     word-wrap: break-word;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.pageInfo{
+	display: flex;
+    justify-content: space-between;
+}
+
+div a, div a:hover{
+	margin-top: 3px;
+	color: black;
+	text-decoration: none;
+}
+
+.d-flex{
+	align-items: flex-end;
+}
+.postInfo{
+	display: flex;
 }
