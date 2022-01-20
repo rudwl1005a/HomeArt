@@ -70,7 +70,7 @@ public class MypageController {
 		}
 		
 		ProfilePictureVO loggedProfile = profileService.read(vo.getMember_id());
-		if(profile != null) {
+		if(loggedProfile != null) {
 			model.addAttribute("loggedProfile", loggedProfile);
 		}
 		
