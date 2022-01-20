@@ -186,6 +186,14 @@ body {
 	height: 15rem;
 	object-fit: cover;
 }
+
+#source_langth {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 511px;
+}
+
 </style>
 
 </head>
@@ -220,12 +228,10 @@ body {
 						<div class="fs-5 mb-5">
 							<span>${masterpiece.age }</span>
 						</div>
-						<div class="fs-5 mb-5">
-							<span>${masterpiece.member_id }</span>
-						</div>
-						<p class="lead text-white">${masterpiece.content }</p>
-						<div class="fs-5 mb-5">
-							<a href="${masterpiece.source }">${masterpiece.source }</a>
+						<p class="lead text-white" style="white-space: pre-line;">${masterpiece.content }</p>
+						
+						<div class="fs-5 mb-5" id="source_langth">
+							<a class="a_test" href="${masterpiece.source }">${masterpiece.source }</a>
 						</div>
 						
 						<%-- <div class="d-flex">
