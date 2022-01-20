@@ -36,7 +36,7 @@
 					</li>
 
 					<li class="nav-item active">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="/controller/adminPage/adminFreeBoard/list">
 							자유게시판
 							<span class="sr-only">(current)</span>
 						</a>
