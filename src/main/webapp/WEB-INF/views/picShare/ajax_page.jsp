@@ -10,93 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" integrity="sha512-hPzAQ7RgUQ/jsM6VWPWBpv2btjd9HWvEm8WIwAngYpMuaoMpihN6ROj8cRFUeYnV0vTYHepksRyzzskrhoL5Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<%-- 원래 하던 방식 --%>
-<c:forEach items="${list }" var="picBoard">
-	<script>
-		$(document).ready(function() {
-			$("#card${picBoard.board_id}").hover(function() {
-				$("#dropdown${picBoard.board_id}").css("display", "block");
-			}, function() {
-				$("#dropdown${picBoard.board_id}").css("display", "none");
-			});
-			//remove 버튼 실행.
-			$("#removeSubmitButton${picBoard.board_id}").click(function(e) {
-				e.preventDefault();
-				if (confirm("삭제하시겠습니까?")) {
-					$("#modifyForm${picBoard.board_id}").attr("action", "remove").submit();
-				}
-			});
-			
-			$("#shareButton${picBoard.board_id}").click(function (e) {
-				e.preventDefault();
-				alert("url이 복사되었습니다.");
-			});
-			
-			$("#declaration${picBoard.board_id }").click(function name(e) {
-				e.preventDefault();
-				if (confirm("이 게시물을 신고하시겠습니까?")) {
-					
-				}
-			});
-		});
-	</script>
-</c:forEach>
-
-<%-- 하려는 방식
-	<script>
-		$(document).ready(function() {
-			
-			$(".card").mouseover(function () {
-				let boardId = $(this).attr('idx');
-			});
-			
-			//remove 버튼 실행.
-			$("#removeSubmitButton" + boardId).click(function(e) {
-				e.preventDefault();
-				if (confirm("삭제하시겠습니까?")) {
-					$("#modifyForm" + boardId).attr("action", "remove").submit();
-				}
-			});
-				
-			$("#card" + boardId).hover(function() {
-			
-				// idx 로 전달받아 boardId로 저장
-				let boardId = $(this).attr('idx'); 
-				console.log(boardId);
-
-				$("#dropdown" + boardId).css("display", "block");
-				console.log(boardId);
-				
-				
-			}, function() {
-
-				let boardId = $(this).attr('idx');
-				console.log(boardId);
-				
-				$("#dropdown" + boardId).css("display", "none");
-				
-			});
-
-		});
-		
-		$( ".dropdown" )
-		  .mouseover(function() {
-		    $( this ).addClass('show').attr('aria-expanded',"true");
-		    $( this ).find('.dropdown-menu').addClass('show');
-		  })
-		  .mouseout(function() {
-		    $( this ).removeClass('show').attr('aria-expanded',"false");
-		    $( this ).find('.dropdown-menu').removeClass('show');
-		  });
-	</script>
-
-<script>
-	$(document).ready(function() {
-
-	});
-</script>
---%>
-
 <body>
 
 
@@ -105,7 +18,7 @@
 
 		<form idx="${picBoard.board_id }" id="modifyForm${picBoard.board_id }" method="post" enctype="multipart/form-data">
 			<div class="col mb-5">
-				<div class="card h-100" id="card${picBoard.board_id }">
+				<div class="card h-100" id="card${picBoard.board_id }" idx="${picBoard.board_id }">
 					<!-- dropdown -->
 					<div class="dropdown" id="dropdown${picBoard.board_id }" style="display: none;">
 						<button class="btn btn-outline-dark dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
@@ -232,22 +145,6 @@
 		</form>
 	</c:forEach>
 
-
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-
-	<script>
-		$(document).ready(function() {
-
-			// search 버튼 실행.
-			$("#search").click(function(e) {
-				e.preventDefault();
-				$("#search-form").attr("action", "getSearchList").submit();
-
-			});
-
-		});
-	</script>
 
 </body>
 
