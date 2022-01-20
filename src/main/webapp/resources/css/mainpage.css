@@ -13,10 +13,7 @@
 }
 
 .carousel-inner {
-    border-top: 10px;
-    border-left: 10px;
-    border-right: 10px;
-    border-bottom: 10px;
+	border: 8px;
     border-color: rgb(70, 70, 70);
     border-style: solid;
     border-radius: 8px;

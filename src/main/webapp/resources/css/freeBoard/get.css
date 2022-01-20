@@ -116,12 +116,15 @@
     padding: 5px 0 10px;
 }
 
+#ReplyList{
+	margin: 0 10px;
+}
+
 /* 페이지 이동 css */
 .pageMove{
-	min-width: 750px;
-	margin: 25px 30px 20px;
-    border: 2px solid rgba(0, 0, 0, .1);
-    padding: 16px 35px;
+	min-width: 680px;
+	margin: 50px 0px 20px;
+    padding: 16px 0px;
 }
 
 .pageLink{
@@ -153,7 +156,7 @@ div a, div a:hover{
 	text-decoration: none;
 }
 
-.d-flex{
+.arrow{
 	align-items: flex-end;
 }
 .postInfo{

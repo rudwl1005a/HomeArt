@@ -138,10 +138,9 @@ public class MemberController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session, RedirectAttributes rttr) {
+	public String logout(HttpSession session) {
 		// 세션 invalidate
 		session.invalidate();
-		rttr.addFlashAttribute("result", "로그아웃 했습니다.");
 
 		// /board/list redirect
 		return "redirect:/";
