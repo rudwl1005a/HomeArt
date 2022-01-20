@@ -192,7 +192,8 @@ body {
 							<span class="text-decoration-line-through">${board.nickName }</span>
 
 						</div>
-						<p class="lead text-white">${board.content }</p>
+						<p class="lead text-white" style="white-space:pre-line;"><c:out value="${board.content }"/></p>
+						
 
 						<!-- Product actions-->
 						<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
