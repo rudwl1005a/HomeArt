@@ -17,9 +17,9 @@ public class AdminPageDTO {
 		this.cri = cri;
 		this.total = total;
 		
-		this.endPage = (int) (Math.ceil(cri.getPageNum() / 5.0)) * 5;
+		this.endPage = (int) (Math.ceil(cri.getPageNum() / 10.0)) * 10;
 		
-		this.startPage = this.endPage - 4;
+		this.startPage = this.endPage - 10;
 		
 		int realEnd = (int)(Math.ceil((total*1.0)/cri.getAmount()));
 		

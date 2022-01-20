@@ -10,7 +10,7 @@ public class AdminCriteria {
 	private String keyword;
 	
 	public AdminCriteria() {
-		this(1,5);
+		this(1,8);
 	}
 	
 	public AdminCriteria(int pageNum, int amount) {

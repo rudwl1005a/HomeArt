@@ -29,7 +29,7 @@ public class AdminPicBoard {
 	public void list(Long masterpiece_id, Model model,
 			@RequestParam(value="page", defaultValue = "1") Integer page,
 			@RequestParam(defaultValue="")String keyword) {
-		Integer numberPerPage = 9;
+		Integer numberPerPage = 12;
 		
 		List<AdminPicVO> list = service.getList(page, numberPerPage, keyword);
 		AdminPageInfoVO infoVo = service.getPageInfo(page, numberPerPage, keyword);

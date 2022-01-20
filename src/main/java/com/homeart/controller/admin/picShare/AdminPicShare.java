@@ -27,7 +27,7 @@ public class AdminPicShare {
 			Model model, Integer id, @RequestParam(defaultValue="") String keyword) {
 		
 		// 한 페이지의 card 수
-		Integer numberPerPage = 9;
+		Integer numberPerPage = 12;
 		
 		List<AdminPicShareVO> list = service.getListPage(page, numberPerPage, keyword);
 		AdminPageInfoVO picPageInfo = service.getPageInfo(page, numberPerPage, keyword);

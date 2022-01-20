@@ -19,13 +19,8 @@
 						</a>
 					</li>
 
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false"> 작가그림공유 </a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="/controller/adminPage/adminPicShare/AdminPicShare">공유게시판</a>
-
-							<a class="dropdown-item" href="/controller/adminPage/adminPicShare/AdminPicAdmit">그림검열</a>
-						</div>
+					<li class="nav-item">
+						<a class="nav-link" href="/controller/adminPage/adminPicShare/AdminPicShare" role="button" aria-expanded="false"> 작가그림공유 </a>
 					</li>
 
 					<li class="nav-item active">
