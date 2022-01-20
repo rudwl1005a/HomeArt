@@ -21,7 +21,7 @@
 <c:url value="/picShare/get" var="picBoardUrl"></c:url>
 <c:url value="/masterpiece/get" var="masterpieceUrl"></c:url>
 
-<title>Like Picture</title>
+<title>HomeArt</title>
 </head>
 <body style="background-color: #333333">
 <b:navBar></b:navBar>

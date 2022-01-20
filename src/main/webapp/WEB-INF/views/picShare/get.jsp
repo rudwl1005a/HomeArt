@@ -17,7 +17,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<title>Get</title>
+<title>HomeArt</title>
 
 <style>
 body {
@@ -32,40 +32,59 @@ body {
 	height: 15rem;
 	object-fit: cover;
 }
+
+#titleName {
+	max-width: 210px;
+	display: inline-block;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 </style>
 
 <%-- 원래 하던 방식 --%>
 <c:forEach items="${list }" var="picBoard">
 	<script>
-		$(document).ready(function() {
+		$(document).ready(
+				function() {
 
-			$("#card${picBoard.board_id}").hover(function() {
-				$("#dropdown${picBoard.board_id}").css("display", "block");
-			}, function() {
-				$("#dropdown${picBoard.board_id}").css("display", "none");
-			});
-			
-			//remove 버튼 실행.
-			$("#removeSubmitButton${picBoard.board_id}").click(function(e) {
-				e.preventDefault();
-				if (confirm("삭제하시겠습니까?")) {
-					$("#modifyForm${picBoard.board_id}").attr("action", "remove").submit();
-				}
-			});
-			
-			$("#shareButton${picBoard.board_id}").click(function (e) {
-				e.preventDefault();
-				alert("url이 복사되었습니다.");
-			});
-			
-			$("#declaration${picBoard.board_id }").click(function name(e) {
-				e.preventDefault();
-				if (confirm("이 게시물을 신고하시겠습니까?")) {
+					$("#card${picBoard.board_id}").hover(
+							function() {
+								$("#dropdown${picBoard.board_id}").css(
+										"display", "block");
+							},
+							function() {
+								$("#dropdown${picBoard.board_id}").css(
+										"display", "none");
+							});
+
+					//remove 버튼 실행.
+					$("#removeSubmitButton${picBoard.board_id}").click(
+							function(e) {
+								e.preventDefault();
+								if (confirm("삭제하시겠습니까?")) {
+									$("#modifyForm${picBoard.board_id}").attr(
+											"action", "remove").submit();
+								}
+							});
+
+					$("#shareButton${picBoard.board_id}").click(function(e) {
+						e.preventDefault();
+						alert("url이 복사되었습니다.");
+					});
+
+					$("#declaration${picBoard.board_id }").click(
+							function name(e) {
+								e.preventDefault();
+								if (confirm("이 게시물을 신고하시겠습니까?")) {
+
+								}
+							});
 					
-				}
-			});
+					
 
-		});
+				});
 	</script>
 </c:forEach>
 
@@ -166,6 +185,24 @@ body {
 
 	$(document).ready(function() {
 		like();
+		
+
+		/* 이거는! board_id에서는 그러니까 get?id=땡땡 에서 지워지는 버튼 */
+		// remove 버튼 실행.
+		$("#removeSubmitButton").click(function(e) {
+			e.preventDefault();
+			if (confirm("삭제하시겠습니까?")) {
+				$("#modifyForm").attr("action", "remove").submit();
+			}
+		});
+
+		// modify 버튼 실행.
+		$("#modifySubmitButton").click(function(e) {
+			e.preventDefault();
+			if (confirm("수정하시겠습니까?")) {
+				$("#modifyForm").attr("action", "modify").submit();
+			}
+		});
 
 	});
 </script>
@@ -177,81 +214,91 @@ body {
 	<b:navBar></b:navBar>
 
 	<div class="contents-wrap">
-
-		<!-- Product section-->
-		<section class="py-5 my-5">
-			<div class="container px-4 px-lg-5 my-5 py-5">
-				<div class="row gx-4 gx-lg-5 align-items-center">
-					<div class="col-md-6">
-						<img class="card-img-top mb-5 mb-md-0" src="${staticUrl }/picShare/${board.board_id }/${board.file_name}" alt="${board.file_name }">
-					</div>
-					<div class="col-md-6 text-white">
-
-						<h1 class="display-5 fw-bolder">${board.title }</h1>
-						<div class="fs-5 mb-5">
-							<span class="text-decoration-line-through">${board.nickName }</span>
-
+		<form id="modifyForm" method="post" enctype="multipart/form-data">
+			<!-- Product section-->
+			<section class="py-5 my-5">
+				<div class="container px-4 px-lg-5 my-5 py-5">
+					<div class="row gx-4 gx-lg-5 align-items-center">
+						<div class="col-md-6">
+							<img class="card-img-top mb-5 mb-md-0" src="${staticUrl }/picShare/${board.board_id }/${board.file_name}" alt="${board.file_name }">
 						</div>
-						<p class="lead text-white" style="white-space:pre-line;"><c:out value="${board.content }"/></p>
-						
+						<div class="col-md-6 text-white">
 
-						<!-- Product actions-->
-						<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-							<div class="text-align-justify d-flex">
-								<div class="container d-flex mr-auto my-auto">
-									<!-- like button -->
-									<c:choose>
-										<%-- 로그인 상태일 때, 하트가 클릭되게끔 --%>
-										<c:when test="${not empty sessionScope.loggedInMember.member_id }">
-											<%
-											List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
-											picBoardVO picBoard = (picBoardVO) request.getAttribute("board");
-
-											boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
-											//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
-											pageContext.setAttribute("liked", liked);
-											%>
-											<c:choose>
-												<c:when test="${not liked}">
-													<%-- 빈 하트일때 --%>
-													<div>
-														<a idx="${board.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
-															<i class="far fa-heart"></i>
-														</a>
-													</div>
-												</c:when>
-												<c:otherwise>
-													<%-- 찬 하트일때 --%>
-													<div>
-														<a idx="${board.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
-															<i class="fas fa-heart"></i>
-														</a>
-													</div>
-												</c:otherwise>
-											</c:choose>
-										</c:when>
-										<%-- 로그인 상태가 아닐 때, 하트가 클릭 안되게끔 --%>
-										<c:otherwise>
-											<div>
-												<a href="javascript:" class="heart-notlogin text-danger text-lg">
-													<i class="far fa-heart"></i>
-												</a>
-											</div>
-										</c:otherwise>
-									</c:choose>
-									<div class="container">
-										<span class="text-danger text-lg" id="heart${board.board_id }">${board.like_cnt }</span>
-									</div>
-								</div>
+							<h1 class="display-5 fw-bolder">${board.title }</h1>
+							<div class="fs-5 mb-5">
+								<span class="text-decoration-line-through">${board.nickName }</span>
 
 							</div>
-						</div>
-						<div class="d-flex"></div>
-					</div>
-				</div>
+							<p class="lead text-white" style="white-space: pre-line;">
+								<c:out value="${board.content }" />
+							</p>
 
-			</div>
-		</section>
+
+							<!-- Product actions-->
+							<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+								<div class="text-align-justify d-flex">
+									<div class="container d-flex mr-auto my-auto">
+										<!-- like button -->
+										<c:choose>
+											<%-- 로그인 상태일 때, 하트가 클릭되게끔 --%>
+											<c:when test="${not empty sessionScope.loggedInMember.member_id }">
+												<%
+												List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
+												picBoardVO picBoard = (picBoardVO) request.getAttribute("board");
+
+												boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
+												//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
+												pageContext.setAttribute("liked", liked);
+												%>
+												<c:choose>
+													<c:when test="${not liked}">
+														<%-- 빈 하트일때 --%>
+														<div>
+															<a idx="${board.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
+																<i class="far fa-heart"></i>
+															</a>
+														</div>
+													</c:when>
+													<c:otherwise>
+														<%-- 찬 하트일때 --%>
+														<div>
+															<a idx="${board.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
+																<i class="fas fa-heart"></i>
+															</a>
+														</div>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<%-- 로그인 상태가 아닐 때, 하트가 클릭 안되게끔 --%>
+											<c:otherwise>
+												<div>
+													<a href="javascript:" class="heart-notlogin text-danger text-lg">
+														<i class="far fa-heart"></i>
+													</a>
+												</div>
+											</c:otherwise>
+										</c:choose>
+										<div class="container">
+											<span class="text-danger text-lg" id="heart${board.board_id }">${board.like_cnt }</span>
+										</div>
+										<c:if test="${sessionScope.loggedInMember.member_id eq board.writer}">
+											<div class="container send-button" style="text-align: right;">
+												<input type="hidden" name="board_id" value="${board.board_id }">
+												<button id="removeSubmitButton" class="btn btn-outline-danger">Delete</button>
+												<button id="modifySubmitButton" class="btn btn-outline-light" type="submit">Modify</button>
+											</div>
+										</c:if>
+									</div>
+
+								</div>
+							</div>
+							<div class="d-flex"></div>
+						</div>
+					</div>
+
+				</div>
+			</section>
+		</form>
 
 		<c:if test="${count ne 0 }">
 			<!-- Related items section 4 card carousel-->
@@ -261,121 +308,112 @@ body {
 					<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
 						<c:forEach items="${list }" var="picBoard">
+							<form idx="${picBoard.board_id }" id="modifyForm${picBoard.board_id }" method="post" enctype="multipart/form-data">
 
+								<div class="col mb-5">
+									<div class="card h-100" id="card${picBoard.board_id }">
 
-							<div class="col mb-5">
-								<div class="card h-100" id="card${picBoard.board_id }">
+										<!-- dropdown -->
+										<div class="dropdown" id="dropdown${picBoard.board_id }" style="display: none;">
+											<button class="btn btn-outline-dark dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+												<i class="fas fa-ellipsis-h"></i>
+											</button>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<input type="hidden" name="board_id" value="${picBoard.board_id }">
+												<!-- c:if 태그로 로그인 한 멤버와 아닌 멤버의 메뉴 다르게 보이게끔 함.  -->
+												<c:if test="${sessionScope.loggedInMember.member_id eq picBoard.writer }">
+													<a class="dropdown-item" href="modify?id=${picBoard.board_id }">modify</a>
+													<a class="dropdown-item" href="#" type="button" id="removeSubmitButton${picBoard.board_id }">delete</a>
+												</c:if>
 
-									<!-- dropdown -->
-									<div class="dropdown" id="dropdown${picBoard.board_id }" style="display: none;">
-										<button class="btn btn-outline-dark dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-											<i class="fas fa-ellipsis-h"></i>
-										</button>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="#">share</a>
 
-											<!-- c:if 태그로 로그인 한 멤버와 아닌 멤버의 메뉴 다르게 보이게끔 함.  -->
-											<c:if test="${sessionScope.loggedInMember.member_id eq picBoard.writer }">
-												<a class="dropdown-item" href="modify?id=${picBoard.board_id }">modify</a>
-												<a class="dropdown-item" href="remove?id=${picBoard.board_id }" id="removeSubmitButton">delete</a>
-											</c:if>
+												<c:if test="${sessionScope.loggedInMember.member_id ne picBoard.writer}">
 
-											<a class="dropdown-item" href="#">share</a>
-
-											<c:if test="${sessionScope.loggedInMember.member_id ne picBoard.writer}">
-
-												<a class="dropdown-item" href="#">go artist</a>
-												<a class="dropdown-item" href="#">declaration</a>
-											</c:if>
-										</div>
-									</div>
-
-
-									<!-- Product image-->
-									<img class="card-img-top" id="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
-									<!-- Product details-->
-									<div class="card-body p-4">
-										<div class="text-center">
-
-											<!-- 작품 이름-->
-											<h5 class="fw-bolder">${picBoard.title }</h5>
-											<!-- text-warning이 글씨의 색깔을 나타냄. -->
-											<!-- 작가 이름 -->
-											<div class="d-flex justify-content-center small text-secondary mb-2">
-												<div class="bi-star-fill">${picBoard.nickName }</div>
+													<a class="dropdown-item" href="#">go artist</a>
+													<a class="dropdown-item" href="#">declaration</a>
+												</c:if>
 											</div>
-
 										</div>
-									</div>
-									<!-- Product actions-->
-									<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-										<div class="text-align-justify d-flex">
-											<div class="container d-flex mr-auto my-auto">
-												<!-- like button -->
-												<c:choose>
-													<%-- 로그인 상태일 때, 하트가 클릭되게끔 --%>
-													<c:when test="${not empty sessionScope.loggedInMember.member_id }">
-														<%
-														List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
-														picBoardVO picBoard = (picBoardVO) request.getAttribute("board");
 
-														boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
-														//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
-														pageContext.setAttribute("liked", liked);
-														%>
 
-														<c:choose>
-															<c:when test="${not liked}">
-																<%-- 빈 하트일때 --%>
-																<div>
-																	<a idx="${picBoard.board_id}" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
-																		<i class="far fa-heart"></i>
-																	</a>
-																</div>
-															</c:when>
-															<c:otherwise>
-																<%-- 찬 하트일때 --%>
-																<div>
-																	<a idx="${picBoard.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
-																		<i class="fas fa-heart"></i>
-																	</a>
-																</div>
-															</c:otherwise>
-														</c:choose>
+										<!-- Product image-->
+										<img class="card-img-top" id="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+										<!-- Product details-->
+										<div class="card-body p-4">
+											<div class="text-center">
 
-													</c:when>
-													<%-- 로그인 상태가 아닐 때, 하트가 클릭 안되게끔 --%>
-													<c:otherwise>
-														<div>
-															<a href="javascript:" class="heart-notlogin text-danger text-lg">
-																<i class="far fa-heart"></i>
-															</a>
-														</div>
-													</c:otherwise>
-												</c:choose>
-												<div class="container">
-													<span class="text-danger text-lg" id="heart${picBoard.board_id }">${picBoard.like_cnt }</span>
+												<!-- 작품 이름-->
+												<h5 class="fw-bolder" id="titleName">${picBoard.title }</h5>
+												<!-- text-warning이 글씨의 색깔을 나타냄. -->
+												<!-- 작가 이름 -->
+												<div class="d-flex justify-content-center small text-secondary mb-2">
+													<div class="bi-star-fill">${picBoard.nickName }</div>
 												</div>
+
 											</div>
+										</div>
+										<!-- Product actions-->
+										<div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+											<div class="text-align-justify d-flex">
+												<div class="container d-flex mr-auto my-auto">
+													<!-- like button -->
+													<c:choose>
+														<%-- 로그인 상태일 때, 하트가 클릭되게끔 --%>
+														<c:when test="${not empty sessionScope.loggedInMember.member_id }">
+															<%
+															List<picBoardVO> getLikeId = (List<picBoardVO>) request.getAttribute("getLikeId");
+															picBoardVO picBoard = (picBoardVO) pageContext.getAttribute("picBoard");
 
-											<%-- 
-						<span id="like${picBoard.board_id }" class="mr-auto my-auto btn btn-outline-link text-danger text-lg">
-							<i class="far fa-heart"></i>
-							<span class="likeCount${picBoard.board_id }">0</span>
-						</span>
-						--%>
+															boolean liked = getLikeId.stream().anyMatch(l -> l.getBoard_id().equals(picBoard.getBoard_id()));
+															//System.out.println("###############" + liked  + ":::" + picBoard.getBoard_id() + ":::" + getLikeId );
+															pageContext.setAttribute("liked", liked);
+															%>
 
-											<!-- go art -->
-											<div class="container" style="text-align: right;">
-												<a class="btn btn-outline-dark" href="get?id=${picBoard.board_id }">Go art</a>
+															<c:choose>
+																<c:when test="${not liked}">
+																	<%-- 빈 하트일때 --%>
+																	<div>
+																		<a idx="${picBoard.board_id}" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
+																			<i class="far fa-heart"></i>
+																		</a>
+																	</div>
+																</c:when>
+																<c:otherwise>
+																	<%-- 찬 하트일때 --%>
+																	<div>
+																		<a idx="${picBoard.board_id }" href="javascript:" class="heart-click heart_icons${picBoard.board_id } text-danger text-lg">
+																			<i class="fas fa-heart"></i>
+																		</a>
+																	</div>
+																</c:otherwise>
+															</c:choose>
+
+														</c:when>
+														<%-- 로그인 상태가 아닐 때, 하트가 클릭 안되게끔 --%>
+														<c:otherwise>
+															<div>
+																<a href="javascript:" class="heart-notlogin text-danger text-lg">
+																	<i class="far fa-heart"></i>
+																</a>
+															</div>
+														</c:otherwise>
+													</c:choose>
+													<div class="container">
+														<span class="text-danger text-lg" id="heart${picBoard.board_id }">${picBoard.like_cnt }</span>
+													</div>
+												</div>
+
+												<!-- go art -->
+												<div class="container" style="text-align: right;">
+													<a class="btn btn-outline-dark" href="get?id=${picBoard.board_id }">Go art</a>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-
+							</form>
 						</c:forEach>
-
-
 					</div>
 				</div>
 			</section>
@@ -388,17 +426,6 @@ body {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
-<script>
-	$(document).ready(function() {
-		//remove 버튼 실행.
-		$("#removeSubmitButton").click(function(e) {
-			e.preventDefault();
-			if (confirm("삭제하시겠습니까?")) {
-				$("#modifyForm").attr("action", "remove").submit();
-			}
-		});
-	});
-</script>
 
 </body>
 </html>

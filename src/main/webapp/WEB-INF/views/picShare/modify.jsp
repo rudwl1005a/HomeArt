@@ -19,7 +19,7 @@
 	
 </script>
 
-<title>Modify</title>
+<title>HomeArt</title>
 <style>
 body {
 	background-color: #222;

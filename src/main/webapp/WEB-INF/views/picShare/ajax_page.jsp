@@ -5,14 +5,6 @@
 
 
 
-<html>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" integrity="sha512-hPzAQ7RgUQ/jsM6VWPWBpv2btjd9HWvEm8WIwAngYpMuaoMpihN6ROj8cRFUeYnV0vTYHepksRyzzskrhoL5Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<body>
-
-
 	<c:forEach items="${list }" var="picBoard">
 
 
@@ -21,7 +13,7 @@
 				<div class="card h-100" id="card${picBoard.board_id }" idx="${picBoard.board_id }">
 					<!-- dropdown -->
 					<div class="dropdown" id="dropdown${picBoard.board_id }" style="display: none;">
-						<button class="btn btn-outline-dark dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+						<button class="btn btn-outline-dark dropdown-toggle position-absolute badge" style="top: 0.5rem; right: 0.5rem;" type="button" data-toggle="dropdown" aria-expanded="false">
 							<i class="fas fa-ellipsis-h"></i>
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -68,7 +60,10 @@
 						<div class="text-center">
 
 							<!-- 작품 이름-->
-							<h5 class="fw-bolder">${picBoard.title }</h5>
+							<h5 class="fw-bolder" id="titleName"><c:out value="${picBoard.title }"/></h5>
+							
+						
+							
 							<!-- text-warning이 글씨의 색깔을 나타냄. -->
 							<!-- 작가 이름 -->
 							<div class="d-flex justify-content-center small text-secondary mb-2">
@@ -144,14 +139,6 @@
 
 		</form>
 	</c:forEach>
-
-
-</body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-
-</html>
-
 
 
 

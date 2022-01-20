@@ -41,7 +41,7 @@
 	$('input:radio[name=isPublic]').is(":checked");
 	
 </script>
-<title>HomeArt 자유게시판  글 수정</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>

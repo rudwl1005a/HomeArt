@@ -245,7 +245,7 @@ $(document).ready(function(){
 </script>
 
 
-<title>${member.member_id}'s MyPage</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>

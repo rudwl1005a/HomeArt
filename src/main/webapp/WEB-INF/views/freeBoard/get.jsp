@@ -197,7 +197,7 @@ $(document).ready(function() {
 });
 
 </script>
-<title>HomeArt 자유게시판 글 조회</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>

@@ -21,7 +21,7 @@
 <!-- include summernote-ko-KR -->
 <script src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/summernote/freeboard.js"></script>
-<title>HomeArt 자유게시판</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>

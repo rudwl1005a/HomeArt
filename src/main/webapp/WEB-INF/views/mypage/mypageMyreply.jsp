@@ -18,7 +18,7 @@
 
 <c:url value="/freeBoard/get" var="freeBoardUrl"></c:url>
 
-<title>My reply</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>
