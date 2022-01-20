@@ -20,7 +20,7 @@
 
 <c:url value="/picShare/get" var="picBoardUrl"></c:url>
 
-<title>My picture</title>
+<title>HomeArt</title>
 </head>
 <body style="background-color: #333333;">
 <b:navBar></b:navBar>

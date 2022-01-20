@@ -17,7 +17,7 @@
 
 <c:url value="/mypage?member_id=${sessionScope.loggedInMember.member_id }" var="mypageUrl"></c:url>
 
-<title>Profile Picture Edit</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>

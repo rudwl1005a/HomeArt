@@ -73,7 +73,7 @@
 
 </style>
 
-<title>MyInfo Modify</title>
+<title>HomeArt</title>
 </head>
 <body>
 <b:navBar></b:navBar>

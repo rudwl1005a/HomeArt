@@ -44,7 +44,7 @@ table tr th {
 
 <c:url value="/member/signup" var="signupUrl"></c:url>
 
-<title>로그인</title>
+<title>HomeArt - 로그인</title>
 </head>
 <body>
 <b:navBar></b:navBar>

@@ -60,3 +60,11 @@ td a {
 .card-body{
 	padding: 1.5rem 1rem;
 }
+.titleName {
+	max-width: 215px;
+	display: inline-block;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

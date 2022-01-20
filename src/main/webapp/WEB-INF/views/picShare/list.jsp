@@ -21,7 +21,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/homeart.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/picBoardlist.css" rel="stylesheet" type="text/css">
 
-<title>List</title>
+<title>HomeArt</title>
 
 <style>
 body {
@@ -54,6 +54,15 @@ body {
 	height: 30px;
 	text-align: center;
 	font-size: xx-large;
+}
+
+#titleName {
+	max-width: 210px;
+	display: inline-block;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 </style>
 
@@ -117,36 +126,42 @@ body {
 				let dataElem = $(data);
 				
 				// hover -> dropdown 메뉴 보이고 안보이고
-				dataElem.find(".card").hover(function () {
+				dataElem.find(".card").each(function() {
 					let boardId = $(this).attr('idx');
-					$(this).find(".dropdown").css("display", "block");
-					// console.log(boardId, "card");
+					
+					$(this).hover(function () {
+						$(this).find(".dropdown").css("display", "block");
+						// console.log(boardId, "card");				
+					}, function() {
+						$(this).find(".dropdown").css("display", "none");
+					});
 					
 					// delete 클릭시 -> removeSubmitButton 실행
-					$("#removeSubmitButton" + boardId).click(function (e) {
+					$(this).find("#removeSubmitButton" + boardId).click(function (e) {
 						e.preventDefault();
 						if (confirm("삭제하시겠습니까?")) {
 							$("#modifyForm" + boardId).attr("action", "remove").submit();
 						}
 					});
 					
-					$("#shareButton" + boardId).click(function (e) {
+					$(this).find("#shareButton" + boardId).click(function (e) {
 						console.log("click shareButton");
 						e.preventDefault();
 						alert("url이 복사되었습니다.");
 					});
 					
-					$("#declaration" + boardId).click(function (e) {
+					$(this).find("#declaration" + boardId).click(function (e) {
 						console.log("click declaration");
 						e.preventDefault();
 						if (confirm("이 게시물을 신고하시겠습니까?")) {
 							
 						}
 					});
-					
-				}, function() {
-					$(this).find(".dropdown").css("display", "none");
-				});
+				})
+				
+				
+				
+				
 				
 				
 				//해당 문자열을 .card-list-container div에 html로 해석하라고 추가한다.
@@ -268,7 +283,7 @@ body {
 	<b:navBar active="picture"></b:navBar>
 
 	<div class="contents-wrap">
-		
+
 		<!-- 맨 위로 올라가는 버튼? 링크? -->
 		<a class="toTopLink" href="#top">
 			<i class="fas fa-chevron-up"></i>
@@ -302,10 +317,6 @@ body {
 			<div class="alert text-center my-0">
 				<h3 class="text-light font-weight-light my-3">"${totalRow }개" 의 자료가 검색되었습니다.</h3>
 			</div>
-		</c:if>
-		
-		<c:if test="${empty keyword }">
-		<hr color="white" align="center" size="25" width="1250px">
 		</c:if>
 
 		<!-- Section art-->

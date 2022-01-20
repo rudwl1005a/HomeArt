@@ -54,7 +54,7 @@
 													<div class="text-center">
 	
 														<!-- 작품 이름-->
-														<h5 class="fw-bolder">${picBoard.title }</h5>
+														<h5 class="fw-bolder titleName">${picBoard.title }</h5>
 														<!-- text-warning이 글씨의 색깔을 나타냄. -->
 														<!-- 작가 이름 -->
 														<div class="d-flex justify-content-center small text-secondary mb-2">
@@ -87,7 +87,7 @@
 													<div class="text-center">
 	
 														<!-- 작품 이름-->
-														<h5 class="fw-bolder">${picBoard.title }</h5>
+														<h5 class="fw-bolder titleName">${picBoard.title }</h5>
 														<!-- text-warning이 글씨의 색깔을 나타냄. -->
 														<!-- 작가 이름 -->
 														<div class="d-flex justify-content-center small text-secondary mb-2">
@@ -121,7 +121,7 @@
 													<div class="text-center">
 	
 														<!-- 작품 이름-->
-														<h5 class="fw-bolder">${picBoard.title }</h5>
+														<h5 class="fw-bolder titleName">${picBoard.title }</h5>
 														<!-- text-warning이 글씨의 색깔을 나타냄. -->
 														<!-- 작가 이름 -->
 														<div class="d-flex justify-content-center small text-secondary mb-2">
