@@ -17,6 +17,10 @@ span {
 body {
 	background: rgb(71, 66, 63) !important;
 }
+
+.page-link {
+	margin-left:0px;
+}
 </style>
 
 <script>
@@ -29,7 +33,7 @@ body {
 		<aside:CategoryAside/>
 
 		<div class="row mt-3">
-			<div class="col-3">
+			<div class="col-2">
 					<form id="searchForm" action="/controller/adminPage/adminMemManage/AdminMemManage" method="get">
 						<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="회원ID" 
