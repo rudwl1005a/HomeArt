@@ -57,10 +57,6 @@ public class ProfilePictureService {
 		// crud 가능한 s3 client 객체 생성
 		this.s3 = S3Client.builder().credentialsProvider(StaticCredentialsProvider.create(credentials)).region(region)
 				.build();
-
-		System.out.println("#######s3client########");
-		System.out.println(s3);
-
 	}
 
 	// s3에서 key로 객체 삭제

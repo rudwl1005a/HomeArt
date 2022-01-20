@@ -52,10 +52,6 @@ public class AdminPicShareService {
 				.credentialsProvider(StaticCredentialsProvider.create(credentials))
 				.region(region)
 				.build();
-	
-		System.out.println("#######s3client########");
-		System.out.println(s3);
-		
 	}
 	
 
