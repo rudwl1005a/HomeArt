@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.homeart.domain.mainPage.MonthBestPicVO;
-import com.homeart.domain.mainPage.WeekBestPicVO;
-import com.homeart.domain.mainPage.YearBestPicVO;
+import com.homeart.domain.mainPage.BestPicVO;
 import com.homeart.mapper.mainPage.BestPictureMapper;
 
 import lombok.Setter;
@@ -18,15 +16,15 @@ public class BestPictureService {
 	@Setter(onMethod_ = @Autowired)
 	private BestPictureMapper mapper;
 	
-	public List<WeekBestPicVO> getWeekList() {
+	public List<BestPicVO> getWeekList() {
 		return mapper.weekList();
 	}
 
-	public List<MonthBestPicVO> getMonthList() {
+	public List<BestPicVO> getMonthList() {
 		return mapper.monthList();
 	}
 
-	public List<YearBestPicVO> getYearList() {
+	public List<BestPicVO> getYearList() {
 		return mapper.yearList();
 	}
 	

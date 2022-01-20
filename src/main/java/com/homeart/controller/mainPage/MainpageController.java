@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.homeart.domain.freeBoard.freeBoardVO;
-import com.homeart.domain.mainPage.MonthBestPicVO;
-import com.homeart.domain.mainPage.WeekBestPicVO;
-import com.homeart.domain.mainPage.YearBestPicVO;
+import com.homeart.domain.mainPage.BestPicVO;
 import com.homeart.service.mainPage.BestPictureService;
 import com.homeart.service.member.MemberService;
 
@@ -32,13 +30,13 @@ public class MainpageController {
 	public String test(Model model) {
 		
 		/* best pictures */
-		List<WeekBestPicVO> week = pictureService.getWeekList();
-		List<MonthBestPicVO> month = pictureService.getMonthList();
-		List<YearBestPicVO> year = pictureService.getYearList();
+		List<BestPicVO> week = pictureService.getWeekList();
+		List<BestPicVO> month = pictureService.getMonthList();
+		List<BestPicVO> year = pictureService.getYearList();
 		
-		model.addAttribute("week", week);
-		model.addAttribute("month", month);
-		model.addAttribute("year", year);
+		model.addAttribute("weekly", week);
+		model.addAttribute("monthly", month);
+		model.addAttribute("yearly", year);
 		
 		/* 공지사항 */
 		List<freeBoardVO> notice = memberService.getNotice();
