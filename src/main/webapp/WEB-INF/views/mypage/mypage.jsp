@@ -49,7 +49,7 @@ $(document).ready(function(){
 		$.ajax({
 			url : appRoot + "/guestbook/guestbook/${member.member_id}",
 			success : function(list) {
-				
+
 				/* 방명록 + 댓글 시도 */
 				let lastGuestBookId = 0;
 				let currentGuestBook = '';
@@ -57,24 +57,25 @@ $(document).ready(function(){
 					if (lastGuestBookId != list[i].guestbook_id) {
 						if(list[i].profile_file_name == null){								
 							currentGuestBook = $(`
-							  <div>
-								<div class="row guestbook">
+								<div>
+									<div class="row guestbook">
 									<img class="pic40" src= "\${staticUrl}/profile/basic_profile.jpg" class="img-thumbnail" alt="...">
-									<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
-									<p class="guestbookContent">　　</p>
-									<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
-									<div class="guestbookButton ml-auto">
-										<span class="guestbookReply">답글</span>
+										<a class="guestbookContent guestbookContentID" href="\${mypageUrl}?member_id=\${list[i].member_id }">\${list[i].member_id }</a>
+										<p class="guestbookContent">　　</p>
+										<p class="guestbookContent guestbookContentContent">\${list[i].content}</p>
+										<div class="guestbookButton ml-auto">
+											<span class="guestbookReply">답글</span>
+										</div>
 									</div>
-								</div>
-								<div class="guestbookCommentWrap"></div>
-								<div class="input-group mb-3 guestbookCommentSubmit">
-								  <input type="text" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
-								  <div class="input-group-append">
-								    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+									<div class="guestbookCommentWrap">
+										<div class="input-group mb-3 guestbookCommentSubmit">
+										  <input type="text" id="guestbookCommentInput" class="form-control" placeholder="답글을 작성해주세요. (최대 100자)" aria-label="답글" aria-describedby="guestbookComment">
+										  <div class="input-group-append">
+										    <button class="btn btn-dark" type="button" id="guestbookComment">작성</button>
+										  </div>
+										</div>
+									</div>
 								  </div>
-								</div>
-							  </div>
 							`);
 							
 						}

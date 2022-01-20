@@ -71,7 +71,7 @@ public class MypageController {
 		
 		ProfilePictureVO loggedProfile = profileService.read(vo.getMember_id());
 		if(profile != null) {
-			model.addAttribute("loggedProfile", loggedProfile);			
+			model.addAttribute("loggedProfile", loggedProfile);
 		}
 		
 		// 탈퇴한 회원의 마이페이지로 들어가려고 할때
