@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.homeart.mapper.mainPage.BestPictureMapper">
+ 	<select id="weekList" resultType="com.homeart.domain.mainPage.WeekBestPicVO">
+	SELECT 
+	    board_id, file_name, title, writer
+	FROM
+	    picBoard
+	WHERE
+	    like_cnt = (SELECT 
+	            MAX(like_cnt)
+	        FROM
+	            picBoard
+	        WHERE
+	            WEEK(inserted) = WEEK(NOW()))
+	ORDER BY RAND();
+ 	</select>
+ 	
+ 	<select id="monthList" resultType="com.homeart.domain.mainPage.MonthBestPicVO">
+	SELECT 
+	    board_id, file_name, title, writer
+	FROM
+	    picBoard
+	WHERE
+	    like_cnt = (SELECT 
+	            MAX(like_cnt)
+	        FROM
+	            picBoard
+	        WHERE
+	            MONTH(inserted) = MONTH(NOW()))
+	ORDER BY RAND();
+ 	</select>
+ 	
+ 	<select id="yearList" resultType="com.homeart.domain.mainPage.YearBestPicVO">
+	SELECT 
+	    board_id, file_name, title, writer
+	FROM
+	    picBoard
+	WHERE
+	    like_cnt = (SELECT 
+	            MAX(like_cnt)
+	        FROM
+	            picBoard
+	        WHERE
+	            YEAR(inserted) = YEAR(NOW()))
+	ORDER BY RAND();
+ 	</select>
+</mapper>

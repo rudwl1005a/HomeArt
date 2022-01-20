@@ -30,5 +30,9 @@ public interface freeBoardMapper {
 
 	public Integer viewCount(Integer id);
 
+	public List<freeBoardVO> movePageAdmin(Integer id);
+
+	public List<freeBoardVO> movePage(Integer id);
+
 
 }

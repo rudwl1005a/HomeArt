@@ -21,6 +21,7 @@
 	JOIN masterpiece_discussion AS mpd 
 	ON mp.masterpiece_id = mpd.masterpiece_id
 	WHERE mp.masterpiece_id = #{masterpiece_id}
+	ORDER BY mp.masterpiece_id
 </select>
 
 <delete id="delete">

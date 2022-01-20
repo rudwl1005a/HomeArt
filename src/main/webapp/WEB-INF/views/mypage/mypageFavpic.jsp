@@ -27,7 +27,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 style="color: white;">좋아요 그림</h1>
+				<h1 style="color: white; margin: 30px 0 20px 0">좋아요 그림</h1>
 				<div class="row">
 					<img class="pic200" src="<spring:url value='/resources/img/logo.jpg'/>" class="img-thumbnail" alt="...">	
 					<img class="pic200" src="<spring:url value='/resources/img/logo1.jpg'/>" class="img-thumbnail" alt="...">	
