@@ -146,7 +146,7 @@
   });
 </script>
 
-<title>Insert title here</title>
+<title>HomeArt</title>
 <style>
 body {
 	background-color: #222;

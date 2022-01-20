@@ -22,20 +22,21 @@
 	href="${pageContext.request.contextPath}/resources/css/homeart.css"
 	rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/masterpiece/list.css" rel="stylesheet" type="text/css">
-<title>Masterpiece-list</title>
+<title>HomeArt</title>
 </head>
+
+
 <body>
 
-	<b:navBar active="masterpiece"></b:navBar>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<div class="contents-wrap">
+
+	<b:navBar active="masterpiece"></b:navBar><div class="contents-wrap">
 
 		<!-- header board -->
-		<!-- 상단 이미지 보드 -->
-		<!-- .header_board>ul.header_wp>li.header_items -->
 		<section class="py-4">
 			<div class="container px-4 px-lg-8 my-5">
-				<div class="row gx-4 gx-lg-5 main-top-img justify-content-center" >
+				<div class="row gx-4 gx-lg-5 main-top-img justify-content-center">
 					<c:forEach items="${ran }" var="ran">
 						<a href="get?masterpiece_id=${ran.masterpiece_id }"><!-- class="help-tip" --> 
 							<img src="${staticUrl }/masterpiece/${ran.masterpiece_id }/${ran.file_name }" alt="${ran.file_name }" style="width: auto; height: 650px;">
@@ -97,7 +98,9 @@
 				
 			</div>
 
-		</section>
+		</section><!-- 상단 이미지 보드 -->
+		<!-- .header_board>ul.header_wp>li.header_items -->
+		
 
 
 		<!-- main board -->
@@ -130,24 +133,17 @@
 				<div class="container card-search" id="card-search">
 					<form action="./list.do" method="get" class="d-flex">
 						<!-- list button -->
-						<button class="btn btn-outline-light mx-1" type="button"
-							onclick="location.href='${pageContext.request.contextPath}/masterpiece/list'">List</button>
+						<button class="btn btn-outline-light mx-1" type="button" onclick="location.href='${pageContext.request.contextPath}/masterpiece/list'">List</button>
 						<!-- register button -->
-						<button class="btn btn-outline-light mx-1" type="button"
-							onclick="location.href='${pageContext.request.contextPath}/masterpiece/register'">Post</button>
+						<button class="btn btn-outline-light mx-1" type="button" onclick="location.href='${pageContext.request.contextPath}/masterpiece/register'">Post</button>
 						<!-- search button -->
-						<select name="type" class="btn btn-outline-light mx-1 form-select"
-							id="type">
-							<option class="text-weight-light" selected value="all"
-								${type eq 'all' ? 'selected' : '' }>select <i
-									class="fas fa-caret-square-down"></i></option>
-							<option value="title" ${type eq 'title' ? 'selected' : '' }>title</option>
-							<option value="artist" ${type eq 'artist' ? 'selected' : '' }>artist</option>
-							<option value="country" ${type eq 'country' ? 'selected' : '' }>country</option>
-							<option value="age" ${type eq 'age' ? 'selected' : '' }>age</option>
-						</select> <input class="form-control me-2 mx-1" type="text"
-							placeholder="Search" aria-label="Search" name="keyword"
-							value="${keyword }">
+						<select name="type" class="btn btn-outline-light mx-1 form-select" id="type">
+							<option class="text-weight-light" selected value="all" ${type eq 'all' ? 'selected' : '' }="">select <i class="fas fa-caret-square-down"></i></option>
+							<option value="title" ${type eq 'title' ? 'selected' : '' }="">title</option>
+							<option value="artist" ${type eq 'artist' ? 'selected' : '' }="">artist</option>
+							<option value="country" ${type eq 'country' ? 'selected' : '' }="">country</option>
+							<option value="age" ${type eq 'age' ? 'selected' : '' }="">age</option>
+						</select> <input class="form-control me-2 mx-1" type="text" placeholder="Search" aria-label="Search" name="keyword" value="${keyword }">
 						<button class="btn btn-outline-light" type="submit">
 							<i class="fas fa-search"></i>
 						</button>
@@ -165,8 +161,7 @@
 		<!-- Section art-->
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 mt-5">
-				<div
-					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center card-list-container">
+				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center card-list-container">
 
 
 				</div>
@@ -176,15 +171,11 @@
 
 		<b:bottomInfo></b:bottomInfo>
 	</div>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-		crossorigin="anonymous"></script>
 
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+	
 	<script>
 	
 const appRoot = '${pageContext.request.contextPath}';
@@ -310,6 +301,7 @@ const GetList = function (currentPage) {
 
 $(document).ready(function () {
 	GetList(1);
+
 	
 	
 });
@@ -318,5 +310,10 @@ $(document).ready(function () {
 
 	
 </script>
+
+
+
+
+
 </body>
 </html>

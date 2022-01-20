@@ -277,10 +277,6 @@ public class MasterpieceController {
 
 		
 		service.remove(Masterpiece.getMasterpiece_id(), file);
-		
-//		if (service.remove(Masterpiece.getMasterpiece_id(), file)) {
-//			rttr.addFlashAttribute("result", Masterpiece.getMasterpiece_id() + "번 게시글이 삭제되었습니다.");
-//		}
 
 		return "redirect:/masterpiece/list";
 	}

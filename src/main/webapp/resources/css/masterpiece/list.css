@@ -39,6 +39,15 @@ img {
 	margin: 0px auto;
 }
 
+.titleName {
+	max-width: 210px;
+	display: inline-block;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
 /* 
 .help-tip:hover p{
 	display:block;
