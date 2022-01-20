@@ -23,7 +23,7 @@
 	href="${pageContext.request.contextPath}/resources/css/homeart.css"
 	rel="stylesheet" type="text/css">
 
-<title>Insert title here</title>
+<title>HomeArt</title>
 <style>
 body {
 	background-color: #222;
