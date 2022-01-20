@@ -28,60 +28,123 @@
 <b:navBar></b:navBar>
 
 <div class="contents-wrap">
-	<!-- BEST작품 -->
-	<div class="background1">
-		<div class="small">
-			<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-			  <ol class="carousel-indicators">
-			    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-			    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-			    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-			  </ol>
-			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-				  <div class="image">
-				    <img src="${staticUrl }/picShare/${week[0].board_id }/${week[0].file_name}" class="d-block w-100" alt="Week's best">
-				  </div>
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Week's BEST!</h5>
-			        <p>${week[0].title } - ${week[0].writer }</p>
-			      </div>
-			    </div>
-			    <div class="carousel-item" >
-			      <div class="image">
-			        <img src="${staticUrl }/picShare/${month[0].board_id }/${month[0].file_name}" class="d-block w-100" alt="Month's best">
-			      </div>
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Month's BEST!</h5>
-			        <p>${month[0].title } - ${month[0].writer }</p>
-			      </div>
-			    </div>
-			    <div class="carousel-item">
-			      <div class="image">
-				    <img src="${staticUrl }/picShare/${year[0].board_id }/${year[0].file_name}" class="d-block w-100" alt="Year's best">
-			      </div>
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Year's BEST!</h5>
-			        <p>${year[0].title } - ${year[0].writer }</p>
-			      </div>
-			    </div>
-			  </div>
-			  <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="sr-only">Previous</span>
-			  </button>
-			  <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="sr-only">Next</span>
-			  </button>
+	<!-- Section art-->
+		<section class="card-list-best">
+			<div class="container ct">
+				<div class="row justify-content-center"></div>
+
+				<div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel" data-pause="true">
+
+					<div class="carousel-inner" role="listbox">
+						<div class="carousel-item active">
+							<h3 class="mainName">weekly arts</h3>
+							<hr size="10" color="white">
+							<div style="padding-top: 10px;">
+								<c:forEach items="${weekly }" var="picBoard">
+									<form id="modifyForm" method="post" enctype="multipart/form-data">
+										<div class="col-md-3" style="float: left;">
+											<div class="card h-100" id="card${picBoard.board_id }">
+	
+												<!-- Product image-->
+												<a href="picShare/get?id=${picBoard.board_id }">
+													<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+												</a>
+												<!-- Product details-->
+												<div class="card-body">
+													<div class="text-center">
+	
+														<!-- 작품 이름-->
+														<h5 class="fw-bolder">${picBoard.title }</h5>
+														<!-- text-warning이 글씨의 색깔을 나타냄. -->
+														<!-- 작가 이름 -->
+														<div class="d-flex justify-content-center small text-secondary mb-2">
+															<div class="bi-star-fill">${picBoard.nickName }</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</c:forEach>
+							</div>
+						</div>
+
+						<div class="carousel-item">
+							<h3 class="mainName">monthly arts</h3>
+							<hr size="10" color="white">
+							<div style="padding-top: 10px;">
+								<c:forEach items="${monthly }" var="picBoard">
+									<form id="modifyForm" method="post" enctype="multipart/form-data">
+										<div class="col-md-3" style="float: left;">
+											<div class="card h-100" id="card${picBoard.board_id }">
+	
+												<!-- Product image-->
+												<a href="picShare/get?id=${picBoard.board_id }">
+													<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+												</a>
+												<!-- Product details-->
+												<div class="card-body">
+													<div class="text-center">
+	
+														<!-- 작품 이름-->
+														<h5 class="fw-bolder">${picBoard.title }</h5>
+														<!-- text-warning이 글씨의 색깔을 나타냄. -->
+														<!-- 작가 이름 -->
+														<div class="d-flex justify-content-center small text-secondary mb-2">
+															<div class="bi-star-fill">${picBoard.nickName }</div>
+														</div>
+	
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</c:forEach>
+							</div>
+						</div>
+
+						<div class="carousel-item">
+							<h3 class="mainName">yearly arts</h3>
+							<hr size="10" color="white">
+							<div style="padding-top: 10px;">
+								<c:forEach items="${yearly }" var="picBoard">
+									<form id="modifyForm" method="post" enctype="multipart/form-data">
+										<div class="col-md-3" style="float: left;">
+											<div class="card h-100" id="card${picBoard.board_id }">
+	
+												<!-- Product image-->
+												<a href="picShare/get?id=${picBoard.board_id }">
+													<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+												</a>
+												<!-- Product details-->
+												<div class="card-body">
+													<div class="text-center">
+	
+														<!-- 작품 이름-->
+														<h5 class="fw-bolder">${picBoard.title }</h5>
+														<!-- text-warning이 글씨의 색깔을 나타냄. -->
+														<!-- 작가 이름 -->
+														<div class="d-flex justify-content-center small text-secondary mb-2">
+															<div class="bi-star-fill">${picBoard.nickName }</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</c:forEach>
+							</div>
+						</div>
+
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
+		</section>
 	
 	<!-- 공지사항 -->
 	<div class="container">
 		<div class="row">
-			<div class="col">
+			<div class="col" style="padding: 60px 0;">
 				<h3 style="margin-bottom: 20px; font-weight:bold;">공지사항 <i class="fas fa-bullhorn" style="color: red;"></i></h3>
 				<table class="table table-hover">
 					<thead>
