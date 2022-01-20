@@ -103,6 +103,9 @@ public class ProfilePictureService {
 
 			String key = "profile/" + member_id + "/" + file;
 			deleteObject(key);
+			
+			// 댓글에 있는 프로필 사진 업데이트
+			guestbookMapper.deleteProfile(member_id);
 
 		}
 

@@ -83,4 +83,10 @@
 	SET profile_file_name = #{profile_file_name}
 	WHERE member_id = #{member_id}
  	</update>
+ 	
+ 	<update id="deleteProfile">
+ 	UPDATE mypage_guestbook
+	SET profile_file_name = NULL
+	WHERE member_id = #{member_id}
+ 	</update>
  </mapper>

@@ -38,5 +38,7 @@ public interface GuestbookMapper {
 
 	public int updateProfile(@Param("member_id") String member_id, @Param("profile_file_name") String profile_file_name);
 	
+	public int deleteProfile(String member_id);
+	
 	public List<GuestbookVO> listWithComment(String member_id);
 }

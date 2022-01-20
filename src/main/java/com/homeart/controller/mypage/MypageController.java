@@ -187,6 +187,20 @@ public class MypageController {
 		return "redirect:"+url;
 	}
 	
+	/* 프로필 사진 삭제 */
+	@RequestMapping("/removeProfile")
+	@Transactional
+	public String removeProfile(ProfilePictureVO profile, MultipartFile file, HttpSession session) throws Exception{
+		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+		String url = "/mypage?member_id=" + vo.getMember_id();
+		
+		if(profileService.read(vo.getMember_id()) != null) {
+			profileService.remove(vo.getMember_id(), file);
+		}
+		
+		return "redirect:"+url;
+	}
+	
 	/* 내 활동 */
 	@RequestMapping("/my_picture")
 	public String mypic(Model model, HttpSession session) {

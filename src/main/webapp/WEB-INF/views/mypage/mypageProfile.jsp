@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <c:url value="/mypage?member_id=${sessionScope.loggedInMember.member_id }" var="mypageUrl"></c:url>
+<c:url value="/mypage/removeProfile" var="removeUrl"></c:url>
 
 <title>HomeArt</title>
 </head>
@@ -44,6 +45,7 @@
 				</div>
 			</div>
 			<div class="container send-button" style="text-align: right;">
+				<a href="${removeUrl }"class="btn btn-dark">삭제</a>
 				<button class="btn btn-dark" type="submit">등록</button>
 				<a href="${mypageUrl }" class="btn btn-dark">취소</a>
 			</div>
