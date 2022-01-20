@@ -103,18 +103,18 @@ li{
 			</div>
 			<div class="d-flex" style="padding-top: 8px;">
 				<c:if test="${not empty sessionScope.loggedInMember }">	
-					<div id="loggedInNickName">${sessionScope.loggedInMember.nickName }님</div>
+					<div id="loggedInNickName" style="padding-right: 20px;">${sessionScope.loggedInMember.nickName }님</div>
 				</c:if>
-				<div style="padding-right: 50px">
 				<c:if test="${empty sessionScope.loggedInMember }">
-					<a class="memberSign" id="login" title="로그인" href="${loginUrl }">
-						로그인
-					</a>
-					<a class="memberSign" id="signUp" title="회원가입" href="${signupUrl }">
-						회원가입
-					</a>
+					<div style="padding-right: 50px">
+						<a class="memberSign" id="login" title="로그인" href="${loginUrl }">
+							로그인
+						</a>
+						<a class="memberSign" id="signUp" title="회원가입" href="${signupUrl }">
+							회원가입
+						</a>
+					</div>
 				</c:if>
-				</div>
 				<c:if test="${not empty sessionScope.loggedInMember }">	
 					<c:if test="${sessionScope.loggedInMember.isAdmin == 1 }">
 						<a class="memberSign" id="admin" title="관리자 페이지" href="${adminUrl }">
