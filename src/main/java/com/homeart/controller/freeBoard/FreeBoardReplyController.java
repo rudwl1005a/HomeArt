@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class FreeBoardReplyController {
 	private FreeBoardReplyService service;
 	
 	@GetMapping("/freeBoard/{board_id}")
-	public List<FreeBoardReplyVO> list(@PathVariable Integer board_id, HttpSession session){
+	public List<FreeBoardReplyVO> list(@PathVariable Integer board_id, HttpSession session, Model model){
 		MemberVO loggedIn = (MemberVO) session.getAttribute("loggedInMember");
 		List<FreeBoardReplyVO> list = service.list(board_id);
 		
@@ -41,6 +42,9 @@ public class FreeBoardReplyController {
 				reply.setOwn(loggedIn.getMember_id().equals(writerId));
 			}
 		}
+		
+		model.addAttribute("ReplyList", list);
+		
 		return list;
 	}
 	

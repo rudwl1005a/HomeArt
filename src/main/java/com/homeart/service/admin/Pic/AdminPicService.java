@@ -48,9 +48,6 @@ public class AdminPicService {
 		
 		this.s3 = S3Client.builder().credentialsProvider(StaticCredentialsProvider.create(credentials))
 				.region(region).build();
-		
-		System.out.println("########s3client########");
-		System.out.println(s3);
 	}
 	
 	private void deleteObject(String key) {
