@@ -226,7 +226,7 @@ $(document).ready(function() {
 							<c:out value="${freeBoard.content }" escapeXml="false" ></c:out>
 							<c:forEach items="${fileNames }" var="fileName">
 								<div class="row">
-									<div class="col">
+									<div class="col" style="text-align: center;">
 										<img class="img-fluid" src="${staticUrl }/freeBoard/${freeBoard.board_id }/${fileName }" alt="${fileName }">
 									</div>
 								</div>
@@ -245,7 +245,9 @@ $(document).ready(function() {
 						</div>
 						
 						<!-- 댓글 리스트 -->
-						<h5 style="font-weight: 550; padding: 20px 0 0 8px;">댓글</h5>
+						<c:if test="${ReplyList.reply ne null }">
+							<h5 style="font-weight: 550; padding: 20px 0 0 8px;">댓글</h5>
+						</c:if>
 						<div id="ReplyList"></div>
 						
 						<!-- 댓글 등록 -->
@@ -268,7 +270,7 @@ $(document).ready(function() {
 				<div class="pageMove">
 				<div style="font-weight: bold; padding-bottom: 5px; font-size: 20px;">&lt;자유게시판의 다른글&gt;</div>
 					<c:if test="${freeBoard.isAdmin == 1 }">
-						<c:if test="${movePageAdmin[1] != null and movePageAdmin[1].board_id > freeBoard.board_id }">
+						<c:if test="${movePageAdmin[1] != null and movePageAdmin[1].board_id < freeBoard.board_id }">
 							<div class="pageInfo" style="padding-top: 8px;">
 								<div class="d-flex arrow">
 									<i class="fas fa-arrow-up"></i>
@@ -280,7 +282,7 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</c:if>
-						<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id > freeBoard.board_id }">
+						<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id < freeBoard.board_id }">
 							<div class="pageInfo" style="padding-top: 8px;">
 								<div class="d-flex arrow">
 									<i class="fas fa-arrow-up"></i>
@@ -301,7 +303,7 @@ $(document).ready(function() {
 								<div style="min-width: 150px; text-align: right;">${freeBoard.boardInserted}</div>
 							</div>
 						</div>
-						<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id < freeBoard.board_id}">
+						<c:if test="${movePageAdmin[0] != null and movePageAdmin[0].board_id > freeBoard.board_id}">
 							<div class="pageInfo">
 								<div class="d-flex arrow">
 									<i class="fas fa-arrow-down"></i>
