@@ -174,10 +174,6 @@
 		</section>
 
 
-
-
-
-
 		<b:bottomInfo></b:bottomInfo>
 	</div>
 	<script
