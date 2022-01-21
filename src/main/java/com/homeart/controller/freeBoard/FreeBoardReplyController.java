@@ -43,8 +43,6 @@ public class FreeBoardReplyController {
 			}
 		}
 		
-		model.addAttribute("ReplyList", list);
-		
 		return list;
 	}
 	

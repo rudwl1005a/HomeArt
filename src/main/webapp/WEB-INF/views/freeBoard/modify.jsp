@@ -57,20 +57,20 @@
 					<div class="post-group2">
 						<textarea id="summernote" name="content">${freeBoard.content }</textarea>   
 					</div>
-					<div class="row">
-						<div id="col-12">
-							<label for="">삭제할 파일 선택</label>
-						</div>
-					</div>
 					<c:forEach items="${fileNames }" var="fileName">
-						<div class="row">
-							<div id="col-1 d-flex justify-content-center align-items-center">
-								<input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
+						<c:if test="${fileNames ne null }">
+							<div class="row" style="padding-top: 5px;">
+								<div id="col-1 d-flex justify-content-center align-items-center">
+									<input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
+								</div>
+								<div id="col-11">
+									<label>삭제할 파일 선택</label>
+								</div>
 							</div>
-							<div class="col-11">
+							<div class="row">
 								<img class="img-fluid" src="${staticUrl }/freeBoard/${freeBoard.board_id }/${fileName }" alt="${fileName }">
 							</div>
-						</div>
+						</c:if>
 					</c:forEach>
 					
 					<div class="form-group">
