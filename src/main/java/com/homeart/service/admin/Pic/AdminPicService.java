@@ -9,21 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.admin.AdminPageInfoVO;
 import com.homeart.domain.admin.AdminPicVO;
 import com.homeart.mapper.admin.AdminPicMapper;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 
-@Log4j
 @Service
 public class AdminPicService {
 	@Setter(onMethod_ = @Autowired)
@@ -48,6 +45,7 @@ public class AdminPicService {
 		
 		this.s3 = S3Client.builder().credentialsProvider(StaticCredentialsProvider.create(credentials))
 				.region(region).build();
+
 	}
 	
 	private void deleteObject(String key) {
@@ -59,15 +57,12 @@ public class AdminPicService {
 
 	public AdminPicVO get(Long masterpiece_id) {
 		
-		log.info("get........." + masterpiece_id);
 		
 		return mapper.read(masterpiece_id);
 	}
 
 	@Transactional
 	public void remove(@Param("masterpiece_id")Long masterpiece_id, String file) {
-		
-		log.info("remove............" + masterpiece_id + file);
 		
 		if(file != null) {
 			mapper.delete(masterpiece_id);
@@ -83,8 +78,6 @@ public class AdminPicService {
 	public List<AdminPicVO> getList(Integer page, Integer numberPerPage, String keyword) {
 		
 		Integer from = (page-1) * 10;
-		
-		log.info("getList.......");
 		
 		return mapper.getList(from, numberPerPage, keyword);
 	}
