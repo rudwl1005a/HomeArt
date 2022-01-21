@@ -292,7 +292,7 @@ body {
 
 								</div>
 							</div>
-							<div class="d-flex"></div>
+							
 						</div>
 					</div>
 
@@ -338,7 +338,9 @@ body {
 
 
 										<!-- Product image-->
+										<a href="get?id=${picBoard.board_id }">
 										<img class="card-img-top" id="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+										</a>
 										<!-- Product details-->
 										<div class="card-body p-4">
 											<div class="text-center">
