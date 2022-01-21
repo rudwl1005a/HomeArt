@@ -330,7 +330,7 @@ body {
 
 												<c:if test="${sessionScope.loggedInMember.member_id ne picBoard.writer}">
 
-													<a class="dropdown-item" href="#">go artist</a>
+													<a class="dropdown-item" href="getArtist?id=${picBoard.board_id }">go artist</a>
 													<a class="dropdown-item" href="#">declaration</a>
 												</c:if>
 											</div>
