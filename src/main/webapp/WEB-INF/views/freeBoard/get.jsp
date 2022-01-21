@@ -217,7 +217,7 @@ $(document).ready(function() {
 								<span class="tsub">${freeBoard.boardInserted }</span>
 								<c:if test="${sessionScope.loggedInMember.member_id eq freeBoard.writer }">
 									<a class="tsub" href="modify?id=${freeBoard.board_id }">수정</a>
-									<a class="removeSubmitButton tsub" href="">삭제</a>
+									<a class="removeSubmitButton tsub">삭제</a>
 								</c:if>
 							</div>
 						</div>
@@ -245,7 +245,7 @@ $(document).ready(function() {
 						</div>
 						
 						<!-- 댓글 리스트 -->
-						<c:if test="${ReplyList.reply ne null }">
+						<c:if test="${not empty sessionScope.loggedInMember }">
 							<h5 style="font-weight: 550; padding: 20px 0 0 8px;">댓글</h5>
 						</c:if>
 						<div id="ReplyList"></div>

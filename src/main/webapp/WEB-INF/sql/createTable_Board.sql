@@ -15,11 +15,11 @@ CREATE TABLE freeBoard(
 DESC freeBoard;
 DESC Member;
 SELECT * FROM FreeBoardReply ORDER BY id DESC;
-SELECT * FROM freeBoard ORDER BY inserted DESC;
+SELECT * FROM freeBoard ORDER BY updated DESC;
 SELECT * FROM Member ORDER BY inserted DESC;
 
 INSERT INTO freeBoard(title, content, writer, isPublic) VALUES('test30','test30','rrr',1);
-
+UPDATE freeBoard SET viewCount = viewCount + 1 WHERE board_id = 136;
 SELECT
 			b.board_id,
 			b.title,
