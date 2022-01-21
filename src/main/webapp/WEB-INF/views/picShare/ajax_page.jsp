@@ -54,7 +54,9 @@
 					</c:if>
 
 					<!-- Product image-->
+					<a href="get?id=${picBoard.board_id }">
 					<img class="card-img-top" src="${staticUrl }/picShare/${picBoard.board_id }/${picBoard.file_name}" alt="${picBoard.file_name }">
+					</a>
 					<!-- Product details-->
 					<div class="card-body p-4">
 						<div class="text-center">
