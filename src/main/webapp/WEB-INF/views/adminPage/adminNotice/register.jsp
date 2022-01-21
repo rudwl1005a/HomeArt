@@ -25,7 +25,7 @@ body {
 	
 	<div class="row">
         <div class="col" style="background-color: rgb(132, 151, 143);">
-                <form role="form" action="/controller/adminPage/adminNotice/register" method="post">
+                <form role="form" action="register" method="post">
                     <h4>제목</h4>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

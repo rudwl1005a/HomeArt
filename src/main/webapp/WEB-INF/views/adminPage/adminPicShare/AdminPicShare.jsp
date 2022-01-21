@@ -79,7 +79,7 @@ h4 {
 
 			<div class="col-4">
 				<form role="form"
-					action="/controller/adminPage/adminPicShare/AdminPicShare?id=${read.board_id}"
+					action="/${pageContext.request.contextPath}/adminPage/adminPicShare/AdminPicShare?id=${read.board_id}"
 					method="post">
 					<div class="input-group mb-1">
 						<div class="input-group-prepend">
@@ -121,7 +121,7 @@ h4 {
 					<div class="collapse" id="collapse">
 						<h4>삭제 사유를 입력해주세요</h4>
 						<input type="text" class="form-control"> <a
-							href="/controller/adminPage/adminPicShare/remove?id=${read.board_id}&file=${read.file_name}">입력완료</a>
+							href="/${pageContext.request.contextPath}/adminPage/adminPicShare/remove?id=${read.board_id}&file=${read.file_name}">입력완료</a>
 					</div>
 				</form>
 			</div>

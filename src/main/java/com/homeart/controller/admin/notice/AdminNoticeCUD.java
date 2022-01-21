@@ -22,19 +22,16 @@ public class AdminNoticeCUD {
 	
 	@GetMapping("/AdminNoticeCUD")
 	public void list(Model model) {
-		log.info("list");
 		model.addAttribute("list", service.getList());
 	}
 	
 	@GetMapping({"/get", "/modify"})
 	public void get(Model model, Long admin_no) {
-		log.info("get or modify");
 		model.addAttribute("notice", service.get(admin_no));
 	}
 	
 	@PostMapping("/modify")
 	public String modify(AdminNoticeVO notice, RedirectAttributes rttr) {
-		log.info("modify: " + notice);
 		if(service.modify(notice)) {
 			rttr.addFlashAttribute("result", "success");
 		}
@@ -48,8 +45,6 @@ public class AdminNoticeCUD {
 	
 	@PostMapping("/register")
 	public String register(AdminNoticeVO notice, RedirectAttributes rttr) {
-		log.info("register: " + notice);
-		
 		service.register(notice);
 		
 		rttr.addFlashAttribute("result", notice.getAdmin_no());
@@ -59,7 +54,6 @@ public class AdminNoticeCUD {
 	
 	@PostMapping("/remove")
 	public String remove(Long admin_no, RedirectAttributes rttr) {
-		log.info("remove..." + admin_no);
 		if(service.remove(admin_no)) {
 			rttr.addFlashAttribute("result", "success");
 		}

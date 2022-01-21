@@ -117,7 +117,7 @@ h4 {
 				<div class="collapse" id="collapse">
 					<h4>삭제 사유를 입력해주세요</h4>
 					<input type="text" class="form-control"> <a
-						href="/controller/adminPage/adminPic/remove?id=${pic.masterpiece_id}&file=${pic.file_name}">입력완료</a>
+						href="/${pageContext.request.contextPath}/adminPage/adminPic/remove?id=${pic.masterpiece_id}&file=${pic.file_name}">입력완료</a>
 				</div>
 			</div>
 		</div>
@@ -139,7 +139,7 @@ h4 {
 					<img
 						src="${staticUrl}/masterpiece/${list.masterpiece_id}/${list.file_name}"
 						class="d-block img-thumbnail" alt="..."
-						onclick="location.href='/controller/adminPage/adminPic/AdminPicBoard?masterpiece_id=${list.masterpiece_id}'">
+						onclick="location.search='?masterpiece_id=${list.masterpiece_id}'">
 				</div>
 			</div>
 		</c:forEach>

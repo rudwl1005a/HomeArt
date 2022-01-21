@@ -66,7 +66,7 @@ body {
 					<h5 class="card-header">자유 게시판</h5>
 					<div class="card-body">
 						<p class="card-text">자유 게시판 페이지의 게시판 관리를 할 수 있습니다.</p>
-						<a href="/controller/adminPage/adminFreeBoard/list" class="btn btn-primary">자게</a>
+						<a href="${pageContext.request.contextPath}/adminPage/adminFreeBoard/list" class="btn btn-primary">자게</a>
 					</div>
 				</div>
 			</div>

@@ -20,13 +20,13 @@
 		@rownum := @rownum + 1 AS rnum, Member.member_id
 		FROM Member, (SELECT @rownum := 0) r
 		where 
-		@rownum < #{pageNum} * #{amount}
+		@rownum <= #{pageNum} * #{amount}
 		)a
 	WHERE
-		rnum >= (#{pageNum} - 1) * #{amount}
+		rnum > (#{pageNum} - 1) * #{amount}
 	]]>
 		AND
-		member_id LIKE '%'||#{keyword}||'%'
+		member_id LIKE CONCAT('%',#{keyword},'%')
 	</select>
 	
 	<select id="read" resultType="com.homeart.domain.admin.AdminMemberVO">
@@ -43,4 +43,8 @@
 	country = #{country}
 	WHERE member_id = #{member_id}
 	</update>
+	
+	<delete id="delete">
+		DELETE FROM Member WHERE member_id = #{member_id}
+	</delete>
 </mapper>
