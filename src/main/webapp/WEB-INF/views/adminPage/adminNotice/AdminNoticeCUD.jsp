@@ -46,7 +46,7 @@
 		        
         <div class="row mt-3">
             <div class="col-3">
-                <a href="/controller/adminPage/adminNotice/register" class="btn">공지생성</a>
+                <a href="register" class="btn">공지생성</a>
             </div>
         </div>
 
@@ -58,12 +58,12 @@
                     <div class="card-body">
                         <h5 class="card-title">${list.admin_id}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">
-                        <a href='/controller/adminPage/adminNotice/get?admin_no=<c:out value="${list.admin_no}"/>'>
+                        <a href='get?admin_no=<c:out value="${list.admin_no}"/>'>
                         ${list.admin_title}</a></h6>
                         <p class="card-text">
-                        <a href='/controller/adminPage/adminNotice/get?admin_no=<c:out value="${list.admin_no}"/>'>
+                        <a href='get?admin_no=<c:out value="${list.admin_no}"/>'>
                         ${fn:substring(list.admin_content,0,10)}...</a></p>
-                        <a href="/controller/adminPage/adminNotice/modify?admin_no=<c:out value='${list.admin_no}'/>" class="btn mr-2"><i class="fas fa-link"></i> 글 수정</a>
+                        <a href="modify?admin_no=<c:out value='${list.admin_no}'/>" class="btn mr-2"><i class="fas fa-link"></i> 글 수정</a>
                         <div class="card-footer">${list.admin_date}</div>
                     </div>
                 </div>

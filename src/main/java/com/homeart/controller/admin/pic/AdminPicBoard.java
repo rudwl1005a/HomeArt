@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.homeart.domain.admin.AdminPageInfoVO;
 import com.homeart.domain.admin.AdminPicVO;
@@ -38,10 +37,6 @@ public class AdminPicBoard {
 			System.out.println(lists);
 		}
 		
-		System.out.println("");
-		
-		System.out.println(infoVo);
-		
 		model.addAttribute("list", list);
 		model.addAttribute("infoVO", infoVo);
 		model.addAttribute("pic", service.get(masterpiece_id));
@@ -49,8 +44,6 @@ public class AdminPicBoard {
 	
 	@GetMapping("/remove")
 	public String remove(Long masterpiece_id, String file) {
-		log.info("remove......." + masterpiece_id);
-		
 		service.remove(masterpiece_id, file);
 		
 		return "redirect:/adminPage/adminPic/AdminPicBoard";

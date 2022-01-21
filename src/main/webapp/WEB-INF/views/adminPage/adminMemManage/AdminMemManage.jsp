@@ -21,6 +21,12 @@ body {
 .page-link {
 	margin-left:0px;
 }
+
+ul.pagination {
+	background-color: rgb(71, 66, 63);
+	justify-content: center;
+	
+}
 </style>
 
 <script>
@@ -34,7 +40,7 @@ body {
 
 		<div class="row mt-3">
 			<div class="col-2">
-					<form id="searchForm" action="/controller/adminPage/adminMemManage/AdminMemManage" method="get">
+					<form id="searchForm" action="AdminMemManage" method="get">
 						<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="회원ID" 
 						aria-label="Recipient's username" aria-describedby="basic-addon2"
@@ -54,10 +60,10 @@ body {
 						</thead>
 						<tbody id="table1">
 							<c:forEach items="${list}" var="list">
-								<tr class="odd">
+								<tr>
 									<td>
 										<a onclick="
-											location.search ='?pageNum=${pageMaker.cri.pageNum}&amount=${pageMaker.cri.amount}&member_id=${list.member_id}'
+											location.search ='?pageNum=${pageMaker.cri.pageNum}&amount=${pageMaker.cri.amount}&keyword=&member_id=${list.member_id}'
 										"> 
 										${list.member_id} 
 										</a>
@@ -67,7 +73,7 @@ body {
 						</tbody>
 					</table>
 					
-					<form id="actionForm" action="/controller/adminPage/adminMemManage/AdminMemManage" method="get">
+					<form id="actionForm" action="AdminMemManage" method="get">
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 						<input type="hidden" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>"/>
@@ -134,9 +140,10 @@ body {
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroup-sizing-default">회원 밴</span>
 					</div>
-					<input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="사유 입력">
+					<input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="사유 입력"
+					>
 					<div class="input-group-append">
-						<button class="btn" type="button">제출하기</button>
+						<button class="btn" type="button"><a href="remove?member_id=${list1.member_id}" style="color: white;">제출하기</a></button>
 					</div>
 				</div>
 			</div>
@@ -161,8 +168,6 @@ body {
     	
     	$(".page-item a").on("click", function(e){
     		e.preventDefault();
-    		
-    		console.log('click');
     		
     		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     		actionForm.submit();

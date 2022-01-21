@@ -16,4 +16,6 @@ public interface AdminMemberMapper {
 	//member_id 값이 전달이 되면 정보를 보여줄 수 있게끔.
 	
 	int update(AdminMemberVO member_id);
+	
+	public int delete(String member_id);
 }

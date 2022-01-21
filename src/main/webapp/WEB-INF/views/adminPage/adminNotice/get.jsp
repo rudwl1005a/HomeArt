@@ -58,9 +58,9 @@ body {
               name="admin_content" readonly="readonly"><c:out value="${notice.admin_content}"/></textarea>
           </div>
           <button data-oper="modify" class="btn" 
-          onclick="location.href='/controller/adminPage/adminNotice/modify?admin_no=<c:out value="${notice.admin_no}"/>'">수정하기</button>
+          onclick="location.href='modify?admin_no=<c:out value="${notice.admin_no}"/>'">수정하기</button>
           <button data-oper="list" class="btn"
-          onclick="location.href='/controller/adminPage/adminNotice/AdminNoticeCUD'">리스트</button>
+          onclick="location.href='AdminNoticeCUD'">리스트</button>
         </div>
     </div>
 

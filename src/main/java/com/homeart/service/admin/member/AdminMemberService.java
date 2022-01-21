@@ -12,4 +12,6 @@ public interface AdminMemberService { //business 계층이기 때문에 의사�
 	int modify(AdminMemberVO member_id);
 	
 	List<AdminMemberVO> getList(AdminCriteria cri);
+	
+	public boolean remove(String member_id);
 }

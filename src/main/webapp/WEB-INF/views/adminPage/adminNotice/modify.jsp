@@ -24,7 +24,7 @@ body {
 
 	<div class="row mt-3">
 		<div class="col" style="background-color: rgb(132, 151, 143);">
-			<form role="form" action="/controller/adminPage/adminNotice/modify?admin_no=<c:out value='${notice.admin_no}'/>" method="post">
+			<form role="form" action="modify?admin_no=<c:out value='${notice.admin_no}'/>" method="post">
 				<h4>제목</h4>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
@@ -96,9 +96,9 @@ body {
 			console.log(operation);
 			
 			if(operation === 'list') {
-					self.location = "/controller/adminPage/adminNotice/AdminNoticeCUD";
+					self.location = "AdminNoticeCUD";
 				} else if(operation === 'remove') {
-					formObj.attr("action", "/controller/adminPage/adminNotice/remove?admin_no=<c:out value='${notice.admin_no}'/>")
+					formObj.attr("action", "remove?admin_no=<c:out value='${notice.admin_no}'/>")
 					return;
 				}
 				formObj.submit();
