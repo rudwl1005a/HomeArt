@@ -217,7 +217,7 @@ $(document).ready(function() {
 								<span class="tsub">${freeBoard.boardInserted }</span>
 								<c:if test="${sessionScope.loggedInMember.member_id eq freeBoard.writer }">
 									<a class="tsub" href="modify?id=${freeBoard.board_id }">수정</a>
-									<a class="removeSubmitButton tsub" href="">삭제</a>
+									<a class="removeSubmitButton tsub">삭제</a>
 								</c:if>
 							</div>
 						</div>
